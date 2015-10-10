@@ -78,8 +78,7 @@ $(document).on("ready", function () {
 			key_2 = checkFormEntry($(this), "passw", pswdMessage($(this).val().length), "Пароль", warning_password);
 		});
 // Функция отправки формы
-	entry.click( function () {	
-debugger;	
+	entry.click( function () {		
 		current_email.trigger('change');
 		current_password.trigger('change');
 		if (!key_1 || !key_2){
@@ -207,6 +206,7 @@ debugger;
 	
 // Функция отправки формы
 	reg_button.click( function () {
+debugger;		
 		target.trigger("blur");
 		if(!rKey_6){
 			$('.error_sign', ".sex_border").show();
@@ -241,11 +241,13 @@ debugger;
 				$loaderGif.hide();
 				if (!data) {
 					alert ("Извините, но данный логин уже зарегистрирован");
+					rKey_6 = false;
 					registration.trigger('reset');
 					return false;
 				}
 				else {
 					alert("Поздравляем с успешной регистрацией. Вам на почту было отправлено письмо для активации профиля.");
+					rKey_6 = false;
 					registration.trigger('reset');
 					return true;
 				}
