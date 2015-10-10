@@ -215,7 +215,6 @@ debugger;
 			$('.error_sign', ".sex_border").hide();
 		}
 		if (!rKey_1 || !rKey_2 || !rKey_3 || !rKey_4 || !rKey_5 || !rKey_6){
-			rKey_6 = false;
 			alert("Заполните форму регистрации");
 			return false;
 		}
@@ -242,11 +241,13 @@ debugger;
 				$loaderGif.hide();
 				if (!data) {
 					alert ("Извините, но данный логин уже зарегистрирован");
+					rKey_6 = false;
 					registration.trigger('reset');
 					return false;
 				}
 				else {
 					alert("Поздравляем с успешной регистрацией. Вам на почту было отправлено письмо для активации профиля.");
+					rKey_6 = false;
 					registration.trigger('reset');
 					return true;
 				}
