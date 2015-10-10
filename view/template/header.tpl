@@ -1,4 +1,4 @@
-<div class="wrapped">111
+<div class="wrapped">
 	<div class="logo">
 		<a href="./index.php"><h1>Smart People</h1></a>
 	</div>
