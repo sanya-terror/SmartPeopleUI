@@ -1,4 +1,4 @@
-<div class="wrapped">
+<div class="wrapped">Эта херь отличается от всех предыдущих тем что это другая мать ее ветка
 	<div class="logo">
 		<a href="./index.php"><h1>Smart People</h1></a>
 	</div>
