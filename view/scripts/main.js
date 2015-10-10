@@ -78,8 +78,7 @@ $(document).on("ready", function () {
 			key_2 = checkFormEntry($(this), "passw", pswdMessage($(this).val().length), "Пароль", warning_password);
 		});
 // Функция отправки формы
-	entry.click( function () {	
-debugger;	
+	entry.click( function () {		
 		current_email.trigger('change');
 		current_password.trigger('change');
 		if (!key_1 || !key_2){
@@ -207,6 +206,7 @@ debugger;
 	
 // Функция отправки формы
 	reg_button.click( function () {
+debugger;		
 		target.trigger("blur");
 		if(!rKey_6){
 			$('.error_sign', ".sex_border").show();
@@ -215,6 +215,7 @@ debugger;
 			$('.error_sign', ".sex_border").hide();
 		}
 		if (!rKey_1 || !rKey_2 || !rKey_3 || !rKey_4 || !rKey_5 || !rKey_6){
+			rKey_6 = false;
 			alert("Заполните форму регистрации");
 			return false;
 		}
