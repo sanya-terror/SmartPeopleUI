@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 	session_start();
 	class mainprocessing {
 		public function ConnectDB(){

@@ -1,5 +1,5 @@
 $(document).on("ready", function () {
-	
+
 // Объект регулярных выражений
 	var regExp = {
 		"mail": /^[a-z0-9_-]+(\.[a-z0-9_-]+)*@([0-9a-z][0-9a-z-]*[0-9a-z]\.)+([a-z]{2,4})$/i,
@@ -7,7 +7,7 @@ $(document).on("ready", function () {
 		"name": /^[a-z,A-Z,а-яіїєґ,А-ЯІЇЄҐ]{2,20}$/,
 		"code": /^[0-9a-z]{8}$/i
 	};
-	
+
 // Массив сообщений об ошибке
 	var messageArray = [
 		"Неверно указано имя",
@@ -18,7 +18,7 @@ $(document).on("ready", function () {
 		"Пол не указан",
 		"Неверный формат кода"
 	];
-	
+
 // Объявляем выборку элементов
 	var loginForm = $("#loginForm"),
 		current_email = loginForm.find("#current_email"),
@@ -27,7 +27,7 @@ $(document).on("ready", function () {
 		warning_password = loginForm.find("#warning_password"),
 		entry = loginForm.find(".input-wrapper input[type='submit']"),
 		key_1, key_2; // Логин и Пароль
-		
+
 // Функция валидации полей формы
 	var validate = function(value, validator, toDefault, success, error) {
 		if (value === "") {
@@ -35,14 +35,14 @@ $(document).on("ready", function () {
 		}
 		else if (regExp[validator].test(value)) {
 			return success();
-		} 
+		}
 		else {
 			return error();
 		}
 	}
-	
+
 // Функция вывода подсказки ввода пароля
-	var pswdMessage = function (value) {		
+	var pswdMessage = function (value) {
 		if (value < 6) {
 			return "Слишком короткий пароль";
 		}
@@ -68,7 +68,7 @@ $(document).on("ready", function () {
 			return false;
 		});
 	}
-	
+
 // Проверка логина
 	current_email.change( function () {
 			key_1 = checkFormEntry($(this), "mail", messageArray[2], "Электронная почта", warning_email);
@@ -78,7 +78,7 @@ $(document).on("ready", function () {
 			key_2 = checkFormEntry($(this), "passw", pswdMessage($(this).val().length), "Пароль", warning_password);
 		});
 // Функция отправки формы
-	entry.click( function () {		
+	entry.click( function () {
 		current_email.trigger('change');
 		current_password.trigger('change');
 		if (!key_1 || !key_2){
@@ -88,9 +88,9 @@ $(document).on("ready", function () {
 		else {
 			loginForm.submit();
 			return true;
-		} 
+		}
 	});
-	
+
 /*--------------------------------------------Код отвечающий за проверку формы регистрации---------------------------------------------*/
 
 // Объявляем выборку элементов
@@ -106,9 +106,9 @@ $(document).on("ready", function () {
 		$loaderGif = $('.gif'),
 		$errorSign = $('.error_sign'),
 		rKey_1 = rKey_2 = rKey_3 = rKey_4 = rKey_5 = rKey_6 = false;
-	
+
 //Код отвечающий за проверку форм имени и фамилии и email
-	function dataValidator (element, validator, field) {	
+	function dataValidator (element, validator, field) {
 		if (validator == "passw"){
 			$("input", password2).trigger("blur");
 		}
@@ -129,7 +129,7 @@ $(document).on("ready", function () {
 			return false;
 		});
 	}
-	
+
 //Код отвечающий за проверку паролей на совпадение
 	function comparePassword (element, field) {
 		var value_1 = $("input", password1).val(),
@@ -154,22 +154,22 @@ $(document).on("ready", function () {
 			return true;
 		}
 	}
-	
+
 	$("input", name).blur(function () {rKey_1 = dataValidator($(this), "name", name);}); // Проверка имени
-	
+
 	$("input", surname).blur(function () {rKey_2 = dataValidator($(this), "name", surname);}); // Проверка фамилии
 
 	$("input", email).blur(function () {rKey_3 = dataValidator($(this), "mail", email); }); // Проверка электронной почты
-	
+
 	$("input", password1).blur( function () {rKey_4 =  dataValidator($(this), "passw", password1);}); // Проверка пароля 1
-	
+
 	$("input", password2).blur( function () {rKey_5 = comparePassword($(this), password2);}); // Проверка пароля 2
-	
+
 	sex.change( function () {rKey_6 = sex.is(':checked');}); // Проверка пароля 2
-	
+
 // Функция вывода сообщения об ошибке при клике на иконку
 	$errorSign.each(function(i, array){
-		if (i == 3) {			
+		if (i == 3) {
 			$(this).mouseover(function(){
 				$(this).attr("title", pswdMessage($("input", password1).val().length)).
 					tooltip({
@@ -203,7 +203,7 @@ $(document).on("ready", function () {
 					hide: { effect: "fade", duration: 500, delay: 400 }
 				});
 	});
-	
+
 // Функция отправки формы
 	reg_button.click( function () {
 		target.trigger("blur");
@@ -224,7 +224,7 @@ $(document).on("ready", function () {
 			});
 		}
 	});
-	
+
 //Фоновое получение ответа сервера
 	function send_Reg_Form() {
 		var form_data = registration.serialize();
@@ -233,10 +233,10 @@ $(document).on("ready", function () {
 			type: "POST",
 			data: form_data,
 			dataType: "html",
-			beforeSend: function() {		
+			beforeSend: function() {
 				$loaderGif.show();
 			},
-			success: function (data) {				
+			success: function (data) {
 				$loaderGif.hide();
 				if (!data) {
 					alert ("Извините, но данный логин уже зарегистрирован");
@@ -256,9 +256,9 @@ $(document).on("ready", function () {
 			}
 		});
 	}
-	
-/*-----------------------------------------------Код формы восстановления------------------------------------------------------------*/ 
-	
+
+/*-----------------------------------------------Код формы восстановления------------------------------------------------------------*/
+
 // Объявляем выборку объектов
 	var rEmail = $(".rEmail"),
 		code = $(".code"),
@@ -268,7 +268,7 @@ $(document).on("ready", function () {
 		restore_button = $("#restore_button"),
 		restore_message_field = $(".restore-wripper h6"),
 		restore_message = [
-							"Пожалуйста, укажите свой Email для восстановления доступа.", 
+							"Пожалуйста, укажите свой Email для восстановления доступа.",
 							"Пожалуйста, введите код для восстановления доступа"
 		],
 		loginForm = $("#loginForm"),
@@ -277,31 +277,31 @@ $(document).on("ready", function () {
 		rKey_7 = rKey_8 = false,
 		$email = $("#restore"),
 		$hash = $("#restore_form [name='user-cache']");
-	
-	
+
+
 // Отравка поля Email для восстановления пароля
-	
+
 //Код отвечающий за проверку форм email и code
 	next.click( function () {
 		var hashValue = $hash.val(),
 			isMail = ("" === hashValue),
 			key = (isMail ? rKey_7 : rKey_8),
 			message = (isMail ? "Укажите Email для воcстановления доступа к странице" : "Введите код подтверждения");
-		
+
 		if ( !key ){
 			alert(message);
 			return false;
 		}
 		else {
-			restore_form.one("submit", function(e) {					
+			restore_form.one("submit", function(e) {
 				e.preventDefault();
 				sendMailCode();
 			});
 		}
-		
+
 	});
 
-	function sendMailCode() {	
+	function sendMailCode() {
 		var hashValue = $hash.val(),
 			isMail = ("" === hashValue),
 			url = (isMail ? './backend/library/newpassword/class.newpassword-1.php' : "./backend/library/newpassword/class.newpassword-2.php"),
@@ -311,10 +311,10 @@ $(document).on("ready", function () {
 			type: "POST",
 			data: formData,
 			dataType: "html",
-			beforeSend: function() {		
+			beforeSend: function() {
 				$loaderGif.show();
 			},
-			success: function (data) {	
+			success: function (data) {
 				//data = JSON.stringify(data);
 				//data = JSON.parse(data);
 				$loaderGif.hide();
@@ -355,17 +355,17 @@ $(document).on("ready", function () {
 			}
 		});
 	}
-	
+
 	rEmail.bind("change", function () { rKey_7 = checkFormEntry($(this), "mail", messageArray[2], restore_message[0], restore_message_field); }); // Проверка электронной почты
 	restore.on("change", ".code", function () { rKey_8 = checkFormEntry($(this), "code", messageArray[6], restore_message[1], restore_message_field);}); // Проверка поля код
-	
+
 /*-----------------------------------------------Код изменения пароля----------------------------------------------------------------*/
 	var changeButton = $('#change-password-form input[type="submit"]'),
 		change_form = $("#change-password-form"),
 		new_pswd = $('.new-Password'),
 		rpt_pswd = $('.rpt-Password'),
 		passKey_1 = passKey_2 = false;
-	
+
 	var changePassword = function (element, validator, msg1, msg2, help) {
 		rpt_pswd.trigger("blur");
 		return validate(element.val(), validator, function(){
@@ -379,8 +379,8 @@ $(document).on("ready", function () {
 			return false;
 		});
 	}
-	
-	function comparePswd (element, validator, msg1, msg2, help) {		
+
+	function comparePswd (element, validator, msg1, msg2, help) {
 		var value_1 = new_pswd.val(),
 			value_2 = rpt_pswd.val();
 
@@ -397,26 +397,26 @@ $(document).on("ready", function () {
 			return true;
 		}
 	}
-	
+
 	new_pswd.bind("blur", function () { passKey_1 = changePassword($(this), "passw", pswdMessage($(this).val().length), "", $(".help-new-pswd")); }); // Проверка электронной почты
 	rpt_pswd.bind("blur", function () { passKey_2 = comparePswd($(this), "passw", messageArray[4], "", $(".help-rpt-pswd")); }); // Проверка электронной почты
-	
+
 // Функция отправки формы изменения пароля
-	changeButton.click( function () {	
+	changeButton.click( function () {
 		new_pswd.trigger("blur");
 		rpt_pswd.trigger("blur");
 		if ( !passKey_1 || !passKey_2){
 			alert("Заполните форму изменения пароля");
 			return false;
 		}
-		else {		
+		else {
 			change_form.one('submit', function (e) {
 				e.preventDefault();
 				sendChangeForm();
 			});
 		}
 	});
-	
+
 	function sendChangeForm () {
 		var form_data = change_form.serialize();
 		$.ajax({
@@ -424,7 +424,7 @@ $(document).on("ready", function () {
 			type: "POST",
 			data: form_data,
 			dataType: "html",
-			beforeSend: function() {		
+			beforeSend: function() {
 				$loaderGif.show();
 			},
 			success: function (data) {
@@ -444,7 +444,7 @@ $(document).on("ready", function () {
 			}
 		});
 	}
-	
+
 /*----------------------------------------------Error Authorization-------------------------------------------------------------------*/
 	var login = $('#repeat-login'),
 		pswd = $('#repeat-pswd'),
@@ -460,18 +460,18 @@ $(document).on("ready", function () {
 		],
 		isLogin = false,
 		index = false;
-		
+
 	login.change( function () {
 		isLogin = checkFormEntry($(this), "mail", messageArray[2], "Проверте правильность входа", help_login);
 		index = 0;
 	});
-	
+
 	pswd.change( function () {
 		isLogin = checkFormEntry($(this), "passw", pswdMessage($(this).val().length), "Убедитесь, что у вас раскладка клавиатуры \"eng\" и не включен Caps Lock", help_pswd);
 		index = 1;
 	});
-	
-	repeat.bind("click", function(){		
+
+	repeat.bind("click", function(){
 		$('.error-wripper input[type="text"]').trigger("change");
 		if(!isLogin){
 			alert(alert_message[index]);
@@ -484,7 +484,7 @@ $(document).on("ready", function () {
 			});
 		}
 	});
-		
+
 	function sendErrorForm () {
 		var hashValue = hash.val(),
 			isLogin = ("text" === hashValue),
@@ -494,7 +494,7 @@ $(document).on("ready", function () {
 			type: "POST",
 			data: formData,
 			dataType: "html",
-			beforeSend: function() {		
+			beforeSend: function() {
 				$loaderGif.show();
 			},
 			success: function (data) {
