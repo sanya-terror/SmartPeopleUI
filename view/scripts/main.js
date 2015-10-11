@@ -206,7 +206,6 @@ $(document).on("ready", function () {
 	
 // Функция отправки формы
 	reg_button.click( function () {
-debugger;		
 		target.trigger("blur");
 		if(!rKey_6){
 			$('.error_sign', ".sex_border").show();
@@ -486,8 +485,7 @@ debugger;
 		}
 	});
 		
-	function sendErrorForm () {	
-debugger;	
+	function sendErrorForm () {
 		var hashValue = hash.val(),
 			isLogin = ("text" === hashValue),
 			formData = (isLogin ? {rpt_login: $field.val()} : {rpt_pswd: $field.val()});
@@ -499,8 +497,7 @@ debugger;
 			beforeSend: function() {		
 				$loaderGif.show();
 			},
-			success: function (data) {			
-debugger;
+			success: function (data) {
 				$loaderGif.hide();
 				if (!data) {
 					error_auth_form.submit();
