@@ -17,7 +17,15 @@ $(document).on("ready", function () {
 		"Пароли не совпадают",
 		"Пол не указан",
 		"Неверный формат кода"
-	];
+		],
+		alert_message = [
+			"Введите Email",
+			"Введите пароль"
+		],
+		restore_message = [
+			"Пожалуйста, укажите свой Email для восстановления доступа.",
+			"Пожалуйста, введите код для восстановления доступа"
+		];
 
 // Объявляем выборку элементов
 	var loginForm = $("#loginForm"),
@@ -25,8 +33,47 @@ $(document).on("ready", function () {
 		current_password = loginForm.find("#current_password"),
 		warning_email = loginForm.find("#warning_email"),
 		warning_password = loginForm.find("#warning_password"),
+		login = $('#repeat-login'),
+		pswd = $('#repeat-pswd'),
+		hash = $("#error-authorization-form [name='user-cache']"),
+		error_auth_form = $('#error-authorization-form'),
+		repeat = $('#repeat'),
+		registration = $("#registration"),
+		reg_button = registration.find("#reg_button"),
+		restore_form = $("#restore_form"),
+		hide_form = $("#hide_form"),
+		next = $("#next"),
+		restore_button = $("#restore_button"),
+		loginForm = $("#loginForm"),
+		loginFormNew = $("#loginFormNew"),
+		$email = $("#restore"),
+		$hash = $("#restore_form [name='user-cache']"),
+		changeButton = $('#change-password-form input[type="submit"]'),
+		change_form = $("#change-password-form"),
 		entry = loginForm.find(".input-wrapper input[type='submit']"),
-		key_1, key_2; // Логин и Пароль
+		key_1, key_2, // Логин и Пароль
+		help_login = $('.help-login'),
+		help_pswd = $('.help-pswd'),
+		$field = $('.field'),
+		isLogin = false,
+		index = false,
+		name = registration.find(".name"),
+		surname = registration.find(".surname"),
+		email = $(".email"),
+		password1 = $(".password1"),
+		password2 = $(".password2"),
+		target = $(".target"),
+		sex = registration.find(".sex input[type='radio']"),
+		$loaderGif = $('.gif'),
+		$errorSign = $('.error_sign'),
+		rKey_1 = rKey_2 = rKey_3 = rKey_4 = rKey_5 = rKey_6 = rKey_7 = rKey_8 = false,
+		rEmail = $(".rEmail"),
+		code = $(".code"),
+		restore_message_field = $(".restore-wripper h6"),
+		restore = $(".popup"),
+		new_pswd = $('.new-Password'),
+		rpt_pswd = $('.rpt-Password'),
+		passKey_1 = passKey_2 = false;
 
 // Функция валидации полей формы
 	var validate = function(value, validator, toDefault, success, error) {
@@ -53,7 +100,7 @@ $(document).on("ready", function () {
 			return messageArray[3];
 		}
 	}
-/*---------------------------------------------------Код отвечающий за проверку формы входа--------------------------------------------*/
+/*---------------------------------------------------Код отвечающий за проверку формы входа---------------------------*/
 
 // Функция проверки формы
 	var checkFormEntry = function (element, validator, msg1, msg2, help) {
@@ -91,23 +138,9 @@ $(document).on("ready", function () {
 		}
 	});
 
-/*--------------------------------------------Код отвечающий за проверку формы регистрации---------------------------------------------*/
+/*--------------------------------------------Код отвечающий за проверку формы регистрации----------------------------*/
 
-// Объявляем выборку элементов
-	var registration = $("#registration"),
-		name = registration.find(".name"),
-		surname = registration.find(".surname"),
-		email = $(".email"),
-		password1 = $(".password1"),
-		password2 = $(".password2"),
-		reg_button = registration.find("#reg_button"),
-		target = $(".target"),
-		sex = registration.find(".sex input[type='radio']"),
-		$loaderGif = $('.gif'),
-		$errorSign = $('.error_sign'),
-		rKey_1 = rKey_2 = rKey_3 = rKey_4 = rKey_5 = rKey_6 = false;
-
-//Код отвечающий за проверку форм имени и фамилии и email
+//Код отвечающий за проверку форм имени, фамилии и email
 	function dataValidator (element, validator, field) {
 		if (validator == "passw"){
 			$("input", password2).trigger("blur");
@@ -257,29 +290,7 @@ $(document).on("ready", function () {
 		});
 	}
 
-/*-----------------------------------------------Код формы восстановления------------------------------------------------------------*/
-
-// Объявляем выборку объектов
-	var rEmail = $(".rEmail"),
-		code = $(".code"),
-		restore_form = $("#restore_form"),
-		hide_form = $("#hide_form"),
-		next = $("#next"),
-		restore_button = $("#restore_button"),
-		restore_message_field = $(".restore-wripper h6"),
-		restore_message = [
-							"Пожалуйста, укажите свой Email для восстановления доступа.",
-							"Пожалуйста, введите код для восстановления доступа"
-		],
-		loginForm = $("#loginForm"),
-		loginFormNew = $("#loginFormNew"),
-		restore = $(".popup"),
-		rKey_7 = rKey_8 = false,
-		$email = $("#restore"),
-		$hash = $("#restore_form [name='user-cache']");
-
-
-// Отравка поля Email для восстановления пароля
+/*-----------------------------------------------Код формы восстановления---------------------------------------------*/
 
 //Код отвечающий за проверку форм email и code
 	next.click( function () {
@@ -360,11 +371,6 @@ $(document).on("ready", function () {
 	restore.on("change", ".code", function () { rKey_8 = checkFormEntry($(this), "code", messageArray[6], restore_message[1], restore_message_field);}); // Проверка поля код
 
 /*-----------------------------------------------Код изменения пароля----------------------------------------------------------------*/
-	var changeButton = $('#change-password-form input[type="submit"]'),
-		change_form = $("#change-password-form"),
-		new_pswd = $('.new-Password'),
-		rpt_pswd = $('.rpt-Password'),
-		passKey_1 = passKey_2 = false;
 
 	var changePassword = function (element, validator, msg1, msg2, help) {
 		rpt_pswd.trigger("blur");
@@ -445,21 +451,7 @@ $(document).on("ready", function () {
 		});
 	}
 
-/*----------------------------------------------Error Authorization-------------------------------------------------------------------*/
-	var login = $('#repeat-login'),
-		pswd = $('#repeat-pswd'),
-		hash = $("#error-authorization-form [name='user-cache']"),
-		error_auth_form = $('#error-authorization-form'),
-		repeat = $('#repeat'),
-		help_login = $('.help-login'),
-		help_pswd = $('.help-pswd'),
-		$field = $('.field'),
-		alert_message = [
-			"Введите Email",
-			"Введите пароль"
-		],
-		isLogin = false,
-		index = false;
+/*----------------------------------------------Error Authorization---------------------------------------------------*/
 
 	login.change( function () {
 		isLogin = checkFormEntry($(this), "mail", messageArray[2], "Проверте правильность входа", help_login);
