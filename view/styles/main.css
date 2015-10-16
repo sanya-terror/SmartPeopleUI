@@ -53,8 +53,8 @@ header input[type="password"] {
 
 .logo {
 	background: url('../images/top-logo.png') no-repeat top 5px left;
-	background-size: 60%;
-	width: 500px;
+	background-size: 95%;
+	width: 300px;
 }
 
 .wrapped  .logo h1 {
