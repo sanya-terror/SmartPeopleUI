@@ -3,13 +3,13 @@
 		<div class="popup">
 			<form name="error-authorization-form" action="./users/index.php" method="post" id="error-authorization-form">
 				<input type="hidden" name="user-cache" value="{type}" />
-				<div class="error-wripper">
+				<div class="error-wrapper">
 					<h4>{title-message}</h4>
 				</div>
-				<div class="error-wripper">
+				<div class="error-wrapper">
 					<h6 class="help-{ids}">{help-message}</h6>
 				</div>
-				<div class="error-wripper">
+				<div class="error-wrapper">
 					<div class="error-input-wrapper">
 						<div class="fixed-label">
 							<label for="repeat-{ids}">{label}</label>
