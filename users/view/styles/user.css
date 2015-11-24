@@ -1,64 +1,102 @@
-body{
+body {
 	background: linear-gradient(180deg, #fcf1f1 0%, #f6fcf8 50%, #c4edc6 100%);
 	font-family: Arial, "Times New Roman", sans-serif;
-    margin: -19px 0 0;
-    padding: 0 !important;
-	width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-header{
+/*---------------------------------------------------------HEADER-----------------------------------------------------*/
+
+header {
 	background: linear-gradient(180deg, #14407c 0%, #3765a5 100%);
-	height: 85px;
     margin: 0;
 	min-width:980px;
 	width:100%;
 }
 
-header > div {
-	height: 85px;
-	margin: 0 auto;
-	padding: 0;
-	width: 980px;
+.clearfix::after {
+	content:'';
+	display: block;
+	clear: both;
 }
 
-header ul {
+.wrapped {
+	margin : 0 auto;
+}
+
+.wrapped  .logo {
+	float : left;
+}
+
+.wrapped  .logo h1 {
+	visibility: hidden;
+}
+
+.wrapped  .logo a {
+	cursor: default;
+}
+
+.logo {
+	background: url('../images/top-logo.png') no-repeat top 7px right;
+	background-size: 34%;
+}
+
+.nav-bar {
+	float: right;
+	margin: 0;
+	padding: 15px 0;
+}
+
+.nav-bar nav > ul {
 	margin: 0;
 	padding: 0;
 }
 
-header ul > li p span {
-	color: gold;
-}
-
-#brand {
-	border: none;
-	background-color:inherit;
-	cursor: default;
-}
-
-header ul li {
+.nav-bar nav > ul > li{
 	float: left;
-    list-style: outside none none;
-    padding: 10px 41px;
+	margin: 5px 0 5px 30px;
+	padding: 0;
 }
 
-header ul li a {
-	text-decoration: none;
+.nav-bar nav ul li button {
+	background: rgba(0, 0, 0, 0) linear-gradient(180deg, #2169a5 0%, #40c6ea 100%) repeat scroll 0 0;
+	border: 1px solid #a4a4a4;
+	border-radius: 3px;
+	color: #fff;
+	font-size: 1.2em;
+	padding: 3px 12px;
+	text-shadow: 1px 0 1px #000;
 }
 
-header ul li p {
-	background-color: #146ba2;
-    border: 1px inset #063a5a;
-    border-radius: 5px;
-    color: #fff;
-    padding: 5px 10px;
-	text-shadow: 1px 1px 1px #000;
+.nav-bar .search {
+	border: 1px solid #a4a4a4;
+	border-radius: 3px;
 }
 
-header ul li p:hover {
-	background-color: #14407c;
+.nav-bar .search input {
+	border: none;
+	margin-right: -5px;
+	outline: none;
+	padding: 5px 15px 5px;
 }
 
+.nav-bar .search button {
+	background: #fff;
+	border: none;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	color: #ccc;
+	outline: none;
+	padding: 6px 20px 7px 0px;
+}
+
+.nav-bar nav > ul > li:last-child button{
+	background: none;
+	border: none;
+	margin: 10px -15px;
+}
+/*-------------------------------------------------------------------------------------------------------------------*/
 article {
 	height: auto;
 	min-width:980px;

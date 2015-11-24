@@ -200,7 +200,7 @@ $(document).on("ready", function () {
 	sex.change( function () {rKey_6 = sex.is(':checked');}); // Проверка пароля 2
 
 // Функция вывода сообщения об ошибке при клике на иконку
-	$errorSign.each(function(i, array){
+	$errorSign.each(function(i){
 		if (i == 3) {
 			$(this).mouseover(function(){
 				$(this).attr("title", pswdMessage($("input", password1).val().length)).
