@@ -1,2 +1,0 @@
-# smartpeople
-Scientific social network
