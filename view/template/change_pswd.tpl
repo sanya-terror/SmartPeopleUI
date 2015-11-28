@@ -2,13 +2,13 @@
 	<div class="change-pswd-content">
 		<div class="popup">
 			<form name="change-password-form" action="./users/index.php" method="post" id="change-password-form">
-				<div class="change-wrapper">
+				<div class="change-wripper">
 					<h4>Изменение пароля</h4>
 				</div>
-				<div class="change-wrapper">
+				<div class="change-wripper">
 					<h6>Пожалуйста, укажите ваш новый пароль</h6>
 				</div>
-				<div class="change-wrapper">
+				<div class="change-wripper">
 					<div class="change-input-wrapper">
 						<div class="fixed-label">
 							<label for="new-pswd">Новый пароль:</label>
@@ -17,7 +17,7 @@
 						<span class="help-new-pswd"></span>
 					</div>
 				</div>
-				<div class="change-wrapper">
+				<div class="change-wripper">
 					<div class="change-input-wrapper">
 						<div class="fixed-label">
 							<label for="repeat-pswd">Повторите пароль:</label>

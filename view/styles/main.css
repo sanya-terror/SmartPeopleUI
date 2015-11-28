@@ -53,8 +53,8 @@ header input[type="password"] {
 
 .logo {
 	background: url('../images/top-logo.png') no-repeat top 5px left;
-	background-size: 95%;
-	width: 300px;
+	background-size: 60%;
+	width: 500px;
 }
 
 .wrapped  .logo h1 {
@@ -118,7 +118,7 @@ header input[type="password"] {
 	color : #f00 !important;
 }
 
-/*---------------------------------------------------------MAIN CONTENT-----------------------------------------------*/
+/*---------------------------------------------------------MAIN CONTENT---------------------------------------------------------------*/
 
 .content {
 	background : linear-gradient(180deg, #fcf1f1 0%, #f6fcf8 50%, #c4edc6 100%);
@@ -279,7 +279,7 @@ header input[type="password"] {
     transform: rotate(45deg);
 }
 
-/*--------------------------------------------------------------FOOTER------------------------------------------------*/
+/*--------------------------------------------------------------FOOTER-------------------------------------------------------------------*/
 
 footer {
 	clear : both;
@@ -337,23 +337,23 @@ footer #brand {
     width : 600px;
 }
 
-.restore-wrapper,
-.change-wrapper	 {
+.restore-wripper, 
+.change-wripper	 {
 	margin: 0 auto;
     width: 70%;
 }
 
-.restore-wrapper h4,
-.change-wrapper h4	{
+.restore-wripper h4, 
+.change-wripper h4	{
 	color: #3765a5;
 	font-size: 120%;
     font-weight: bold;
 	text-align: center;
 }
 
-.restore-wrapper h6,
-.change-wrapper h6,
-.error-wrapper h6 {
+.restore-wripper h6, 
+.change-wripper h6,
+.error-wripper h6 {
 	color: #111;
     font-size: 95%;
 	text-align: center;
@@ -400,11 +400,11 @@ footer #brand {
 }
 /*-------------------------------------------------------CHANGE PASSWORD--------------------------------------------------------------*/
 
-.change-wrapper .fixed-label {
+.change-wripper .fixed-label {
 	width: 140px;
 }
 
-.change-wrapper {
+.change-wripper {
 	width: 90%;
 }
 
@@ -430,19 +430,19 @@ footer #brand {
 }
 
 /*------------------------------------------------------ERROR AUTHORIZATION-----------------------------------------------------------*/
-.error-wrapper h4 {
+.error-wripper h4 {
 	color: #f00;
 	font-size: 120%;
     font-weight: bold;
 	text-align: center;
 }
 
-.error-wrapper {
+.error-wripper {
 	margin: 0 auto;
     width: 85%;
 }
 
-.error-wrapper .fixed-label {
+.error-wripper .fixed-label {
 	width: 150px;
 }
 

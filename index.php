@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/backend/library/class.template.php');
 	if (isset($_SESSION['login'])) {
 		header("Location: users/index.php");
