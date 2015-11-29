@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(180deg, #fcf1f1 0%, #f6fcf8 50%, #c4edc6 100%);
+    background-color: #fff;
     font-family: Arial, "Times New Roman", sans-serif;
     margin: 0;
     padding: 0;
@@ -102,6 +102,7 @@ header {
     border: 1px solid #fff;
     margin-right: -5px;
     line-height: 20px;
+    outline: none;
     padding: 5px;
     width: 137px;
 }
@@ -131,258 +132,87 @@ header {
 }
 
 /*-------------------------------------------------------------------------------------------------------------------*/
-article {
-    height: auto;
-    min-width: 980px;
-    width: 100%;
+
+.username {
+    background-color: rgba(29, 145, 166, 0.7);
+    border: 1px solid navy;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top: none;
 }
 
-#content {
-    height: auto;
-    margin: 0 auto;
-    width: 980px;
-}
-
-#top {
-    background-color: #fbfafc;
-    border: 1px solid #b4adad;
-    border-radius: 0 0 10px 10px;
-    height: 50px;
-    width: 100%
-}
-
-#top div:first-child {
-    float: left;
-    width: 30%;
-    height: 40px;
-}
-
-#top div:first-child div {
-    float: none !important;
-    height: 40px;
-    margin: 5px auto;
-    width: 70%;
-}
-
-#top div:first-child div p {
-    color: #3765a5;
-    font-weight: bold;
-    line-height: 40px;
-    margin: 0;
-    text-align: center;
-    text-shadow: 1px 1px 1px #ddd;
-}
-
-#top div:last-child {
-    float: right;
-    width: 70%;
-    height: 40px;
-}
-
-#top div:last-child table {
-    width: 100%;
-}
-
-#top div:last-child table td {
-    border: 1px solid #00f;
-}
-
-#top div:last-child table p {
-    color: #3765a5;
-    font-size: 90%;
-    text-align: center;
-    text-shadow: 1px 1px 1px #ddd;
-}
-
-#left_top {
-    float: left;
-    height: auto;
-    width: 30%;
-}
-
-#frame {
-    background: linear-gradient(180deg, #1a72ea 0%, #c4edc6 100%);
-    border: 2px solid #14407c;
-    border-radius: 10px;
-    height: 200px;
-    margin: 20px auto;
-    padding: 10px;
-    width: 68%;
-}
-
-#photo_emblem {
-    height: 0px;
-}
-
-#photo_emblem img {
-    bottom: 25px;
-    clear: both;
-    cursor: pointer;
-    left: 5px;
-    position: relative;
-    transition: width 1s;
-    width: 20px;
-}
-
-#photo_emblem img:hover {
-    width: 23px;
-}
-
-#upload_form {
-    display: none;
-    height: 0px;
-    float: left;
-    left: 3px;
-    position: relative;
-    top: 125px;
-}
-
-#button {
-    margin: 20px auto;
-    padding: 10px;
-    width: 68%;
-}
-
-#teach {
-    background: linear-gradient(180deg, #06fd0f 0%, #099f42 3%, #0abc4f 97%, #06fd0f 100%);
-    border: 1px solid #03340a;
-    border-radius: 4px;
+.username p {
     color: #fff;
-    cursor: pointer;
-    display: inline-block;
     font-size: 150%;
-    font-weight: bold;
-    padding: 10px 49px;
-    text-shadow: 2px 2px 5px #111;
+    padding: 10px 7px 5px 7px;
+    text-align: center;
+    text-shadow: 1px 1px 2px navy;
 }
 
-#write {
-    background: linear-gradient(180deg, #06fd0f 0%, #099f42 3%, #0abc4f 97%, #06fd0f 100%);
-    border: 1px solid #03340a;
-    border-radius: 4px;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 75%;
-    font-weight: bold;
-    margin: 0 0 0 13px;
-    padding: 5px 31px;
-    text-shadow: 2px 2px 5px #111;
-}
-
-#honors {
+.frame {
+    background-color: rgba(34, 170, 255, 0.2);
+    border: 1px solid #14407c;
+    border-radius: 10px;
     margin: 20px auto;
-    width: 90%;
+    padding: 10px;
+    width: 80%;
 }
 
-#honors table {
-    border-spacing: 0;
-    width: 100%;
+.frame .avatar {
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 10px;
+    width: 175px;
 }
 
-#honors table tbody {
-    background-color: #fbfafc;
-    border: 1px solid #9a9d9d;
+.frame .avatar i {
+    top: 110px;
+    position: absolute;
+    left: 80px;
+    font-size: 90%;
+    color: navy;
+}
+
+.frame .avatar i:hover {
+    color: white;
+}
+
+.frame .avatar img {
+    width: 150px;
+    margin: 0 auto;
     display: block;
 }
 
-#honors table thead td {
-    background: linear-gradient(180deg, #3765a5 0%, #4c72a7 3%, #6784ac 97%, #919dad 100%);
-    border-radius: 10px 10px 0 0;
-    color: gold;
-    text-align: center;
-    text-shadow: 1px 1px 1px #000;
-}
-
-#honors table tbody td {
-    height: 100px;
-    width: 30%;
-}
-
-#right_top {
-    float: right;
-    height: auto;
-    width: 69%;
-}
-
-#friends {
-    height: 200px;
+.uploader {
+    position: absolute;
+    visibility: hidden;
+    margin: 0 auto;
     width: 100%;
 }
 
-#friends table {
-    border-spacing: 0;
-    width: 100%;
+.uploader .upload {
+    margin: 100px auto;
 }
 
-#friends p {
-    color: #14407c;
-    font-size: 80%;
-    font-weight: bold;
-    text-align: center;
-    text-shadow: 1px 1px 1px #fff;
+.show-uploader {
+    background-color: rgba(117, 117, 193, 0.42);
+    height: 100%;
+    /*visibility: visible;*/
 }
 
-#friends p span {
-    background-color: gold;
-    display: inline-block;
-    font-size: 80%;
+.show-uploader .form-wrapper {
+    border-top: 20px solid navy;
+    border-bottom: 1px solid navy;
+    border-left: 1px solid navy;
+    border-right: 1px solid navy;
+    border-radius: 5px;
+    padding: 30px;
+    background-color: rgb(255, 255, 255);
+    width: 300px;
+    height: 300px;
+    margin: 30px auto;
 }
 
-#friends table table {
-    border: 1px solid #14407c;
-    border-radius: 10px;
-    border-spacing: 0;
-    padding: 5px;
-    width: 200px;
-}
-
-#friends table table td {
-    width: 60px;
-}
-
-#friends table table img {
-    display: inline-block;
-    margin: 0 5px;
-    width: 50px;
-}
-
-#friends table table p {
-    font-size: 60%;
-    text-align: center;
-    text-shadow: 0 0 0 #fff;
-}
-
-#blog {
-    clear: both;
-    width: 100%;
-}
-
-#blog div:first-child {
-    background: linear-gradient(180deg, #14407c 0%, #3765a5 100%);
-    border-radius: 5px 5px 0 0;
-    margin: 0;
-    padding: 0;
-    width: 95%;
-}
-
-#blog div:first-child p {
-    color: #fff;
-    font-size: 90%;
-    margin: 0 0 0 20px;
-    padding: 5px 0;
-    text-align: left;
-    text-shadow: 1px 1px 1px #000;
-}
-
-#blog div:last-child {
-    background-color: #ffd;
-    height: 40px;
-    margin: 0;
-    width: 95%;
-}
-
-#blog div:last-child input {
-    margin: 12px;
-    width: 95%;
+.show-uploader .form-wrapper form input {
+    margin: 5px 0;
 }
