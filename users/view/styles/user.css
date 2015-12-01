@@ -220,3 +220,13 @@ header {
 .show-uploader .form-wrapper form input {
     margin: 5px 0;
 }
+
+.btn-create {
+    margin: 0 auto;
+    display: block;
+    border-radius: 3px;
+    text-shadow: 1px 1px 1px #000;
+    font-size: 120%;
+    width: 180px;
+    height: 40px;
+}
