@@ -4,7 +4,8 @@
 	class userpage extends checkCookie{
 		public function __construct(){
 			if (isset($_COOKIE['login'])) {$this->checkcookies($_COOKIE['login']);} else {
-			header("refresh:0;url=http://smartpeople.in.ua/index.php");exit;
+				header("refresh:0;url=../index.php");
+				exit;
 			}
 				if (isset($_SESSION['login'])) {
 					$this->login = $this->RegularForLogin($_SESSION['login']);
@@ -15,11 +16,11 @@
 				}
 			else {
 				$this->SessionMustDie();
-				header("refresh:0;url=http://smartpeople.in.ua/index.php");
+				header("refresh:0;url=../index.php");
 			}
 			if (isset($_GET['logout'])) {
 				$this->SessionMustDie();
-				header("refresh:0;url=http://smartpeople.in.ua/index.php");	
+				header("refresh:0;url=../index.php");
 			}
 			echo "<a href='index.php?logout'>Выйти</a>";
 		}
