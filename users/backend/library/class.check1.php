@@ -28,7 +28,7 @@ public function __construct(){
 				setcookie('login[1]', $secret, $expire, '/');
 				setcookie('login[2]', $row['id'], $expire, '/');		
 				$result = $this->connect->query("UPDATE users SET hash = '$secret' where login='$this->login'");
-				header("refresh:1;url=http://smartpeople.in.ua/users/index.php");
+				header("refresh:1;url=../index.php");
 				}
 				exit();
 				}
@@ -54,14 +54,14 @@ public function __construct(){
 			if (empty($row['login'])) {
 			session_start();
 			$_SESSION['wl'] = $this->password;
-			header("refresh:0;url=http://smartpeople.in.ua/index.php?page=auth_error&error_type=login");
+				header("refresh:0;url=../../index.php?page=auth_error&error_type=login");
 			exit;
 				}
 			if ($this->password !== $row['password'])
 			{
 			session_start();
 			$_SESSION['wp'] = $this->login;
-			header("refresh:0;url=http://smartpeople.in.ua/index.php?page=auth_error&error_type=password");
+				header("refresh:0;url=../../index.php?page=auth_error&error_type=password");
 			exit();
 			}
 			$this->CheckLoginAndPassword();
@@ -85,9 +85,9 @@ public function __construct(){
 					}
 				setcookie('login[1]', $secret, $expire, '/');
 				setcookie('login[2]', $row['id'], $expire, '/');
-				
-		$result = $this->connect->query("UPDATE users SET hash = '$secret' where login='$this->login' and password='$this->password'");	
-		header("refresh:0;url=http://smartpeople.in.ua/users/index.php");							
+
+			$result = $this->connect->query("UPDATE users SET hash = '$secret' where login='$this->login' and password='$this->password'");
+			header("refresh:0;url=../index.php");
 		}
 		}										
 
