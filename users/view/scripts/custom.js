@@ -1,4 +1,17 @@
 $(document).on("ready", function () {
-    // Объявяем выборку эементов DOM дерева
+	$(".wall input").bind("focus",
+		function () {
+			$(".wall .blog").css("height","80px");
+			$(".wall .publish-wrapper").append("<button>РћРїСѓР±Р»РёРєРѕРІР°С‚СЊ</button>");
+			$(".wall button").addClass("publish").addClass("btn-success");
+		}
+	);
 
+	$(".wall input").on("blur",
+		function () {
+			$(".wall .blog").css("height","40px");
+			$(".fa-paperclip").detach();
+			$(".publish").detach();
+		}
+	);
 });

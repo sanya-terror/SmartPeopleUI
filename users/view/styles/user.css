@@ -73,7 +73,7 @@ header {
 }
 
 .header-dropdown {
-    background: linear-gradient(180deg, #d3d3d3 0%, #f6fcf8 50%, #c4edc6 100%);
+    background-color: #fff;
 }
 
 .header-dropdown li {
@@ -202,16 +202,17 @@ header {
     background-color: rgba(117, 117, 193, 0.42);
     height: 100%;
     /*visibility: visible;*/
+    z-index: 1;
 }
 
 .show-uploader .form-wrapper, .subject-progress {
+    background-color: #fff;
     border-top: 20px solid navy;
     border-bottom: 1px solid navy;
     border-left: 1px solid navy;
     border-right: 1px solid navy;
     border-radius: 5px;
     padding: 30px;
-    background-color: rgb(255, 255, 255);
     width: 300px;
     height: 300px;
     margin: 30px auto;
@@ -255,4 +256,52 @@ blockquote {
 
 .subject {
     text-align: center;
+}
+
+.wall {
+    clear: both;
+    width: 100%;
+}
+
+.wall .wall-top {
+    background: linear-gradient(180deg, #14407c 0%, #3765a5 100%);
+    border-radius: 5px 5px 0 0 ;
+    margin: 0;
+    padding: 3px 0;
+    width: 95%;
+}
+
+.wall .wall-top span {
+    color: #fff;
+    font-size: 90%;
+    margin: 0 0 0 20px;
+    padding: 5px 0;
+    text-align: left;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.wall .blog {
+    background-color: #ffd;
+    height: 40px;
+    margin:0;
+    width: 95%;
+}
+
+.wall .blog input {
+    margin: 12px;
+    width: 95%;
+}
+
+.wall .publish-wrapper {
+    float: left;
+}
+
+.publish {
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+.wall .attach-wrapper {
+    float: right;
+    margin-right: 30px
 }
