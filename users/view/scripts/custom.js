@@ -1,17 +1,13 @@
 $(document).on("ready", function () {
 	$(".wall input").bind("focus",
 		function () {
-			$(".wall .blog").css("height","80px");
-			$(".wall .publish-wrapper").append("<button>Опубликовать</button>");
-			$(".wall button").addClass("publish").addClass("btn-success");
+			$(".wall .blog").css("height", "80px");
+			$(".blog-nav").css("opacity", 1);
 		}
 	);
 
-	$(".wall input").on("blur",
-		function () {
-			$(".wall .blog").css("height","40px");
-			$(".fa-paperclip").detach();
-			$(".publish").detach();
-		}
-	);
+	$("header, .content .left").on("click", function () {
+		$(".wall .blog").css("height", "40px");
+		$(".blog-nav").css("opacity", 0);
+	});
 });

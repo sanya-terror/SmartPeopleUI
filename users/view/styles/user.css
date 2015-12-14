@@ -292,6 +292,10 @@ blockquote {
     width: 95%;
 }
 
+.blog-nav {
+    opacity: 0;
+}
+
 .wall .publish-wrapper {
     float: left;
 }
@@ -304,4 +308,10 @@ blockquote {
 .wall .attach-wrapper {
     float: right;
     margin-right: 30px
+}
+
+.wall .attach-wrapper i {
+    cursor: pointer;
+    font-size: 150%;
+    padding: 0 15px;
 }
