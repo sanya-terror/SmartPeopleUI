@@ -1,5 +1,5 @@
 body {
-    background-color: #fff;
+    background-color: #ffd !important;
     font-family: Arial, "Times New Roman", sans-serif;
     margin: 0;
     padding: 0;
@@ -261,6 +261,7 @@ blockquote {
 .wall {
     clear: both;
     width: 100%;
+    padding: 20px 0;
 }
 
 .wall .wall-top {
@@ -281,8 +282,8 @@ blockquote {
 }
 
 .wall .blog {
-    background-color: #ffd;
-    height: 40px;
+    background-color: #fff;
+    height: 80px;
     margin:0;
     width: 95%;
 }
@@ -310,8 +311,133 @@ blockquote {
     margin-right: 30px
 }
 
+.like {
+    color: #3BB5DE;
+}
+
 .wall .attach-wrapper i {
     cursor: pointer;
     font-size: 150%;
     padding: 0 15px;
+}
+
+.user-data {
+    margin-bottom: 70px;
+}
+
+.user-post {
+    background-color: #fff;
+    border: 1px solid #ededed;
+    margin: 10px 0;
+    padding: 10px;
+    width: 95%;
+}
+
+.post-avatar img {
+    width: 50px;
+}
+
+.post-content {
+    background-color: #fafafa;
+    border: 1px solid #ededed;
+    clear: both;
+    padding: 5px 20px;
+}
+
+.post-ability {
+    margin-top: 30px;
+}
+
+.task-tracker {
+    color: #0c0771;
+}
+
+.rating {
+    margin: 10px 0;
+    width: 95% !important;
+}
+
+.rating p {
+    color: #625DC3;
+    font-family: "Century Schoolbook";
+    text-align: center;
+    font-weight: bold;
+}
+
+.btn-create-task {
+    margin: 0 auto;
+    display: block;
+    border-radius: 4px;
+    text-shadow: 1px 1px 1px #000;
+    font-size: 120%;
+    width: 100%;
+    height: 30px;
+}
+
+.tasks-left .date span {
+    display: block;
+    font-weight: bold;
+    text-align: center;
+}
+
+.task-list .task-list-item {
+    font-size: 150%;
+    font-family: fantasy;
+    text-decoration: underline;
+}
+
+.task-list-status .task-list-status-item {
+    font-size: 150%;
+    font-family: fantasy;
+    list-style: none;
+}
+
+.task-success {
+    color: green;
+}
+
+.task-process {
+    color: navy;
+}
+
+.task-fail {
+    color: red;
+}
+
+/*----------------------*/
+
+#test .arc2 {
+    stroke-weight:0.1;
+    fill: #3660b0;
+}
+
+#outer {
+    background:#FFFFFF;
+    border-radius: 5px;
+    color: #000;
+}
+
+#circle-rating .arc {
+    fill: green;
+}
+
+#circle-rating .arc2 {
+    fill: navy;
+}
+
+#circle-rating {
+    margin: 20px 0;
+}
+
+
+
+.radial {
+    border-radius: 3px;
+    background: #FFFFFF;
+    color: #000;
+
+}
+
+.radial-svg {
+    margin-left: 15px;
 }

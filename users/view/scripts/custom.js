@@ -1,13 +1,26 @@
 $(document).on("ready", function () {
 	$(".wall input").bind("focus",
 		function () {
-			$(".wall .blog").css("height", "80px");
 			$(".blog-nav").css("opacity", 1);
 		}
 	);
 
 	$("header, .content .left").on("click", function () {
-		$(".wall .blog").css("height", "40px");
 		$(".blog-nav").css("opacity", 0);
 	});
+
+	$(".attach-wrapper").each(function () {
+		$(this).on("click", function () {
+			$(this).toggleClass( "like" );
+		});
+	});
+
+	var start = function () {
+		radialProgress(document.getElementById('circle-rating'))
+			.diameter(150)
+			.value(78)
+			.render();
+	};
+
+	start();
 });
