@@ -18,7 +18,7 @@ $(document).on("ready", function () {
 	var start = function () {
 		radialProgress(document.getElementById('circle-rating'))
 			.diameter(150)
-			.value(78)
+			.value(105)
 			.render();
 	};
 

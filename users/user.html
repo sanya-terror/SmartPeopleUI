@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="./view/styles/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="./view/styles/jquery-ui.min.css"/>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-	<link rel="shortcut icon" href="/images/logo_m.png">
+	<link rel="shortcut icon" href="/view/images/logo_m.png">
 	<script type="text/javascript" src="/view/scripts/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript" src="/view/scripts/jquery-ui.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -164,6 +164,17 @@
 						</ol>
 					</div>
 				</div>
+				<div class="calendar-wrapper col-md-12 col-lg-12">
+					<form action="#" method="post" name="attach-task-form">
+						<div class="calendar col-md-4 col-lg-4">
+							<input type="text" name="user-task" value="" id="datepicker" class="opacityZero"/>
+						</div>
+						<div class="task-description col-md-8 col-lg-8">
+							<input type="text" class="description" placeholder="Напишите, что вам нужно сделать"/>
+							<input type="submit" value="Ok" class="btn-success" />
+						</div>
+					</form>
+				</div>
 			</div>
 			<div class="wall">
 				<div class="wall-top"><span>Ваши идеи</span></div>
@@ -205,5 +216,20 @@
 		</div>
 	</div>
 </div>
+<script>
+	$(function() {
+		$( "#datepicker" ).datepicker();
+		$( "#anim" ).change(function() {
+			$( "#datepicker" ).datepicker( "option", "showAnim", $( this ).val() );
+		});
+
+		$('.btn-create-task').on('click', function () {
+			$('.opacityZero').trigger('focus');
+			$('.calendar-wrapper').css({
+				display : "block"
+			});
+		});
+	});
+</script>
 </body>
 </html>

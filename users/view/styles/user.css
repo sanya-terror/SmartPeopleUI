@@ -262,6 +262,7 @@ blockquote {
     clear: both;
     width: 100%;
     padding: 20px 0;
+    z-index: 3;
 }
 
 .wall .wall-top {
@@ -440,4 +441,24 @@ blockquote {
 
 .radial-svg {
     margin-left: 15px;
+}
+
+.opacityZero {
+    opacity: 0;
+}
+
+.calendar-wrapper {
+    background-color: rgb(233, 237, 241);
+    border: 1px solid #aeaeae;
+    border-radius: 3px;
+    position: absolute !important;
+    z-index: 5;
+    height: 259px;
+    display: none;
+    top: 350px;
+}
+
+.description {
+    margin-top: 28px;
+    width: 480px;
 }
