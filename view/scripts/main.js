@@ -52,7 +52,7 @@ $(document).on("ready", function () {
 		else {
 			return messageArray[3];
 		}
-	}
+	};
 /*---------------------------------------------------Код отвечающий за проверку формы входа--------------------------------------------*/
 
 // Функция проверки формы
@@ -67,7 +67,7 @@ $(document).on("ready", function () {
 			help.html(msg1).addClass("red");
 			return false;
 		});
-	}
+	};
 	
 // Проверка логина
 	current_email.change( function () {
@@ -78,7 +78,7 @@ $(document).on("ready", function () {
 			key_2 = checkFormEntry($(this), "passw", pswdMessage($(this).val().length), "Пароль", warning_password);
 		});
 // Функция отправки формы
-	entry.click( function () {		
+	entry.on("click", function () {
 		current_email.trigger('change');
 		current_password.trigger('change');
 		if (!key_1 || !key_2){
@@ -87,7 +87,6 @@ $(document).on("ready", function () {
 		}
 		else {
 			loginForm.submit();
-			return true;
 		} 
 	});
 	
@@ -379,7 +378,7 @@ debugger;
 			help.html(msg1).addClass("red");
 			return false;
 		});
-	}
+	};
 	
 	function comparePswd (element, validator, msg1, msg2, help) {		
 		var value_1 = new_pswd.val(),
