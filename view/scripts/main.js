@@ -486,8 +486,7 @@ debugger;
 		}
 	});
 		
-	function sendErrorForm () {	
-debugger;	
+	function sendErrorForm () {
 		var hashValue = hash.val(),
 			isLogin = ("text" === hashValue),
 			formData = (isLogin ? {rpt_login: $field.val()} : {rpt_pswd: $field.val()});
@@ -499,8 +498,7 @@ debugger;
 			beforeSend: function() {		
 				$loaderGif.show();
 			},
-			success: function (data) {			
-debugger;
+			success: function (data) {
 				$loaderGif.hide();
 				if (!data) {
 					error_auth_form.submit();
