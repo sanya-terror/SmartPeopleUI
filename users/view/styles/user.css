@@ -370,8 +370,9 @@ blockquote {
     display: block;
     border-radius: 4px;
     text-shadow: 1px 1px 1px #000;
+    float: left;
     font-size: 120%;
-    width: 100%;
+    width: 75%;
     height: 30px;
 }
 
@@ -430,8 +431,6 @@ blockquote {
     margin: 20px 0;
 }
 
-
-
 .radial {
     border-radius: 3px;
     background: #FFFFFF;
@@ -447,18 +446,19 @@ blockquote {
     opacity: 0;
 }
 
-.calendar-wrapper {
-    background-color: rgb(233, 237, 241);
-    border: 1px solid #aeaeae;
-    border-radius: 3px;
-    position: absolute !important;
-    z-index: 5;
-    height: 259px;
-    display: none;
-    top: 350px;
+.task-description form {
+    margin: 0;
 }
 
 .description {
-    margin-top: 28px;
-    width: 480px;
+    padding: 1px 10px;
+    width: 80%;
+}
+
+.date input[type="date"] {
+    width: 100%;
+}
+
+.calendar-wrapper {
+    width: 95%;
 }

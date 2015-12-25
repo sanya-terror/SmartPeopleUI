@@ -79,6 +79,7 @@
 		<form class="upload" action="#" method="post" enctype="multipart/form-data">
 			<input name="image_file" type="file"/>
 			<button class="btn-success">Загрузить фото</button>
+			<button class="btn-danger">Отмена</button>
 		</form>
 	</div>
 </div>
@@ -139,10 +140,9 @@
 				</div>
 				<div class="tasks-left col-md-3 col-lg-3">
 					<div class="date">
-						<span>15 Dec 2015</span>
+						<input type="date" value="2015-12-18">
 					</div>
 					<div id="circle-rating"></div>
-					<button class="btn-success btn-create-task">Создать</button>
 				</div>
 				<div class="tracker col-md-9 col-lg-9">
 					<div class="task-list-wrapper col-md-6 col-lg-6">
@@ -164,16 +164,19 @@
 						</ol>
 					</div>
 				</div>
-				<div class="calendar-wrapper col-md-12 col-lg-12">
-					<form action="#" method="post" name="attach-task-form">
-						<div class="calendar col-md-4 col-lg-4">
-							<input type="text" name="user-task" value="" id="datepicker" class="opacityZero"/>
+				<div class="col-md-12 col-lg-12">
+					<div class="col-md-4 col-lg-4">
+						<button class="btn-success btn-create-task">Создать</button>
+					</div>
+					<div class="calendar-wrapper opacityZero col-md-8 col-lg-8">
+						<div class="task-description">
+							<form action="#" method="post" name="attach-task-form">
+								<input type="text" class="description" placeholder="Напишите, что вам нужно сделать"/>
+								<button class="btn-success"><i class="fa fa-check"></i></button>
+								<button class="btn-danger"><i class="fa fa-times"></i></button>
+							</form>
 						</div>
-						<div class="task-description col-md-8 col-lg-8">
-							<input type="text" class="description" placeholder="Напишите, что вам нужно сделать"/>
-							<input type="submit" value="Ok" class="btn-success" />
-						</div>
-					</form>
+					</div>
 				</div>
 			</div>
 			<div class="wall">
@@ -217,17 +220,28 @@
 	</div>
 </div>
 <script>
-	$(function() {
-		$( "#datepicker" ).datepicker();
-		$( "#anim" ).change(function() {
-			$( "#datepicker" ).datepicker( "option", "showAnim", $( this ).val() );
+	$(function () {
+		$("#datepicker").datepicker();
+		$("#anim").change(function () {
+			$("#datepicker").datepicker("option", "showAnim", $(this).val());
 		});
 
 		$('.btn-create-task').on('click', function () {
-			$('.opacityZero').trigger('focus');
-			$('.calendar-wrapper').css({
-				display : "block"
-			});
+			$('.calendar-wrapper').removeClass("opacityZero");
+		});
+
+		$(".task-description .btn-danger").on("click", function () {
+			$('.calendar-wrapper').addClass("opacityZero");
+			return false;
+		});
+
+		$(".avatar i").on("click", function () {
+			$(".show-uploader").css("visibility", "visible");
+		});
+
+		$(".upload .btn-danger").on("click", function () {
+			$(".show-uploader").css("visibility", "hidden");
+			return false;
 		});
 	});
 </script>
