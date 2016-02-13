@@ -1,5 +1,5 @@
 body {
-    background-color: #fff;
+    background-color: #ffd !important;
     font-family: Arial, "Times New Roman", sans-serif;
     margin: 0;
     padding: 0;
@@ -73,7 +73,7 @@ header {
 }
 
 .header-dropdown {
-    background: linear-gradient(180deg, #d3d3d3 0%, #f6fcf8 50%, #c4edc6 100%);
+    background-color: #fff;
 }
 
 .header-dropdown li {
@@ -178,7 +178,7 @@ header {
 }
 
 .frame .avatar i:hover {
-    color: white;
+    color: #e5e5e5;
 }
 
 .frame .avatar img {
@@ -202,16 +202,17 @@ header {
     background-color: rgba(117, 117, 193, 0.42);
     height: 100%;
     /*visibility: visible;*/
+    z-index: 1;
 }
 
 .show-uploader .form-wrapper, .subject-progress {
+    background-color: #fff;
     border-top: 20px solid navy;
     border-bottom: 1px solid navy;
     border-left: 1px solid navy;
     border-right: 1px solid navy;
     border-radius: 5px;
     padding: 30px;
-    background-color: rgb(255, 255, 255);
     width: 300px;
     height: 300px;
     margin: 30px auto;
@@ -226,12 +227,12 @@ header {
 }
 
 .btn-create, .btn-use-klg {
-    margin: 0 auto;
+    margin: 0;
     display: block;
     border-radius: 4px;
     text-shadow: 1px 1px 1px #000;
     font-size: 120%;
-    width: 180px;
+    width: 100%;
     height: 40px;
 }
 
@@ -257,7 +258,207 @@ blockquote {
     text-align: center;
 }
 
-.btn-use-klg {
+.wall {
+    clear: both;
+    width: 100%;
+    padding: 20px 0;
+    z-index: 3;
+}
+
+.wall .wall-top {
+    background: linear-gradient(180deg, #14407c 0%, #3765a5 100%);
+    border-radius: 5px 5px 0 0 ;
     margin: 0;
-    width: 100%
+    padding: 3px 0;
+    width: 95%;
+}
+
+.wall .wall-top span {
+    color: #fff;
+    font-size: 90%;
+    margin: 0 0 0 20px;
+    padding: 5px 0;
+    text-align: left;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.wall .blog {
+    background-color: #fff;
+    height: 80px;
+    margin:0;
+    width: 95%;
+}
+
+.wall .blog input {
+    margin: 12px;
+    width: 95%;
+}
+
+.blog-nav {
+    opacity: 0;
+}
+
+.wall .publish-wrapper {
+    float: left;
+}
+
+.publish {
+    border-radius: 3px;
+    margin-left: 10px;
+}
+
+.wall .attach-wrapper {
+    float: right;
+    margin-right: 30px
+}
+
+.like {
+    color: #3BB5DE;
+}
+
+.wall .attach-wrapper i {
+    cursor: pointer;
+    font-size: 150%;
+    padding: 0 15px;
+}
+
+.user-data {
+    margin-bottom: 70px;
+}
+
+.user-post {
+    background-color: #fff;
+    border: 1px solid #ededed;
+    margin: 10px 0;
+    padding: 10px;
+    width: 95%;
+}
+
+.post-avatar img {
+    width: 50px;
+}
+
+.post-content {
+    background-color: #fafafa;
+    border: 1px solid #ededed;
+    clear: both;
+    padding: 5px 20px;
+}
+
+.post-ability {
+    margin-top: 30px;
+}
+
+.task-tracker {
+    color: #0c0771;
+}
+
+.rating {
+    margin: 10px 0;
+    width: 95% !important;
+}
+
+.rating p {
+    color: #625DC3;
+    font-family: "Century Schoolbook";
+    text-align: center;
+    font-weight: bold;
+}
+
+.btn-create-task {
+    margin: 0 auto;
+    display: block;
+    border-radius: 4px;
+    text-shadow: 1px 1px 1px #000;
+    float: left;
+    font-size: 120%;
+    width: 75%;
+    height: 30px;
+}
+
+.tasks-left .date span {
+    display: block;
+    font-weight: bold;
+    text-align: center;
+}
+
+.task-list .task-list-item {
+    font-size: 150%;
+    font-family: fantasy;
+    text-decoration: underline;
+}
+
+.task-list-status .task-list-status-item {
+    font-size: 150%;
+    font-family: fantasy;
+    list-style: none;
+}
+
+.task-success {
+    color: green;
+}
+
+.task-process {
+    color: navy;
+}
+
+.task-fail {
+    color: red;
+}
+
+/*----------------------*/
+
+#test .arc2 {
+    stroke-weight:0.1;
+    fill: #3660b0;
+}
+
+#outer {
+    background:#FFFFFF;
+    border-radius: 5px;
+    color: #000;
+}
+
+#circle-rating .arc {
+    fill: green;
+}
+
+#circle-rating .arc2 {
+    fill: navy;
+}
+
+#circle-rating {
+    margin: 20px 0;
+}
+
+.radial {
+    border-radius: 3px;
+    background: #FFFFFF;
+    color: #000;
+
+}
+
+.radial-svg {
+    margin-left: 15px;
+}
+
+.opacityZero {
+    opacity: 0;
+}
+
+.task-description form {
+    margin: 0;
+}
+
+.description {
+    padding: 1px 10px;
+    width: 80%;
+}
+
+.date input[type="date"] {
+    width: 100%;
+}
+
+.calendar-wrapper {
+    width: 95%;
 }
