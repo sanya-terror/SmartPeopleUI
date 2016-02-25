@@ -1,6 +1,6 @@
 html, body {
    background-color: #F0F1F2;
-   color: #fff;
+   color: #000;
    font-family: Arial, "Times New Roman", sans-serif;
    font-size: 14px;
    margin: 0;
@@ -17,10 +17,8 @@ table, tr, td {
 
 /*--------------------------------------------------------------------HEADER------------------------------------------*/
 header {
-   background: linear-gradient(180deg, #14407c 0%, #3765a5 100%);
    color: #fff;
    margin: 0;
-   min-width: 980px;
    width: 100%;
 }
 
@@ -34,9 +32,12 @@ header input {
 }
 
 header input[type="text"],
-header input[type="password"] {
-   margin: 5px 5px 0 0;
+header input[type="password"],
+header input[type="submit"] {
+   display: block;
+   margin: 0 auto;
    padding: 2px;
+   width: 80%;
 }
 
 .clearfix::after {
@@ -45,19 +46,15 @@ header input[type="password"] {
    clear: both;
 }
 
-.wrapped {
-   margin: 0 auto;
-   width: 980px;
-}
-
-.wrapped .logo {
-   float: left;
+.wrapped .logo-wrapper {
+   background: linear-gradient(180deg, #14407c 0%, #3765a5 100%);
 }
 
 .logo {
-   background: url('../images/top-logo.png') no-repeat top 5px left;
-   background-size: 60%;
-   width: 500px;
+   background: url('../images/top-logo.png') no-repeat top 15px left 35px;
+   background-size: 75%;
+   margin: 0 auto;
+   width: 300px;
 }
 
 .wrapped .logo h1 {
@@ -72,34 +69,42 @@ header input[type="password"] {
    cursor: default;
 }
 
-.wrapped .login-form {
-   float: right;
-   padding: 10px 0;
-}
-
 .wrapped .login-form label,
 .wrapped .login-form a {
-   color: #fff;
-   font-size: 75%;
-   text-shadow: 0 0 1px #000;
+   color: #353C46;
+   display: block;
+   margin: 5px auto;
+   text-shadow: 0 0 1px #F3ECEC;
+   text-align: center;
+   width: 80%;
 }
 
-#loginForm .input-wrapper {
-   float: left;
-   margin-right: 10px;
+.input-wrapper {
+   padding: 0 0 10px;
 }
 
-#loginForm input[type="submit"], .registration a {
+.input-wrapper-addtitional {
+   width: 80%;
+   margin: 0 auto;
+}
+
+.input-wrapper-addtitional label,
+.input-wrapper-addtitional a {
+   display: inline !important;
+   margin: 0px 15px !important;
+}
+
+#loginForm input[type="submit"],
+.content input[type="submit"] {
    background: rgba(0, 0, 0, 0) linear-gradient(180deg, #0aa546 0%, #0B5F2B 100%) repeat scroll 0 0;
    border: 1px solid #033e03;
-   border-radius: 2px;
    color: #fff;
    cursor: pointer;
-   display: inline-block;
-   margin: 4px 5px 0 0;
-   outline: 0 none;
+   display: block;
+   margin: 10px auto;
    padding: 4px 8px;
    text-shadow: 1px 1px 1px #000;
+   width: 82%;
 }
 
 #loginForm #remember_me {
@@ -125,9 +130,7 @@ header input[type="password"] {
 
 .content {
    margin: 0;
-   min-height: 540px;
-   min-width: 980px;
-   width: 100%;
+   min-height: 100px;
 }
 
 .content-logo {
@@ -209,15 +212,15 @@ header input[type="password"] {
 }
 
 #reg_button {
-   background: linear-gradient(180deg, #06fd0f 0%, #099f42 3%, #0abc4f 97%, #06fd0f 100%);
-   border: 1px solid #03340a !important;
+   background: linear-gradient(180deg, #66F56C 0%, #0FE05F 3%, #40C774 97%, #0FC716 100%);
+   border: 1px solid #03340a;
+   border-radius: 4px;
    color: #fff;
    cursor: pointer;
-   display: inline-block;
-   font-size: 150% !important;
+   font-size: 150%;
    font-weight: bold;
+   margin: 60px auto 0;
    text-shadow: 2px 2px 5px #111;
-   width: 50% !important;
 }
 
 .gif {
@@ -286,7 +289,6 @@ header input[type="password"] {
 footer {
    border-top: 1px solid #EADCDC;
    clear: both;
-   min-width: 980px;
    width: 100%;
 }
 
@@ -312,14 +314,11 @@ footer nav#nav-bottom > ul li a {
    text-decoration: none;
 }
 
-footer #brand {
-   clear: both;
+footer .brand {
    color: #555;
-   float: none;
    font-family: Verdana;
    font-weight: bold;
    margin: 20px auto;
-   padding: 10px 0 0 0;
    text-align: center;
    width: 170px;
 }

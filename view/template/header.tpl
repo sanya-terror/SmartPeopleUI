@@ -9,10 +9,10 @@
 					<tbody>
 						<tr>
 							<td>
-								<label for="current_email" id="warning_email">Электронная почта</label>
+								<label for="current_email" class="warning_email">Электронная почта</label>
 							</td>
 							<td>
-								<label for="current_password" id="warning_password">Пароль</label>
+								<label for="current_password" class="warning_password">Пароль</label>
 							</td>
 						</tr>
 						<tr>
