@@ -217,9 +217,8 @@ header input[type="submit"] {
    border-radius: 4px;
    color: #fff;
    cursor: pointer;
-   font-size: 150%;
    font-weight: bold;
-   margin: 60px auto 0;
+   margin: 25px auto 0;
    text-shadow: 2px 2px 5px #111;
 }
 
@@ -325,27 +324,13 @@ footer .brand {
 
 /*-------------------------------------------------------RESTORE ACCESS-----------------------------------------------*/
 
-.restore-content,
-.change-pswd-content,
-.error-autorization {
-   margin: 0 auto;
+.restore-content, .change-pswd-content, .error-autorization {
    padding-top: 30px;
-   width: 980px;
 }
 
-.popup {
-   border: 1px inset #ddd;
-   border-radius: 5px;
-   box-shadow: 1px 0 5px 1px #3765a5;
+.restore-wripper, .change-wripper {
    margin: 0 auto;
-   padding: 10px;
-   width: 600px;
-}
-
-.restore-wripper,
-.change-wripper {
-   margin: 0 auto;
-   width: 70%;
+   width: 90%;
 }
 
 .restore-wripper h4,
@@ -360,7 +345,7 @@ footer .brand {
 .change-wripper h6,
 .error-wripper h6 {
    color: #111;
-   font-size: 95%;
+   font-size: 80%;
    text-align: center;
 }
 
@@ -370,8 +355,7 @@ footer .brand {
 }
 
 .fixed-label {
-   display: inline-block;
-   width: 80px;
+   display: none;
 }
 
 .restore-input-wrapper label {
@@ -380,8 +364,10 @@ footer .brand {
    text-align: left;
 }
 
-.restore-input-wrapper input {
-   width: 70%;
+.restore-input-wrapper input, .change-input-wrapper input, .error-input-wrapper input {
+   width: 90%;
+   height: 30px;
+   padding: 0 20px;
 }
 
 .input-submit-wrapper {
@@ -390,7 +376,7 @@ footer .brand {
 }
 
 .input-submit-wrapper input {
-   background: rgba(0, 0, 0, 0) linear-gradient(180deg, #4385e2 0%, #518cde 100%) repeat scroll 0 0;
+   background: rgba(0, 0, 0, 0) linear-gradient(180deg, #4385e2 0%, #518cde 100%) repeat scroll 0 0 !important;
    border: 1px solid #3765a5;
    border-radius: 2px;
    color: #fff;
@@ -416,10 +402,6 @@ footer .brand {
 
 .change-input-wrapper {
    margin: 15px 0;
-}
-
-.change-input-wrapper input {
-   width: 45%;
 }
 
 .change-input-wrapper span {
@@ -450,10 +432,6 @@ footer .brand {
 
 .error-wripper .fixed-label {
    width: 150px;
-}
-
-.error-input-wrapper input {
-   width: 40%;
 }
 
 #error-authorization-form .input-submit-wrapper {
@@ -500,4 +478,14 @@ article section p {
 article section span {
    color: gold;
    text-shadow: 1px 0px 1px #0c0771;
+}
+
+@media only screen and (max-width: 320px) {
+   .login-form .input-wrapper-addtitional {
+      font-size: 88%;
+   }
+
+   .content {
+      min-height: 70px;
+   }
 }

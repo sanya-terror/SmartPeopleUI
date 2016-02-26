@@ -9,5 +9,5 @@
 			</li>
 		</ul>
 	</nav>
-	<div id="brand">SmartPeople &copy; 2015</div>
+	<div class="brand">SmartPeople &copy; 2015</div>
 </div>
