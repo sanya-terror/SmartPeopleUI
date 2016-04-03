@@ -1110,16 +1110,6 @@
       "constConstructor": null
     }
   },
-  "PLATFORM_COMMON_PROVIDERS": {
-    "kind": "type",
-    "value": {
-      "class": "Identifier",
-      "name": "PLATFORM_COMMON_PROVIDERS",
-      "moduleUrl": "asset:angular2/lib/src/core/platform_common_providers.dart",
-      "prefix": null,
-      "constConstructor": null
-    }
-  },
   "PLATFORM_DIRECTIVES": {
     "kind": "type",
     "value": {
@@ -1136,6 +1126,16 @@
       "class": "Identifier",
       "name": "PLATFORM_PIPES",
       "moduleUrl": "asset:angular2/lib/src/core/platform_directives_and_pipes.dart",
+      "prefix": null,
+      "constConstructor": null
+    }
+  },
+  "PLATFORM_COMMON_PROVIDERS": {
+    "kind": "type",
+    "value": {
+      "class": "Identifier",
+      "name": "PLATFORM_COMMON_PROVIDERS",
+      "moduleUrl": "asset:angular2/lib/src/core/platform_common_providers.dart",
       "prefix": null,
       "constConstructor": null
     }

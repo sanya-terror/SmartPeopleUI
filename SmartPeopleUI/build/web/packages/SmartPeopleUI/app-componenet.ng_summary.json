@@ -5,6 +5,18 @@
       {
         "1": "package:angular2/core.dart",
         "5": false
+      },
+      {
+        "1": "header/login-componenet.dart",
+        "5": false
+      },
+      {
+        "1": "system-control-room/sign-up/sign-up-componenet.dart",
+        "5": false
+      },
+      {
+        "1": "footer/footer-componenet.dart",
+        "5": false
       }
     ],
     "5": [
@@ -16,10 +28,18 @@
             "3": [
               {
                 "1": "selector",
-                "2": "'my-app'"
+                "2": "'body'"
               },
               {
-                "1": "template",
+                "1": "directives",
+                "2": "const [LoginComponent, SignUpComponent, FooterComponent]"
+              },
+              {
+                "1": "styleUrls",
+                "2": "const ['app.css']"
+              },
+              {
+                "1": "templateUrl",
                 "2": "'app-view.html'"
               }
             ],
@@ -28,6 +48,17 @@
             "6": true,
             "7": true,
             "8": false
+          }
+        ],
+        "8": [
+          {
+            "2": "LoginComponent"
+          },
+          {
+            "2": "SignUpComponent"
+          },
+          {
+            "2": "FooterComponent"
           }
         ]
       }
@@ -40,7 +71,7 @@
       "class": "Directive",
       "isComponent": true,
       "dynamicLoadable": true,
-      "selector": "my-app",
+      "selector": "body",
       "exportAs": null,
       "type": {
         "class": "Type",
@@ -59,11 +90,13 @@
       "hostAttributes": {},
       "lifecycleHooks": [],
       "template": {
-        "encapsulation": 2,
-        "template": "app-view.html",
-        "templateUrl": "asset:SmartPeopleUI/lib/app-componenet.dart",
+        "encapsulation": 0,
+        "template": "<header class=\"clearfix\"></header>\r\n<sign-up-control-room></sign-up-control-room>\r\n<footer></footer>",
+        "templateUrl": "asset:SmartPeopleUI/lib/app-view.html",
         "styles": [],
-        "styleUrls": [],
+        "styleUrls": [
+          "asset:SmartPeopleUI/lib/app.css"
+        ],
         "ngContentSelectors": []
       },
       "providers": []
