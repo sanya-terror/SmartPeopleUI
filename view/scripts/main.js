@@ -23,8 +23,8 @@ $(document).on("ready", function () {
     var loginForm = $("#loginForm"),
         current_email = loginForm.find("#current_email"),
         current_password = loginForm.find("#current_password"),
-        warning_email = loginForm.find("#warning_email"),
-        warning_password = loginForm.find("#warning_password"),
+        warning_email = loginForm.find(".warning_email"),
+        warning_password = loginForm.find(".warning_password"),
         entry = loginForm.find(".input-wrapper input[type='submit']"),
         key_1, key_2; // Логин и Пароль
 
