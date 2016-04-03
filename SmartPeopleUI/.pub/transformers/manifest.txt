@@ -1,0 +1,2 @@
+1.15.0
+angular2,dart_to_js_script_rewriter
