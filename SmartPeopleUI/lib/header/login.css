@@ -1,0 +1,86 @@
+a {
+   color: #fff;
+   text-decoration: none;
+}
+
+.clearfix::after {
+   content: '';
+   display: block;
+   clear: both;
+}
+
+.wrapped {
+   margin: 0 auto;
+   width: 980px;
+}
+
+.wrapped .logo {
+   float: left;
+}
+
+.logo {
+   /*background: url('/lib/header/images/top-logo.png') no-repeat top 5px left;*/
+   background-size: 60%;
+   width: 500px;
+}
+
+.wrapped .logo h1 {
+   font-size: 200%;
+   margin: 0;
+   padding: 30px;
+   text-shadow: 2px 1px 5px #000;
+   visibility: hidden;
+}
+
+.wrapped .logo a {
+   cursor: default;
+}
+
+.wrapped .login-form {
+   float: right;
+   padding: 10px 0;
+}
+
+.wrapped .login-form label,
+.wrapped .login-form a {
+   color: #fff;
+   font-size: 75%;
+   text-shadow: 0 0 1px #000;
+}
+
+#loginForm .input-wrapper {
+   float: left;
+   margin-right: 10px;
+}
+
+#loginForm input[type="submit"], .registration a {
+   background: rgba(0, 0, 0, 0) linear-gradient(180deg, #0aa546 0%, #0B5F2B 100%) repeat scroll 0 0;
+   border: 1px solid #033e03;
+   border-radius: 2px;
+   color: #fff;
+   cursor: pointer;
+   display: inline-block;
+   margin: 4px 5px 0 0;
+   outline: 0 none;
+   padding: 4px 8px;
+   text-shadow: 1px 1px 1px #000;
+}
+
+#loginForm #remember_me {
+   height: 13px;
+   margin: 0;
+   padding: 0;
+   position: relative;
+   top: 2px;
+   width: 13px;
+}
+
+#loginForm .input-wrapper tr:last-child td {
+   height: 27px;
+   font-size: 95%;
+   line-height: 27px;
+}
+
+.red {
+   color: #F76E6E !important;
+}

@@ -1,0 +1,39 @@
+html, body {
+   background-color: #F0F1F2;
+   color: #fff;
+   font-family: Arial, "Times New Roman", sans-serif;
+   font-size: 14px;
+   margin: 0;
+   padding: 0;
+}
+
+table, tr, td {
+   padding: 0;
+   margin: 0;
+   border-collapse: collapse;
+   border: 0 none;
+   background: none;
+}
+
+header {
+   background: linear-gradient(180deg, #14407c 0%, #3765a5 100%);
+   color: #fff;
+   margin: 0;
+   min-width: 980px;
+   width: 100%;
+}
+
+header a {
+   color: #fff;
+   text-decoration: none;
+}
+
+header input {
+   color: #000;
+}
+
+header input[type="text"],
+header input[type="password"] {
+   margin: 5px 5px 0 0;
+   padding: 2px;
+}

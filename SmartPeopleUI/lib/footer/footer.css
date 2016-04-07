@@ -1,0 +1,41 @@
+/*--------------------------------------------------------------FOOTER------------------------------------------------*/
+footer {
+   border-top: 1px solid #EADCDC;
+   clear: both;
+   min-width: 980px;
+   width: 100%;
+}
+
+footer nav#nav-bottom {
+   font-size: 12px;
+   margin-top: 20px;
+}
+
+footer nav#nav-bottom > ul {
+   padding: 0;
+   margin: 0;
+   list-style: none;
+}
+
+footer nav#nav-bottom > ul li {
+   float: left;
+   padding: 0 30px;
+   white-space: nowrap;
+}
+
+footer nav#nav-bottom > ul li a {
+   color: #444;
+   text-decoration: none;
+}
+
+footer .brand {
+   clear: both;
+   color: #555;
+   float: none;
+   font-family: Verdana;
+   font-weight: bold;
+   margin: 20px auto;
+   padding: 10px 0 0 0;
+   text-align: center;
+   width: 170px;
+}
