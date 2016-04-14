@@ -1,6 +1,6 @@
 <div class="wrapped">
    <div class="logo">
-      <a href="#"><h1>Smart People</h1></a>
+      <a [routerLink]="['/SignUp']" style="color: black">Smart People</a>
    </div>
    <div class="login-form">
       <form name="login" action="#" method="post" id="loginForm">
@@ -32,7 +32,7 @@
                      <label for="remember_me">Запомнить меня</label>
                   </td>
                   <td>
-                     <a href="#">Забыли пароль?</a>
+                     <a [routerLink]="['RestoreAccess']">Забыли пароль?</a>
                   </td>
                </tr>
                </tbody>
