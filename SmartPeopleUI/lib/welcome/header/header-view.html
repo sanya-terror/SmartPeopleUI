@@ -1,40 +1,40 @@
 <div class="wrapped">
    <div class="logo">
-      <a [routerLink]="['SignUp']" style="color: black">Smart People</a>
+      <a [routerLink]="['SignUp']">Smart People</a>
    </div>
    <div class="login-form">
-      <form name="login" action="#" method="post" id="loginForm">
+      <form name="login" action="#" method="post" class="login-form">
          <div class="input-wrapper">
             <table>
                <tbody>
-               <tr>
-                  <td>
-                     <label for="current_email" class="warning_email">Электронная почта</label>
-                  </td>
-                  <td>
-                     <label for="current_password" class="warning_password">Пароль</label>
-                  </td>
-               </tr>
-               <tr>
-                  <td>
-                     <input type="text" name="login" id="current_email"/>
-                  </td>
-                  <td>
-                     <input type="password" name="password" id="current_password"/>
-                  </td>
-                  <td rowspan="3" valign="top">
-                     <input type="submit" value="Вход"/>
-                  </td>
-               </tr>
-               <tr>
-                  <td>
-                     <input type="checkbox" name="remember" id="remember_me"/>
-                     <label for="remember_me">Запомнить меня</label>
-                  </td>
-                  <td>
-                     <a [routerLink]="['RestoreAccess']">Забыли пароль?</a>
-                  </td>
-               </tr>
+                  <tr>
+                     <td>
+                        <label for="current-email">Электронная почта</label>
+                     </td>
+                     <td>
+                        <label for="current-password">Пароль</label>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <input type="text" name="login" id="current-email"/>
+                     </td>
+                     <td>
+                        <input type="password" name="password" id="current-password"/>
+                     </td>
+                     <td rowspan="3" valign="top">
+                        <input type="submit" value="Вход"/>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td>
+                        <input type="checkbox" name="remember-me" id="remember-me" class="remember-me"/>
+                        <label for="remember-me">Запомнить меня</label>
+                     </td>
+                     <td>
+                        <a [routerLink]="['RestoreAccess']">Забыли пароль?</a>
+                     </td>
+                  </tr>
                </tbody>
             </table>
          </div>

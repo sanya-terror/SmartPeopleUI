@@ -8,4 +8,3 @@ main() => bootstrap(AppComponent, [
    ROUTER_PROVIDERS,
    provide(LocationStrategy, useClass: HashLocationStrategy)
 ]);
-

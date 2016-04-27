@@ -1,5 +1,6 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
+import 'dart:html';
 
 @Component(
     selector: 'header',
@@ -7,4 +8,10 @@ import 'package:angular2/router.dart';
     encapsulation: ViewEncapsulation.None,
     templateUrl: 'header-view.html')
 
-class HeaderComponent {}
+class HeaderComponent {
+
+}
+
+void main() {
+   querySelector(".logo").style.backgroundImage = "url(../images/top-logo.png)";
+}

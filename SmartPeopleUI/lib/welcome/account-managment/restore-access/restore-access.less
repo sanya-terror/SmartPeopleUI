@@ -1,0 +1,74 @@
+.restore-content,
+.change-pswd-content,
+.error-autorization {
+   margin: 0 auto;
+   padding-top: 30px;
+   width: 980px;
+
+   .popup {
+      border: 1px inset #ddd;
+      border-radius: 5px;
+      box-shadow: 1px 0 5px 1px #3765a5;
+      margin: 0 auto;
+      padding: 10px;
+      width: 600px;
+
+      .restore-wrapper,
+      .change-wrapper,
+      .error-wrapper {
+         color: #173444;
+         margin: 0 auto;
+         width: 70%;
+
+         h4 {
+            color: #3765a5;
+            font-size: 120%;
+            font-weight: bold;
+            text-align: center;
+         }
+
+         h6 {
+            color: #111;
+            font-size: 95%;
+            text-align: center;
+         }
+
+         .restore-input-wrapper {
+            margin: 0 auto;
+            width: 100%;
+
+            .fixed-label {
+               display: inline-block;
+               width: 80px;
+            }
+
+            label {
+               font-size: 110%;
+               padding: 0 2px;
+               text-align: left;
+            }
+
+            input {
+               width: 70%;
+            }
+         }
+      }
+
+      .input-submit-wrapper {
+         margin: 12px auto;
+         width: 42%;
+
+         a, &input {
+            background: rgba(0, 0, 0, 0) linear-gradient(180deg, #4385e2 0%, #518cde 100%) repeat scroll 0 0;
+            border: 1px solid #3765a5;
+            border-radius: 2px;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            text-decoration: none;
+            padding: 3px 10px;
+            text-shadow: 1px 1px 1px #222;
+         }
+      }
+   }
+}

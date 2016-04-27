@@ -4,6 +4,7 @@ import 'package:angular2/router.dart';
 import 'welcome-directives.dart';
 import 'account-managment/sign-up/sign-up-component.dart';
 import 'account-managment/restore-access/restore-access-component.dart';
+import 'account-managment/change-password/change-password-component.dart';
 
 @Component(
     selector: 'welcome',
@@ -11,6 +12,7 @@ import 'account-managment/restore-access/restore-access-component.dart';
        ROUTER_DIRECTIVES,
        WELCOME_DIRECTIVES
     ],
+    encapsulation: ViewEncapsulation.None,
     templateUrl: 'welcome-view.html')
 
 @RouteConfig(const [
@@ -21,9 +23,14 @@ import 'account-managment/restore-access/restore-access-component.dart';
        useAsDefault: true),
 
    const Route(
-       path: '/restore',
+       path: '/restore-access',
        name: 'RestoreAccess',
-       component: RestoreAccessComponent)
+       component: RestoreAccessComponent),
+
+   const Route(
+       path: '/change-password',
+       name: 'ChangePassword',
+       component: ChangePasswordComponent)
 ])
 
 class WelcomeComponent {}

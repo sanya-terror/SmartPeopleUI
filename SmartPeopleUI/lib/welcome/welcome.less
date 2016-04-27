@@ -1,4 +1,54 @@
 @import "header/header";
 @import "account-managment/sign-up/sign-up";
 @import "account-managment/restore-access/restore-access";
+@import "account-managment/change-password/change-password";
 @import "footer/footer";
+
+header {
+   background: linear-gradient(180deg, #14407c 0%, #3765a5 100%);
+   color: #fff;
+   margin: 0;
+   min-width: 980px;
+   width: 100%;
+
+   a {
+      color: #fff;
+      text-decoration: none;
+   }
+
+   &input[type="password"],
+   &input[type="text"] {
+      margin: 5px 5px 0 0;
+      padding: 2px;
+   }
+}
+
+.wrapped {
+   margin: 0 auto;
+   width: 980px;
+
+   .logo {
+      float: left;
+      background-size: 60%;
+      width: 500px;
+
+      h1 {
+         font-size: 200%;
+         margin: 0;
+         padding: 30px;
+         text-shadow: 2px 1px 5px #000;
+         visibility: hidden;
+      }
+
+      a {
+         cursor: default;
+      }
+   }
+}
+
+footer {
+   border-top: 1px solid #EADCDC;
+   clear: both;
+   min-width: 980px;
+   width: 100%;
+}
