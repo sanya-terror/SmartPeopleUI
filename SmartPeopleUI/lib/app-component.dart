@@ -6,7 +6,9 @@ import 'user-cr/user-cr-component.dart';
 
 @Component(
     selector: 'my-app',
-    directives: const [ROUTER_DIRECTIVES],
+    directives: const [
+       ROUTER_DIRECTIVES
+    ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: 'app-view.html')
 

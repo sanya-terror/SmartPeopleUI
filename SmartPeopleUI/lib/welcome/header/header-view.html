@@ -1,6 +1,8 @@
 <div class="wrapped">
    <div class="logo">
-      <a [routerLink]="['SignUp']">Smart People</a>
+      <a [routerLink]="['SignUp']">
+         <h1>Smart People</h1>
+      </a>
    </div>
    <div class="login-form">
       <form name="login" action="#" method="post" class="login-form">
@@ -9,10 +11,10 @@
                <tbody>
                   <tr>
                      <td>
-                        <label for="current-email">Электронная почта</label>
+                        <label for="current-email">Email</label>
                      </td>
                      <td>
-                        <label for="current-password">Пароль</label>
+                        <label for="current-password">Password</label>
                      </td>
                   </tr>
                   <tr>
@@ -20,19 +22,20 @@
                         <input type="text" name="login" id="current-email"/>
                      </td>
                      <td>
-                        <input type="password" name="password" id="current-password"/>
+                        <input mdInput type="password" name="password" id="current-password"/>
                      </td>
                      <td rowspan="3" valign="top">
-                        <input type="submit" value="Вход"/>
+                        <button mdRaisedButton class="custom-md-success sign-in-btn smart-next-btn">Sign in</button>
                      </td>
                   </tr>
                   <tr>
                      <td>
-                        <input type="checkbox" name="remember-me" id="remember-me" class="remember-me"/>
-                        <label for="remember-me">Запомнить меня</label>
+                        <md-checkbox md-no-ink aria-label="Checkbox No Ink">
+                           Remember me
+                        </md-checkbox>
                      </td>
                      <td>
-                        <a [routerLink]="['RestoreAccess']">Забыли пароль?</a>
+                        <a [routerLink]="['RestoreAccess']">Forgot password ?</a>
                      </td>
                   </tr>
                </tbody>
