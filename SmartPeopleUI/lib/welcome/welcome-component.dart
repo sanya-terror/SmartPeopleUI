@@ -1,7 +1,6 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
-import 'welcome-directives.dart';
 import 'account-managment/sign-up/sign-up-component.dart';
 import 'account-managment/restore-access/restore-access-component.dart';
 import 'account-managment/change-password/change-password-component.dart';
@@ -10,7 +9,6 @@ import 'account-managment/change-password/change-password-component.dart';
     selector: 'welcome',
     directives: const [
        ROUTER_DIRECTIVES,
-       WELCOME_DIRECTIVES
     ],
     encapsulation: ViewEncapsulation.None,
     templateUrl: 'welcome-view.html')

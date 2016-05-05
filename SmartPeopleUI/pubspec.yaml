@@ -13,6 +13,6 @@ transformers:
 - angular2:
     entry_points: web/main.dart
 - dart_to_js_script_rewriter
-- less_dart:
-    entry_point: web/main.less
-    build_mode: dart
+#- less_dart:
+#    entry_point: web/main.less
+#    build_mode: dart
