@@ -1,0 +1,35 @@
+&html,
+&body {
+  background-color: #F0F1F2;
+  color: #000;
+  font-family: Arial, "Times New Roman", sans-serif;
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+
+  .clearfix::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+
+  &table,
+  &tr,
+  &td {
+    padding: 0;
+    margin: 0;
+    border-collapse: collapse;
+    border: 0 none;
+    background: none;
+  }
+
+  .custom-md-success {
+    background: rgb(76, 175, 80);
+    color: rgb(255, 255, 255);
+  }
+
+  .smart-next-btn {
+    line-height: 22px;
+    margin: 0;
+  }
+}

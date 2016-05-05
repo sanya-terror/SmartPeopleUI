@@ -10,9 +10,8 @@ dependencies:
   less_dart: "^0.3.3"
   dart_to_js_script_rewriter: ^1.0.1
 transformers:
+- less_dart:
+    build_mode: dart
 - angular2:
     entry_points: web/main.dart
-- dart_to_js_script_rewriter
-#- less_dart:
-#    entry_point: web/main.less
-#    build_mode: dart
+#- dart_to_js_script_rewriter

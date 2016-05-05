@@ -9,6 +9,7 @@ import 'package:SmartPeopleUI/header/login/login.component.dart';
     ROUTER_DIRECTIVES,
     LoginComponent
   ],
-  templateUrl: 'header.component.html')
+  templateUrl: 'header.component.html',
+  styleUrls: const ['header.component.css'])
 class HeaderComponent {}
 
