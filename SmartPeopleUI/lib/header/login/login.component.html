@@ -1,39 +1,18 @@
-<div class="login-form">
-    <form name="login" action="#" method="post" class="login-form">
-        <div class="input-wrapper">
-            <table>
-                <tbody>
-                <tr>
-                    <td>
-                        <label for="current-email">Email</label>
-                    </td>
-                    <td>
-                        <label for="current-password">Password</label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="text" name="login" id="current-email"/>
-                    </td>
-                    <td>
-                        <input mdInput type="password" name="password" id="current-password"/>
-                    </td>
-                    <td rowspan="3" valign="top">
-                        <button mdRaisedButton class="custom-md-success sign-in-btn smart-next-btn">Sign in</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <md-checkbox md-no-ink aria-label="Checkbox No Ink">
-                            Remember me
-                        </md-checkbox>
-                    </td>
-                    <td>
-                        <a [routerLink]="['RestoreAccess']">Forgot password ?</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+<div class="login">
+    <form name="login" action="#" method="post" class="form">
+
+        <div class="email input-group">
+            <label for="current-email">Email</label>
+            <input type="text" name="login" id="current-email"/>
+            <md-checkbox md-no-ink aria-label="Remember me" class="helper"> Remember me</md-checkbox>
         </div>
+
+        <div class="password input-group">
+            <label for="current-password">Password</label>
+            <input mdInput type="password" name="password" id="current-password"/>
+            <a [routerLink]="['RestoreAccess']" class="helper">Forgot password ?</a>
+        </div>
+
+        <button mdRaisedButton class="custom-md-success sign-in-btn">Sign in</button>
     </form>
 </div>

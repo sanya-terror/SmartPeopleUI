@@ -9,6 +9,7 @@ import 'package:angular2_material/src/components/checkbox/checkbox.dart';
     MdButton,
     MdCheckbox
   ],
-  templateUrl: 'login.component.html')
+  templateUrl: 'login.component.html',
+  styleUrls: const ['login.component.css'])
 
 class LoginComponent {}

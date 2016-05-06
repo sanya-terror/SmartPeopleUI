@@ -1,77 +1,13 @@
-.logo {
-   background: url('../images/top-logo.png') no-repeat top 15px left 15px;
-   background-size: 60%;
-   height: 120px;
-   float: left;
-   width: 500px;
+.header {
+  display: flex;
+  justify-content: space-around;
+  background: linear-gradient(180deg, #14407c 0%, #3765a5 100%);
+  padding: 10px 0;
 
-   h1 {
-      font-size: 200%;
-      margin: 0;
-      padding: 30px;
-      text-shadow: 2px 1px 5px #000;
-      visibility: hidden;
-   }
-
-   a {
-      cursor: default;
-   }
-}
-
-.login-form {
-
-   float: right;
-   padding: 10px 0;
-
-      &a, &label {
-         color: #fff;
-         font-size: 75%;
-         text-shadow: 0 0 1px #000;
-      }
-
-   .input-wrapper {
-      float: left;
-      margin-right: 10px;
-
-      tr:last-child td {
-         height: 27px;
-         font-size: 95%;
-         line-height: 27px;
-      }
-   }
-
-   md-checkbox {
-      margin: 0;
-
-      .md-checkbox-label {
-         border: none;
-      }
-
-      .md-checkbox-icon {
-         background-color: rgb(255, 255, 255);
-      }
-   }
-
-   md-checkbox[aria-checked="true"] .md-checkbox-icon {
-      background: rgb(76, 175, 80);
-   }
-
-   .sign-in-btn {
-      margin-top: -1px;
-      font-weight: bold;
-      text-shadow: 0 0 1px #394FD2
-   }
-
-   .remember-me {
-      height: 13px;
-      margin: 0;
-      padding: 0;
-      position: relative;
-      top: 2px;
-      width: 13px;
-   }
-
-   .red {
-      color: #F76E6E !important;
-   }
+  .root-link{
+    .logo {
+      // TODO: Smaller logo. It has no sense to download large picture and reduce size
+      width: 300px;
+    }
+  }
 }
