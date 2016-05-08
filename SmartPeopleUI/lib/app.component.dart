@@ -14,12 +14,11 @@ import 'user-cr/user-cr-component.dart';
 )
 
 @RouteConfig(const [
-//   const Route(
-//       path: '/...',
-//       name: 'Home',
-//       //TODO: set correct Home component
-//       component: RestoreAccessComponent,
-//       useAsDefault: true),
+   const Route(
+       path: '/',
+       name: 'Home',
+       component: SignUpComponent,
+       useAsDefault: true),
    const Route(
        path: '/user-cr/...',
        name: 'UserCr',
