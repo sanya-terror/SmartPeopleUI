@@ -5,37 +5,42 @@
 
   .input-group {
     display: flex;
+    flex-direction: column;
     padding-top: 30px;
     width: 80%;
 
-    .label {
-      color: #777;
-      font-size: 1.1rem;
-      font-weight: bold;
-      margin-top: 9px;
-      width: 15%;
-    }
-
-    .inputs {
-
-      flex:1;
+    .input-control {
 
       display: flex;
-      flex-direction: column;
+      align-items: flex-end;
+
+      @verticalPadding: 5px;
+
+      label{
+        color: #777;
+        font-size: 1.1rem;
+        font-weight: bold;
+        width: 15%;
+        padding: @verticalPadding 0;
+      }
 
       .email {
+        flex: 1;
         font-family: cursive;
         font-size: 1em;
         outline-color: #3f51b5;
-        padding: 5px 10px;
+        padding: @verticalPadding 10px;
       }
+    }
 
-      .next-btn {
-        align-self: flex-start;
-        line-height: 28px;
-        margin: 10px 0;
-        min-width: 74px;
-      }
+    .next-btn {
+      flex: 1;
+      align-self: flex-start;
+
+      // TODO, probably should be some generic style for buttons
+      line-height: 28px;
+      margin: 10px 0 10px 15%;
+      min-width: 74px;
     }
   }
 }
