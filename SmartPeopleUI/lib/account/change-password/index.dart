@@ -1,1 +1,1 @@
-export 'change-password-component.dart';
+export 'change-password.component.dart';
