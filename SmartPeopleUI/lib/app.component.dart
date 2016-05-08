@@ -28,11 +28,10 @@ import 'user-cr/user-cr-component.dart';
        path: '/account/restore-access',
        name: 'RestoreAccess',
        component: RestoreAccessComponent),
-//   const Route(
-//       path: '/account/change-password',
-//       //TODO: set correct ChangePassword component
-//       name: 'ChangePassword',
-//       component: RestoreAccessComponent),
+   const Route(
+       path: '/account/change-password',
+       name: 'ChangePassword',
+       component: ChangePasswordComponent)
 
 ])
 
