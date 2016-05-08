@@ -1,32 +1,46 @@
 .form {
-
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 
   .input-group {
-
     display: flex;
-
+    flex-direction: column;
     padding-top: 30px;
     width: 80%;
 
-    .label {
-      width: 15%;
-      font-size: 1.1rem;
-    }
-
-    .inputs {
-
-      flex:1;
+    .input-control {
 
       display: flex;
-      flex-direction: column;
+      align-items: flex-end;
 
-      .next-btn {
-        align-self: flex-start;
-        margin: 10px 0;
+      @verticalPadding: 5px;
+
+      label{
+        color: #777;
+        font-size: 1.1rem;
+        font-weight: bold;
+        width: 15%;
+        padding: @verticalPadding 0;
       }
+
+      .email {
+        flex: 1;
+        font-family: cursive;
+        font-size: 1em;
+        outline-color: #3f51b5;
+        padding: @verticalPadding 10px;
+      }
+    }
+
+    .next-btn {
+      flex: 1;
+      align-self: flex-start;
+
+      // TODO, probably should be some generic style for buttons
+      line-height: 28px;
+      margin: 10px 0 10px 15%;
+      min-width: 74px;
     }
   }
 }
