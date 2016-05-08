@@ -1,19 +1,19 @@
 .form {
-
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
 
   .input-group {
-
     display: flex;
-
     padding-top: 30px;
     width: 80%;
 
     .label {
-      width: 15%;
+      color: #777;
       font-size: 1.1rem;
+      font-weight: bold;
+      margin-top: 9px;
+      width: 15%;
     }
 
     .inputs {
@@ -23,9 +23,18 @@
       display: flex;
       flex-direction: column;
 
+      .email {
+        font-family: cursive;
+        font-size: 1em;
+        outline-color: #3f51b5;
+        padding: 5px 10px;
+      }
+
       .next-btn {
         align-self: flex-start;
+        line-height: 28px;
         margin: 10px 0;
+        min-width: 74px;
       }
     }
   }
