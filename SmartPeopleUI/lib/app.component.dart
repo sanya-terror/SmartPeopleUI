@@ -20,10 +20,6 @@ import 'user-cr/user-cr-component.dart';
        component: SignUpComponent,
        useAsDefault: true),
    const Route(
-       path: '/user-cr/...',
-       name: 'UserCr',
-       component: UserCrComponent),
-   const Route(
        path: '/account/restore-access',
        name: 'RestoreAccess',
        component: RestoreAccessComponent),
