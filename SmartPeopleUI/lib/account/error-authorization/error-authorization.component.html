@@ -1,0 +1,19 @@
+<sp-info>
+   <form name="error-authorization-form" action="#" method="post" class="form">
+      <div class="title">There is no such account in Data base</div>
+      <div class="description">May be you make some mistake?</div>
+
+      <div class="input-group">
+         <div class="input-control">
+            <label for="repeat-input">Email:</label>
+            <input type="text"
+                   id="repeat-input"
+                   class="repeat-input"
+                   placeholder="Type your email here again"/>
+
+         </div>
+         <button mdRaisedButton class="md-primary next-btn">Repeat</button>
+         <a mdRaisedButton class="custom-md-success sign-up-btn next-btn" [routerLink]="['Home']">Sign up</a>
+      </div>
+   </form>
+</sp-info>

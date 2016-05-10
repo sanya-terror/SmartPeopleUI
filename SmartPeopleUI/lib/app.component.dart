@@ -30,7 +30,11 @@ import 'user-cr/user-cr-component.dart';
    const Route(
        path: '/account/change-password',
        name: 'ChangePassword',
-       component: ChangePasswordComponent)
+       component: ChangePasswordComponent),
+   const Route(
+       path: '/account/error-authorization',
+       name: 'ErrorAuthorization',
+       component: ErrorAuthorizationComponent)
 
 ])
 
