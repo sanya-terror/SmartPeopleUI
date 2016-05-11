@@ -44,6 +44,12 @@ class EmailValidatorTests {
           expect(EmailValidator.validate(control), result, reason: email);
         });
       });
+
+      test('Should be valid if control value is null', () {
+        var control = new Control();
+        expect(EmailValidator.validate(control), null);
+      });
+
     });
   }
 }
