@@ -1,5 +1,3 @@
-library verbal_expressions.name_tests;
-
 import 'package:test/test.dart';
 import 'package:SmartPeopleUI/shared/validators/name.validator.dart';
 import 'package:angular2/common.dart';

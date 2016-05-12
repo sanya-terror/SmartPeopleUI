@@ -1,5 +1,3 @@
-library verbal_expressions.restore_code_tests;
-
 import 'package:test/test.dart';
 import 'package:SmartPeopleUI/shared/validators/restore-code.validator.dart';
 import 'package:angular2/common.dart';

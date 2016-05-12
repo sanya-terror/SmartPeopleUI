@@ -1,5 +1,3 @@
-library verbal_expressions.password_tests;
-
 import 'package:test/test.dart';
 import 'package:SmartPeopleUI/shared/validators/password.validator.dart';
 import 'package:angular2/common.dart';

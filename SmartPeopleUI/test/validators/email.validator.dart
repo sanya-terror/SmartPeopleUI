@@ -1,5 +1,3 @@
-library verbal_expressions.email_tests;
-
 import 'package:test/test.dart';
 import 'package:SmartPeopleUI/shared/validators/email.validator.dart';
 import 'package:angular2/common.dart';
