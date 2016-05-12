@@ -3,32 +3,81 @@
       <img class="logo" src="../images/logo.png"/>
    </div>
    <div class="sign-up">
-      <form name="sign-up-form" action="#" method="post" class="form">
+      <form name="sign-up-form"
+            action="#"
+            method="post"
+            class="form">
+
          <div class="input-wrapper">
             <div class="title">
                <h3>Sign Up</h3>
             </div>
          </div>
          <div class="input-wrapper">
-            <input type="text" placeholder="Name" name="name"/>
-            <input type="text" placeholder="Surname" name="surname"/>
+
+            <input type="text"
+                   placeholder="Name"
+                   name="name"
+                   [(ngModel)]="name"
+                   ngControl="name"
+                   sp-validate-name
+                   required/>
+
+            <input type="text"
+                   placeholder="Surname"
+                   name="surname"
+                   [(ngModel)]="surname"
+                   ngControl="surname"
+                   sp-validate-name
+                   required/>
+
          </div>
          <div class="input-wrapper">
-            <input type="text" placeholder="Email" name="email"/>
+
+            <input type="text"
+                   placeholder="Email"
+                   name="email"
+                   [(ngModel)]="email"
+                   ngControl="email"
+                   sp-validate-email
+                   required/>
+
          </div>
          <div class="input-wrapper">
-            <input type="password" placeholder="Password" name="password1"/>
+            <input type="password"
+                   placeholder="Password"
+                   name="password1"
+                   [(ngModel)]="password1"
+                   ngControl="password1"
+                   sp-validate-password
+                   required/>
          </div>
          <div class="input-wrapper">
-            <input type="password" placeholder="Repeat password" name="password2"/>
+            <input type="password"
+                   placeholder="Repeat password"
+                   name="password2"
+                   [(ngModel)]="password2"
+                   ngControl="password2"
+                   sp-validate-password
+                   required/>
          </div>
          <div class="input-wrapper">
             <div class="gender">
-               <input type="radio" name="gender" value="male" id="male"/>
+
+               <input type="radio"
+                      name="gender"
+                      value="male"
+                      id="male"/>
+
                <label for="male">Male</label>
             </div>
             <div class="gender">
-               <input type="radio" name="gender" value="female" id="female"/>
+
+               <input type="radio"
+                      name="gender"
+                      value="female"
+                      id="female"/>
+
                <label for="female">Female</label>
                </div>
          </div>
