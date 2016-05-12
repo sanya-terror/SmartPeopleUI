@@ -4,7 +4,7 @@ class NameValidator {
 
    static Map<String, bool> validate(Control control) {
       var regex = new RegExp(
-          r'^[a-z,A-Z,а-яіїєґ,А-ЯІЇЄҐ]{2,20}$',
+          r"^[a-z,A-Z,а-яіїєґ,А-ЯІЇЄҐ, .'-]+$",
           caseSensitive: true
       );
       return regex.hasMatch(control.value) ? null : { 'validateName': true};
