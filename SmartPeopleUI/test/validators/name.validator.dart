@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:SmartPeopleUI/shared/validators/name.validator.dart';
+import 'package:SmartPeopleUI/account/sign-up/validators/name.validator.dart';
 import 'package:angular2/common.dart';
 
 class NameValidatorTests {
@@ -10,7 +10,7 @@ class NameValidatorTests {
          var failed = { 'validateName': true};
 
          List<Map<String, dynamic>> cases = [
-            { 'name': 'Jo hn Dou', 'result': success},
+            { 'name': 'John Dou', 'result': success},
             { 'name': 'Cary-Hiroyuki Tagawa', 'result': success},
 
             { 'name': 'Chris Evans1', 'result': failed},
@@ -27,6 +27,12 @@ class NameValidatorTests {
                expect(NameValidator.validate(control), result, reason: name);
             });
          });
+
+         test('Should be valid if control value is null', () {
+            var control = new Control();
+            expect(NameValidator.validate(control), null);
+         });
+
       });
    }
 }

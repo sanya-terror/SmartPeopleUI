@@ -30,6 +30,12 @@ class PasswordValidatorTests {
                expect(PasswordValidator.validate(control), result, reason: password);
             });
          });
+
+         test('Should be valid if control value is null', () {
+            var control = new Control();
+            expect(PasswordValidator.validate(control), null);
+         });
+
       });
    }
 }

@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:SmartPeopleUI/shared/validators/restore-code.validator.dart';
+import 'package:SmartPeopleUI/account/restore-access/validators/restore-code.validator.dart';
 import 'package:angular2/common.dart';
 
 class RestoreCodeValidatorTests {
@@ -30,6 +30,12 @@ class RestoreCodeValidatorTests {
                expect(RestoreCodeValidator.validate(control), result, reason: code);
             });
          });
+
+         test('Should be valid if control value is null', () {
+            var control = new Control();
+            expect(RestoreCodeValidator.validate(control), null);
+         });
+
       });
    }
 }
