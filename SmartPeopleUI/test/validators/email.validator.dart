@@ -1,4 +1,4 @@
-library verbal_expressions.any_tests;
+library verbal_expressions.email_tests;
 
 import 'package:test/test.dart';
 import 'package:SmartPeopleUI/shared/validators/email.validator.dart';

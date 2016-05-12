@@ -1,4 +1,4 @@
-library verbal_expressions.any_tests;
+library verbal_expressions.restore_code_tests;
 
 import 'package:test/test.dart';
 import 'package:SmartPeopleUI/shared/validators/restore-code.validator.dart';
