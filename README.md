@@ -1,4 +1,4 @@
-`Smart People`
+# Smart People
 
 _Scientific social network_
 
