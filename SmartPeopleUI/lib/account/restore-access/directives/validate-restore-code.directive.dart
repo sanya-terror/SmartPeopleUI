@@ -1,16 +1,16 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/common.dart';
 
-import '../validators/email.validator.dart';
+import '../validators/restore-code.validator.dart';
 
 @Directive(
-  selector: '[sp-validate-email][ngControl]',
+  selector: '[sp-validate-restore-code][ngControl]',
   providers: const [
     const Provider(
         NG_VALIDATORS,
-        useValue: EmailValidator.validate,
+        useValue: RestoreCodeValidator.validate,
         multi: true
     )
   ]
 )
-class EmailValidatorDirective {}
+class RestoreCodeValidatorDirective {}

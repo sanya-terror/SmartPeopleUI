@@ -10,7 +10,11 @@
             <input type="text"
                    id="restore-access"
                    class="email"
-                   placeholder="Insert email here"/>
+                   placeholder="Insert email here"
+                   [(ngModel)]="email"
+                   ngControl="email"
+                   sp-validate-email
+                   required/>
 
          </div>
          <a mdRaisedButton class="md-primary next-btn" [routerLink]="['ChangePassword']">Next</a>
