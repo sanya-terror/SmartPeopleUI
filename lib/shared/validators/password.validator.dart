@@ -2,7 +2,7 @@ import 'package:angular2/common.dart';
 
 class PasswordValidator {
 
-   static Map<String, bool> validate(Control control) {
+   static Map<String, bool> validate(AbstractControl control) {
 
       if (control.value == null) return null;
 
