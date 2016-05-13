@@ -1,0 +1,23 @@
+<sp-info>
+   <form name="restore-access-form" action="#" class="form" method="post">
+      <div class="title">Account access restoring</div>
+      <div class="description">Please, input your email to restore access</div>
+
+      <div class="input-group">
+
+         <div class="input-control">
+            <label for="restore-access">Email:</label>
+            <input type="text"
+                   id="restore-access"
+                   class="email"
+                   placeholder="Insert email here"
+                   [(ngModel)]="email"
+                   ngControl="email"
+                   sp-validate-email
+                   required/>
+
+         </div>
+         <a mdRaisedButton class="md-primary next-btn" [routerLink]="['ChangePassword']">Next</a>
+      </div>
+   </form>
+</sp-info>
