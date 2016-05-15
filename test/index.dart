@@ -1,5 +1,7 @@
-import 'validators/index.dart';
+import 'shared/index.dart';
+import 'account/index.dart';
 
 void main() {
-  Validators.run();
+  AccountTests.run();
+  SharedTests.run();
 }
