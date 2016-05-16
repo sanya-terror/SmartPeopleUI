@@ -16,10 +16,6 @@ Map<String, dynamic> testReducer(Map<String, dynamic> state, Action action) {
   }
 }
 
-Map<String, dynamic> failReducer(Map<String, dynamic> state, Action action) {
-  throw new Error();
-}
-
 class StoreTests {
   static run() {
     group('Redux store', () {
@@ -48,7 +44,7 @@ class StoreTests {
       });
 
       test('Should not change state if reducer failed', () {
-        Store store = new Store(failReducer, testState);
+        Store store = new Store((state, action) => throw new Error(), testState);
         store.dispatch(new TestAction());
         expect(store.getState(), testState);
       });
