@@ -14,12 +14,22 @@ class Store {
 
   dispatch(Action action) {
 
-    _currentState = _reducer(_currentState, action);
+    try {
+      _currentState = _reducer(_currentState, action);
+    }catch(error){
+      print('Error occured during dispathing action ${action.type}: $error');
+    }
+
+    listeners.forEach((listener) => listener());
 
     return action;
   }
 
-  subscribe() {}
+  List<Function> listeners = [];
+
+  subscribe(Function listener) {
+    listeners.add(listener);
+  }
 
   getState() {
     return _currentState;

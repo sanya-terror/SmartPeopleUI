@@ -10,7 +10,8 @@ class TestAction extends Action{
 Map<String, dynamic> testReducer(Map<String, dynamic> state, Action action) {
   switch (action.type) {
     case FIRST_ACTION:
-      return {'reducerApplied': true};
+      return new Map.from(state)
+        ..['reducerApplied'] = true;
     default:
       return state;
   }
@@ -44,10 +45,25 @@ class StoreTests {
       });
 
       test('Should not change state if reducer failed', () {
-        Store store = new Store((state, action) => throw new Error(), testState);
+        Store store = new Store((state, action) { throw new Error(); }, testState);
         store.dispatch(new TestAction());
         expect(store.getState(), testState);
       });
+
+      test('Should notify subscribers about state change', () {
+        Store store = new Store(testReducer, testState);
+
+        store.subscribe(() {
+          expect(store.getState(),{
+            'initialized': true,
+            'meaningOfLife': 42,
+            'reducerApplied': true
+          });
+        });
+        store.dispatch(new TestAction());
+      });
+
+
     });
   }
 }
