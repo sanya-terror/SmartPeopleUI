@@ -6,10 +6,10 @@
          <input type="text"
                 name="email"
                 id="current-email"
-                #email="ngForm"
-                ngControl="email"/>
+                ngControl="email"
+                #email/>
 
-         <div *ngIf="email.touched && !email.valid" class="validation-notification">
+         <div *ngIf="form.controls['email'].touched && !form.controls['email'].valid" class="validation-notification">
             Email is required
          </div>
 
@@ -22,10 +22,10 @@
          <input type="password"
                 name="password"
                 id="current-password"
-                #password="ngForm"
-                ngControl="password" />
+                ngControl="password"
+                #password/>
 
-         <div *ngIf="password.touched && !password.valid " class="validation-notification">
+         <div *ngIf="form.controls['password'].touched && !form.controls['password'].valid" class="validation-notification">
             Password is required
          </div>
          <a [routerLink]="['RestoreAccess']" class="helper">Forgot password ?</a>
