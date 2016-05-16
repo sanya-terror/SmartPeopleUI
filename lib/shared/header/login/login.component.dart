@@ -26,7 +26,7 @@ class LoginComponent{
    LoginComponent() {
 
       this.isValid = (String control){
-         return this.form.controls[control].touched && !this.form.controls[control].valid;
+         return !(this.form.controls[control].touched && !this.form.controls[control].valid);
       };
 
       this.form = new ControlGroup({
