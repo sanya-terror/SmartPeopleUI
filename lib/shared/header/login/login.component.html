@@ -1,15 +1,28 @@
 <div class="login">
-   <form action="#" class="form" method="post" name="login">
+   <form action="#" class="form" method="post" name="login" #loginForm="ngForm">
 
       <div class="email input-group">
-         <label for="current-email">Email</label>
-         <input type="text" name="email" id="current-email" ngControl="email"/>
+         <label for="email">Email</label>
+         <input type="text"
+                name="email"
+                #email="ngForm"
+                [(ngModel)]="email.value"
+                ngControl="email"
+                required/>
+
+         <div [hidden]="form.controls['email'].valid">
+            Email is required
+         </div>
+
          <md-checkbox aria-label="Remember me" class="helper" md-no-ink>Remember me</md-checkbox>
       </div>
 
       <div class="password input-group">
          <label for="current-password">Password</label>
-         <input type="password" name="password" id="current-password" ngControl="password"/>
+         <input type="password" name="password" id="current-password" ngControl="password" required/>
+         <div [hidden]="form.controls['password'].valid">
+            Password is required
+         </div>
          <a [routerLink]="['RestoreAccess']" class="helper">Forgot password ?</a>
       </div>
 

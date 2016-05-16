@@ -23,9 +23,13 @@ class LoginComponent{
    ControlGroup form;
 
    LoginComponent() {
+
       this.form = new ControlGroup({
          'email': new Control('', Validators.compose([EmailValidator.validate, Validators.required])),
          'password': new Control('', Validators.compose([PasswordValidator.validate, Validators.required]))
       });
+
+      print(this.form.controls['email'].valid);
+      print(this.form.controls['email'].value);
    }
 }
