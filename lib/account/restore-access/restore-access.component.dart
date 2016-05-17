@@ -21,17 +21,15 @@ import 'package:SmartPeopleUI/shared/index.dart';
 class RestoreAccessComponent {
 
    ControlGroup form;
-   Function isValid;
+
+   isValid(String control) => this.form.controls[control].untouched && this.form.controls[control].valid;
 
    RestoreAccessComponent() {
-
-      this.isValid = (String control) {
-         return !(this.form.controls[control].touched && !this.form.controls[control].valid);
-      };
 
       this.form = new ControlGroup({
          'email': new Control('', Validators.compose([EmailValidator.validate, Validators.required])),
          'code': new Control('', Validators.compose([RestoreCodeValidator.validate, Validators.required]))
       });
+
    }
 }

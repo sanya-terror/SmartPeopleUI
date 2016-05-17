@@ -7,12 +7,14 @@
 
          <div class="input-control">
             <label for="restore-access">Email:</label>
+
             <input type="text"
+                   name="email"
                    id="restore-access"
                    class="email"
                    placeholder="Insert email here"
-                   ngControl="email"
-                   #email/>
+                   ngControl="email"/>
+
          </div>
          <div *ngIf="!isValid('email')" class="validation-notification">
             Email is required
