@@ -25,13 +25,12 @@ class LoginComponent{
 
    LoginComponent() {
 
-      this.isValid = (String control){
-         return !(this.form.controls[control].touched && !this.form.controls[control].valid);
-      };
-
       this.form = new ControlGroup({
          'email': new Control('', Validators.compose([EmailValidator.validate, Validators.required])),
          'password': new Control('', Validators.compose([PasswordValidator.validate, Validators.required]))
       });
+
+      this.isValid = (String control) => form.controls[control].untouched  || form.controls[control].valid;
+
    }
 }

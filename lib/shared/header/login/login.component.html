@@ -3,11 +3,7 @@
 
       <div class="email input-group">
          <label for="current-email">Email</label>
-         <input type="text"
-                name="email"
-                id="current-email"
-                ngControl="email"
-                #email/>
+         <input type="text" name="email" id="current-email" ngControl="email"/>
 
          <div *ngIf="!isValid('email')" class="validation-notification">
             Email is required
@@ -19,11 +15,7 @@
       <div class="password input-group">
          <label for="current-password">Password</label>
 
-         <input type="password"
-                name="password"
-                id="current-password"
-                ngControl="password"
-                #password/>
+         <input type="password" name="password" id="current-password" ngControl="password">
 
          <div *ngIf="!isValid('password')" class="validation-notification">
             Password is required
