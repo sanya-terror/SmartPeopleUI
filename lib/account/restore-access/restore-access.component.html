@@ -1,5 +1,5 @@
 <sp-info>
-   <form name="restore-access-form" action="#" class="form" method="post">
+   <form name="restore-access-form" action="#" class="form" method="post" [ngFormModel]="form">
       <div class="title">Account access restoring</div>
       <div class="description">Please, input your email to restore access</div>
 
@@ -7,15 +7,17 @@
 
          <div class="input-control">
             <label for="restore-access">Email:</label>
+
             <input type="text"
+                   name="email"
                    id="restore-access"
                    class="email"
                    placeholder="Insert email here"
-                   [(ngModel)]="email"
-                   ngControl="email"
-                   sp-validate-email
-                   required/>
+                   ngControl="email"/>
 
+         </div>
+         <div *ngIf="!isValid('email')" class="validation-notification">
+            Email is required
          </div>
          <a mdRaisedButton class="md-primary next-btn" [routerLink]="['ChangePassword']">Next</a>
       </div>
