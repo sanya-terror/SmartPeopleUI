@@ -22,10 +22,14 @@ class LoginComponent{
 
    ControlGroup form;
 
+   isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
+
    LoginComponent() {
+
       this.form = new ControlGroup({
          'email': new Control('', Validators.compose([EmailValidator.validate, Validators.required])),
          'password': new Control('', Validators.compose([PasswordValidator.validate, Validators.required]))
       });
+
    }
 }

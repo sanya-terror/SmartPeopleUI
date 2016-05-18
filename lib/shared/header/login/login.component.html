@@ -3,13 +3,9 @@
 
       <div class="email input-group">
          <label for="current-email">Email</label>
-         <input type="text"
-                name="email"
-                id="current-email"
-                #email="ngForm"
-                ngControl="email"/>
+         <input type="text" name="email" id="current-email" ngControl="email"/>
 
-         <div *ngIf="email.touched && !email.valid" class="validation-notification">
+         <div *ngIf="!isValid('email')" class="validation-notification">
             Email is required
          </div>
 
@@ -19,13 +15,9 @@
       <div class="password input-group">
          <label for="current-password">Password</label>
 
-         <input type="password"
-                name="password"
-                id="current-password"
-                #password="ngForm"
-                ngControl="password" />
+         <input type="password" name="password" id="current-password" ngControl="password">
 
-         <div *ngIf="password.touched && !password.valid " class="validation-notification">
+         <div *ngIf="!isValid('password')" class="validation-notification">
             Password is required
          </div>
          <a [routerLink]="['RestoreAccess']" class="helper">Forgot password ?</a>
