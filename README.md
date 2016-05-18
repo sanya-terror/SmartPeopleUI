@@ -6,7 +6,7 @@ Installing project:
 
 `1.` Get repository:
 
-	a) Visit https://github.com/smart-people/SmartPeopleUI
+	a) Visit https://github.com/SmartPeopleCompany/SmartPeopleUI
 	b) Clone repository SmartPeopleUI via ssh
 
 `2.` Install Dart support:
