@@ -1,5 +1,3 @@
-import 'action.dart';
-
 typedef Map<String, dynamic> Reducer(Map<String, dynamic> state, Map<String, dynamic> action);
 
 class Store {
@@ -14,15 +12,11 @@ class Store {
 
   dispatch(Map<String, dynamic> action) {
 
-    if (action['type'] == null) {
+    if (!action.containsKey('type')) {
       throw new ArgumentError.notNull('there is no action type');
     }
 
-    try {
-      _currentState = _reducer(_currentState, action);
-    }catch(error){
-      print('Error occured during dispathing action ${action['type']}: $error');
-    }
+    _currentState = _reducer(_currentState, action);
 
     listeners.forEach((listener) => listener());
 
@@ -52,5 +46,13 @@ class Store {
     return _currentState;
   }
 
-  replaceReducer() {}
+  subscribeOnce(Function listener){
+    //TODO AN: subscription which will be removed after first execution
+    throw new UnimplementedError();
+  }
+
+  replaceReducer() {
+    //TODO AN: if we really need it
+    throw new UnimplementedError();
+  }
 }
