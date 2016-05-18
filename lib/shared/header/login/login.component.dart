@@ -21,7 +21,8 @@ import 'package:SmartPeopleUI/shared/validators/index.dart';
 class LoginComponent{
 
    ControlGroup form;
-   Function isValid;
+
+   isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
 
    LoginComponent() {
 
@@ -29,8 +30,6 @@ class LoginComponent{
          'email': new Control('', Validators.compose([EmailValidator.validate, Validators.required])),
          'password': new Control('', Validators.compose([PasswordValidator.validate, Validators.required]))
       });
-
-      this.isValid = (String control) => form.controls[control].untouched  || form.controls[control].valid;
 
    }
 }
