@@ -9,20 +9,23 @@ import 'validators/restore-code.validator.dart';
 import 'package:SmartPeopleUI/shared/index.dart';
 
 @Component(
-  selector: 'restore-access',
-  directives: const [
-    ROUTER_DIRECTIVES,
-    MdButton,
-    InfoComponent
-  ],
-  templateUrl: 'restore-access.component.html',
-  styleUrls: const['restore-access.component.css'])
+    selector: 'restore-access',
+    directives: const [
+       ROUTER_DIRECTIVES,
+       ValidationNotificationComponent,
+       MdButton,
+       InfoComponent
+    ],
+    encapsulation: ViewEncapsulation.Native,//TODO it is temporary, in further should remove and avoid
+    templateUrl: 'restore-access.component.html',
+    styleUrls: const['restore-access.component.css'])
 
 class RestoreAccessComponent {
 
    ControlGroup form;
+   Map<String, String> messages;
 
-   isValid(String control) => this.form.controls[control].untouched && this.form.controls[control].valid;
+   isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
 
    RestoreAccessComponent() {
 
@@ -30,6 +33,11 @@ class RestoreAccessComponent {
          'email': new Control('', Validators.compose([EmailValidator.validate, Validators.required])),
          'code': new Control('', Validators.compose([RestoreCodeValidator.validate, Validators.required]))
       });
+
+      this.messages = {
+         'email': 'Email is required',
+         'code': 'Code is required'
+      };
 
    }
 }

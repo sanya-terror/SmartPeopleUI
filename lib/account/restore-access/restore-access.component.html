@@ -16,9 +16,7 @@
                    ngControl="email"/>
 
          </div>
-         <div *ngIf="!isValid('email')" class="validation-notification">
-            Email is required
-         </div>
+         <sp-validation-notification *ngIf="!isValid('email')" [message]="messages['email']"></sp-validation-notification>
          <a mdRaisedButton class="md-primary next-btn" [routerLink]="['ChangePassword']">Next</a>
       </div>
    </form>
