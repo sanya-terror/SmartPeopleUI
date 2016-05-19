@@ -23,7 +23,7 @@ import 'package:SmartPeopleUI/shared/index.dart';
 class RestoreAccessComponent {
 
    ControlGroup form;
-   Object messages;
+   Map<String, String> messages;
 
    isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
 

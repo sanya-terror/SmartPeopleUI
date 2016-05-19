@@ -18,7 +18,7 @@ import 'index.dart';
 class SignUpComponent{
 
   ControlGroup form;
-  Object messages;
+  Map<String, String> messages;
 
   isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
 
