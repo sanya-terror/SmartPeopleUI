@@ -22,7 +22,7 @@ import 'package:SmartPeopleUI/shared/validators/index.dart';
 class LoginComponent{
 
    ControlGroup form;
-   Object messages;
+   Map<String, String> messages;
 
    isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
 
