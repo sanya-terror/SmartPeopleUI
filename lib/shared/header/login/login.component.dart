@@ -11,16 +11,18 @@ import 'package:SmartPeopleUI/shared/validators/index.dart';
     selector: 'sp-login',
     directives: const [
        ROUTER_DIRECTIVES,
+       ValidationNotificationComponent,
        MdButton,
        MdCheckbox
     ],
     templateUrl: 'login.component.html',
-    encapsulation: ViewEncapsulation.Native,
+    encapsulation: ViewEncapsulation.Native, //TODO it is temporary, in further should remove and avoid
     styleUrls: const ['login.component.css'])
 
 class LoginComponent{
 
    ControlGroup form;
+   Object messages;
 
    isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
 
@@ -30,6 +32,11 @@ class LoginComponent{
          'email': new Control('', Validators.compose([EmailValidator.validate, Validators.required])),
          'password': new Control('', Validators.compose([PasswordValidator.validate, Validators.required]))
       });
+
+      this.messages = {
+         'email': 'Email is required',
+         'password': 'Password is required'
+      };
 
    }
 }
