@@ -15,6 +15,9 @@ import 'index.dart';
 class SignUpComponent{
 
   ControlGroup form;
+  Object messages;
+
+  isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
 
   SignUpComponent() {
     this.form = new ControlGroup({
@@ -25,5 +28,14 @@ class SignUpComponent{
       'passwordRepeat': new Control('', Validators.compose([PasswordValidator.validate, Validators.required])),
       'gender': new Control('', Validators.required)
     });
+
+    this.messages = {
+      'name': 'Name is required',
+      'surname': 'Surname is required',
+      'email': 'Email is required',
+      'password': 'Password is required',
+      'passwordRepeat': 'Password is required',
+      'gender': 'Gender is required',
+    };
   }
 }
