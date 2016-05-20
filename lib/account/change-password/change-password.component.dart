@@ -10,7 +10,7 @@ import 'package:SmartPeopleUI/shared/index.dart';
     directives: const [
        ROUTER_DIRECTIVES,
        ValidationNotificationComponent,
-       MdAnchor,
+       MdButton,
        InfoComponent
     ],
     templateUrl: 'change-password.component.html',
