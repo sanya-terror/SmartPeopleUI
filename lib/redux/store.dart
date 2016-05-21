@@ -11,11 +11,13 @@ class Store {
   Function _enhancer;
   bool isMiddlewareExecuting = false;
 
-  Store(Reducer reducer, [Map<String, dynamic> initialState = const {}, Enhancer enhancer]) {
+  Store(Reducer reducer, {Map<String, dynamic> initialState : const {}, Enhancer enhancer}) {
 
-    if (enhancer != null) {
+    if(initialState == null)
+      throw new ArgumentError.notNull("initialState");
+
+    if (enhancer != null)
       this._enhancer = enhancer;
-    }
 
     _reducer = reducer;
     _currentState = initialState;
@@ -30,9 +32,8 @@ class Store {
 
     isMiddlewareExecuting = false;
 
-    if (!action.containsKey('type')) {
+    if (!action.containsKey('type'))
       throw new ArgumentError.notNull('there is no action type');
-    }
 
     _currentState = _reducer(_currentState, action);
 

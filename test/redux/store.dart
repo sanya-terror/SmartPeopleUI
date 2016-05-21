@@ -62,17 +62,17 @@ class StoreTests {
       };
 
       test('Should return initial state', () {
-        Store store = new Store(emptyReducer, testState);
+        Store store = new Store(emptyReducer, initialState: testState);
         expect(store.getState(), testState);
       });
 
       test('Should throw error if action has no type', () {
-        Store store = new Store(emptyReducer, testState);
+        Store store = new Store(emptyReducer, initialState: testState);
         expect(() => store.dispatch({}), throwsArgumentError);
       });
 
       test('Should not throw if action type is falsy', () {
-        Store store = new Store(emptyReducer, testState);
+        Store store = new Store(emptyReducer, initialState: testState);
         expect(() => store.dispatch({ 'type': false}), returnsNormally);
         expect(() => store.dispatch({ 'type': 0}), returnsNormally);
         expect(() => store.dispatch({ 'type': null}), returnsNormally);
@@ -82,6 +82,10 @@ class StoreTests {
       test('Should return init empty state', () {
         Store store = new Store(null);
         expect(store.getState(), {});
+      });
+
+      test('Should throw exception if initial state is null', () {
+        expect(() =>  new Store(null, initialState: null), throwsArgumentError);
       });
 
       test('Should apply reducer', () {
@@ -123,7 +127,7 @@ class StoreTests {
       });
 
       test('Should notify subscribers about state change', () {
-        Store store = new Store(testReducer, testState);
+        Store store = new Store(testReducer, initialState: testState);
 
         store.subscribe((){
           expect(store.getState(),{
@@ -232,10 +236,33 @@ class StoreTests {
       });
 
       test('Should recover from an error within a reducer', () {
+
         Store store = new Store(testReducer);
 
         expect(() => store.dispatch(errorAction), throws);
         expect(() => store.dispatch(unknownAction), returnsNormally);
+      });
+
+      test('Should apply enhancer before reducers', () {
+
+        Enhancer enhancer = (Store store){
+          expect(store.getState(), testState);
+
+          store.dispatch(addRecord('String from enhancer'));
+
+          return (next) => (action) => action;
+        };
+
+        Store store = new Store(testReducer, initialState: testState, enhancer: enhancer);
+        store.dispatch(addRecord("Will not be added"));
+
+        expect(store.getState(),  {
+          'initialized': true,
+          'meaningOfLife': 42,
+          'list': [
+            {'message': 'String from enhancer' }
+          ]
+        });
       });
     });
   }
