@@ -1,6 +1,5 @@
 import 'package:test/test.dart';
 import 'package:SmartPeopleUI/redux/index.dart';
-import 'package:mockito/mockito.dart';
 
 const FIRST_ACTION = 'FIRST_ACTION';
 const ADD_RECORD = 'ADD_RECORD';
@@ -11,9 +10,7 @@ addRecord(text) => { 'type': ADD_RECORD, 'text': text};
 get unknownAction => { 'type' : 'UNKNOWN'};
 get errorAction => { 'type' : 'ERROR'};
 
-Map<String, dynamic> emptyReducer(Map<String, dynamic> state, Map<String, dynamic> action) {
-  return state;
-}
+Map<String, dynamic> emptyReducer(Map<String, dynamic> state, Map<String, dynamic> action) => state;
 
 Map<String, dynamic> testReducer(Map<String, dynamic> state, Map<String, dynamic> action) {
   switch (action['type']) {
@@ -63,7 +60,7 @@ class StoreTests {
 
       test('Should return initial state', () {
         Store store = new Store(emptyReducer, initialState: testState);
-        expect(store.getState(), testState);
+        expect(store.state, testState);
       });
 
       test('Should throw error if action has no type', () {
@@ -81,7 +78,7 @@ class StoreTests {
 
       test('Should return init empty state', () {
         Store store = new Store(null);
-        expect(store.getState(), {});
+        expect(store.state, {});
       });
 
       test('Should throw exception if initial state is null', () {
@@ -91,11 +88,11 @@ class StoreTests {
       test('Should apply reducer', () {
         Store store = new Store(testReducer);
 
-        expect(store.getState(), {});
+        expect(store.state, {});
 
         store.dispatch(testAction);
 
-        expect(store.getState(), {
+        expect(store.state, {
           'reducerApplied': true
         });
       });
@@ -104,12 +101,12 @@ class StoreTests {
         Store store = new Store(testReducer);
 
         store.dispatch(testAction);
-        expect(store.getState(), {
+        expect(store.state, {
           'reducerApplied': true
         });
 
         store.dispatch(addRecord('Hello'));
-        expect(store.getState(), {
+        expect(store.state, {
           'reducerApplied': true,
           'list': [
             {'message': 'Hello' }
@@ -117,7 +114,7 @@ class StoreTests {
         });
 
         store.dispatch(addRecord('World'));
-        expect(store.getState(), {
+        expect(store.state, {
           'reducerApplied': true,
           'list': [
             {'message': 'Hello' },
@@ -130,7 +127,7 @@ class StoreTests {
         Store store = new Store(testReducer, initialState: testState);
 
         store.subscribe((){
-          expect(store.getState(),{
+          expect(store.state,{
             'initialized': true,
             'meaningOfLife': 42,
             'reducerApplied': true
@@ -246,7 +243,7 @@ class StoreTests {
       test('Should apply enhancer before reducers', () {
 
         Enhancer enhancer = (Store store){
-          expect(store.getState(), testState);
+          expect(store.state, testState);
 
           store.dispatch(addRecord('String from enhancer'));
 
@@ -256,7 +253,7 @@ class StoreTests {
         Store store = new Store(testReducer, initialState: testState, enhancer: enhancer);
         store.dispatch(addRecord("Will not be added"));
 
-        expect(store.getState(),  {
+        expect(store.state,  {
           'initialized': true,
           'meaningOfLife': 42,
           'list': [

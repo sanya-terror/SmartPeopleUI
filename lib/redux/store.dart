@@ -7,9 +7,7 @@ class Store {
 
   Reducer _reducer;
   Map<dynamic, dynamic> _currentState;
-
   Function _enhancer;
-  bool isMiddlewareExecuting = false;
 
   Store(Reducer reducer, {Map<String, dynamic> initialState : const {}, Enhancer enhancer}) {
 
@@ -23,7 +21,10 @@ class Store {
     _currentState = initialState;
   }
 
-  dispatch(Map<String, dynamic> action) {
+  get state => _currentState;
+
+  bool isMiddlewareExecuting = false;
+  Map<String, dynamic> dispatch(Map<String, dynamic> action) {
 
     if (_enhancer != null && !isMiddlewareExecuting) {
       isMiddlewareExecuting = true;
@@ -37,15 +38,14 @@ class Store {
 
     _currentState = _reducer(_currentState, action);
 
-    listeners.forEach((listener) => listener());
+    _listeners.forEach((listener) => listener());
 
     return action;
   }
 
-  List<Function> listeners = [];
-
-  subscribe(Function listener) {
-    listeners.add(listener);
+  List<Function> _listeners = [];
+  Function subscribe(Function listener) {
+    _listeners.add(listener);
 
     var isSubscribed = true;
 
@@ -55,12 +55,8 @@ class Store {
       }
 
       isSubscribed = false;
-      listeners.remove(listener);
+      _listeners.remove(listener);
     };
-  }
-
-  getState() {
-    return _currentState;
   }
 
   subscribeOnce(Function listener) {
