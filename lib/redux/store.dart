@@ -1,21 +1,17 @@
 typedef Map<String, dynamic> Reducer(Map<String, dynamic> state, Map<String, dynamic> action);
 typedef Map<String, dynamic> Dispatcher(Map<String, dynamic> action);
 typedef Dispatcher Pipe(Dispatcher next);
-typedef Pipe Enhancer(Store store);
+typedef Pipe Middleware(Store store);
 
 class Store {
-
   Reducer _reducer;
   Map<dynamic, dynamic> _currentState;
-  Function _enhancer;
+  Middleware _middleware;
 
-  Store(Reducer reducer, {Map<String, dynamic> initialState : const {}, Enhancer enhancer}) {
+  Store(Reducer reducer, {Map<String, dynamic> initialState: const {}, Middleware middleware}) {
+    if (initialState == null) throw new ArgumentError.notNull("initialState");
 
-    if(initialState == null)
-      throw new ArgumentError.notNull("initialState");
-
-    if (enhancer != null)
-      this._enhancer = enhancer;
+    if (middleware != null) this._middleware = middleware;
 
     _reducer = reducer;
     _currentState = initialState;
@@ -23,18 +19,16 @@ class Store {
 
   get state => _currentState;
 
-  bool isMiddlewareExecuting = false;
-  Map<String, dynamic> dispatch(Map<String, dynamic> action) {
-
-    if (_enhancer != null && !isMiddlewareExecuting) {
-      isMiddlewareExecuting = true;
-      return _enhancer(this)(dispatch)(action);
+  bool _isMiddlewareExecuting = false;
+  dynamic dispatch(Map<String, dynamic> action) {
+    if (_middleware != null && !_isMiddlewareExecuting) {
+      _isMiddlewareExecuting = true;
+      return _middleware(this)(dispatch)(action);
     }
 
-    isMiddlewareExecuting = false;
+    _isMiddlewareExecuting = false;
 
-    if (!action.containsKey('type'))
-      throw new ArgumentError.notNull('there is no action type');
+    if (!action.containsKey('type')) throw new ArgumentError.notNull('there is no action type');
 
     _currentState = _reducer(_currentState, action);
 

@@ -1,8 +1,10 @@
 import 'store.dart';
+import 'applyMiddleware.dart';
 
-class ReduxTests{
-  static run(){
+class ReduxTests {
+  static run() {
     StoreTests.run();
+    ApplyMiddlewareTests.run();
   }
 }
 
