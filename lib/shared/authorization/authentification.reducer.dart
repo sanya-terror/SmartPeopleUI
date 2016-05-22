@@ -9,8 +9,6 @@ class AuthReducer {
     if (state == null){
       state = {
         'isFetching': false,
-        // TODO AN: think if request to local storage should be inside reducer
-//        'isAuthenticated': window.localStorage['id_token'] != null,
         'isAuthenticated': false,
       };
     }

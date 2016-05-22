@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:SmartPeopleUI/authorization/index.dart';
+import 'package:SmartPeopleUI/shared/authorization/index.dart';
 
 class AuthReducerTests {
   static run() {
