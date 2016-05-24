@@ -9,12 +9,12 @@ class ApplyMiddlewareTests {
       test('Should apply composed middleware', () {
 
         Middleware middleware1 = (store) => (next) => (action){
-          action['text'] += ' + "String from 1st middleware"';
+          action.data['text'] += ' + "String from 1st middleware"';
           return next(action);
         };
 
         Middleware middleware2 = (store) => (next) => (action){
-          action['text'] += ' + "String from 2nd middleware"';
+          action.data['text'] += ' + "String from 2nd middleware"';
           return next(action);
         };
 

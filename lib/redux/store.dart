@@ -1,5 +1,7 @@
-typedef Map<String, dynamic> Reducer(Map<String, dynamic> state, Map<String, dynamic> action);
-typedef Map<String, dynamic> Dispatcher(Map<String, dynamic> action);
+import 'action.dart';
+
+typedef Map<String, dynamic> Reducer(Map<String, dynamic> state, Action action);
+typedef dynamic Dispatcher(Action action);
 typedef Dispatcher Pipe(Dispatcher next);
 typedef Pipe Middleware(Store store);
 
@@ -20,15 +22,13 @@ class Store {
   get state => _currentState;
 
   bool _isMiddlewareExecuting = false;
-  dynamic dispatch(Map<String, dynamic> action) {
+  dynamic dispatch(Action action) {
     if (_middleware != null && !_isMiddlewareExecuting) {
       _isMiddlewareExecuting = true;
       return _middleware(this)(dispatch)(action);
     }
 
     _isMiddlewareExecuting = false;
-
-    if (!action.containsKey('type')) throw new ArgumentError.notNull('there is no action type');
 
     _currentState = _reducer(_currentState, action);
 

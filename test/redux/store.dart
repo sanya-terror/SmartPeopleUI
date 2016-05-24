@@ -10,17 +10,9 @@ class StoreTests {
         expect(store.state, testState);
       });
 
-      test('Should throw error if action has no type', () {
+      test('Should not throw if action type is empty', () {
         Store store = new Store(emptyReducer, initialState: testState);
-        expect(() => store.dispatch({}), throwsArgumentError);
-      });
-
-      test('Should not throw if action type is falsy', () {
-        Store store = new Store(emptyReducer, initialState: testState);
-        expect(() => store.dispatch({'type': false}), returnsNormally);
-        expect(() => store.dispatch({'type': 0}), returnsNormally);
-        expect(() => store.dispatch({'type': null}), returnsNormally);
-        expect(() => store.dispatch({'type': ''}), returnsNormally);
+        expect(() => store.dispatch(new Action('')), returnsNormally);
       });
 
       test('Should return init empty state', () {
