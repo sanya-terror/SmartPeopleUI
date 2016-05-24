@@ -1,0 +1,24 @@
+name: SmartPeopleUI
+description: Scientific Social Network
+version: 0.0.1
+environment:
+  sdk: '>=1.13.0 <2.0.0'
+dependencies:
+  angular2: '2.0.0-beta.10'
+  browser: '^0.10.0'
+  angular2_material: '^2.0.0-beta.10'
+  fp: '^0.4.3'
+  dart_to_js_script_rewriter: '^1.0.1'
+dev_dependencies:
+  less_dart: '^0.3.3'
+  test: '>=0.12.0 <0.13.0'
+  mockito: '^0.11.0'
+transformers:
+- less_dart:
+    build_mode: dart
+- angular2:
+    platform_directives:
+    - 'package:angular2/common.dart#CORE_DIRECTIVES'
+    - 'package:angular2/common.dart#FORM_DIRECTIVES'
+    entry_points: web/main.dart
+#- dart_to_js_script_rewriter

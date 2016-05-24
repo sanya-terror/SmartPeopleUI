@@ -1,0 +1,26 @@
+<div class="login">
+   <form action="#" class="form" method="post" name="login" [ngFormModel]="form">
+
+      <div class="email input-group">
+         <label for="current-email">Email</label>
+         <input type="text" name="email" id="current-email" ngControl="email"/>
+         <sp-validation-notification *ngIf="!isValid('email')" [message]="messages['email']"></sp-validation-notification>
+
+         <md-checkbox aria-label="Remember me" class="helper" md-no-ink>Remember me</md-checkbox>
+      </div>
+
+      <div class="password input-group">
+         <label for="current-password">Password</label>
+
+         <input type="password" name="password" id="current-password" ngControl="password">
+         <sp-validation-notification *ngIf="!isValid('password')" [message]="messages['password']"></sp-validation-notification>
+
+         <a [routerLink]="['RestoreAccess']" class="helper">Forgot password ?</a>
+      </div>
+
+		<button mdRaisedButton class="custom-md-success sign-in-btn">Sign in</button>
+		<!---->
+		<a mdRaisedButton class="md-accent mock" [routerLink]="['ErrorAuthorization']">Error auth mock</a>
+		<!--TODO delete after best ErrorAuthComponent implementation-->
+	</form>
+</div>
