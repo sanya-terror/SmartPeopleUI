@@ -22,9 +22,25 @@ import 'package:SmartPeopleUI/shared/validators/index.dart';
 class LoginComponent{
 
    ControlGroup form;
-   Map<String, String> messages;
 
    isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
+
+   getMessage(String control) {
+      String value = form.controls[control].value;
+      String input;
+
+      input = (control == 'email') ? 'Email' : 'Password';
+
+      if (value.length == 0) return  input + ' is required';
+
+      else if (value.length < 6 && control == 'password')
+         return  input + ' input value is too short';
+
+      else if (value.length > 18 && control == 'password')
+         return  input + ' input value is too long';
+
+      else return  input + ' input value is incorrect';
+   }
 
    LoginComponent() {
 
@@ -32,11 +48,6 @@ class LoginComponent{
          'email': new Control('', Validators.compose([EmailValidator.validate, Validators.required])),
          'password': new Control('', Validators.compose([PasswordValidator.validate, Validators.required]))
       });
-
-      this.messages = {
-         'email': 'Email is required',
-         'password': 'Password is required'
-      };
 
    }
 }
