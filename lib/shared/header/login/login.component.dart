@@ -23,33 +23,31 @@ class LoginComponent{
 
    ControlGroup form;
 
-   isEmpty(String control) {
-      bool isValid = form.controls[control].untouched  || form.controls[control].valid;
+   isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
+
+   isRequired(String control) {
       String value = form.controls[control].value;
 
-      return !isValid && value.length == 0;
+      return !isValid(control) && value.length == 0;
    }
 
-   isTooShort(String control) {
-      bool isValid = form.controls[control].untouched  || form.controls[control].valid;
+   isInsufficientLength(String control) {
       String value = form.controls[control].value;
 
-      return !isValid && !isEmpty(control) && value.length < 6;
+      return !isValid(control) && !isRequired(control) && value.length < 6;
    }
 
-   isTooLong(String control) {
-      bool isValid = form.controls[control].untouched  || form.controls[control].valid;
+   isLengthExcess(String control) {
       String value = form.controls[control].value;
 
-      return !isValid && value.length > 18;
+      return !isValid(control) && value.length > 18;
    }
 
-   isIncorrect(String control) {
-      bool isValid = form.controls[control].untouched  || form.controls[control].valid;
+   isUnhandledError(String control) {
 
-      if(control == 'email') return !isValid && !isEmpty(control);
+      if(control == 'email') return !isValid(control) && !isRequired(control);
 
-      return !isValid && !isEmpty(control) && !isTooLong(control) && !isTooShort(control);
+      return !isValid(control) && !isRequired(control) && !isLengthExcess(control) && !isInsufficientLength(control);
    }
 
    LoginComponent() {
