@@ -22,7 +22,14 @@ import 'package:SmartPeopleUI/shared/index.dart';
 class RestoreAccessComponent {
 
    ControlGroup form;
-   Map<String, String> messages;
+
+   isRequired(String control) {
+      String value = form.controls[control].value;
+
+      return !isValid(control) && value.length == 0;
+   }
+
+   isUnhandledError(String control) => !isValid(control) && !isRequired(control);
 
    isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
 
@@ -32,11 +39,6 @@ class RestoreAccessComponent {
          'email': new Control('', Validators.compose([EmailValidator.validate, Validators.required])),
          'code': new Control('', Validators.compose([RestoreCodeValidator.validate, Validators.required]))
       });
-
-      this.messages = {
-         'email': 'Email is required',
-         'code': 'Code is required'
-      };
 
    }
 }
