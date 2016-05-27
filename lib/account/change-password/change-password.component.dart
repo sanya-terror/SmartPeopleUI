@@ -23,17 +23,39 @@ class ChangePasswordComponent {
 
    isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
 
+   isRequired(String control) {
+      String value = form.controls[control].value;
+
+      return !isValid(control) && value.length == 0;
+   }
+
+   isInsufficientLength(String control) {
+      String value = form.controls[control].value;
+
+      return !isValid(control) && !isRequired(control) && value.length < 6;
+   }
+
+   isLengthExcess(String control) {
+      String value = form.controls[control].value;
+
+      return !isValid(control) && value.length > 18;
+   }
+
+   isEqual(String comparativeControl, String controlToCompare) {
+      String comparativeValue = form.controls[comparativeControl].value;
+      String valueToCompare = form.controls[controlToCompare].value;
+
+      return comparativeValue != valueToCompare;
+   }
+
+   isUnhandledError(String control) => !isValid(control) && !isRequired(control) && !isLengthExcess(control) && !isInsufficientLength(control);
+
    ChangePasswordComponent() {
 
       this.form = new ControlGroup({
          'password': new Control('', Validators.compose([PasswordValidator.validate, Validators.required])),
          'passwordRepeat': new Control('', Validators.compose([PasswordValidator.validate, Validators.required])),
       });
-
-      this.messages = {
-         'password': 'Password is required',
-         'passwordRepeat': 'Password is required'
-      };
 
    }
 }
