@@ -30,7 +30,7 @@ class ApiMiddleware {
       var result = await _callApi(endpoint);
       return next(new Action(apiAction.type, result));
     } catch (error) {
-print(error);
+
       if (error is AuthorizationError) return next(ApiActionCreator.unauthorizedAction());
 
       // TODO: Handle different status codes

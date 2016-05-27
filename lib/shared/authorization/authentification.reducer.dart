@@ -1,8 +1,6 @@
-import 'authorization.actions.dart';
-//import 'dart:html' show window;
+import 'authorization.action-creator.dart';
 
 class AuthReducer {
-
 
   static Map<String, dynamic> reduce(Map<String, dynamic> state, Map<String, dynamic> action) {
 
