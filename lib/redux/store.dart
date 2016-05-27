@@ -1,7 +1,8 @@
 import 'action.dart';
+import 'dart:async';
 
 typedef Map<String, dynamic> Reducer(Map<String, dynamic> state, Action action);
-typedef dynamic Dispatcher(Action action);
+typedef Future<dynamic> Dispatcher(Action action);
 typedef Dispatcher Pipe(Dispatcher next);
 typedef Pipe Middleware(Store store);
 
@@ -22,10 +23,10 @@ class Store {
   get state => _currentState;
 
   bool _isMiddlewareExecuting = false;
-  dynamic dispatch(Action action) {
+  Future<dynamic> dispatch(Action action) async {
     if (_middleware != null && !_isMiddlewareExecuting) {
       _isMiddlewareExecuting = true;
-      return _middleware(this)(dispatch)(action);
+      return await _middleware(this)(dispatch)(action);
     }
 
     _isMiddlewareExecuting = false;
@@ -34,7 +35,7 @@ class Store {
 
     _listeners.forEach((listener) => listener());
 
-    return action;
+    return await action;
   }
 
   List<Function> _listeners = [];
