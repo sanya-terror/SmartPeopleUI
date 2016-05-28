@@ -1,3 +1,4 @@
 export 'store.dart';
-export 'applyMiddleware.dart';
+export 'middleware.dart';
+export 'reducer.dart';
 export 'action.dart';

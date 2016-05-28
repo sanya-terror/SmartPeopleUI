@@ -1,10 +1,11 @@
-import 'action.dart';
 import 'dart:async';
 
-typedef Map<String, dynamic> Reducer(Map<String, dynamic> state, Action action);
+import 'action.dart';
+import 'reducer.dart';
+import 'middleware.dart';
+
 typedef Future<dynamic> Dispatcher(Action action);
 typedef Dispatcher Pipe(Dispatcher next);
-typedef Pipe Middleware(Store store);
 
 class Store {
   Reducer _reducer;
