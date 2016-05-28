@@ -19,36 +19,18 @@ import 'package:SmartPeopleUI/shared/index.dart';
 
 class ChangePasswordComponent {
    ControlGroup form;
-   Map<String, String> messages;
 
-   isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
+   isValid(NgControlName control) => control.untouched|| control.valid;
 
-   isRequired(String control) {
-      String value = form.controls[control].value;
+   isRequired(NgControlName control) => !isValid(control) && control.value.length == 0;
 
-      return !isValid(control) && value.length == 0;
-   }
+   isInsufficientLength(NgControlName control) => !isValid(control) && !isRequired(control) && control.value.length < 6;
 
-   isInsufficientLength(String control) {
-      String value = form.controls[control].value;
+   isLengthExcess(NgControlName control) => !isValid(control) && control.value.length > 18;
 
-      return !isValid(control) && !isRequired(control) && value.length < 6;
-   }
+   isNotEqual(NgControlName comparativeControl, NgControlName controlToCompare) => comparativeControl.value != controlToCompare.value;
 
-   isLengthExcess(String control) {
-      String value = form.controls[control].value;
-
-      return !isValid(control) && value.length > 18;
-   }
-
-   isEqual(String comparativeControl, String controlToCompare) {
-      String comparativeValue = form.controls[comparativeControl].value;
-      String valueToCompare = form.controls[controlToCompare].value;
-
-      return comparativeValue != valueToCompare;
-   }
-
-   isUnhandledError(String control) => !isValid(control) && !isRequired(control) && !isLengthExcess(control) && !isInsufficientLength(control);
+   isUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control) && !isLengthExcess(control) && !isInsufficientLength(control);
 
    ChangePasswordComponent() {
 
