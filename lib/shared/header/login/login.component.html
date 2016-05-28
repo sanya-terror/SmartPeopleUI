@@ -11,8 +11,7 @@
 
       <div class="password input-group">
          <label for="current-password">Password</label>
-         <input type="password" name="password" id="current-password" ngControl="password"
-                #password="ngForm">
+         <input type="password" name="password" id="current-password" ngControl="password" #password="ngForm">
          <sp-validation-notification *ngIf="isRequired(password)" [message]="'Password is required'"></sp-validation-notification>
          <sp-validation-notification *ngIf="isInsufficientLength(password)" [message]="'Password is too short'"></sp-validation-notification>
          <sp-validation-notification *ngIf="isLengthExcess(password)" [message]="'Password is too long'"></sp-validation-notification>

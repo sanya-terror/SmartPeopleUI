@@ -18,11 +18,26 @@ import 'index.dart';
 class SignUpComponent{
 
   ControlGroup form;
-  Map<String, String> messages;
 
-  isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
+  isValid(NgControlName control) => control.untouched || control.valid;
+
+  isInsufficientLength(NgControlName control) => !isValid(control) && !isRequired(control) && control.value.length < 6;
+
+  isLengthExcess(NgControlName control) => !isValid(control) && control.value.length > 18;
+
+  isNotEqual(NgControlName comparativeControl, NgControlName controlToCompare) => comparativeControl.value != controlToCompare.value;
+
+  isRequired(NgControlName control) => !isValid(control) && control.value.length == 0;
+
+  isUnhandledError(NgControlName control) {
+
+    if(control.name == 'email' || control.name == 'name' || control.name == 'surname') return !isValid(control) && !isRequired(control);
+
+    return !isValid(control) && !isRequired(control) && !isLengthExcess(control) && !isInsufficientLength(control);
+  }
 
   SignUpComponent() {
+
     this.form = new ControlGroup({
       'name': new Control('', Validators.compose([NameValidator.validate, Validators.required])),
       'surname': new Control('', Validators.compose([NameValidator.validate, Validators.required])),
@@ -32,13 +47,5 @@ class SignUpComponent{
       'gender': new Control('', Validators.required)
     });
 
-    this.messages = {
-      'name': 'Name is required',
-      'surname': 'Surname is required',
-      'email': 'Email is required',
-      'password': 'Password is required',
-      'passwordRepeat': 'Password is required',
-      'gender': 'Gender is required',
-    };
   }
 }
