@@ -5,6 +5,8 @@ import 'package:http/http.dart';
 import 'package:SmartPeopleUI/shared/services/local-storage.interface.dart';
 import 'package:SmartPeopleUI/shared/middleware/index.dart';
 import 'package:SmartPeopleUI/redux/index.dart';
+import 'package:SmartPeopleUI/shared/authorization/authorization.action-creator.dart';
+import 'dart:async';
 
 class FakeLocalStorageService implements ILocalStorageService{
   String getItem(String keyName) => '';
@@ -35,7 +37,7 @@ class ApiMiddlewareTests {
       ILocalStorageService localStorage;
       Client httpClient;
       Store store;
-      Dispatcher next = (Action action) => action;
+      Dispatcher next = (Action action) async => await action;
 
       ApiMiddleware middleware;
 
@@ -52,7 +54,7 @@ class ApiMiddlewareTests {
         expect(result.type, unknownAction.type);
         expect(result.data, unknownAction.data);
       });
-
+      
       test('Should return unauthorized action if no token in local storage', () async {
 
         when(localStorage.getItem('id_token')).thenReturn(null);
@@ -70,7 +72,7 @@ class ApiMiddlewareTests {
 
         Response fakeResponse = new Response('{"test": "result"}', 200);
         when(httpClient
-        .get(url, headers: { 'Authorization': testToken}))
+        .post(url, headers: { 'Authorization': testToken}, body: apiAction.data))
         .thenReturn(fakeResponse);
 
         var result = await middleware.apply(store)(next)(apiAction);
@@ -87,10 +89,60 @@ class ApiMiddlewareTests {
 
         Response fakeResponse = new Response('{"error": "message"}', 400);
         when(httpClient
-        .get(url, headers: { 'Authorization': testToken}))
+        .post(url, headers: { 'Authorization': testToken}))
         .thenReturn(fakeResponse);
 
         var result = await middleware.apply(store)(next)(apiAction);
+        expect(result.type, API_ERROR_ACTION);
+        expect(result.data, null);
+      });
+
+      test('Should try to authorize if requested login', () async {
+
+        var url = ApiMiddleware.BASE_URL + '/authorize';
+        var data = {'user': 'TestUser', 'password': 'qwerty123'};
+
+        Response fakeResponse = new Response('{"token": "some_cool_token"}', 200);
+        when(httpClient.post(url, headers: {}, body: data))
+        .thenReturn(fakeResponse);
+
+        var action = new Action(LOGIN_REQUEST, data);
+        var result = await middleware.apply(store)(next)(action);
+        expect(result.type, LOGIN_SUCCESS);
+        expect(result.data, {'token': 'some_cool_token'});
+      });
+
+      test('Should return login failure if authorization failed', () async {
+
+        var url = ApiMiddleware.BASE_URL + '/authorize';
+        var data = {'user': 'TestUser', 'password': 'qwerty123'};
+
+        Response fakeResponse = new Response('{"error": "Some error message!"}', 200);
+        when(httpClient.post(url, headers: {}, body: data))
+        .thenReturn(fakeResponse);
+
+        var action = new Action(LOGIN_REQUEST, data);
+        var result = await middleware.apply(store)(next)(action);
+        expect(result.type, LOGIN_FAILURE);
+        expect(result.data, {'message': 'Some error message!'});
+      });
+
+
+      test('Should return api error action if authorization request failed', () async {
+
+        var testToken = 'test_token';
+        var url = ApiMiddleware.BASE_URL + apiAction.endpoint;
+        var data = {'user': 'TestUser', 'password': 'qwerty123'};
+
+        when(localStorage.getItem('id_token')).thenReturn(testToken);
+
+        Response fakeResponse = new Response('{"error": "message"}', 400);
+        when(httpClient
+        .post(url, headers: { 'Authorization': testToken}))
+        .thenReturn(fakeResponse);
+
+        var action = new Action(LOGIN_REQUEST, data);
+        var result = await middleware.apply(store)(next)(action);
         expect(result.type, API_ERROR_ACTION);
         expect(result.data, null);
       });

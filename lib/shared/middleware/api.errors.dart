@@ -1,5 +1,3 @@
-class AuthorizationError extends Error {}
-
 class ApiError extends Error {
   int statusCode;
   String error;
