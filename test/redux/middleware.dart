@@ -6,7 +6,7 @@ class ApplyMiddlewareTests {
   static run() {
     group('Redux apply middleware', () {
 
-      test('Should apply composed middleware', () {
+      test('Should apply composed middleware', () async {
 
         Middleware middleware1 = (store) => (next) => (action){
           action.data['text'] += ' + "String from 1st middleware"';
@@ -20,7 +20,7 @@ class ApplyMiddlewareTests {
 
         Store store = new Store(testReducer, initialState: testState, middleware: applyMiddleware([middleware1, middleware2]));
 
-        store.dispatch(addRecordAction('"String from outside"'));
+        await store.dispatch(addRecordAction('"String from outside"'));
 
         expect(store.state,  {
           'initialized': true,

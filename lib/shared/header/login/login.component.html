@@ -3,19 +3,20 @@
 
       <div class="email input-group">
          <label for="current-email">Email</label>
-         <input type="text" name="email" id="current-email" ngControl="email"/>
-         <sp-validation-notification *ngIf="isRequired('email')" [message]="'Email is required'"></sp-validation-notification>
-         <sp-validation-notification *ngIf="isUnhandledError('email')" [message]="'Email is incorrect'"></sp-validation-notification>
+         <input type="text" name="email" id="current-email" ngControl="email" #email="ngForm"/>
+         <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
+         <sp-validation-notification *ngIf="isUnhandledError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
          <md-checkbox aria-label="Remember me" class="helper" md-no-ink>Remember me</md-checkbox>
       </div>
 
       <div class="password input-group">
          <label for="current-password">Password</label>
-         <input type="password" name="password" id="current-password" ngControl="password">
-         <sp-validation-notification *ngIf="isRequired('password')" [message]="'Password is required'"></sp-validation-notification>
-         <sp-validation-notification *ngIf="isInsufficientLength('password')" [message]="'Password is too short'"></sp-validation-notification>
-         <sp-validation-notification *ngIf="isLengthExcess('password')" [message]="'Password is too long'"></sp-validation-notification>
-         <sp-validation-notification *ngIf="isUnhandledError('password')" [message]="'Password is incorrect'"></sp-validation-notification>
+         <input type="password" name="password" id="current-password" ngControl="password"
+                #password="ngForm">
+         <sp-validation-notification *ngIf="isRequired(password)" [message]="'Password is required'"></sp-validation-notification>
+         <sp-validation-notification *ngIf="isInsufficientLength(password)" [message]="'Password is too short'"></sp-validation-notification>
+         <sp-validation-notification *ngIf="isLengthExcess(password)" [message]="'Password is too long'"></sp-validation-notification>
+         <sp-validation-notification *ngIf="isUnhandledError(password)" [message]="'Password is incorrect'"></sp-validation-notification>
          <a [routerLink]="['RestoreAccess']" class="helper">Forgot password ?</a>
       </div>
 

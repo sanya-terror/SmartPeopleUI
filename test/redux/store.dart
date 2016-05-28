@@ -1,6 +1,7 @@
 import 'package:test/test.dart';
 import 'package:SmartPeopleUI/redux/index.dart';
 import 'helpers.dart';
+import 'dart:async';
 
 class StoreTests {
   static run() {
@@ -24,23 +25,23 @@ class StoreTests {
         expect(() => new Store(null, initialState: null), throwsArgumentError);
       });
 
-      test('Should apply reducer', () {
+      test('Should apply reducer', () async {
         Store store = new Store(testReducer);
 
         expect(store.state, {});
 
-        store.dispatch(testAction);
+        await store.dispatch(testAction);
 
         expect(store.state, {'reducerApplied': true});
       });
 
-      test('Should apply reducer to the previous state', () {
+      test('Should apply reducer to the previous state', () async {
         Store store = new Store(testReducer);
 
-        store.dispatch(testAction);
+        await store.dispatch(testAction);
         expect(store.state, {'reducerApplied': true});
 
-        store.dispatch(addRecordAction('Hello'));
+        await store.dispatch(addRecordAction('Hello'));
         expect(store.state, {
           'reducerApplied': true,
           'list': [
@@ -48,7 +49,7 @@ class StoreTests {
           ]
         });
 
-        store.dispatch(addRecordAction('World'));
+        await store.dispatch(addRecordAction('World'));
         expect(store.state, {
           'reducerApplied': true,
           'list': [
@@ -67,35 +68,35 @@ class StoreTests {
         store.dispatch(testAction);
       });
 
-      test('Should be able to unsubscribe', () {
+      test('Should be able to unsubscribe', () async {
         var listener = new ListenerMock();
         Store store = new Store(testReducer);
 
         var unsubscribe = store.subscribe(listener);
 
-        store.dispatch(unknownAction);
+        await store.dispatch(unknownAction);
         expect(listener.calls, 1);
-        store.dispatch(unknownAction);
+        await store.dispatch(unknownAction);
         expect(listener.calls, 2);
 
         unsubscribe();
 
-        store.dispatch(unknownAction);
+        await store.dispatch(unknownAction);
         expect(listener.calls, 2);
       });
 
-      test('Should support multiple subscriptions', () {
+      test('Should support multiple subscriptions', () async {
         Store store = new Store(testReducer);
         var listenerA = new ListenerMock();
         var listenerB = new ListenerMock();
 
         var unsubscribeA = store.subscribe(listenerA);
 
-        store.dispatch(unknownAction);
+        await store.dispatch(unknownAction);
         expect(listenerA.calls, 1);
         expect(listenerB.calls, 0);
 
-        store.dispatch(unknownAction);
+        await store.dispatch(unknownAction);
         expect(listenerA.calls, 2);
         expect(listenerB.calls, 0);
 
@@ -103,7 +104,7 @@ class StoreTests {
         expect(listenerA.calls, 2);
         expect(listenerB.calls, 0);
 
-        store.dispatch(unknownAction);
+        await store.dispatch(unknownAction);
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 1);
 
@@ -111,7 +112,7 @@ class StoreTests {
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 1);
 
-        store.dispatch(unknownAction);
+        await store.dispatch(unknownAction);
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
@@ -119,7 +120,7 @@ class StoreTests {
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
-        store.dispatch(unknownAction);
+        await store.dispatch(unknownAction);
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
@@ -127,12 +128,12 @@ class StoreTests {
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
-        store.dispatch(unknownAction);
+        await store.dispatch(unknownAction);
         expect(listenerA.calls, 4);
         expect(listenerB.calls, 2);
       });
 
-      test('Should only remove listener once when unsubscribe is called', () {
+      test('Should only remove listener once when unsubscribe is called', () async {
         Store store = new Store(testReducer);
         var listenerA = new ListenerMock();
         var listenerB = new ListenerMock();
@@ -143,12 +144,12 @@ class StoreTests {
         unsubscribeA();
         unsubscribeA();
 
-        store.dispatch(unknownAction);
+        await store.dispatch(unknownAction);
         expect(listenerA.calls, 0);
         expect(listenerB.calls, 1);
       });
 
-      test('Should only remove relevant listener when unsubscribe is called', () {
+      test('Should only remove relevant listener when unsubscribe is called', () async {
         Store store = new Store(testReducer);
         var listener = new ListenerMock();
 
@@ -158,25 +159,25 @@ class StoreTests {
         unsubscribeB();
         unsubscribeB();
 
-        store.dispatch(unknownAction);
+        await store.dispatch(unknownAction);
         expect(listener.calls, 1);
       });
 
-      test('Should recover from an error within a reducer', () {
+      test('Should recover from an error within a reducer', () async {
         Store store = new Store(testReducer);
 
-        expect(() => store.dispatch(errorAction), throws);
-        expect(() => store.dispatch(unknownAction), returnsNormally);
+        expect(store.dispatch(errorAction), throws);
+        expect(() async => await store.dispatch(unknownAction), returnsNormally);
       });
 
-      test('Should apply middleware before reducers', () {
+      test('Should apply middleware before reducers', () async {
         Middleware middleware = (Store store) {
           expect(store.state, testState);
           return (next) => (action) => next(addRecordAction('String from middleware'));
         };
 
         Store store = new Store(testReducer, initialState: testState, middleware: middleware);
-        store.dispatch(addRecordAction("Will not be added"));
+        await store.dispatch(addRecordAction("Will not be added"));
 
         expect(store.state, {
           'initialized': true,
@@ -187,17 +188,17 @@ class StoreTests {
         });
       });
 
-      test('Should return function from middleware and not modify data', () {
+      test('Should return function from middleware and not modify data', () async {
         bool callbackCalled = false;
 
-        Middleware middleware = (store) => (next) => (action) {
+        Middleware middleware = (store) => (next) => (action) async{
               return () {
                 callbackCalled = true;
               };
             };
 
         Store store = new Store(testReducer, initialState: testState, middleware: middleware);
-        var callbackFunction = store.dispatch(addRecordAction("Will not be added"));
+        var callbackFunction = await store.dispatch(addRecordAction("Will not be added"));
 
         callbackFunction();
 

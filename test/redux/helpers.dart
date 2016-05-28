@@ -3,6 +3,7 @@ import 'package:SmartPeopleUI/redux/index.dart';
 Map<String, dynamic> testState = {'initialized': true, 'meaningOfLife': 42};
 
 const FIRST_ACTION = 'FIRST_ACTION';
+const SECOND_ACTION = 'SECOND_ACTION';
 const ADD_RECORD = 'ADD_RECORD';
 const ERROR = 'ERROR';
 
