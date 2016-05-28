@@ -23,29 +23,14 @@ class LoginComponent{
 
    ControlGroup form;
 
-   isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
+   isValid(NgControlName control) => control.untouched|| control.valid;
+   isRequired(NgControlName control) => !isValid(control) && control.value.length == 0;
+   isInsufficientLength(NgControlName control) => !isValid(control) && !isRequired(control) && control.value.length < 6;
+   isLengthExcess(NgControlName control) => !isValid(control) && control.value.length > 18;
 
-   isRequired(String control) {
-      String value = form.controls[control].value;
+   isUnhandledError(NgControlName control) {
 
-      return !isValid(control) && value.length == 0;
-   }
-
-   isInsufficientLength(String control) {
-      String value = form.controls[control].value;
-
-      return !isValid(control) && !isRequired(control) && value.length < 6;
-   }
-
-   isLengthExcess(String control) {
-      String value = form.controls[control].value;
-
-      return !isValid(control) && value.length > 18;
-   }
-
-   isUnhandledError(String control) {
-
-      if(control == 'email') return !isValid(control) && !isRequired(control);
+      if(control.name == 'email') return !isValid(control) && !isRequired(control);
 
       return !isValid(control) && !isRequired(control) && !isLengthExcess(control) && !isInsufficientLength(control);
    }
