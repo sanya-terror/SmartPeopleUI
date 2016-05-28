@@ -23,15 +23,11 @@ class RestoreAccessComponent {
 
    ControlGroup form;
 
-   isRequired(String control) {
-      String value = form.controls[control].value;
+   isValid(NgControlName control) => control.untouched|| control.valid;
 
-      return !isValid(control) && value.length == 0;
-   }
+   isRequired(NgControlName control) => !isValid(control) && control.value.length == 0;
 
-   isUnhandledError(String control) => !isValid(control) && !isRequired(control);
-
-   isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
+   isUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control);
 
    RestoreAccessComponent() {
 
