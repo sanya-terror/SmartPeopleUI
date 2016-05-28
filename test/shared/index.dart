@@ -1,6 +1,7 @@
 import 'validators/index.dart';
 import 'authorization/index.dart';
 import 'middleware/index.dart';
+import 'header/index.dart';
 
 class SharedTests{
   static run(){
