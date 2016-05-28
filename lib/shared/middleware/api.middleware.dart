@@ -33,7 +33,7 @@ class ApiMiddleware {
   Future<Action> _tryAuthorize(Action action)async {
 
     try {
-      var result = await _callApi('/authorize', body: action.data);
+      var result = await _callApi('/authorize', 'POST', body: action.data);
 
       if (result['token'] == null)
         return AuthorizationActionCreator.loginError(result['error']);
@@ -51,7 +51,7 @@ class ApiMiddleware {
     if (token == null) return ApiActionCreator.unauthorizedAction();
 
     try {
-      var result = await _callApi(action.endpoint, token: token, body: action.data);
+      var result = await _callApi(action.endpoint, action.method, token: token, body: action.data);
       return new Action(action.type, result);
     } catch (error) {
       // TODO: Handle different status codes
@@ -59,7 +59,8 @@ class ApiMiddleware {
     }
   }
 
-  Future<dynamic> _callApi(String endpoint, {String token: null, Map<String, dynamic> body: const {}}) async {
+  Future<dynamic> _callApi(String endpoint, String method,  {String token: null, Map<String, dynamic> body: const {}})
+  async {
 
     Map<String, String> _headers = {};
     if (token != null)
@@ -68,7 +69,21 @@ class ApiMiddleware {
     final url = BASE_URL + endpoint;
 
     // TODO handle different method types
-    Response response = await _httpClient.post(url, headers: _headers, body: body);
+    Response response = null;
+
+    switch(method){
+      case 'POST':
+        response = await _httpClient.post(url, headers: _headers, body: body);
+        break;
+      case 'PUT':
+        response = await _httpClient.put(url, headers: _headers, body: body);
+        break;
+      case 'DELETE':
+        response = await _httpClient.delete(url, headers: _headers);
+        break;
+      default:
+        response = await _httpClient.get(url, headers: _headers);
+    }
 
     var result = JSON.decode(response.body);
     if (response.statusCode != 200) throw new ApiError(response.statusCode, result);

@@ -28,7 +28,6 @@ class MockStore extends Mock implements Store{
 }
 
 get unknownAction => new Action('UNKNOWN', { 'test': 'passed'});
-get apiAction => new ApiAction('NEXT', '/test/url', { 'test': 'passed'} );
 
 class ApiMiddlewareTests {
   static run() {
@@ -54,36 +53,93 @@ class ApiMiddlewareTests {
         expect(result.type, unknownAction.type);
         expect(result.data, unknownAction.data);
       });
-      
+
       test('Should return unauthorized action if no token in local storage', () async {
 
         when(localStorage.getItem('id_token')).thenReturn(null);
 
-        var result = await middleware.apply(store)(next)(apiAction);
+        var action = new ApiAction('NEXT', '/test/url', 'POST', { 'test': 'passed'} );
+        var result = await middleware.apply(store)(next)(action);
         expect(result.type, UNAUTHORIZED_ACTION);
       });
 
-      test('Should return current action with data received from http client', () async {
+      test('Should handle http GET request', () async {
 
         var testToken = 'test_token';
-        var url = ApiMiddleware.BASE_URL + apiAction.endpoint;
+        var action = new ApiAction('NEXT', '/test/url', 'GET');
+        var url = ApiMiddleware.BASE_URL + action.endpoint;
 
         when(localStorage.getItem('id_token')).thenReturn(testToken);
 
         Response fakeResponse = new Response('{"test": "result"}', 200);
         when(httpClient
-        .post(url, headers: { 'Authorization': testToken}, body: apiAction.data))
+        .get(url, headers: { 'Authorization': testToken}))
         .thenReturn(fakeResponse);
 
-        var result = await middleware.apply(store)(next)(apiAction);
-        expect(result.type, apiAction.type);
+        var result = await middleware.apply(store)(next)(action);
+        expect(result.type, action.type);
+        expect(result.data, {'test': 'result'});
+      });
+
+      test('Should handle http DELETE request', () async {
+
+        var testToken = 'test_token';
+        var action = new ApiAction('NEXT', '/test/url', 'DELETE');
+        var url = ApiMiddleware.BASE_URL + action.endpoint;
+
+        when(localStorage.getItem('id_token')).thenReturn(testToken);
+
+        Response fakeResponse = new Response('{"test": "result"}', 200);
+        when(httpClient
+        .delete(url, headers: { 'Authorization': testToken}))
+        .thenReturn(fakeResponse);
+
+        var result = await middleware.apply(store)(next)(action);
+        expect(result.type, action.type);
+        expect(result.data, {'test': 'result'});
+      });
+
+      test('Should handle http POST request', () async {
+
+        var testToken = 'test_token';
+        var action = new ApiAction('NEXT', '/test/url', 'POST', { 'test': 'passed'});
+        var url = ApiMiddleware.BASE_URL + action.endpoint;
+
+        when(localStorage.getItem('id_token')).thenReturn(testToken);
+
+        Response fakeResponse = new Response('{"test": "result"}', 200);
+        when(httpClient
+        .post(url, headers: { 'Authorization': testToken}, body: action.data))
+        .thenReturn(fakeResponse);
+
+        var result = await middleware.apply(store)(next)(action);
+        expect(result.type, action.type);
+        expect(result.data, {'test': 'result'});
+      });
+
+      test('Should handle http PUT request', () async {
+
+        var testToken = 'test_token';
+        var action = new ApiAction('NEXT', '/test/url', 'PUT', { 'test': 'passed'});
+        var url = ApiMiddleware.BASE_URL + action.endpoint;
+
+        when(localStorage.getItem('id_token')).thenReturn(testToken);
+
+        Response fakeResponse = new Response('{"test": "result"}', 200);
+        when(httpClient
+        .put(url, headers: { 'Authorization': testToken}, body: action.data))
+        .thenReturn(fakeResponse);
+
+        var result = await middleware.apply(store)(next)(action);
+        expect(result.type, action.type);
         expect(result.data, {'test': 'result'});
       });
 
       test('Should return api error action', () async {
 
+        var action = new ApiAction('NEXT', '/test/url', 'POST', { 'test': 'passed'});
         var testToken = 'test_token';
-        var url = ApiMiddleware.BASE_URL + apiAction.endpoint;
+        var url = ApiMiddleware.BASE_URL + action.endpoint;
 
         when(localStorage.getItem('id_token')).thenReturn(testToken);
 
@@ -92,7 +148,7 @@ class ApiMiddlewareTests {
         .post(url, headers: { 'Authorization': testToken}))
         .thenReturn(fakeResponse);
 
-        var result = await middleware.apply(store)(next)(apiAction);
+        var result = await middleware.apply(store)(next)(action);
         expect(result.type, API_ERROR_ACTION);
         expect(result.data, null);
       });
@@ -127,11 +183,10 @@ class ApiMiddlewareTests {
         expect(result.data, {'message': 'Some error message!'});
       });
 
-
       test('Should return api error action if authorization request failed', () async {
 
         var testToken = 'test_token';
-        var url = ApiMiddleware.BASE_URL + apiAction.endpoint;
+        var url = ApiMiddleware.BASE_URL + '/authorize';
         var data = {'user': 'TestUser', 'password': 'qwerty123'};
 
         when(localStorage.getItem('id_token')).thenReturn(testToken);
