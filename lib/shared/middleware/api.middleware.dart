@@ -41,22 +41,20 @@ class ApiMiddleware {
 
       return AuthorizationActionCreator.receiveLogin(result);
     } catch (error) {
-      // TODO: Handle different status codes
-      return ApiActionCreator.apiErrorAction();
+      return _handleError(error);
     }
   }
 
   Future<Action> _tryCallApi(ApiAction action)async {
 
     String token = _localStorage.getItem('id_token');
-    if (token == null) return ApiActionCreator.unauthorizedAction();
+    if (token == null) return await ApiActionCreator.unauthorizedAction(new AuthorizationError());
 
     try {
       var result = await _callApi(action.endpoint, action.method, token: token, body: action.data);
       return new Action(action.type, result);
     } catch (error) {
-      // TODO: Handle different status codes
-      return ApiActionCreator.apiErrorAction();
+      return _handleError(error);
     }
   }
 
@@ -89,5 +87,28 @@ class ApiMiddleware {
     if (response.statusCode != 200) throw new ApiError(response.statusCode, result);
 
     return result;
+  }
+
+  Action _handleError(error) {
+
+    print(error);
+    if (error is ApiError) return _handleApiError(error);
+
+    return new Action('GENERAL_ERROR_ACTION', { 'error': error.toString() });
+  }
+
+  Action _handleApiError(ApiError error){
+    switch(error.statusCode){
+      case 400:
+        return ApiActionCreator.badRequestAction(error);
+      case 401:
+        return ApiActionCreator.unauthorizedAction(error);
+      case 403:
+        return ApiActionCreator.forbiddenAction(error);
+      case 404:
+        return ApiActionCreator.notFoundAction(error);
+      default:
+        return ApiActionCreator.internalServerErrorAction(error);
+    }
   }
 }

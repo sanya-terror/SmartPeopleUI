@@ -128,22 +128,33 @@ class ApiMiddlewareTests {
         expect(result.data, {'test': 'result'});
       });
 
-      test('Should return api error action', () async {
+      var errorTestCases = [
+        {'statusCode': 400, 'actionType': BAD_REQUEST_ACTION},
+        {'statusCode': 401, 'actionType': UNAUTHORIZED_ACTION},
+        {'statusCode': 403, 'actionType': FORBIDDEN_ACTION},
+        {'statusCode': 404, 'actionType': NOT_FOUND_ACTION},
+        {'statusCode': 500, 'actionType': INTERNAL_SERVER_ERROR_ACTION},
+      ];
 
-        var action = new ApiAction('NEXT', '/test/url', 'POST', { 'test': 'passed'});
-        var testToken = 'test_token';
-        var url = ApiMiddleware.BASE_URL + action.endpoint;
+      errorTestCases.forEach((testCase){
+        test('Should return ${testCase['actionType']}', () async {
 
-        when(localStorage.getItem('id_token')).thenReturn(testToken);
+          var action = new ApiAction('NEXT', '/test/url', 'GET');
+          var testToken = 'test_token';
+          var url = ApiMiddleware.BASE_URL + action.endpoint;
 
-        Response fakeResponse = new Response('{"error": "message"}', 400);
-        when(httpClient
-        .post(url, headers: { 'Authorization': testToken}))
-        .thenReturn(fakeResponse);
+          when(localStorage.getItem('id_token')).thenReturn(testToken);
 
-        var result = await middleware.apply(store)(next)(action);
-        expect(result.type, API_ERROR_ACTION);
-        expect(result.data, null);
+          Response fakeResponse = new Response('{"error": "error message"}', testCase['statusCode']);
+          when(httpClient
+          .get(url, headers: { 'Authorization': testToken}))
+          .thenReturn(fakeResponse);
+
+          var result = await middleware.apply(store)(next)(action);
+          expect(result.type, testCase['actionType']);
+          expect(result.data, {'error': 'error message'});
+        });
+
       });
 
       test('Should try to authorize if requested login', () async {
@@ -186,13 +197,13 @@ class ApiMiddlewareTests {
 
         Response fakeResponse = new Response('{"error": "message"}', 400);
         when(httpClient
-        .post(url, headers: { 'Authorization': testToken}))
+        .post(url, headers: {}, body: data))
         .thenReturn(fakeResponse);
 
         var action = new Action(LOGIN_REQUEST, data);
         var result = await middleware.apply(store)(next)(action);
-        expect(result.type, API_ERROR_ACTION);
-        expect(result.data, null);
+        expect(result.type, BAD_REQUEST_ACTION);
+        expect(result.data, {'error': 'message'});
       });
     });
   }
