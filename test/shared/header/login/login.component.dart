@@ -7,7 +7,6 @@ class MockNgControlName extends Mock implements NgControlName {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
-@TestOn('browser')
 class LoginComponentTests {
   static run() {
     group('Api action', () {

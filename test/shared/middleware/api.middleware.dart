@@ -1,25 +1,18 @@
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:http/http.dart';
+import 'package:http/browser_client.dart';
 
-import 'package:SmartPeopleUI/shared/services/local-storage.interface.dart';
+import 'package:SmartPeopleUI/shared/services/local-storage.service.dart';
 import 'package:SmartPeopleUI/shared/middleware/index.dart';
 import 'package:SmartPeopleUI/redux/index.dart';
 import 'package:SmartPeopleUI/shared/authorization/authorization.action-creator.dart';
-import 'dart:async';
+import 'package:http/http.dart';
 
-class FakeLocalStorageService implements ILocalStorageService{
-  String getItem(String keyName) => '';
-  void setItem(String key, String value) {}
-  void clear(){}
-  bool containsKey(String key) => false;
-}
-
-class MockLocalStorage extends Mock implements ILocalStorageService{
+class MockLocalStorage extends Mock implements LocalStorageService{
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
-class MockHttpClient extends Mock implements Client{
+class MockHttpClient extends Mock implements BrowserClient{
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
@@ -33,16 +26,16 @@ class ApiMiddlewareTests {
   static run() {
     group('Api middleware', ()
     {
-      ILocalStorageService localStorage;
-      Client httpClient;
+      LocalStorageService localStorage;
+      BrowserClient httpClient;
       Store store;
       Dispatcher next = (Action action) async => await action;
 
       ApiMiddleware middleware;
 
       setUp((){
-        localStorage = spy(new MockLocalStorage(), new FakeLocalStorageService());
-        httpClient = spy(new MockHttpClient(), new Client());
+        localStorage = spy(new MockLocalStorage(), new LocalStorageService());
+        httpClient = spy(new MockHttpClient(), new BrowserClient());
         store = new MockStore();
 
         middleware = new ApiMiddleware(localStorage, httpClient);

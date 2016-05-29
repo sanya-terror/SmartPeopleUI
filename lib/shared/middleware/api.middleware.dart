@@ -1,24 +1,25 @@
-import 'package:http/http.dart';
+import 'package:http/browser_client.dart';
 import 'dart:async';
 
 import 'package:SmartPeopleUI/redux/index.dart';
 
-import '../services/local-storage.interface.dart';
+import '../services/local-storage.service.dart';
 import '../authorization/index.dart';
 
 import 'api.action-creator.dart';
 import 'api.errors.dart';
 import 'dart:convert';
+import 'package:http/http.dart';
 
 class ApiMiddleware {
 
   static final BASE_URL = 'http://localhost:3001/api';
 
-  Client _httpClient;
-  ILocalStorageService _localStorage;
+  BrowserClient _httpClient;
+  LocalStorageService _localStorage;
 
-  ApiMiddleware(ILocalStorageService this._localStorage, [Client httpClient = null]) {
-    this._httpClient = (httpClient == null) ? new Client() : httpClient;
+  ApiMiddleware(LocalStorageService this._localStorage, [BrowserClient httpClient = null]) {
+    this._httpClient = (httpClient == null) ? new BrowserClient() : httpClient;
   }
 
   dynamic apply(Store store) => (Dispatcher next) => (Action action) async {
@@ -68,7 +69,6 @@ class ApiMiddleware {
 
     final url = BASE_URL + endpoint;
 
-    // TODO handle different method types
     Response response = null;
 
     switch(method){
