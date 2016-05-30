@@ -5,7 +5,7 @@ import 'package:angular2/router.dart';
 import 'package:angular2_material/src/components/button/button.dart';
 import 'package:angular2_material/src/components/checkbox/checkbox.dart';
 
-import 'package:SmartPeopleUI/shared/validators/index.dart';
+import 'package:SmartPeopleUI/shared/index.dart';
 
 @Component(
     selector: 'sp-login',
@@ -19,21 +19,8 @@ import 'package:SmartPeopleUI/shared/validators/index.dart';
     encapsulation: ViewEncapsulation.Native, //TODO it is temporary, in further should remove and avoid
     styleUrls: const ['login.component.css'])
 
-class LoginComponent{
-
+class LoginComponent extends FormComponent{
    ControlGroup form;
-
-   isValid(NgControlName control) => control.untouched || control.valid;
-
-   isRequired(NgControlName control) => !isValid(control) && control.value.length == 0;
-
-   isInsufficientLength(NgControlName control) => !isValid(control) && !isRequired(control) && control.value.length < 6;
-
-   isLengthExcess(NgControlName control) => !isValid(control) && control.value.length > 18;
-
-   isGeneralUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control);
-
-   isPasswordUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control) && !isLengthExcess(control) && !isInsufficientLength(control);
 
    LoginComponent() {
 

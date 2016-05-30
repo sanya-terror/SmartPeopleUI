@@ -17,20 +17,8 @@ import 'package:SmartPeopleUI/shared/index.dart';
     templateUrl: 'error-authorization.component.html',
     styleUrls: const['error-authorization.component.css'])
 
-class ErrorAuthorizationComponent {
+class ErrorAuthorizationComponent extends FormComponent{
    ControlGroup form;
-
-   isValid(NgControlName control) => control.untouched|| control.valid;
-
-   isRequired(NgControlName control) => !isValid(control) && control.value.length == 0;
-
-   isInsufficientLength(NgControlName control) => !isValid(control) && !isRequired(control) && control.value.length < 6;
-
-   isLengthExcess(NgControlName control) => !isValid(control) && control.value.length > 18;
-
-   isGeneralUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control);
-
-   isPasswordUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control) && !isLengthExcess(control) && !isInsufficientLength(control);
 
    ErrorAuthorizationComponent() {
 

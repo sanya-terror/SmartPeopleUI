@@ -19,15 +19,8 @@ import 'package:SmartPeopleUI/shared/index.dart';
     templateUrl: 'restore-access.component.html',
     styleUrls: const['restore-access.component.css'])
 
-class RestoreAccessComponent {
-
+class RestoreAccessComponent extends FormComponent{
    ControlGroup form;
-
-   isValid(NgControlName control) => control.untouched|| control.valid;
-
-   isRequired(NgControlName control) => !isValid(control) && control.value.length == 0;
-
-   isGeneralUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control);
 
    RestoreAccessComponent() {
 

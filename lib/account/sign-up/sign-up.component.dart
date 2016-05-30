@@ -2,7 +2,7 @@ import 'package:angular2/core.dart';
 import 'package:angular2/common.dart';
 import 'package:angular2/router.dart';
 
-import 'package:SmartPeopleUI/shared/validators/index.dart';
+import 'package:SmartPeopleUI/shared/index.dart';
 import 'index.dart';
 
 @Component(
@@ -15,23 +15,8 @@ import 'index.dart';
     encapsulation: ViewEncapsulation.Native,//TODO it is temporary, in further should remove and avoid
     templateUrl: 'sign-up.component.html')
 
-class SignUpComponent{
-
+class SignUpComponent extends FormComponent{
   ControlGroup form;
-
-  isValid(NgControlName control) => control.untouched || control.valid;
-
-  isInsufficientLength(NgControlName control) => !isValid(control) && !isRequired(control) && control.value.length < 6;
-
-  isLengthExcess(NgControlName control) => !isValid(control) && control.value.length > 18;
-
-  isNotEqual(NgControlName comparativeControl, NgControlName controlToCompare) => comparativeControl.value != controlToCompare.value;
-
-  isRequired(NgControlName control) => !isValid(control) && control.value.length == 0;
-
-  isGeneralUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control);
-
-  isPasswordUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control) && !isLengthExcess(control) && !isInsufficientLength(control);
 
   SignUpComponent() {
 
