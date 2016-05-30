@@ -8,14 +8,14 @@ const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 class AuthorizationActionCreator {
 
   static Action requestLogin(credentials) {
-    return new Action(LOGIN_REQUEST, {'isFetching': true, 'isAuthenticated': false, 'credentials': credentials});
+    return new Action(LOGIN_REQUEST, {'credentials': credentials});
   }
 
   static Action receiveLogin(user) {
-    return new Action(LOGIN_SUCCESS, { 'isFetching': false, 'isAuthenticated': true, 'id_token': user['token']});
+    return new Action(LOGIN_SUCCESS, { 'token': user['token']});
   }
 
   static Action loginError(message) {
-    return new Action(LOGIN_FAILURE, { 'isFetching': false, 'isAuthenticated': false, 'message': message});
+    return new Action(LOGIN_FAILURE, { 'message': message});
   }
 }

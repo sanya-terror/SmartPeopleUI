@@ -4,13 +4,6 @@ class AuthReducer {
 
   static Map<String, dynamic> reduce(Map<String, dynamic> state, Map<String, dynamic> action) {
 
-    if (state == null){
-      state = {
-        'isFetching': false,
-        'isAuthenticated': false,
-      };
-    }
-
     switch (action['type']) {
       case LOGIN_REQUEST:
         return new Map.from(state)

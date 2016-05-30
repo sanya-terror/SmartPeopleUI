@@ -1,7 +1,9 @@
-class AuthorizationError extends Error {}
+class AuthorizationError extends ApiError {
+  AuthorizationError([Map<String, dynamic> data = const {}]) : super(401, data);
+}
 
 class ApiError extends Error {
   int statusCode;
-  String error;
-  ApiError(int this.statusCode, String this.error);
+  Map<String, dynamic> data;
+  ApiError(int this.statusCode, Map<String, dynamic> this.data);
 }
