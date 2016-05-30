@@ -15,21 +15,21 @@
 			<div class="name-group">
 				<input type="text" placeholder="Name" name="name" ngControl="name" #name="ngForm"/>
 				<sp-validation-notification *ngIf="isRequired(name)" [message]="'Name is required'"></sp-validation-notification>
-				<sp-validation-notification *ngIf="isUnhandledError(name)" [message]="'Name is incorrect'"></sp-validation-notification>
+				<sp-validation-notification *ngIf="isGeneralUnhandledError(name)" [message]="'Name is incorrect'"></sp-validation-notification>
 				<input type="text" placeholder="Surname" name="surname" ngControl="surname" #surname="ngForm"/>
 				<sp-validation-notification *ngIf="isRequired(surname)" [message]="'Surname is required'"></sp-validation-notification>
-				<sp-validation-notification *ngIf="isUnhandledError(surname)" [message]="'Surname is incorrect'"></sp-validation-notification>
+				<sp-validation-notification *ngIf="isGeneralUnhandledError(surname)" [message]="'Surname is incorrect'"></sp-validation-notification>
 			</div>
 
 			<input type="text" placeholder="Email" name="email" ngControl="email" #email="ngForm"/>
 			<sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
-			<sp-validation-notification *ngIf="isUnhandledError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
+			<sp-validation-notification *ngIf="isGeneralUnhandledError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
 
 			<input type="password" placeholder="Password" name="password" ngControl="password" #password="ngForm"/>
 			<sp-validation-notification *ngIf="isRequired(password)" [message]="'Password is required'"></sp-validation-notification>
 			<sp-validation-notification *ngIf="isInsufficientLength(password)" [message]="'Password is too short'"></sp-validation-notification>
 			<sp-validation-notification *ngIf="isLengthExcess(password)" [message]="'Password is too long'"></sp-validation-notification>
-			<sp-validation-notification *ngIf="isUnhandledError(password)" [message]="'Password is incorrect'"></sp-validation-notification>
+			<sp-validation-notification *ngIf="isPasswordUnhandledError(password)" [message]="'Password is incorrect'"></sp-validation-notification>
 
 			<input type="password" placeholder="Repeat password" name="passwordRepeat" ngControl="passwordRepeat" #passwordRepeat="ngForm"/>
 			<sp-validation-notification *ngIf="isNotEqual(passwordRepeat, password)" [message]="'Passwords are not equal'"></sp-validation-notification>

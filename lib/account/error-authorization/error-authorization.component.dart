@@ -28,12 +28,9 @@ class ErrorAuthorizationComponent {
 
    isLengthExcess(NgControlName control) => !isValid(control) && control.value.length > 18;
 
-   isUnhandledError(NgControlName control) {
+   isGeneralUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control);
 
-      if(control.name == 'email') return !isValid(control) && !isRequired(control);
-
-      return !isValid(control) && !isRequired(control) && !isLengthExcess(control) && !isInsufficientLength(control);
-   }
+   isPasswordUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control) && !isLengthExcess(control) && !isInsufficientLength(control);
 
    ErrorAuthorizationComponent() {
 

@@ -27,7 +27,7 @@ class RestoreAccessComponent {
 
    isRequired(NgControlName control) => !isValid(control) && control.value.length == 0;
 
-   isUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control);
+   isGeneralUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control);
 
    RestoreAccessComponent() {
 

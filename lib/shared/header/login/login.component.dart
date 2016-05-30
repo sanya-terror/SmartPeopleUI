@@ -31,7 +31,7 @@ class LoginComponent{
 
    isLengthExcess(NgControlName control) => !isValid(control) && control.value.length > 18;
 
-   isEmailUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control);
+   isGeneralUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control);
 
    isPasswordUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control) && !isLengthExcess(control) && !isInsufficientLength(control);
 

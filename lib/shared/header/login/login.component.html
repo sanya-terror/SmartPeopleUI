@@ -5,7 +5,7 @@
          <label for="current-email">Email</label>
          <input type="text" name="email" id="current-email" ngControl="email" #email="ngForm"/>
          <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
-         <sp-validation-notification *ngIf="isEmailUnhandledError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
+         <sp-validation-notification *ngIf="isGeneralUnhandledError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
          <md-checkbox aria-label="Remember me" class="helper" md-no-ink>Remember me</md-checkbox>
       </div>
 
