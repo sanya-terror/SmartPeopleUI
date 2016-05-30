@@ -3,17 +3,19 @@ import 'dart:async';
 import 'action.dart';
 import 'reducer.dart';
 import 'middleware.dart';
+import 'state.dart';
 
 typedef Future<dynamic> Dispatcher(Action action);
 typedef Dispatcher Pipe(Dispatcher next);
 
-class Store {
+class Store{
   Reducer _reducer;
-  Map<dynamic, dynamic> _currentState;
+  State _currentState;
   Middleware _middleware;
 
-  Store(Reducer reducer, {Map<String, dynamic> initialState: const {}, Middleware middleware}) {
-    if (initialState == null) throw new ArgumentError.notNull("initialState");
+  Store(Reducer reducer, {State initialState, Middleware middleware}) {
+    if (initialState == null)
+      initialState = State.emptyState;
 
     if (middleware != null) this._middleware = middleware;
 

@@ -1,6 +1,6 @@
 import 'package:SmartPeopleUI/redux/index.dart';
 
-Map<String, dynamic> testState = {'initialized': true, 'meaningOfLife': 42};
+State testState = new State({'initialized': true, 'meaningOfLife': 42});
 
 const FIRST_ACTION = 'FIRST_ACTION';
 const SECOND_ACTION = 'SECOND_ACTION';
@@ -12,18 +12,18 @@ get testAction => new Action(FIRST_ACTION);
 get unknownAction => new Action('UNKNOWN');
 get errorAction => new Action('ERROR');
 
-Map<String, dynamic> emptyReducer(Map<String, dynamic> state, Action action) => state;
+State emptyReducer(State state, Action action) => state;
 
-Map<String, dynamic> testReducer(Map<String, dynamic> state, Action action) {
+State testReducer(State state, Action action) {
   switch (action.type) {
     case FIRST_ACTION:
-      return new Map.from(state)..['reducerApplied'] = true;
+      return new State.from(state)..['reducerApplied'] = true;
 
     case ADD_RECORD:
-      var result = new Map.from(state);
+      var result = new State.from(state);
       var newRecord = {'message': action.data['text']};
       if (result.containsKey('list')) {
-        (result['list'] as List<Map<String, dynamic>>).add(newRecord);
+        (result['list'] as List<State>).add(newRecord);
       } else {
         result['list'] = [newRecord];
       }

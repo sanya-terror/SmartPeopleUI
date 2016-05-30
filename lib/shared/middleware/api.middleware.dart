@@ -91,7 +91,6 @@ class ApiMiddleware {
 
   Action _handleError(error) {
 
-    print(error);
     if (error is ApiError) return _handleApiError(error);
 
     return new Action('GENERAL_ERROR_ACTION', { 'error': error.toString() });

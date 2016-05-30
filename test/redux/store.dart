@@ -21,10 +21,6 @@ class StoreTests {
         expect(store.state, {});
       });
 
-      test('Should throw exception if initial state is null', () {
-        expect(() => new Store(null, initialState: null), throwsArgumentError);
-      });
-
       test('Should apply reducer', () async {
         Store store = new Store(testReducer);
 
