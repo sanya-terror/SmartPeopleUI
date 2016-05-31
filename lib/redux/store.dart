@@ -8,12 +8,15 @@ import 'state.dart';
 typedef Future<dynamic> Dispatcher(Action action);
 typedef Dispatcher Pipe(Dispatcher next);
 
-class Store{
+class Store extends Stream<State>{
   Reducer _reducer;
   State _currentState;
   Middleware _middleware;
 
+  StreamController<State> _controller;
+
   Store(Reducer reducer, {State initialState, Middleware middleware}) {
+
     if (initialState == null)
       initialState = State.emptyState;
 
@@ -21,6 +24,8 @@ class Store{
 
     _reducer = reducer;
     _currentState = initialState;
+
+    _controller = new StreamController.broadcast();
   }
 
   get state => _currentState;
@@ -35,26 +40,9 @@ class Store{
     _isMiddlewareExecuting = false;
 
     _currentState = _reducer(_currentState, action);
-
-    _listeners.forEach((listener) => listener());
+    _controller.add(_currentState);
 
     return await action;
-  }
-
-  List<Function> _listeners = [];
-  Function subscribe(Function listener) {
-    _listeners.add(listener);
-
-    var isSubscribed = true;
-
-    return () {
-      if (!isSubscribed) {
-        return;
-      }
-
-      isSubscribed = false;
-      _listeners.remove(listener);
-    };
   }
 
   subscribeOnce(Function listener) {
@@ -65,5 +53,10 @@ class Store{
   replaceReducer() {
     //TODO AN: if we really need it
     throw new UnimplementedError();
+  }
+
+  @override
+  StreamSubscription<State> listen(void onData(State event), {Function onError, void onDone(), bool cancelOnError}) {
+    return _controller.stream.listen(onData, onError: onError, onDone: onDone, cancelOnError: cancelOnError);
   }
 }

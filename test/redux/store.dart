@@ -58,8 +58,9 @@ class StoreTests {
       test('Should notify subscribers about state change', () {
         Store store = new Store(testReducer, initialState: testState);
 
-        store.subscribe(() {
-          expect(store.state, {'initialized': true, 'meaningOfLife': 42, 'reducerApplied': true});
+        store.listen((State state) {
+          expect(state, {'initialized': true, 'meaningOfLife': 42, 'reducerApplied': true});
+          expect(store.state, state);
         });
         store.dispatch(testAction);
       });
@@ -68,14 +69,14 @@ class StoreTests {
         var listener = new ListenerMock();
         Store store = new Store(testReducer);
 
-        var unsubscribe = store.subscribe(listener);
+        var subscription = store.listen(listener);
 
         await store.dispatch(unknownAction);
         expect(listener.calls, 1);
         await store.dispatch(unknownAction);
         expect(listener.calls, 2);
 
-        unsubscribe();
+        subscription.cancel();
 
         await store.dispatch(unknownAction);
         expect(listener.calls, 2);
@@ -86,7 +87,7 @@ class StoreTests {
         var listenerA = new ListenerMock();
         var listenerB = new ListenerMock();
 
-        var unsubscribeA = store.subscribe(listenerA);
+        var subscriptionA = store.listen(listenerA);
 
         await store.dispatch(unknownAction);
         expect(listenerA.calls, 1);
@@ -96,7 +97,7 @@ class StoreTests {
         expect(listenerA.calls, 2);
         expect(listenerB.calls, 0);
 
-        var unsubscribeB = store.subscribe(listenerB);
+        var subscriptionB = store.listen(listenerB);
         expect(listenerA.calls, 2);
         expect(listenerB.calls, 0);
 
@@ -104,7 +105,7 @@ class StoreTests {
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 1);
 
-        unsubscribeA();
+        subscriptionA.cancel();
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 1);
 
@@ -112,7 +113,7 @@ class StoreTests {
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
-        unsubscribeB();
+        subscriptionB.cancel();
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
@@ -120,7 +121,7 @@ class StoreTests {
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
-        unsubscribeA = store.subscribe(listenerA);
+        subscriptionA = store.listen(listenerA);
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
@@ -129,16 +130,45 @@ class StoreTests {
         expect(listenerB.calls, 2);
       });
 
+      test('Should support subscriptions lifecycle', () async {
+        Store store = new Store(testReducer);
+        var listener = new ListenerMock();
+        StreamSubscription<State> subscription = store.listen(listener);
+
+        await store.dispatch(unknownAction);
+        expect(listener.calls, 1, reason: 'Call listener on data received');
+
+        subscription.pause();
+        await store.dispatch(unknownAction);
+        expect(listener.calls, 1, reason: 'Do not call listener if paused');
+
+        subscription.resume();
+        await store.dispatch(unknownAction);
+        expect(listener.calls, 3, reason: 'Receive all missed messages if resumed');
+
+        subscription.cancel();
+        await store.dispatch(unknownAction);
+        expect(listener.calls, 3, reason: 'Do not call listener if canceled');
+
+        subscription.resume();
+        await store.dispatch(unknownAction);
+        expect(listener.calls, 3, reason: 'Will not resume if canceled previously');
+
+        subscription = store.listen(listener);
+        await store.dispatch(unknownAction);
+        expect(listener.calls, 4, reason: 'Call listener on data received in new subscription');
+      });
+
       test('Should only remove listener once when unsubscribe is called', () async {
         Store store = new Store(testReducer);
         var listenerA = new ListenerMock();
         var listenerB = new ListenerMock();
 
-        var unsubscribeA = store.subscribe(listenerA);
-        store.subscribe(listenerB);
+        var subscriptionA = store.listen(listenerA);
+        store.listen(listenerB);
 
-        unsubscribeA();
-        unsubscribeA();
+        subscriptionA.cancel();
+        subscriptionA.cancel();
 
         await store.dispatch(unknownAction);
         expect(listenerA.calls, 0);
@@ -149,11 +179,11 @@ class StoreTests {
         Store store = new Store(testReducer);
         var listener = new ListenerMock();
 
-        store.subscribe(listener);
-        var unsubscribeB = store.subscribe(listener);
+        store.listen(listener);
+        var subscriptionB = store.listen(listener);
 
-        unsubscribeB();
-        unsubscribeB();
+        subscriptionB.cancel();
+        subscriptionB.cancel();
 
         await store.dispatch(unknownAction);
         expect(listener.calls, 1);

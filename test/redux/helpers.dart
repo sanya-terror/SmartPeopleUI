@@ -39,7 +39,7 @@ State testReducer(State state, Action action) {
 
 class ListenerMock {
   num calls = 0;
-  call() {
+  call(State state) {
     calls++;
   }
 }
