@@ -25,8 +25,16 @@ class LoginComponent extends FormComponent{
    LoginComponent() {
 
       this.form = new ControlGroup({
-         'email': new Control('', Validators.compose([EmailValidator.validate, Validators.required])),
-         'password': new Control('', Validators.compose([PasswordValidator.validate, Validators.required]))
+         'email': new Control('', Validators.compose([
+            EmailValidator.validate,
+            Validators.required
+         ])),
+         'password': new Control('', Validators.compose([
+            PasswordValidator.validate,
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(18)
+         ]))
       });
 
    }

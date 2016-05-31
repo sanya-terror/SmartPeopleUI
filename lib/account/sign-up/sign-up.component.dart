@@ -21,11 +21,28 @@ class SignUpComponent extends FormComponent{
   SignUpComponent() {
 
     this.form = new ControlGroup({
-      'name': new Control('', Validators.compose([NameValidator.validate, Validators.required])),
-      'surname': new Control('', Validators.compose([NameValidator.validate, Validators.required])),
-      'email': new Control('', Validators.compose([EmailValidator.validate, Validators.required])),
-      'password': new Control('', Validators.compose([PasswordValidator.validate, Validators.required])),
-      'passwordRepeat': new Control('', Validators.compose([PasswordValidator.validate, Validators.required])),
+      'name': new Control('', Validators.compose([
+         NameValidator.validate,
+         Validators.required
+      ])),
+      'surname': new Control('', Validators.compose([
+         NameValidator.validate,
+         Validators.required
+      ])),
+      'email': new Control('', Validators.compose([
+         EmailValidator.validate,
+         Validators.required
+      ])),
+      'password': new Control('', Validators.compose([
+         PasswordValidator.validate,
+         Validators.required,
+         Validators.minLength(6),
+         Validators.maxLength(18)
+      ])),
+      'passwordRepeat': new Control('', Validators.compose([
+         PasswordValidator.validate,
+         Validators.required
+      ])),
       'gender': new Control('', Validators.required)
     });
 

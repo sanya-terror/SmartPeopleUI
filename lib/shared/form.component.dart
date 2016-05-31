@@ -4,11 +4,11 @@ class FormComponent{
 
    isValid(NgControlName control) => control.untouched || control.valid;
 
-   isRequired(NgControlName control) => !isValid(control) && control.value.length == 0;
+   isRequired(NgControlName control) => !isValid(control) && control.errors.containsKey('required');
 
-   isInsufficientLength(NgControlName control) => !isValid(control) && !isRequired(control) && control.value.length < 6;
+   isInsufficientLength(NgControlName control) => !isValid(control) && control.errors.containsKey('minlength');
 
-   isLengthExcess(NgControlName control) => !isValid(control) && control.value.length > 18;
+   isLengthExcess(NgControlName control) => !isValid(control) && control.errors.containsKey('maxlength');
 
    isGeneralUnhandledError(NgControlName control) => !isValid(control) && !isRequired(control);
 
