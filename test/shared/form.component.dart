@@ -128,33 +128,36 @@ class FormComponentTests {
             });
          });
 
-         group('Is control has unhandled error', (){
-            var isGeneralUnhandledErrorTestCases = [
+         group('Does control have non-reequired error', () {
+            var isNonRequiredErrorTestCases = [
                { 'invalid': false, 'notRequired': false, 'result': false},
                { 'invalid': false, 'notRequired': true, 'result': false},
                { 'invalid': true, 'notRequired': false, 'result': false},
                { 'invalid': true, 'notRequired': true, 'result': true}
             ];
 
-            isGeneralUnhandledErrorTestCases.forEach((testCase) {
+            isNonRequiredErrorTestCases.forEach((testCase) {
                bool invalid = testCase['invalid'];
                bool notRequired = testCase['notRequired'];
                bool result = testCase['result'];
                bool valid = !invalid;
                bool required = !notRequired;
 
-               test('Should check if general unhandled error. Invalid: $invalid, notRequired: $notRequired, result: $result',
-                   () {
+               test(
+               'Should check if non required error. Invalid: $invalid, notRequired: $notRequired, result: $result', () {
                   _mockValid(valid);
 
                   var errors = _getRequiredError(required);
                   when(mockControl.errors).thenReturn(errors);
 
-                  expect(component.isGeneralUnhandledError(mockControl), result);
+                  expect(component.isNonRequiredError(mockControl), result);
                });
             });
+         });
 
-            var isPasswordUnhandledErrorTestCases = [
+         group('Does control have non-range error', (){
+
+               var isNonRangeErrorTestCases = [
                { 'invalid': false, 'notRequired': true, 'notMinlength': true, 'notMaxlength': true, 'result': false},
                { 'invalid': true, 'notRequired': false, 'notMinlength': true, 'notMaxlength': true, 'result': false},
                { 'invalid': true, 'notRequired': true, 'notMinlength': false, 'notMaxlength': true, 'result': false},
@@ -162,7 +165,7 @@ class FormComponentTests {
                { 'invalid': true, 'notRequired': true, 'notMinlength': true, 'notMaxlength': true, 'result': true}
             ];
 
-            isPasswordUnhandledErrorTestCases.forEach((testCase) {
+            isNonRangeErrorTestCases.forEach((testCase) {
                bool invalid = testCase['invalid'];
                bool notRequired = testCase['notRequired'];
                bool notMinLength = testCase['notMinlength'];
@@ -174,7 +177,7 @@ class FormComponentTests {
                bool minLength = !notMinLength;
                bool maxLength = !notMaxLength;
 
-               test('Should check if password unhandled error. '
+               test('Should check if non-range error. '
                    'Invalid: $invalid, notRequired: $notRequired, notMinlength: $notMinLength, notMaxlength: $notMaxLength, result: $result',
                    () {
                   _mockValid(valid);
@@ -186,7 +189,7 @@ class FormComponentTests {
 
                   when(mockControl.errors).thenReturn(errors);
 
-                  expect(component.isPasswordUnhandledError(mockControl), result);
+                  expect(component.isNonRangeError(mockControl), result);
                });
             });
          });
