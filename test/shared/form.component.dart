@@ -9,15 +9,25 @@ class MockNgControlName extends Mock implements NgControlName {
 
 class FormComponentTests {
    static run() {
-      group('Api action', () {
-            NgControlName mockControl;
-            FormComponent component = new FormComponent();
+      group('Api actions', () {
+         NgControlName mockControl;
+         FormComponent component = new FormComponent();
 
-            setUp(() {
-               mockControl = spy(new MockNgControlName(),
-                   new NgControlName(null, null, null, null));
-            });
+         setUp(() {
+            mockControl = spy(new MockNgControlName(),
+                new NgControlName(null, null, null, null));
+         });
 
+         _mockValid(bool valid) {
+            when(mockControl.untouched).thenReturn(valid);
+            when(mockControl.valid).thenReturn(valid);
+         }
+
+         _mockRequired(bool required) {
+            when(mockControl.errors).thenReturn(required ? {'required':true} : {});
+         }
+
+         group('Is control valid', (){
             var isValidTestCases = [
                { 'untoched': false, 'valid': false, 'result': false},
                { 'untoched': false, 'valid': true, 'result': true},
@@ -37,12 +47,9 @@ class FormComponentTests {
                   expect(component.isValid(mockControl), result);
                });
             });
+         });
 
-            _mockValid(bool valid) {
-               when(mockControl.untouched).thenReturn(valid);
-               when(mockControl.valid).thenReturn(valid);
-            }
-
+         group('Is control required', () {
             var isRequiredTestCases = [
                { 'invalid': false, 'required': false, 'result': false},
                { 'invalid': false, 'required': true, 'result': false},
@@ -64,7 +71,9 @@ class FormComponentTests {
                   expect(component.isRequired(mockControl), result);
                });
             });
+         });
 
+         group('Is control length correct', () {
             var isInsufficientLengthTestCases = [
                { 'invalid': false, 'minlength': false, 'result': false},
                { 'invalid': false, 'minlength': true, 'result': false},
@@ -81,7 +90,8 @@ class FormComponentTests {
                test('Should check if control length is insufficient. Invalid: $invalid, minlength: $minlength, result: $result',
                    () {
                   _mockValid(valid);
-                  when(mockControl.errors).thenReturn(minlength ? {'minlength':true} : {});
+                  when(mockControl.errors).thenReturn(
+                      minlength ? {'minlength':true} : {});
 
                   expect(component.isInsufficientLength(mockControl), result);
                });
@@ -103,14 +113,39 @@ class FormComponentTests {
                test('Should check if control length is excess. Invalid: $invalid, maxlength: $maxlength, result: $result',
                    () {
                   _mockValid(valid);
-                  when(mockControl.errors).thenReturn(maxlength ? {'maxlength':true} : {});
+                  when(mockControl.errors).thenReturn(
+                      maxlength ? {'maxlength':true} : {});
 
                   expect(component.isLengthExcess(mockControl), result);
                });
             });
-         }
+         });
 
-      );
+         group('Is control has general unhandled error', (){
+            var isGeneralUnhandledErrorTestCases = [
+               { 'invalid': false, 'notRequired': false, 'result': false},
+               { 'invalid': false, 'notRequired': true, 'result': false},
+               { 'invalid': true, 'notRequired': false, 'result': false},
+               { 'invalid': true, 'notRequired': true, 'result': true}
+            ];
+
+            isGeneralUnhandledErrorTestCases.forEach((testCase) {
+               bool invalid = testCase['invalid'];
+               bool notRequired = testCase['notRequired'];
+               bool result = testCase['result'];
+               bool valid = !invalid;
+               bool required = !notRequired;
+
+               test('Should check if general unhandled error. Invalid: $invalid, notRequired: $notRequired, result: $result',
+                   () {
+                  _mockValid(valid);
+                  _mockRequired(required);
+
+                  expect(component.isGeneralUnhandledError(mockControl), result);
+               });
+            });
+         });
+      });
    }
 }
 
