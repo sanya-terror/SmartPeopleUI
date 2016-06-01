@@ -9,7 +9,7 @@ class MockNgControlName extends Mock implements NgControlName {
 
 class FormComponentTests {
    static run() {
-      group('Api actions', () {
+      group('Form component', () {
          NgControlName mockControl;
          FormComponent component = new FormComponent();
 
@@ -23,16 +23,16 @@ class FormComponentTests {
             when(mockControl.valid).thenReturn(valid);
          }
 
-         _mockRequired(bool required) {
-            when(mockControl.errors).thenReturn(required ? {'required':true} : {});
+         _getRequiredError(bool required) {
+            return required ? {'required':true} : {};
          }
 
-         _mockInsufficientLength(bool minlength) {
-            when(mockControl.errors).thenReturn(minlength ? {'minlength':true} : {});
+         _getMinLengthError(bool minLength) {
+            return minLength ? {'minlength':true} : {};
          }
 
-         _mockLengthExcess(bool maxlength) {
-            when(mockControl.errors).thenReturn(maxlength ? {'maxlength':true} : {});
+         _getMaxLengthError(bool maxLength) {
+            return maxLength ? {'maxlength':true} : {};
          }
 
          group('Is control valid', (){
@@ -57,6 +57,7 @@ class FormComponentTests {
          });
 
          group('Is control required', () {
+
             var isRequiredTestCases = [
                { 'invalid': false, 'required': false, 'result': false},
                { 'invalid': false, 'required': true, 'result': false},
@@ -81,6 +82,7 @@ class FormComponentTests {
          });
 
          group('Is control length correct', () {
+
             var isInsufficientLengthTestCases = [
                { 'invalid': false, 'minlength': false, 'result': false},
                { 'invalid': false, 'minlength': true, 'result': false},
@@ -90,14 +92,14 @@ class FormComponentTests {
 
             isInsufficientLengthTestCases.forEach((testCase) {
                bool invalid = testCase['invalid'];
-               bool minlength = testCase['minlength'];
+               bool minLength = testCase['minlength'];
                bool result = testCase['result'];
                bool valid = !invalid;
 
-               test('Should check if control length is insufficient. Invalid: $invalid, minlength: $minlength, result: $result',
+               test('Should check if control length is insufficient. Invalid: $invalid, minlength: $minLength, result: $result',
                    () {
                   _mockValid(valid);
-                  when(mockControl.errors).thenReturn(minlength ? {'minlength':true} : {});
+                  when(mockControl.errors).thenReturn(minLength ? {'minlength':true} : {});
 
                   expect(component.isInsufficientLength(mockControl), result);
                });
@@ -112,14 +114,14 @@ class FormComponentTests {
 
             isLengthExcessTestCases.forEach((testCase) {
                bool invalid = testCase['invalid'];
-               bool maxlength = testCase['maxlength'];
+               bool maxLength = testCase['maxlength'];
                bool result = testCase['result'];
                bool valid = !invalid;
 
-               test('Should check if control length is excess. Invalid: $invalid, maxlength: $maxlength, result: $result',
+               test('Should check if control length is excess. Invalid: $invalid, maxlength: $maxLength, result: $result',
                    () {
                   _mockValid(valid);
-                  when(mockControl.errors).thenReturn(maxlength ? {'maxlength':true} : {});
+                  when(mockControl.errors).thenReturn(maxLength ? {'maxlength':true} : {});
 
                   expect(component.isLengthExcess(mockControl), result);
                });
@@ -144,52 +146,49 @@ class FormComponentTests {
                test('Should check if general unhandled error. Invalid: $invalid, notRequired: $notRequired, result: $result',
                    () {
                   _mockValid(valid);
-                  _mockRequired(required);
+
+                  var errors = _getRequiredError(required);
+                  when(mockControl.errors).thenReturn(errors);
 
                   expect(component.isGeneralUnhandledError(mockControl), result);
                });
             });
-//            var isPasswordUnhandledErrorTestCases = [ TODO Fix taste cases
-//               { 'invalid': false, 'notRequired': false, 'notMinlength': false, 'notMaxlength': false, 'result': false},
-//               { 'invalid': false, 'notRequired': false, 'notMinlength': false, 'notMaxlength': true, 'result': false},
-//               { 'invalid': false, 'notRequired': false, 'notMinlength': true, 'notMaxlength': false, 'result': false},
-//               { 'invalid': false, 'notRequired': false, 'notMinlength': true, 'notMaxlength': true, 'result': false},
-//               { 'invalid': false, 'notRequired': true, 'notMinlength': false, 'notMaxlength': false, 'result': false},
-//               { 'invalid': false, 'notRequired': true, 'notMinlength': false, 'notMaxlength': true, 'result': false},
-//               { 'invalid': false, 'notRequired': true, 'notMinlength': true, 'notMaxlength': false, 'result': false},
-//               { 'invalid': false, 'notRequired': true, 'notMinlength': true, 'notMaxlength': true, 'result': false},
-//               { 'invalid': true, 'notRequired': false, 'notMinlength': false, 'notMaxlength': false, 'result': false},
-//               { 'invalid': true, 'notRequired': false, 'notMinlength': false, 'notMaxlength': true, 'result': false},
-//               { 'invalid': true, 'notRequired': false, 'notMinlength': true, 'notMaxlength': false, 'result': false},
-//               { 'invalid': true, 'notRequired': false, 'notMinlength': true, 'notMaxlength': true, 'result': false},
-//               { 'invalid': true, 'notRequired': true, 'notMinlength': false, 'notMaxlength': false, 'result': false},
-//               { 'invalid': true, 'notRequired': true, 'notMinlength': false, 'notMaxlength': true, 'result': false},
-//               { 'invalid': true, 'notRequired': true, 'notMinlength': true, 'notMaxlength': false, 'result': false},
-//               { 'invalid': true, 'notRequired': true, 'notMinlength': true, 'notMaxlength': true, 'result': true}
-//            ];
-//
-//            isPasswordUnhandledErrorTestCases.forEach((testCase) {
-//               bool invalid = testCase['invalid'];
-//               bool notRequired = testCase['notRequired'];
-//               bool notMinlength = testCase['notMinlength'];
-//               bool notMaxlength = testCase['notMaxlength'];
-//               bool result = testCase['result'];
-//               bool valid = !invalid;
-//               bool required = !notRequired;
-//               bool minlength = !notMinlength;
-//               bool maxlength = !notMaxlength;
-//
-//               test('Should check if password unhandled error. '
-//                   'Invalid: $invalid, notRequired: $notRequired, notMinlength: $notMinlength, notMaxlength: $notMaxlength, result: $result',
-//                   () {
-//                  _mockValid(valid);
-//                  _mockRequired(required);
-//                  _mockInsufficientLength(minlength);
-//                  _mockLengthExcess(maxlength);
-//
-//                  expect(component.isPasswordUnhandledError(mockControl), result);
-//               });
-//            });
+
+            var isPasswordUnhandledErrorTestCases = [
+               { 'invalid': false, 'notRequired': true, 'notMinlength': true, 'notMaxlength': true, 'result': false},
+               { 'invalid': true, 'notRequired': false, 'notMinlength': true, 'notMaxlength': true, 'result': false},
+               { 'invalid': true, 'notRequired': true, 'notMinlength': false, 'notMaxlength': true, 'result': false},
+               { 'invalid': true, 'notRequired': true, 'notMinlength': true, 'notMaxlength': false, 'result': false},
+               { 'invalid': true, 'notRequired': true, 'notMinlength': true, 'notMaxlength': true, 'result': true}
+            ];
+
+            isPasswordUnhandledErrorTestCases.forEach((testCase) {
+               bool invalid = testCase['invalid'];
+               bool notRequired = testCase['notRequired'];
+               bool notMinLength = testCase['notMinlength'];
+               bool notMaxLength = testCase['notMaxlength'];
+
+               bool result = testCase['result'];
+               bool valid = !invalid;
+               bool required = !notRequired;
+               bool minLength = !notMinLength;
+               bool maxLength = !notMaxLength;
+
+               test('Should check if password unhandled error. '
+                   'Invalid: $invalid, notRequired: $notRequired, notMinlength: $notMinLength, notMaxlength: $notMaxLength, result: $result',
+                   () {
+                  _mockValid(valid);
+
+                  var errors = {}
+                     ..addAll(_getRequiredError(required))
+                     ..addAll(_getMinLengthError(minLength))
+                     ..addAll(_getMaxLengthError(maxLength));
+
+                  when(mockControl.errors).thenReturn(errors);
+
+                  expect(component.isPasswordUnhandledError(mockControl), result);
+               });
+            });
          });
       });
    }
