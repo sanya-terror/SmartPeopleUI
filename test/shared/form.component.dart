@@ -11,6 +11,7 @@ class FormComponentTests {
    static run() {
       group('Form component', () {
          NgControlName mockControl;
+         NgControlName mockControlToCompare;
          FormComponent component = new FormComponent();
 
          setUp(() {
@@ -190,6 +191,33 @@ class FormComponentTests {
                   when(mockControl.errors).thenReturn(errors);
 
                   expect(component.isNonRangeError(mockControl), result);
+               });
+            });
+         });
+
+         group('Are controls equal each other', (){
+
+            setUp(() {
+               mockControlToCompare = spy(new MockNgControlName(),
+                   new NgControlName(null, null, null, null));
+            });
+
+            var isEqualTestCases = [
+               {'value1': 'match', 'value2': 'match', 'result': true},
+               {'value1': 'match', 'value2': 'mismatch', 'result': false}
+            ];
+
+            isEqualTestCases.forEach((testCase) {
+               String value1 = testCase['value1'];
+               String value2 = testCase['value2'];
+               bool result = testCase['result'];
+
+               test('Should check whether the controls are equal. Value1: $value1, value2: $value2, $result',
+                   () {
+                      when(mockControl.value).thenReturn(value1);
+                      when(mockControlToCompare.value).thenReturn(value2);
+
+                  expect(component.isEqual(mockControl, mockControlToCompare), result);
                });
             });
          });

@@ -12,8 +12,8 @@ class FormComponent{
 
    isNonRequiredError(NgControlName control) => !isValid(control) && !isRequired(control);
 
-   isNonRangeError(NgControlName control) => !isValid(control) && !isRequired(control) && !isLengthExcess(control) && !isInsufficientLength(control);
+   isNonRangeError(NgControlName control) => isNonRequiredError(control) && !isInsufficientLength(control) && !isLengthExcess(control);
 
-   isNotEqual(NgControlName comparativeControl, NgControlName controlToCompare) => comparativeControl.value != controlToCompare.value;
+   isEqual(NgControlName comparativeControl, NgControlName controlToCompare) => comparativeControl.value == controlToCompare.value;
 
 }
