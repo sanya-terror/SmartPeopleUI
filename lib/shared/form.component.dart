@@ -10,9 +10,9 @@ class FormComponent{
 
    isLengthExcess(NgControlName control) => !isValid(control) && control.errors.containsKey('maxlength');
 
-   isNonRequiredError(NgControlName control) => !isValid(control) && !isRequired(control);
+   hasRequiredError(NgControlName control) => isValid(control) || isRequired(control);
 
-   isNonRangeError(NgControlName control) => isNonRequiredError(control) && !isInsufficientLength(control) && !isLengthExcess(control);
+   hasRangeError(NgControlName control) => hasRequiredError(control) || isInsufficientLength(control) || isLengthExcess(control);
 
    isEqual(NgControlName comparativeControl, NgControlName controlToCompare) => comparativeControl.value == controlToCompare.value;
 

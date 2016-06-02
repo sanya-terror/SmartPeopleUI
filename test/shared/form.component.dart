@@ -130,67 +130,60 @@ class FormComponentTests {
          });
 
          group('Does control have non-reequired error', () {
-            var isNonRequiredErrorTestCases = [
-               { 'invalid': false, 'notRequired': false, 'result': false},
-               { 'invalid': false, 'notRequired': true, 'result': false},
-               { 'invalid': true, 'notRequired': false, 'result': false},
-               { 'invalid': true, 'notRequired': true, 'result': true}
+            var hasRequiredErrorTestCases = [
+               { 'valid': false, 'required': false, 'result': false},
+               { 'valid': false, 'required': true, 'result': true},
+               { 'valid': true, 'required': false, 'result': true},
+               { 'valid': true, 'required': true, 'result': true}
             ];
 
-            isNonRequiredErrorTestCases.forEach((testCase) {
-               bool invalid = testCase['invalid'];
-               bool notRequired = testCase['notRequired'];
+            hasRequiredErrorTestCases.forEach((testCase) {
+               bool valid = testCase['valid'];
+               bool required = testCase['required'];
                bool result = testCase['result'];
-               bool valid = !invalid;
-               bool required = !notRequired;
 
                test(
-               'Should check if non required error. Invalid: $invalid, notRequired: $notRequired, result: $result', () {
+               'Should check if non required error. Valid: $valid, required: $required, result: $result', () {
                   _mockValid(valid);
 
                   var errors = _getRequiredError(required);
                   when(mockControl.errors).thenReturn(errors);
 
-                  expect(component.isNonRequiredError(mockControl), result);
+                  expect(component.hasRequiredError(mockControl), result);
                });
             });
          });
 
          group('Does control have non-range error', (){
 
-               var isNonRangeErrorTestCases = [
-               { 'invalid': false, 'notRequired': true, 'notMinlength': true, 'notMaxlength': true, 'result': false},
-               { 'invalid': true, 'notRequired': false, 'notMinlength': true, 'notMaxlength': true, 'result': false},
-               { 'invalid': true, 'notRequired': true, 'notMinlength': false, 'notMaxlength': true, 'result': false},
-               { 'invalid': true, 'notRequired': true, 'notMinlength': true, 'notMaxlength': false, 'result': false},
-               { 'invalid': true, 'notRequired': true, 'notMinlength': true, 'notMaxlength': true, 'result': true}
+               var hasRangeErrorTestCases = [
+               { 'valid': false, 'required': false, 'minlength': false, 'maxlength': false, 'result': false},
+               { 'valid': false, 'required': false, 'minlength': false, 'maxlength': true, 'result': true},
+               { 'valid': false, 'required': false, 'minlength': true, 'maxlength': false, 'result': true},
+               { 'valid': false, 'required': true, 'minlength': false, 'maxlength': false, 'result': true},
+               { 'valid': true, 'required': false, 'minlength': false, 'maxlength': false, 'result': true}
             ];
 
-            isNonRangeErrorTestCases.forEach((testCase) {
-               bool invalid = testCase['invalid'];
-               bool notRequired = testCase['notRequired'];
-               bool notMinLength = testCase['notMinlength'];
-               bool notMaxLength = testCase['notMaxlength'];
-
+               hasRangeErrorTestCases.forEach((testCase) {
+               bool valid = testCase['valid'];
+               bool required = testCase['required'];
+               bool minlength = testCase['minlength'];
+               bool maxlength = testCase['maxlength'];
                bool result = testCase['result'];
-               bool valid = !invalid;
-               bool required = !notRequired;
-               bool minLength = !notMinLength;
-               bool maxLength = !notMaxLength;
 
                test('Should check if non-range error. '
-                   'Invalid: $invalid, notRequired: $notRequired, notMinlength: $notMinLength, notMaxlength: $notMaxLength, result: $result',
+                   'Valid: $valid, required: $required, minlength: $minlength, maxlength: $maxlength, result: $result',
                    () {
                   _mockValid(valid);
 
                   var errors = {}
                      ..addAll(_getRequiredError(required))
-                     ..addAll(_getMinLengthError(minLength))
-                     ..addAll(_getMaxLengthError(maxLength));
+                     ..addAll(_getMinLengthError(minlength))
+                     ..addAll(_getMaxLengthError(maxlength));
 
                   when(mockControl.errors).thenReturn(errors);
 
-                  expect(component.isNonRangeError(mockControl), result);
+                  expect(component.hasRangeError(mockControl), result);
                });
             });
          });
