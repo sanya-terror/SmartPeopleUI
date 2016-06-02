@@ -13,10 +13,12 @@
                    id="restore-access"
                    class="email"
                    placeholder="Insert email here"
-                   ngControl="email"/>
+                   ngControl="email"
+                   #email="ngForm"/>
 
          </div>
-         <sp-validation-notification *ngIf="!isValid('email')" [message]="messages['email']"></sp-validation-notification>
+         <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
+         <sp-validation-notification *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
          <a mdRaisedButton class="md-primary next-btn" [routerLink]="['ChangePassword']">Next</a>
       </div>
    </form>

@@ -13,32 +13,38 @@
 			</div>
 
 			<div class="name-group">
-				<input type="text" placeholder="Name" name="name" ngControl="name"/>
-				<sp-validation-notification *ngIf="!isValid('name')" [message]="messages['name']"></sp-validation-notification>
-				<input type="text" placeholder="Surname" name="surname" ngControl="surname"/>
-				<sp-validation-notification *ngIf="!isValid('surname')" [message]="messages['surname']"></sp-validation-notification>
+				<input type="text" placeholder="Name" name="name" ngControl="name" #name="ngForm"/>
+				<sp-validation-notification *ngIf="isRequired(name)" [message]="'Name is required'"></sp-validation-notification>
+				<sp-validation-notification *ngIf="!hasRequiredError(name)" [message]="'Name is incorrect'"></sp-validation-notification>
+				<input type="text" placeholder="Surname" name="surname" ngControl="surname" #surname="ngForm"/>
+				<sp-validation-notification *ngIf="isRequired(surname)" [message]="'Surname is required'"></sp-validation-notification>
+				<sp-validation-notification *ngIf="!hasRequiredError(surname)" [message]="'Surname is incorrect'"></sp-validation-notification>
 			</div>
 
-			<input type="text" placeholder="Email" name="email" ngControl="email"/>
-			<sp-validation-notification *ngIf="!isValid('email')" [message]="messages['email']"></sp-validation-notification>
+			<input type="text" placeholder="Email" name="email" ngControl="email" #email="ngForm"/>
+			<sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
+			<sp-validation-notification *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
 
-			<input type="password" placeholder="Password" name="password" ngControl="password"/>
-			<sp-validation-notification *ngIf="!isValid('password')" [message]="messages['password']"></sp-validation-notification>
+			<input type="password" placeholder="Password" name="password" ngControl="password" #password="ngForm"/>
+			<sp-validation-notification *ngIf="isRequired(password)" [message]="'Password is required'"></sp-validation-notification>
+			<sp-validation-notification *ngIf="isInsufficientLength(password)" [message]="'Password is too short'"></sp-validation-notification>
+			<sp-validation-notification *ngIf="isLengthExcess(password)" [message]="'Password is too long'"></sp-validation-notification>
+			<sp-validation-notification *ngIf="!hasRangeError(password)" [message]="'Password is incorrect'"></sp-validation-notification>
 
-			<input type="password" placeholder="Repeat password" name="passwordRepeat" ngControl="passwordRepeat"/>
-			<sp-validation-notification *ngIf="!isValid('passwordRepeat')" [message]="messages['passwordRepeat']"></sp-validation-notification>
-
-			<div class="gender-group">
-				<div class="gender">
-					<input type="radio" name="gender" value="male" id="male"/>
-					<label for="male">Male</label>
-				</div>
-				<div class="gender">
-					<input type="radio" name="gender" value="female" id="female"/>
-					<label for="female">Female</label>
-				</div>
-				<sp-validation-notification *ngIf="!isValid('gender')" [message]="messages['gender']"></sp-validation-notification>
-			</div>
+			<input type="password" placeholder="Repeat password" name="passwordRepeat" ngControl="passwordRepeat" #passwordRepeat="ngForm"/>
+			<sp-validation-notification *ngIf="!isEqual(passwordRepeat, password)" [message]="'Passwords are not equal'"></sp-validation-notification>
+<!--TODO Make validation notification for gender group-->
+			<!--<div class="gender-group">-->
+				<!--<div class="gender">-->
+					<!--<input type="radio" name="gender" value="male" id="male" ngControl="gender" />-->
+					<!--<label for="male">Male</label>-->
+				<!--</div>-->
+				<!--<div class="gender">-->
+					<!--<input type="radio" name="gender" value="female" id="female" ngControl="gender"/>-->
+					<!--<label for="female">Female</label>-->
+				<!--</div>-->
+				<!--<sp-validation-notification *ngIf="!isValid('gender')" [message]="'Gender is required'"></sp-validation-notification>-->
+			<!--</div>-->
 
 			<button mdRaisedButton class="custom-md-success sign-up-btn">Sign up</button>
 		</form>
