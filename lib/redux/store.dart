@@ -8,7 +8,7 @@ import 'state.dart';
 typedef Future<dynamic> Dispatcher(Action action);
 typedef Dispatcher Pipe(Dispatcher next);
 
-class Store extends Stream<State>{
+class Store extends Stream<State> {
   Reducer _reducer;
   State _currentState;
   Middleware _middleware;
@@ -16,9 +16,7 @@ class Store extends Stream<State>{
   StreamController<State> _controller;
 
   Store(Reducer reducer, {State initialState, Middleware middleware}) {
-
-    if (initialState == null)
-      initialState = State.emptyState;
+    if (initialState == null) initialState = State.emptyState;
 
     if (middleware != null) this._middleware = middleware;
 
@@ -56,7 +54,9 @@ class Store extends Stream<State>{
   }
 
   @override
-  StreamSubscription<State> listen(void onData(State event), {Function onError, void onDone(), bool cancelOnError}) {
-    return _controller.stream.listen(onData, onError: onError, onDone: onDone, cancelOnError: cancelOnError);
+  StreamSubscription<State> listen(void onData(State event),
+      {Function onError, void onDone(), bool cancelOnError}) {
+    return _controller.stream.listen(onData,
+        onError: onError, onDone: onDone, cancelOnError: cancelOnError);
   }
 }

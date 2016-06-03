@@ -1,7 +1,7 @@
 import 'name.validator.dart';
 
-class ValidatorsTests{
-  static run(){
+class ValidatorsTests {
+  static run() {
     NameValidatorTests.run();
   }
 }

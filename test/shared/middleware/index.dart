@@ -1,7 +1,7 @@
 import 'api.middleware.dart';
 
-class MiddlewareTests{
-  static run(){
+class MiddlewareTests {
+  static run() {
     ApiMiddlewareTests.run();
   }
 }

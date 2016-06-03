@@ -7,16 +7,19 @@ class AuthReducerTests {
     group('Authorization reducer', () {
       List<Map<String, dynamic>> cases = [
         {
-          'action' : new Action(LOGIN_REQUEST, {'credentials': { 'login': 'TestUser', 'password': 'pass123'}}),
-          'result' : new State({
+          'action': new Action(LOGIN_REQUEST, {
+            'credentials': {'login': 'TestUser', 'password': 'pass123'}
+          }),
+          'result': new State({
             'isFetching': true,
             'isAuthenticated': false,
-            'user': { 'login': 'TestUser', 'password': 'pass123'}
+            'user': {'login': 'TestUser', 'password': 'pass123'}
           })
         },
         {
-          'action' : new Action(LOGIN_SUCCESS, new State({'token': 'some_token'})),
-          'result' : new State({
+          'action':
+              new Action(LOGIN_SUCCESS, new State({'token': 'some_token'})),
+          'result': new State({
             'isFetching': false,
             'isAuthenticated': true,
             'token': 'some_token',
@@ -24,24 +27,19 @@ class AuthReducerTests {
           })
         },
         {
-          'action' : new Action(LOGIN_FAILURE, new State({'error': 'Some error message'})),
-          'result' : new State({
+          'action': new Action(
+              LOGIN_FAILURE, new State({'error': 'Some error message'})),
+          'result': new State({
             'isFetching': false,
             'isAuthenticated': false,
             'errorMessage': 'Some error message'
           })
         },
         {
-          'action' : new Action(LOGOUT_SUCCESS),
-          'result' : new State({
-            'isFetching': true,
-            'isAuthenticated': false
-          })
+          'action': new Action(LOGOUT_SUCCESS),
+          'result': new State({'isFetching': true, 'isAuthenticated': false})
         },
-        {
-          'action' : new Action('UNKNOWN_ACTION'),
-          'result' : new State({})
-        },
+        {'action': new Action('UNKNOWN_ACTION'), 'result': new State({})},
       ];
 
       cases.forEach((testCase) {

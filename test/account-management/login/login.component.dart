@@ -13,7 +13,8 @@ class LoginComponentTests {
       NgControlName mockControl;
 
       setUp(() {
-        mockControl = spy(new MockNgControlName(), new NgControlName(null, null, null, null));
+        mockControl = spy(
+            new MockNgControlName(), new NgControlName(null, null, null, null));
       });
     });
   }

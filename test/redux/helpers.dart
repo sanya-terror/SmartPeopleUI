@@ -7,7 +7,7 @@ const SECOND_ACTION = 'SECOND_ACTION';
 const ADD_RECORD = 'ADD_RECORD';
 const ERROR = 'ERROR';
 
-addRecordAction(text) => new Action(ADD_RECORD, { 'text': text});
+addRecordAction(text) => new Action(ADD_RECORD, {'text': text});
 get testAction => new Action(FIRST_ACTION);
 get unknownAction => new Action('UNKNOWN');
 get errorAction => new Action('ERROR');

@@ -59,7 +59,11 @@ class StoreTests {
         Store store = new Store(testReducer, initialState: testState);
 
         store.listen((State state) {
-          expect(state, {'initialized': true, 'meaningOfLife': 42, 'reducerApplied': true});
+          expect(state, {
+            'initialized': true,
+            'meaningOfLife': 42,
+            'reducerApplied': true
+          });
           expect(store.state, state);
         });
         store.dispatch(testAction);
@@ -144,7 +148,8 @@ class StoreTests {
 
         subscription.resume();
         await store.dispatch(unknownAction);
-        expect(listener.calls, 3, reason: 'Receive all missed messages if resumed');
+        expect(listener.calls, 3,
+            reason: 'Receive all missed messages if resumed');
 
         subscription.cancel();
         await store.dispatch(unknownAction);
@@ -152,14 +157,17 @@ class StoreTests {
 
         subscription.resume();
         await store.dispatch(unknownAction);
-        expect(listener.calls, 3, reason: 'Will not resume if canceled previously');
+        expect(listener.calls, 3,
+            reason: 'Will not resume if canceled previously');
 
         subscription = store.listen(listener);
         await store.dispatch(unknownAction);
-        expect(listener.calls, 4, reason: 'Call listener on data received in new subscription');
+        expect(listener.calls, 4,
+            reason: 'Call listener on data received in new subscription');
       });
 
-      test('Should only remove listener once when unsubscribe is called', () async {
+      test('Should only remove listener once when unsubscribe is called',
+          () async {
         Store store = new Store(testReducer);
         var listenerA = new ListenerMock();
         var listenerB = new ListenerMock();
@@ -175,7 +183,8 @@ class StoreTests {
         expect(listenerB.calls, 1);
       });
 
-      test('Should only remove relevant listener when unsubscribe is called', () async {
+      test('Should only remove relevant listener when unsubscribe is called',
+          () async {
         Store store = new Store(testReducer);
         var listener = new ListenerMock();
 
@@ -193,16 +202,19 @@ class StoreTests {
         Store store = new Store(testReducer);
 
         expect(store.dispatch(errorAction), throws);
-        expect(() async => await store.dispatch(unknownAction), returnsNormally);
+        expect(
+            () async => await store.dispatch(unknownAction), returnsNormally);
       });
 
       test('Should apply middleware before reducers', () async {
         Middleware middleware = (Store store) {
           expect(store.state, testState);
-          return (next) => (action) => next(addRecordAction('String from middleware'));
+          return (next) =>
+              (action) => next(addRecordAction('String from middleware'));
         };
 
-        Store store = new Store(testReducer, initialState: testState, middleware: middleware);
+        Store store = new Store(testReducer,
+            initialState: testState, middleware: middleware);
         await store.dispatch(addRecordAction("Will not be added"));
 
         expect(store.state, {
@@ -214,17 +226,20 @@ class StoreTests {
         });
       });
 
-      test('Should return function from middleware and not modify data', () async {
+      test('Should return function from middleware and not modify data',
+          () async {
         bool callbackCalled = false;
 
-        Middleware middleware = (store) => (next) => (action) async{
+        Middleware middleware = (store) => (next) => (action) async {
               return () {
                 callbackCalled = true;
               };
             };
 
-        Store store = new Store(testReducer, initialState: testState, middleware: middleware);
-        var callbackFunction = await store.dispatch(addRecordAction("Will not be added"));
+        Store store = new Store(testReducer,
+            initialState: testState, middleware: middleware);
+        var callbackFunction =
+            await store.dispatch(addRecordAction("Will not be added"));
 
         callbackFunction();
 

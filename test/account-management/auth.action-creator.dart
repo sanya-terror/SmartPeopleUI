@@ -10,21 +10,21 @@ class AuthorizationActionCreatorTests {
         var error = "error message";
         Action result = AuthActionCreator.loginError(error);
         expect(result.type, LOGIN_FAILURE);
-        expect(result.data, { 'message': error});
+        expect(result.data, {'message': error});
       });
 
       test('Should return login request action', () {
-        var credentials = {'user':'TestUser', 'password': 'test123'};
+        var credentials = {'user': 'TestUser', 'password': 'test123'};
         Action result = AuthActionCreator.requestLogin(credentials);
         expect(result.type, LOGIN_REQUEST);
-        expect(result.data, { 'credentials': credentials});
+        expect(result.data, {'credentials': credentials});
       });
 
       test('Should return login success action', () {
-        var user = {'user':'TestUser', 'token': 'user_token'};
+        var user = {'user': 'TestUser', 'token': 'user_token'};
         Action result = AuthActionCreator.receiveLogin(user);
         expect(result.type, LOGIN_SUCCESS);
-        expect(result.data, { 'token': user['token']});
+        expect(result.data, {'token': user['token']});
       });
     });
   }

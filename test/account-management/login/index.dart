@@ -1,7 +1,7 @@
 import 'login.component.dart';
 
-class LoginTests{
-  static run(){
+class LoginTests {
+  static run() {
     LoginComponentTests.run();
   }
 }

@@ -1,7 +1,7 @@
 import 'validators/index.dart';
 
-class RestoreAccessTests{
-  static run(){
+class RestoreAccessTests {
+  static run() {
     RestoreCodeValidatorTests.run();
   }
 }

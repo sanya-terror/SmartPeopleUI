@@ -4,8 +4,8 @@ import 'login/index.dart';
 import 'auth.action-creator.dart';
 import 'auth.reducer.dart';
 
-class AccountManagementTests{
-  static run(){
+class AccountManagementTests {
+  static run() {
     SignUpTests.run();
     RestoreAccessTests.run();
     LoginTests.run();

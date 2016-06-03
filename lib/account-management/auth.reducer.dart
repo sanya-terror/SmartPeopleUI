@@ -3,9 +3,7 @@ import 'package:SmartPeopleUI/redux/index.dart';
 import 'auth.action-creator.dart';
 
 class AuthReducer {
-
   static State reduce(State state, Action action) {
-
     switch (action.type) {
       case LOGIN_REQUEST:
         return new State.from(state)

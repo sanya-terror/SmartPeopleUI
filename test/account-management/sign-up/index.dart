@@ -1,7 +1,7 @@
 import 'validators/index.dart';
 
-class SignUpTests{
-  static run(){
+class SignUpTests {
+  static run() {
     ValidatorsTests.run();
   }
 }

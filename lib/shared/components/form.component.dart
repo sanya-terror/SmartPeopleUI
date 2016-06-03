@@ -1,19 +1,25 @@
 import 'package:angular2/common.dart';
 
-class FormComponent{
+class FormComponent {
+  isValid(NgControlName control) => control.untouched || control.valid;
 
-   isValid(NgControlName control) => control.untouched || control.valid;
+  isRequired(NgControlName control) =>
+      !isValid(control) && control.errors.containsKey('required');
 
-   isRequired(NgControlName control) => !isValid(control) && control.errors.containsKey('required');
+  isInsufficientLength(NgControlName control) =>
+      !isValid(control) && control.errors.containsKey('minlength');
 
-   isInsufficientLength(NgControlName control) => !isValid(control) && control.errors.containsKey('minlength');
+  isLengthExcess(NgControlName control) =>
+      !isValid(control) && control.errors.containsKey('maxlength');
 
-   isLengthExcess(NgControlName control) => !isValid(control) && control.errors.containsKey('maxlength');
+  hasRequiredError(NgControlName control) =>
+      isValid(control) || isRequired(control);
 
-   hasRequiredError(NgControlName control) => isValid(control) || isRequired(control);
+  hasRangeError(NgControlName control) =>
+      hasRequiredError(control) ||
+      isInsufficientLength(control) ||
+      isLengthExcess(control);
 
-   hasRangeError(NgControlName control) => hasRequiredError(control) || isInsufficientLength(control) || isLengthExcess(control);
-
-   isEqual(NgControlName comparativeControl, NgControlName controlToCompare) => comparativeControl.value == controlToCompare.value;
-
+  isEqual(NgControlName comparativeControl, NgControlName controlToCompare) =>
+      comparativeControl.value == controlToCompare.value;
 }
