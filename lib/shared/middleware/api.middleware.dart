@@ -1,15 +1,12 @@
-import 'package:http/browser_client.dart';
 import 'dart:async';
+import 'dart:convert';
+
+import 'package:http/browser_client.dart';
+import 'package:http/http.dart';
 
 import 'package:SmartPeopleUI/redux/index.dart';
-
-import '../services/local-storage.service.dart';
-import '../authorization/index.dart';
-
-import 'api.action-creator.dart';
-import 'api.errors.dart';
-import 'dart:convert';
-import 'package:http/http.dart';
+import 'package:SmartPeopleUI/shared/index.dart';
+import 'package:SmartPeopleUI/account-management/index.dart';
 
 class ApiMiddleware {
 
@@ -37,9 +34,9 @@ class ApiMiddleware {
       var result = await _callApi('/authorize', 'POST', body: action.data);
 
       if (result['token'] == null)
-        return AuthorizationActionCreator.loginError(result['error']);
+        return AuthActionCreator.loginError(result['error']);
 
-      return AuthorizationActionCreator.receiveLogin(result);
+      return AuthActionCreator.receiveLogin(result);
     } catch (error) {
       return _handleError(error);
     }

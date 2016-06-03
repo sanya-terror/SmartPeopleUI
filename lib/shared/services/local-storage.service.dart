@@ -1,4 +1,5 @@
 import 'dart:html' show window;
+
 import 'package:angular2/core.dart';
 
 @Injectable()

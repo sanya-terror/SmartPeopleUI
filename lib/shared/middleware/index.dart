@@ -1,4 +1,3 @@
-export 'api.errors.dart';
-export 'api.action-creator.dart';
+export 'package:SmartPeopleUI/shared/action-creators/index.dart';
 export 'api.middleware.dart';
 export 'print.middleware.dart';

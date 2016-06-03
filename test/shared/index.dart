@@ -1,16 +1,14 @@
 import 'validators/index.dart';
-import 'authorization/index.dart';
 import 'middleware/index.dart';
-import 'form.component.dart';
-import 'header/index.dart';
+import 'components/index.dart';
+import 'action-creators/index.dart';
 
 class SharedTests{
   static run(){
-    AuthorizationTests.run();
+    ActionCreatorsTests.run();
     MiddlewareTests.run();
     ValidatorsTests.run();
-    HeaderTests.run();
-    FormComponentTests.run();
+    ComponentsTests.run();
   }
 }
 

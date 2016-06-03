@@ -1,12 +1,12 @@
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/browser_client.dart';
-
-import 'package:SmartPeopleUI/shared/services/local-storage.service.dart';
-import 'package:SmartPeopleUI/shared/middleware/index.dart';
-import 'package:SmartPeopleUI/redux/index.dart';
-import 'package:SmartPeopleUI/shared/authorization/authorization.action-creator.dart';
 import 'package:http/http.dart';
+
+import 'package:SmartPeopleUI/shared/index.dart';
+import 'package:SmartPeopleUI/redux/index.dart';
+import 'package:SmartPeopleUI/account-management/auth.action-creator.dart';
+import 'dart:convert';
 
 class MockLocalStorage extends Mock implements LocalStorageService{
   noSuchMethod(i) => super.noSuchMethod(i);
@@ -33,6 +33,8 @@ class ApiMiddlewareTests {
 
       ApiMiddleware middleware;
 
+      Map<String, String> _headers = {'Content-Type': 'application/json'};
+      
       setUp((){
         localStorage = spy(new MockLocalStorage(), new LocalStorageService());
         httpClient = spy(new MockHttpClient(), new BrowserClient());
@@ -61,12 +63,13 @@ class ApiMiddlewareTests {
         var testToken = 'test_token';
         var action = new ApiAction('NEXT', '/test/url', 'GET');
         var url = ApiMiddleware.BASE_URL + action.endpoint;
+        var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
         when(localStorage.getItem('id_token')).thenReturn(testToken);
 
         Response fakeResponse = new Response('{"test": "result"}', 200);
         when(httpClient
-        .get(url, headers: { 'Authorization': testToken}))
+        .get(url, headers: headers))
         .thenReturn(fakeResponse);
 
         var result = await middleware.apply(store)(next)(action);
@@ -79,12 +82,13 @@ class ApiMiddlewareTests {
         var testToken = 'test_token';
         var action = new ApiAction('NEXT', '/test/url', 'DELETE');
         var url = ApiMiddleware.BASE_URL + action.endpoint;
+        var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
         when(localStorage.getItem('id_token')).thenReturn(testToken);
 
         Response fakeResponse = new Response('{"test": "result"}', 200);
         when(httpClient
-        .delete(url, headers: { 'Authorization': testToken}))
+        .delete(url, headers: headers))
         .thenReturn(fakeResponse);
 
         var result = await middleware.apply(store)(next)(action);
@@ -97,12 +101,13 @@ class ApiMiddlewareTests {
         var testToken = 'test_token';
         var action = new ApiAction('NEXT', '/test/url', 'POST', { 'test': 'passed'});
         var url = ApiMiddleware.BASE_URL + action.endpoint;
+        var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
         when(localStorage.getItem('id_token')).thenReturn(testToken);
 
         Response fakeResponse = new Response('{"test": "result"}', 200);
         when(httpClient
-        .post(url, headers: { 'Authorization': testToken}, body: action.data))
+        .post(url, headers: headers, body: JSON.encode(action.data)))
         .thenReturn(fakeResponse);
 
         var result = await middleware.apply(store)(next)(action);
@@ -115,12 +120,13 @@ class ApiMiddlewareTests {
         var testToken = 'test_token';
         var action = new ApiAction('NEXT', '/test/url', 'PUT', { 'test': 'passed'});
         var url = ApiMiddleware.BASE_URL + action.endpoint;
+        var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
         when(localStorage.getItem('id_token')).thenReturn(testToken);
 
         Response fakeResponse = new Response('{"test": "result"}', 200);
         when(httpClient
-        .put(url, headers: { 'Authorization': testToken}, body: action.data))
+        .put(url, headers: headers, body: JSON.encode(action.data)))
         .thenReturn(fakeResponse);
 
         var result = await middleware.apply(store)(next)(action);
@@ -142,12 +148,13 @@ class ApiMiddlewareTests {
           var action = new ApiAction('NEXT', '/test/url', 'GET');
           var testToken = 'test_token';
           var url = ApiMiddleware.BASE_URL + action.endpoint;
+          var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
           when(localStorage.getItem('id_token')).thenReturn(testToken);
 
           Response fakeResponse = new Response('{"error": "error message"}', testCase['statusCode']);
           when(httpClient
-          .get(url, headers: { 'Authorization': testToken}))
+          .get(url, headers: headers))
           .thenReturn(fakeResponse);
 
           var result = await middleware.apply(store)(next)(action);
@@ -163,7 +170,7 @@ class ApiMiddlewareTests {
         var data = {'user': 'TestUser', 'password': 'qwerty123'};
 
         Response fakeResponse = new Response('{"token": "some_cool_token"}', 200);
-        when(httpClient.post(url, headers: {}, body: data))
+        when(httpClient.post(url, headers: _headers, body: JSON.encode(data)))
         .thenReturn(fakeResponse);
 
         var action = new Action(LOGIN_REQUEST, data);
@@ -178,7 +185,7 @@ class ApiMiddlewareTests {
         var data = {'user': 'TestUser', 'password': 'qwerty123'};
 
         Response fakeResponse = new Response('{"error": "Some error message!"}', 200);
-        when(httpClient.post(url, headers: {}, body: data))
+        when(httpClient.post(url, headers: _headers, body: JSON.encode(data)))
         .thenReturn(fakeResponse);
 
         var action = new Action(LOGIN_REQUEST, data);
@@ -197,7 +204,7 @@ class ApiMiddlewareTests {
 
         Response fakeResponse = new Response('{"error": "message"}', 400);
         when(httpClient
-        .post(url, headers: {}, body: data))
+        .post(url, headers: _headers, body: JSON.encode(data)))
         .thenReturn(fakeResponse);
 
         var action = new Action(LOGIN_REQUEST, data);

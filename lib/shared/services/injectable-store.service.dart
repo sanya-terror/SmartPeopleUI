@@ -1,7 +1,5 @@
-import 'package:SmartPeopleUI/redux/index.dart';
 import 'package:angular2/core.dart';
 import 'package:SmartPeopleUI/index.dart';
-import 'package:SmartPeopleUI/shared/index.dart';
 
 @Injectable()
 class InjectableStore extends Store {

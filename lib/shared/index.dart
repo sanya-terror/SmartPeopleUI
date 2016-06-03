@@ -1,8 +1,6 @@
-export 'header/index.dart';
-export 'footer/index.dart';
-export 'info/index.dart';
 export 'validators/index.dart';
-export 'authorization/index.dart';
+export 'components/index.dart';
 export 'services/index.dart';
 export 'middleware/index.dart';
-export 'form.component.dart';
+export 'action-creators/index.dart';
+export 'reducers/index.dart';
