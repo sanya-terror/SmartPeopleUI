@@ -28,25 +28,19 @@ class LoginComponent {
    InjectableStore _store;
    LocalStorageService _localStorage;
 
-   isValid(NgControlName control) => control.untouched || control.valid;
-
-   isRequired(NgControlName control) => !isValid(control) && control.value.length == 0;
-
-   isInsufficientLength(NgControlName control) => !isValid(control) && !isRequired(control) && control.value.length < 6;
-
-   isLengthExcess(NgControlName control) => !isValid(control) && control.value.length > 18;
-
-   // TODO it's better to split this one to 2 separate methods: isEmailUnhandledError and isPasswordUnhandledError
-   isUnhandledError(NgControlName control) {
-      if (control.name == 'email') return !isValid(control) && !isRequired(control);
-
-      return !isValid(control) && !isRequired(control) && !isLengthExcess(control) && !isInsufficientLength(control);
-   }
-
    LoginComponent(this._store, this._localStorage) {
+
       this.form = new ControlGroup({
-         'email': new Control('', Validators.compose([EmailValidator.validate, Validators.required])),
-         'password': new Control('', Validators.compose([PasswordValidator.validate, Validators.required]))
+         'email': new Control('', Validators.compose([
+            EmailValidator.validate,
+            Validators.required
+         ])),
+         'password': new Control('', Validators.compose([
+            PasswordValidator.validate,
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(18)
+         ]))
       });
 
       _store.listen(_onLoginSuccess);

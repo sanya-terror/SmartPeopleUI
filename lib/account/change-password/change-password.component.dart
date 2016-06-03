@@ -17,23 +17,23 @@ import 'package:SmartPeopleUI/shared/index.dart';
     encapsulation: ViewEncapsulation.Native, //TODO it is temporary, in further should remove and avoid
     styleUrls: const['change-password.component.css'])
 
-class ChangePasswordComponent {
+class ChangePasswordComponent extends FormComponent{
    ControlGroup form;
-   Map<String, String> messages;
-
-   isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
 
    ChangePasswordComponent() {
 
       this.form = new ControlGroup({
-         'password': new Control('', Validators.compose([PasswordValidator.validate, Validators.required])),
-         'passwordRepeat': new Control('', Validators.compose([PasswordValidator.validate, Validators.required])),
+         'password': new Control('', Validators.compose([
+            PasswordValidator.validate,
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(18)
+         ])),
+         'passwordRepeat': new Control('', Validators.compose([
+            PasswordValidator.validate,
+            Validators.required
+         ])),
       });
-
-      this.messages = {
-         'password': 'Password is required',
-         'passwordRepeat': 'Password is required'
-      };
 
    }
 }

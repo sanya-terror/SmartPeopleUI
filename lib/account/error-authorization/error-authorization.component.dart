@@ -17,23 +17,23 @@ import 'package:SmartPeopleUI/shared/index.dart';
     templateUrl: 'error-authorization.component.html',
     styleUrls: const['error-authorization.component.css'])
 
-class ErrorAuthorizationComponent {
+class ErrorAuthorizationComponent extends FormComponent{
    ControlGroup form;
-   Map<String, String> messages;
-
-   isValid(String control) => form.controls[control].untouched  || form.controls[control].valid;
 
    ErrorAuthorizationComponent() {
 
       this.form = new ControlGroup({
-         'email': new Control('', Validators.compose([EmailValidator.validate, Validators.required])),
-         'password': new Control('', Validators.compose([PasswordValidator.validate, Validators.required]))
+         'email': new Control('', Validators.compose([
+            EmailValidator.validate,
+            Validators.required
+         ])),
+         'password': new Control('', Validators.compose([
+            PasswordValidator.validate,
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(18)
+         ]))
       });
-
-      this.messages = {
-         'email': 'Email is required',
-         'password': 'Password is required'
-      };
 
    }
 }

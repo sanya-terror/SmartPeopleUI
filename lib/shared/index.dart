@@ -5,3 +5,4 @@ export 'validators/index.dart';
 export 'authorization/index.dart';
 export 'services/index.dart';
 export 'middleware/index.dart';
+export 'form.component.dart';
