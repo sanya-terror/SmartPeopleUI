@@ -1,30 +1,32 @@
 import 'authorization.action-creator.dart';
+import 'package:SmartPeopleUI/redux/index.dart';
 
 class AuthReducer {
 
-  static Map<String, dynamic> reduce(Map<String, dynamic> state, Map<String, dynamic> action) {
+  static State reduce(State state, Action action) {
 
-    switch (action['type']) {
+    switch (action.type) {
       case LOGIN_REQUEST:
-        return new Map.from(state)
+        return new State.from(state)
           ..['isFetching'] = true
           ..['isAuthenticated'] = false
-          ..['user'] = action['credentials'];
+          ..['user'] = action.data['credentials'];
 
       case LOGIN_SUCCESS:
-        return new Map.from(state)
+        return new State.from(state)
           ..['isFetching'] = false
           ..['isAuthenticated'] = true
+          ..['token'] = action.data['token']
           ..['errorMessage'] = '';
 
       case LOGIN_FAILURE:
-        return new Map.from(state)
+        return new State.from(state)
           ..['isFetching'] = false
           ..['isAuthenticated'] = false
-          ..['errorMessage'] = action['message'];
+          ..['errorMessage'] = action.data['message'];
 
       case LOGOUT_SUCCESS:
-        return new Map.from(state)
+        return new State.from(state)
           ..['isFetching'] = true
           ..['isAuthenticated'] = false;
 

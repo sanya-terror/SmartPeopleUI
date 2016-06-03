@@ -14,6 +14,7 @@ dev_dependencies:
   less_dart: '^0.3.3'
   test: '>=0.12.0 <0.13.0'
   mockito: '^0.11.0'
+  redstone: '^0.6.1'
 transformers:
 - less_dart:
     build_mode: dart

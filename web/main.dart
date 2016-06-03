@@ -6,5 +6,7 @@ import 'package:SmartPeopleUI/index.dart';
 
 main() => bootstrap(AppComponent, [
    ROUTER_PROVIDERS,
-   provide(LocationStrategy, useClass: HashLocationStrategy)
+   provide(LocationStrategy, useClass: HashLocationStrategy),
+   LocalStorageService,
+   InjectableStore
 ]);

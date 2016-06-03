@@ -20,7 +20,7 @@
          <a [routerLink]="['RestoreAccess']" class="helper">Forgot password ?</a>
       </div>
 
-		<button mdRaisedButton class="custom-md-success sign-in-btn">Sign in</button>
+		<button mdRaisedButton class="custom-md-success sign-in-btn" (click)="login()">Sign in</button>
 		<!---->
 		<a mdRaisedButton class="md-accent mock" [routerLink]="['ErrorAuthorization']">Error auth mock</a>
 		<!--TODO delete after best ErrorAuthComponent implementation-->

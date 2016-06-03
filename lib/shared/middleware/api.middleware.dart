@@ -13,7 +13,7 @@ import 'package:http/http.dart';
 
 class ApiMiddleware {
 
-  static final BASE_URL = 'http://localhost:3001/api';
+  static final BASE_URL = 'http://localhost:9999/api';
 
   BrowserClient _httpClient;
   LocalStorageService _localStorage;
@@ -61,7 +61,7 @@ class ApiMiddleware {
   Future<dynamic> _callApi(String endpoint, String method,  {String token: null, Map<String, dynamic> body: const {}})
   async {
 
-    Map<String, String> _headers = {};
+    Map<String, String> _headers = { 'Content-Type': 'application/json'};
     if (token != null)
       _headers['Authorization'] = token;
 
@@ -71,10 +71,10 @@ class ApiMiddleware {
 
     switch(method){
       case 'POST':
-        response = await _httpClient.post(url, headers: _headers, body: body);
+        response = await _httpClient.post(url, headers: _headers, body: JSON.encode(body));
         break;
       case 'PUT':
-        response = await _httpClient.put(url, headers: _headers, body: body);
+        response = await _httpClient.put(url, headers: _headers, body: JSON.encode(body));
         break;
       case 'DELETE':
         response = await _httpClient.delete(url, headers: _headers);
