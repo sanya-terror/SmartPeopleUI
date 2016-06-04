@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:http/browser_client.dart';
@@ -6,17 +8,14 @@ import 'package:http/http.dart';
 import 'package:SmartPeopleUI/shared/index.dart';
 import 'package:SmartPeopleUI/redux/index.dart';
 import 'package:SmartPeopleUI/account-management/auth.action-creator.dart';
-import 'dart:convert';
+
+import '../../helpers.dart';
 
 class MockLocalStorage extends Mock implements LocalStorageService {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
 class MockHttpClient extends Mock implements BrowserClient {
-  noSuchMethod(i) => super.noSuchMethod(i);
-}
-
-class MockStore extends Mock implements Store {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
@@ -37,7 +36,7 @@ class ApiMiddlewareTests {
       setUp(() {
         localStorage = spy(new MockLocalStorage(), new LocalStorageService());
         httpClient = spy(new MockHttpClient(), new BrowserClient());
-        store = new MockStore();
+        store = getMockStore();
 
         middleware = new ApiMiddleware(localStorage, httpClient);
       });
