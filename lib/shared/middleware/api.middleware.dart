@@ -21,13 +21,20 @@ class ApiMiddleware {
   }
 
   dynamic apply(Store store) => (Dispatcher next) => (Action action) async {
-        if (action.type == LOGIN_REQUEST)
-          return next(await _tryAuthorize(action));
+    if (action.type == LOGIN_REQUEST) return next(await _tryAuthorize(action));
+    if (action.type == LOGIN_CHECK) return _checkLogin(next);
+    if (!(action is ApiAction)) return next(action);
 
-        if (!(action is ApiAction)) return next(action);
+    return next(await _tryCallApi(action));
+  };
 
-        return next(await _tryCallApi(action));
-      };
+  dynamic _checkLogin(Dispatcher next){
+    String token = _localStorage.getItem(TOKEN_KEY);
+    if (token == null)
+      return {};
+
+    return next(AuthActionCreator.receiveLogin());
+  }
 
   Future<Action> _tryAuthorize(Action action) async {
     try {

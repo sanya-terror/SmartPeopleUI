@@ -37,14 +37,13 @@ class AppComponent {
 
   AppComponent(this._store){
     _store.listen(_onStateChanged);
+    _store.dispatch(AuthActionCreator.checkLogin());
   }
 
   void _onStateChanged(State state) {
 
-    print('state changed');
-
     var isAuthenticated = state['isAuthenticated'];
-    if(isAuthenticated == null) return;
+    if(isAuthenticated == null || this.isAuthenticated == isAuthenticated) return;
 
     this.isAuthenticated = isAuthenticated;
   }

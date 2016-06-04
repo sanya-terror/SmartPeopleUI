@@ -3,6 +3,7 @@ import 'package:SmartPeopleUI/redux/index.dart';
 const LOGIN_REQUEST = 'LOGIN_REQUEST';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILURE = 'LOGIN_FAILURE';
+const LOGIN_CHECK = 'LOGIN_CHECK';
 const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 class AuthActionCreator {
@@ -16,5 +17,9 @@ class AuthActionCreator {
 
   static Action loginError(message) {
     return new Action(LOGIN_FAILURE, {'message': message});
+  }
+
+  static Action checkLogin(){
+    return new Action(LOGIN_CHECK);
   }
 }

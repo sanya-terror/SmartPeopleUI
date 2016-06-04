@@ -25,6 +25,12 @@ class AuthorizationActionCreatorTests {
         expect(result.type, LOGIN_SUCCESS);
         expect(result.data, null);
       });
+
+      test('Should return login check action', () {
+        Action result = AuthActionCreator.checkLogin();
+        expect(result.type, LOGIN_CHECK);
+        expect(result.data, null);
+      });
     });
   }
 }
