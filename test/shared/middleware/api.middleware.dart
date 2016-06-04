@@ -50,7 +50,7 @@ class ApiMiddlewareTests {
 
       test('Should return unauthorized action if no token in local storage',
           () async {
-        when(localStorage.getItem('id_token')).thenReturn(null);
+        when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
 
         var action =
             new ApiAction('NEXT', '/test/url', 'POST', {'test': 'passed'});
@@ -64,7 +64,7 @@ class ApiMiddlewareTests {
         var url = ApiMiddleware.BASE_URL + action.endpoint;
         var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
-        when(localStorage.getItem('id_token')).thenReturn(testToken);
+        when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
 
         Response fakeResponse = new Response('{"test": "result"}', 200);
         when(httpClient.get(url, headers: headers)).thenReturn(fakeResponse);
@@ -80,7 +80,7 @@ class ApiMiddlewareTests {
         var url = ApiMiddleware.BASE_URL + action.endpoint;
         var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
-        when(localStorage.getItem('id_token')).thenReturn(testToken);
+        when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
 
         Response fakeResponse = new Response('{"test": "result"}', 200);
         when(httpClient.delete(url, headers: headers)).thenReturn(fakeResponse);
@@ -97,7 +97,7 @@ class ApiMiddlewareTests {
         var url = ApiMiddleware.BASE_URL + action.endpoint;
         var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
-        when(localStorage.getItem('id_token')).thenReturn(testToken);
+        when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
 
         Response fakeResponse = new Response('{"test": "result"}', 200);
         when(httpClient.post(url,
@@ -116,7 +116,7 @@ class ApiMiddlewareTests {
         var url = ApiMiddleware.BASE_URL + action.endpoint;
         var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
-        when(localStorage.getItem('id_token')).thenReturn(testToken);
+        when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
 
         Response fakeResponse = new Response('{"test": "result"}', 200);
         when(httpClient.put(url,
@@ -143,7 +143,7 @@ class ApiMiddlewareTests {
           var url = ApiMiddleware.BASE_URL + action.endpoint;
           var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
-          when(localStorage.getItem('id_token')).thenReturn(testToken);
+          when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
 
           Response fakeResponse = new Response(
               '{"error": "error message"}', testCase['statusCode']);
@@ -164,10 +164,14 @@ class ApiMiddlewareTests {
         when(httpClient.post(url, headers: _headers, body: JSON.encode(data)))
             .thenReturn(fakeResponse);
 
+
         var action = new Action(LOGIN_REQUEST, data);
         var result = await middleware.apply(store)(next)(action);
+
+        verify(localStorage.setItem(ApiMiddleware.TOKEN_KEY, 'some_cool_token'));
+
         expect(result.type, LOGIN_SUCCESS);
-        expect(result.data, {'token': 'some_cool_token'});
+        expect(result.data, null);
       });
 
       test('Should return login failure if authorization failed', () async {
@@ -191,7 +195,7 @@ class ApiMiddlewareTests {
         var url = ApiMiddleware.BASE_URL + '/authorize';
         var data = {'user': 'TestUser', 'password': 'qwerty123'};
 
-        when(localStorage.getItem('id_token')).thenReturn(testToken);
+        when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
 
         Response fakeResponse = new Response('{"error": "message"}', 400);
         when(httpClient.post(url, headers: _headers, body: JSON.encode(data)))

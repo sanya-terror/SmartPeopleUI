@@ -10,8 +10,8 @@ class AuthActionCreator {
     return new Action(LOGIN_REQUEST, {'credentials': credentials});
   }
 
-  static Action receiveLogin(user) {
-    return new Action(LOGIN_SUCCESS, {'token': user['token']});
+  static Action receiveLogin() {
+    return new Action(LOGIN_SUCCESS);
   }
 
   static Action loginError(message) {

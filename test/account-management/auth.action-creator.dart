@@ -21,10 +21,9 @@ class AuthorizationActionCreatorTests {
       });
 
       test('Should return login success action', () {
-        var user = {'user': 'TestUser', 'token': 'user_token'};
-        Action result = AuthActionCreator.receiveLogin(user);
+        Action result = AuthActionCreator.receiveLogin();
         expect(result.type, LOGIN_SUCCESS);
-        expect(result.data, {'token': user['token']});
+        expect(result.data, null);
       });
     });
   }

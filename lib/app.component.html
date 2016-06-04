@@ -1,6 +1,7 @@
 <div class="app">
     <sp-header class="header">
-        <sp-login></sp-login>
+        <sp-login *ngIf="!isAuthenticated"></sp-login>
+        <div *ngIf="isAuthenticated">Hello, world!</div>
     </sp-header>
     <div class="content">
         <router-outlet></router-outlet>

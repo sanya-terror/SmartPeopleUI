@@ -16,17 +16,15 @@ import 'package:SmartPeopleUI/account-management/index.dart';
       MdButton,
       MdCheckbox
     ],
-    providers: const [InjectableStore],
     templateUrl: 'login.component.html',
     encapsulation: ViewEncapsulation.Native,
 //TODO it is temporary, in further should remove and avoid
     styleUrls: const ['login.component.css'])
 class LoginComponent extends FormComponent {
   ControlGroup form;
-  InjectableStore _store;
-  LocalStorageService _localStorage;
+  final InjectableStore _store;
 
-  LoginComponent(this._store, this._localStorage) {
+  LoginComponent(this._store) {
     this.form = new ControlGroup({
       'email': new Control('',
           Validators.compose([EmailValidator.validate, Validators.required])),
@@ -39,8 +37,6 @@ class LoginComponent extends FormComponent {
             Validators.maxLength(18)
           ]))
     });
-
-    _store.listen(_onLoginSuccess);
   }
 
   login() {
@@ -50,11 +46,5 @@ class LoginComponent extends FormComponent {
       'user': this.form.controls['email'].value,
       'password': this.form.controls['password'].value,
     }));
-  }
-
-  _onLoginSuccess(state) {
-    var token = state['token'];
-    if (token == null) return;
-    _localStorage.setItem('token', token);
   }
 }

@@ -11,6 +11,7 @@ import 'index.dart';
       FooterComponent,
       LoginComponent
     ],
+    providers: const [InjectableStore],
     templateUrl: 'app.component.html',
     styleUrls: const ['app.component.css'])
 @RouteConfig(const [
@@ -29,4 +30,22 @@ import 'index.dart';
       name: 'ErrorAuthorization',
       component: ErrorAuthorizationComponent)
 ])
-class AppComponent {}
+class AppComponent {
+
+  final InjectableStore _store;
+  bool isAuthenticated = false;
+
+  AppComponent(this._store){
+    _store.listen(_onStateChanged);
+  }
+
+  void _onStateChanged(State state) {
+
+    print('state changed');
+
+    var isAuthenticated = state['isAuthenticated'];
+    if(isAuthenticated == null) return;
+
+    this.isAuthenticated = isAuthenticated;
+  }
+}

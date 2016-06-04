@@ -18,11 +18,10 @@ class AuthReducerTests {
         },
         {
           'action':
-              new Action(LOGIN_SUCCESS, new State({'token': 'some_token'})),
+              new Action(LOGIN_SUCCESS),
           'result': new State({
             'isFetching': false,
             'isAuthenticated': true,
-            'token': 'some_token',
             'errorMessage': ''
           })
         },

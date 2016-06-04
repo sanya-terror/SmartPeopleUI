@@ -10,6 +10,7 @@ import 'package:SmartPeopleUI/account-management/index.dart';
 
 class ApiMiddleware {
   static final BASE_URL = 'http://localhost:9999/api';
+  static final TOKEN_KEY = 'access_token';
 
   BrowserClient _httpClient;
   LocalStorageService _localStorage;
@@ -32,17 +33,19 @@ class ApiMiddleware {
     try {
       var result = await _callApi('/authorize', 'POST', body: action.data);
 
-      if (result['token'] == null)
+      var token = result['token'];
+      if (token == null)
         return AuthActionCreator.loginError(result['error']);
 
-      return AuthActionCreator.receiveLogin(result);
+      _localStorage.setItem(TOKEN_KEY, token);
+      return AuthActionCreator.receiveLogin();
     } catch (error) {
       return _handleError(error);
     }
   }
 
   Future<Action> _tryCallApi(ApiAction action) async {
-    String token = _localStorage.getItem('id_token');
+    String token = _localStorage.getItem(TOKEN_KEY);
     if (token == null)
       return await ApiActionCreator
           .unauthorizedAction(new AuthorizationError());

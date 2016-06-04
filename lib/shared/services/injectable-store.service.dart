@@ -7,5 +7,6 @@ class InjectableStore extends Store {
       : super(combineReducers([AuthReducer.reduce]),
             initialState: new State({}),
             middleware: applyMiddleware(
-                [printMiddleware, new ApiMiddleware(localStorage).apply]));
+                [printMiddleware, new ApiMiddleware(localStorage).apply])){
+  }
 }
