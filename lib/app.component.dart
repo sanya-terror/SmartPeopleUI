@@ -33,9 +33,10 @@ import 'index.dart';
 class AppComponent {
 
   final InjectableStore _store;
+  Router _router;
   bool isAuthenticated = false;
 
-  AppComponent(this._store){
+  AppComponent(this._store, this._router){
     _store.listen(_onStateChanged);
     _store.dispatch(AuthActionCreator.checkLogin());
   }
@@ -46,5 +47,8 @@ class AppComponent {
     if(isAuthenticated == null || this.isAuthenticated == isAuthenticated) return;
 
     this.isAuthenticated = isAuthenticated;
+
+    //TODO change to redirect to correct page
+     _router.navigate(['ChangePassword']);
   }
 }
