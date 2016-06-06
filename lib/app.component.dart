@@ -30,13 +30,16 @@ import 'index.dart';
       name: 'ErrorAuthorization',
       component: ErrorAuthorizationComponent)
 ])
-class AppComponent {
+class AppComponent implements OnInit{
 
   final InjectableStore _store;
   Router _router;
   bool isAuthenticated = false;
 
-  AppComponent(this._store, this._router){
+  AppComponent(this._store, this._router);
+
+  @override
+  ngOnInit() {
     _store.listen(_onStateChanged);
     _store.dispatch(AuthActionCreator.checkLogin());
   }
@@ -51,4 +54,5 @@ class AppComponent {
     //TODO change to redirect to correct page
      _router.navigate(['ChangePassword']);
   }
+
 }
