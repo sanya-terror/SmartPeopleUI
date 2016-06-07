@@ -3,11 +3,13 @@ import 'package:SmartPeopleUI/redux/index.dart';
 import 'api.errors.dart';
 
 class ApiAction extends Action {
+
   String endpoint;
   String method;
+  bool checkAuthorization;
 
   ApiAction(String type, this.endpoint,
-      [String this.method = 'GET', Map<String, dynamic> data = null])
+      [String this.method = 'GET', Map<String, dynamic> data = null, bool this.checkAuthorization = true])
       : super(type, data) {
     var allowedMethods = ['GET', 'POST', 'PUT', 'DELETE'];
     if (!allowedMethods.contains(method))
@@ -38,24 +40,24 @@ class ApiErrorAction extends Action {
 
 class ApiActionCreator {
   static ApiAction apiAction(String type, String endpoint, String method,
-          [Map<String, dynamic> data = null]) =>
-      new ApiAction(type, endpoint, method, data);
+          [Map<String, dynamic> data = null, bool checkAuthorization = true]) =>
+      new ApiAction(type, endpoint, method, data, checkAuthorization);
 
   static ApiAction postApiAction(String type, String endpoint,
-          [Map<String, dynamic> data = null]) =>
-      new ApiAction(type, endpoint, 'POST', data);
+          [Map<String, dynamic> data = null, bool checkAuthorization = true]) =>
+      new ApiAction(type, endpoint, 'POST', data, checkAuthorization);
 
   static ApiAction putApiAction(String type, String endpoint,
-          [Map<String, dynamic> data = null]) =>
-      new ApiAction(type, endpoint, 'PUT', data);
+          [Map<String, dynamic> data = null, bool checkAuthorization = true]) =>
+      new ApiAction(type, endpoint, 'PUT', data, checkAuthorization);
 
   static ApiAction deleteApiAction(String type, String endpoint,
-          [Map<String, dynamic> data = null]) =>
-      new ApiAction(type, endpoint, 'DELETE', data);
+          [Map<String, dynamic> data = null, bool checkAuthorization = true]) =>
+      new ApiAction(type, endpoint, 'DELETE', data, checkAuthorization);
 
   static ApiAction getApiAction(String type, String endpoint,
-          [Map<String, dynamic> data = null]) =>
-      new ApiAction(type, endpoint, 'GET', data);
+          [Map<String, dynamic> data = null, bool checkAuthorization = true]) =>
+      new ApiAction(type, endpoint, 'GET', data, checkAuthorization);
 
   static ApiErrorAction unauthorizedAction(ApiError error) =>
       new ApiErrorAction(UNAUTHORIZED_ACTION, error);

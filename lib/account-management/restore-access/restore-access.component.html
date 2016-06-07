@@ -1,25 +1,44 @@
 <sp-info>
    <form name="restore-access-form" action="#" class="form" method="post" [ngFormModel]="form">
       <div class="title">Account access restoring</div>
-      <div class="description">Please, input your email to restore access</div>
 
-      <div class="input-group">
+      <div *ngIf="!codeSent">
 
-         <div class="input-control">
-            <label for="restore-access">Email:</label>
+		  <div *ngIf="!userNotFound" class="description">Please, input your email to restore access</div>
+		  <div *ngIf="userNotFound" class="description">User not found</div>
 
-            <input type="text"
-                   name="email"
-                   id="restore-access"
-                   class="email"
-                   placeholder="Insert email here"
-                   ngControl="email"
-                   #email="ngForm"/>
+		  <div class="error" *ngIf="invalidCode">Invalid code</div>
 
-         </div>
-         <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
-         <sp-validation-notification *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
-         <a mdRaisedButton class="md-primary next-btn" [routerLink]="['ChangePassword']">Next</a>
+		  <div class="input-group">
+
+			 <div class="input-control">
+				<label for="restore-access">Email:</label>
+
+				<input type="text"
+					   name="email"
+					   id="restore-access"
+					   class="email"
+					   placeholder="Insert email here"
+					   ngControl="email"
+					   #email="ngForm"/>
+
+			 </div>
+			 <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
+			 <sp-validation-notification *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
+			 <a mdRaisedButton class="md-primary next-btn" (click)="getCode()">Next</a>
+		  </div>
       </div>
+
+	   <div *ngIf="codeSent">
+		   <div class="description">Code sent!</div>
+		   <input type="text"
+				  name="code"
+				  id="restore-code"
+				  class="code"
+				  placeholder="XXX"
+				  ngControl="code"
+				  #code="ngForm"/>
+		   <a mdRaisedButton class="md-primary next-btn" (click)="applyCode()">Next</a>
+	   </div>
    </form>
 </sp-info>

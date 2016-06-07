@@ -9,6 +9,27 @@ class DemoService {
     Map credentials = body['credentials'];
     return { 'token': '${credentials['user']}_${credentials['password']}' };
   }
+
+  @app.Route("getCode", methods: const [app.POST])
+  getCode(@app.Body(app.JSON) Map body) {
+    String email = body['email'];
+    print(email);
+
+    if (email == 'test@test.com')
+      return { 'codeSent': true };
+
+    return { 'userNotFound': true };
+  }
+
+  @app.Route("applyCode", methods: const [app.POST])
+  applyCode(@app.Body(app.JSON) Map body) {
+    String code = body['code'];
+
+    if (code == '123')
+      return { 'codeApplied': true };
+
+    return { 'invalidCode': true };
+  }
 }
 
 @app.ErrorHandler(HttpStatus.NOT_FOUND)
