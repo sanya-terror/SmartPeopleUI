@@ -13,7 +13,6 @@ class DemoService {
   @app.Route("getCode", methods: const [app.POST])
   getCode(@app.Body(app.JSON) Map body) {
     String email = body['email'];
-    print(email);
 
     if (email == 'test@test.com')
       return { 'codeSent': true };

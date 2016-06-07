@@ -31,7 +31,7 @@ class AppComponentTests {
 
         component.ngOnInit();
 
-        when(router.navigate(argThat(contains('ChangePassword')))).thenReturn({});
+          when(router.navigate(argThat(contains('ChangePassword')))).thenReturn({});
 
         var onStateChange = verify(mockStore.listen(captureAny)).captured[0];
 

@@ -24,7 +24,7 @@ class ApiMiddleware {
     if (action.type == LOGIN_REQUEST) return next(await _tryAuthorize(action));
     if (action.type == LOGIN_CHECK) return _checkLogin(next);
     if (!(action is ApiAction)) return next(action);
-print(action);
+
     return next(await _tryCallApi(action));
   };
 
@@ -62,7 +62,6 @@ print(action);
           token: token, body: action.data);
       return new Action(action.type, result);
     } catch (error) {
-      print(error);
       return _handleError(error);
     }
   }

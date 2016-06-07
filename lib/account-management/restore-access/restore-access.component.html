@@ -2,12 +2,12 @@
    <form name="restore-access-form" action="#" class="form" method="post" [ngFormModel]="form">
       <div class="title">Account access restoring</div>
 
-      <div *ngIf="!codeSent">
+      <div *ngIf="!isCodeSent">
 
-		  <div *ngIf="!userNotFound" class="description">Please, input your email to restore access</div>
-		  <div *ngIf="userNotFound" class="description">User not found</div>
+		  <div *ngIf="!isUserNotFound" class="description">Please, input your email to restore access</div>
+		  <div *ngIf="isUserNotFound" class="description">User not found</div>
 
-		  <div class="error" *ngIf="invalidCode">Invalid code</div>
+		  <div class="error" *ngIf="isInvalidCode">Invalid code</div>
 
 		  <div class="input-group">
 
@@ -29,7 +29,7 @@
 		  </div>
       </div>
 
-	   <div *ngIf="codeSent">
+	   <div *ngIf="isCodeSent">
 		   <div class="description">Code sent!</div>
 		   <input type="text"
 				  name="code"

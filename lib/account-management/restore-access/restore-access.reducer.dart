@@ -3,7 +3,6 @@ import 'package:SmartPeopleUI/account-management/restore-access/index.dart';
 
 class RestoreAccessReducer {
   static State reduce(State state, Action action) {
-    print('${action.type} ${action.data}');
     switch (action.type) {
       case GET_RESTORE_CODE:
         return new State.from(state)
