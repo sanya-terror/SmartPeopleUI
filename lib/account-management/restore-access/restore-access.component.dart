@@ -23,9 +23,9 @@ import 'package:SmartPeopleUI/account-management/restore-access/index.dart';
     styleUrls: const ['restore-access.component.css'])
 class RestoreAccessComponent extends FormComponent implements OnInit {
 
-  bool isCodeSent;
-  bool isUserNotFound;
-  bool isInvalidCode;
+  bool isCodeSent = false;
+  bool isUserNotFound = false;
+  bool isInvalidCode = false;
 
   final InjectableStore _store;
   final Router _router;
@@ -49,15 +49,14 @@ class RestoreAccessComponent extends FormComponent implements OnInit {
 
   _onStateChange(State state){
 
-    var restoreAccess = state['restoreAccess'];
+    RestoreAccessData restoreAccess = state['restoreAccess'];
     if (restoreAccess == null) return;
 
-    isCodeSent = restoreAccess['codeSent'];
-    isUserNotFound = restoreAccess['userNotFound'];
-    isInvalidCode = restoreAccess['invalidCode'];
+    isCodeSent = restoreAccess.isCodeSent;
+    isUserNotFound = restoreAccess.isUserNotFound;
+    isInvalidCode = restoreAccess.isInvalidCode;
 
-    bool codeApplied = restoreAccess['codeApplied'];
-    if (codeApplied != null && codeApplied){
+    if (restoreAccess.isCodeApplied){
       setDefault();
       _router.navigate(['ChangePassword']);
     }

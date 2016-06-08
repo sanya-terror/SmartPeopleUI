@@ -39,32 +39,32 @@ class RestoreAccessComponentTests {
           var newState = new State({'restoreAccess': null});
           onStateChange(newState);
 
-          expect(component.isCodeSent, null);
-          expect(component.isInvalidCode, null);
-          expect(component.isUserNotFound, null);
+          expect(component.isCodeSent, false);
+          expect(component.isInvalidCode, false);
+          expect(component.isUserNotFound, false);
         });
 
         test('Should change component state base on restoreAccess object in new state', () {
 
-          var newState = new State({'restoreAccess': {'codeSent': true}});
+          var newState = new State({'restoreAccess': new RestoreAccessData(isCodeSent: true)});
           onStateChange(newState);
 
           expect(component.isCodeSent, true);
-          expect(component.isInvalidCode, null);
-          expect(component.isUserNotFound, null);
+          expect(component.isInvalidCode, false);
+          expect(component.isUserNotFound, false);
 
-          newState = new State({'restoreAccess': {'invalidCode': true}});
+          newState = new State({'restoreAccess': new RestoreAccessData(isInvalidCode: true)});
           onStateChange(newState);
 
-          expect(component.isCodeSent, null);
+          expect(component.isCodeSent, false);
           expect(component.isInvalidCode, true);
-          expect(component.isUserNotFound, null);
+          expect(component.isUserNotFound, false);
 
-          newState = new State({'restoreAccess': {'userNotFound': true}});
+          newState = new State({'restoreAccess': new RestoreAccessData(isUserNotFound: true)});
           onStateChange(newState);
 
-          expect(component.isCodeSent, null);
-          expect(component.isInvalidCode, null);
+          expect(component.isCodeSent, false);
+          expect(component.isInvalidCode, false);
           expect(component.isUserNotFound, true);
 
         });
@@ -73,7 +73,7 @@ class RestoreAccessComponentTests {
 
           when(router.navigate(argThat(contains('ChangePassword')))).thenReturn({});
 
-          var newState = new State({'restoreAccess': {'codeApplied': true}});
+          var newState = new State({'restoreAccess': new RestoreAccessData(isCodeApplied: true)});
           onStateChange(newState);
 
           expect(verify(router.navigate(argThat(contains('ChangePassword')))).callCount, 1);

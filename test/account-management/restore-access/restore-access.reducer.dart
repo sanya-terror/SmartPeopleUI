@@ -18,44 +18,28 @@ class RestoreAccessReducerTests {
           'action': new Action(GET_RESTORE_CODE, { 'codeSent': true}),
           'result': new State({
             'someProperty': 'some value',
-            'restoreAccess': {
-              'codeSent': true,
-              'userNotFound': null
-            }
+            'restoreAccess': new RestoreAccessData(isCodeSent: true)
           })
         },
         {
           'action': new Action(GET_RESTORE_CODE, { 'userNotFound': true}),
           'result': new State({
             'someProperty': 'some value',
-            'restoreAccess': {
-              'codeSent': null,
-              'userNotFound': true
-            }
+            'restoreAccess': new RestoreAccessData(isUserNotFound: true)
           })
         },
         {
           'action': new Action(APPLY_RESTORE_CODE, { 'codeApplied': true}),
           'result': new State({
             'someProperty': 'some value',
-            'restoreAccess': {
-              'codeSent': false,
-              'userNotFound' : false,
-              'codeApplied' : true,
-              'invalidCode' : null
-            }
+            'restoreAccess': new RestoreAccessData(isCodeApplied: true)
           })
         },
         {
           'action': new Action(APPLY_RESTORE_CODE, { 'invalidCode': true}),
           'result': new State({
             'someProperty': 'some value',
-            'restoreAccess': {
-              'codeSent': false,
-              'userNotFound' : false,
-              'codeApplied' : null,
-              'invalidCode' : true
-            }
+            'restoreAccess': new RestoreAccessData(isInvalidCode: true)
           })
         },
         {
@@ -73,7 +57,19 @@ class RestoreAccessReducerTests {
 
         test('Should apply reducer: ${action.type}', () {
           var actual = RestoreAccessReducer.reduce(initialState, action);
-          expect(actual, expected);
+          expect(actual['someProperty'], expected['someProperty']);
+
+          RestoreAccessData expectedRestoreAccess = expected['restoreAccess'];
+          RestoreAccessData actualRestoreData = actual['restoreAccess'];
+
+          if (expectedRestoreAccess == null) {
+            expect(actualRestoreData, null);
+          } else {
+            expect(actualRestoreData.isCodeSent, expectedRestoreAccess.isCodeSent);
+            expect(actualRestoreData.isCodeApplied, expectedRestoreAccess.isCodeApplied);
+            expect(actualRestoreData.isInvalidCode, expectedRestoreAccess.isInvalidCode);
+            expect(actualRestoreData.isUserNotFound, expectedRestoreAccess.isUserNotFound);
+          }
         });
       });
     });
