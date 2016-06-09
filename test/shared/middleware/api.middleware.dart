@@ -58,6 +58,20 @@ class ApiMiddlewareTests {
           expect(result.type, UNAUTHORIZED_ACTION);
         });
 
+        test('Should handle action if no token in local storage but checkAuthorization flag is false', () async {
+          var action = new ApiAction('NEXT', '/test/url', 'GET', {}, false);
+          var url = ApiMiddleware.BASE_URL + action.endpoint;
+
+          when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
+
+          Response fakeResponse = new Response('{"test": "result"}', 200);
+          when(httpClient.get(url, headers: _headers)).thenReturn(fakeResponse);
+
+          var result = await middleware.apply(store)(next)(action);
+          expect(result.type, action.type);
+          expect(result.data, {'test': 'result'});
+        });
+
         test('Should handle http GET request', () async {
           var testToken = 'test_token';
           var action = new ApiAction('NEXT', '/test/url', 'GET');
