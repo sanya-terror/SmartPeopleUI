@@ -69,7 +69,7 @@ class RestoreAccessComponentTests {
 
         });
 
-        test('Should set default and navigate to change password if code applied', () {
+        test('Should navigate to change password if code applied', () {
 
           when(router.navigate(argThat(contains('ChangePassword')))).thenReturn({});
 
@@ -77,6 +77,10 @@ class RestoreAccessComponentTests {
           onStateChange(newState);
 
           expect(verify(router.navigate(argThat(contains('ChangePassword')))).callCount, 1);
+        });
+
+        test('Should set default on destroy component', () {
+          component.ngOnDestroy();
           expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == CLEAR_RESTORE_ACCESS)))).callCount, 1);
         });
       });

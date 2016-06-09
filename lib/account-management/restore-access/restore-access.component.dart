@@ -21,7 +21,7 @@ import 'package:SmartPeopleUI/account-management/restore-access/index.dart';
         .Native, //TODO it is temporary, in further should remove and avoid
     templateUrl: 'restore-access.component.html',
     styleUrls: const ['restore-access.component.css'])
-class RestoreAccessComponent extends FormComponent implements OnInit {
+class RestoreAccessComponent extends FormComponent implements OnInit, OnDestroy {
 
   bool isCodeSent = false;
   bool isUserNotFound = false;
@@ -57,7 +57,6 @@ class RestoreAccessComponent extends FormComponent implements OnInit {
     isInvalidCode = restoreAccess.isInvalidCode;
 
     if (restoreAccess.isCodeApplied){
-      setDefault();
       _router.navigate(['ChangePassword']);
     }
   }
@@ -73,4 +72,7 @@ class RestoreAccessComponent extends FormComponent implements OnInit {
   }
 
   setDefault() => _store.dispatch(RestoreAccessActionCreator.clearRestoreAccess());
+
+  @override
+  ngOnDestroy() => setDefault();
 }
