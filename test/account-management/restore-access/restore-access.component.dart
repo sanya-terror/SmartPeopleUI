@@ -2,7 +2,7 @@ import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 
 import 'package:SmartPeopleUI/index.dart';
-import '../../helpers.dart';
+import '../../helpers/mocks.dart';
 import 'package:angular2/common.dart';
 
 class RestoreAccessComponentTests {

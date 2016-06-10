@@ -9,7 +9,7 @@ import 'package:SmartPeopleUI/shared/index.dart';
 import 'package:SmartPeopleUI/redux/index.dart';
 import 'package:SmartPeopleUI/account-management/auth.action-creator.dart';
 
-import '../../helpers.dart';
+import '../../helpers/mocks.dart';
 
 class MockLocalStorage extends Mock implements LocalStorageService {
   noSuchMethod(i) => super.noSuchMethod(i);

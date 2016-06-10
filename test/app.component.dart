@@ -3,45 +3,57 @@ import 'dart:html';
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 
-import 'helpers.dart' as helper;
+import 'helpers/angular.dart' as ng;
+import 'helpers/mocks.dart' as mocks;
 import 'package:SmartPeopleUI/index.dart';
 import 'shared/packages/angular2_testing/angular2_testing.dart';
-import 'package:angular2/router.dart' as router;
-import 'package:angular2/core.dart';
-import 'package:angular2/src/router/router.dart';
 
 class AppComponentTests {
   static run() {
     group('App component view', () {
 
-      helper.initAngularTests();
+      ng.initAngularTests();
 
-      // Initialize the injection tokens you will use in your tests.
-      setUpProviders(() {
-        return [
-          router.RouteRegistry,
-          provide(router.Location, useClass: helper.MockLocation),
-          provide(router.ROUTER_PRIMARY_COMPONENT, useValue: AppComponent),
-          provide(router.Router, useClass: RootRouter),
-          TestComponentBuilder,
-          LocalStorageService,
-          InjectableStore
-        ];
+      ng.setUpProviders(AppComponent, [
+        LocalStorageService,
+        InjectableStore
+      ]);
+
+      AppComponent _component;
+      Element _element;
+      ComponentFixture _fixture;
+
+      ngSetUp((TestComponentBuilder tcb) async{
+        _fixture  = await tcb.createAsync(AppComponent);
+        _component = _fixture.componentInstance;
+        _element = _fixture.nativeElement;
       });
 
-      ngTest('Should not show login component if authentificated', (TestComponentBuilder tcb)  async {
-        var fixture  = await tcb.createAsync(AppComponent);
-        AppComponent component = fixture.componentInstance;
-        Element element = fixture.nativeElement;
-        component.isAuthenticated = true;
-        fixture.detectChanges();
-        expect(element.querySelector('sp-login'), null);
+      ngTest('Should have header, footer and contnent part', () {
+        _fixture.detectChanges();
+        expect(_element.querySelector('sp-footer'), isNotNull);
+        expect(_element.querySelector('sp-header'), isNotNull);
+        expect(_element.querySelector('div.content'), isNotNull);
+      });
+
+      ngTest('Should show login component if not authentificated', ()  {
+        _component.isAuthenticated = false;
+        _fixture.detectChanges();
+        expect(_element.querySelector('sp-header sp-login'), isNotNull);
+        expect(_element.querySelector('div.user-info'), null);
+      });
+
+      ngTest('Should not show login component if authentificated', () {
+        _component.isAuthenticated = true;
+        _fixture.detectChanges();
+        expect(_element.querySelector('sp-login'), null);
+        expect(_element.querySelector('sp-header div.user-info'), isNotNull);
       });
     });
     group('App component', () {
 
-      var mockStore = helper.getMockStore();
-      var router = helper.getRouter();
+      var mockStore = mocks.getMockStore();
+      var router = mocks.getRouter();
 
       AppComponent component;
       setUp((){
