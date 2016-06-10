@@ -2,11 +2,11 @@ import 'dart:html';
 
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:angular2_testing/angular2_testing.dart';
 
 import 'helpers/angular.dart' as ng;
 import 'helpers/mocks.dart' as mocks;
 import 'package:SmartPeopleUI/index.dart';
-import 'shared/packages/angular2_testing/angular2_testing.dart';
 
 class AppComponentTests {
   static run() {
@@ -14,10 +14,7 @@ class AppComponentTests {
 
       ng.initAngularTests();
 
-      ng.setUpProviders(AppComponent, [
-        LocalStorageService,
-        InjectableStore
-      ]);
+      ng.setUpProviders(AppComponent);
 
       AppComponent _component;
       Element _element;

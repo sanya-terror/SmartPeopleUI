@@ -1,12 +1,53 @@
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:angular2/common.dart';
 
 import 'package:SmartPeopleUI/index.dart';
+import '../../helpers/angular.dart' as ng;
 import '../../helpers/mocks.dart';
-import 'package:angular2/common.dart';
+import 'dart:html';
+import 'package:angular2_testing/angular2_testing.dart';
 
 class RestoreAccessComponentTests {
   static run() {
+    group('Restore access component view', () {
+
+      ng.initAngularTests();
+
+      ng.setUpProviders(RestoreAccessComponent);
+
+      RestoreAccessComponent _component;
+      Element _element;
+      ComponentFixture _fixture;
+
+      ngSetUp((TestComponentBuilder tcb) async{
+        _fixture  = await tcb.createAsync(AppComponent);
+        _component = _fixture.componentInstance;
+        _element = _fixture.nativeElement;
+      });
+
+      ngTest('Should have header, footer and contnent part', () {
+        _fixture.detectChanges();
+        expect(_element.querySelector('sp-footer'), isNotNull);
+        expect(_element.querySelector('sp-header'), isNotNull);
+        expect(_element.querySelector('div.content'), isNotNull);
+      });
+
+      ngTest('Should show login component if not authentificated', ()  {
+        _component.isAuthenticated = false;
+        _fixture.detectChanges();
+        expect(_element.querySelector('sp-header sp-login'), isNotNull);
+        expect(_element.querySelector('div.user-info'), null);
+      });
+
+      ngTest('Should not show login component if authentificated', () {
+        _component.isAuthenticated = true;
+        _fixture.detectChanges();
+        expect(_element.querySelector('sp-login'), null);
+        expect(_element.querySelector('sp-header div.user-info'), isNotNull);
+      });
+    });
+
     group('Restore access component', () {
 
       var mockStore;

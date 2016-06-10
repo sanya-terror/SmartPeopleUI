@@ -1,47 +1,29 @@
-import 'package:angular2/core.dart';
-import 'package:angular2/common.dart';
-import 'package:angular2/router.dart';
+import 'package:angular2/core.dart' show Component, OnDestroy, OnInit, ViewEncapsulation;
 
-import 'package:angular2_material/src/components/button/button.dart';
-import 'validators/restore-code.validator.dart';
-
-import 'package:SmartPeopleUI/shared/index.dart';
-import 'package:SmartPeopleUI/redux/index.dart';
-import 'package:SmartPeopleUI/account-management/restore-access/index.dart';
+import 'package:SmartPeopleUI/index.dart'
+  show ChangePasswordComponent, InfoComponent, InjectableStore, RestoreAccessActionCreator, RestoreAccessCodeComponent, RestoreAccessData, RestoreAccessEmailComponent;
+import 'package:SmartPeopleUI/redux/index.dart' show State;
 
 @Component(
     selector: 'restore-access',
     directives: const [
-      ROUTER_DIRECTIVES,
-      ValidationNotificationComponent,
-      MdButton,
+      RestoreAccessEmailComponent,
+      RestoreAccessCodeComponent,
+      ChangePasswordComponent,
       InfoComponent
     ],
     encapsulation: ViewEncapsulation
         .Native, //TODO it is temporary, in further should remove and avoid
     templateUrl: 'restore-access.component.html',
     styleUrls: const ['restore-access.component.css'])
-class RestoreAccessComponent extends FormComponent implements OnInit, OnDestroy {
+class RestoreAccessComponent implements OnInit, OnDestroy {
 
   bool isCodeSent = false;
-  bool isUserNotFound = false;
-  bool isInvalidCode = false;
+  bool isCodeApplied = false;
 
   final InjectableStore _store;
-  final Router _router;
 
-  ControlGroup form;
-
-  RestoreAccessComponent(this._store, this._router) {
-    this.form = new ControlGroup({
-      'email': new Control('test@test.com',
-          Validators.compose([EmailValidator.validate, Validators.required])),
-      'code': new Control(
-          '',
-          Validators
-              .compose([RestoreCodeValidator.validate, Validators.required]))
-    });
-  }
+  RestoreAccessComponent(this._store);
 
   ngOnInit() {
     _store.listen(_onStateChange);
@@ -53,22 +35,7 @@ class RestoreAccessComponent extends FormComponent implements OnInit, OnDestroy 
     if (restoreAccess == null) return;
 
     isCodeSent = restoreAccess.isCodeSent;
-    isUserNotFound = restoreAccess.isUserNotFound;
-    isInvalidCode = restoreAccess.isInvalidCode;
-
-    if (restoreAccess.isCodeApplied){
-      _router.navigate(['ChangePassword']);
-    }
-  }
-
-  getCode(){
-    var email = form.controls['email'].value;
-    _store.dispatch(RestoreAccessActionCreator.getRestoreCode(email));
-  }
-
-  applyCode(){
-    var code = form.controls['code'].value;
-    _store.dispatch(RestoreAccessActionCreator.applyRestoreCode(code));
+    isCodeApplied = restoreAccess.isCodeApplied;
   }
 
   setDefault() => _store.dispatch(RestoreAccessActionCreator.clearRestoreAccess());

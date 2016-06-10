@@ -10,6 +10,7 @@ import 'mocks.dart';
 import 'package:angular2/src/router/router.dart';
 import 'package:angular2/src/testing/test_component_builder.dart';
 import 'package:angular2_testing/angular2_testing.dart' as ngTesting;
+import 'package:SmartPeopleUI/index.dart';
 
 /// Replacement of the function with the same name of Angular to replace the
 /// default `PACKAGE_ROOT_URL` `/packages` with `packages`
@@ -23,13 +24,15 @@ void initAngularTests() {
    setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS, CUSTOM_TEST_BROWSER_APPLICATION_PROVIDERS);
 }
 
-void setUpProviders(component, List<Provider> providers) {
+void setUpProviders(component, [List<Provider> providers=const[]]) {
    providers.addAll([
       router.RouteRegistry,
       provide(router.Location, useClass: MockLocation),
       provide(router.Router, useClass: RootRouter),
       provide(router.ROUTER_PRIMARY_COMPONENT, useValue: component),
-      TestComponentBuilder
+      TestComponentBuilder,
+      LocalStorageService,
+      InjectableStore
    ]);
    ngTesting.setUpProviders(() => providers);
 }

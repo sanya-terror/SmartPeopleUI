@@ -1,22 +1,15 @@
-import 'package:angular2/core.dart';
-import 'package:angular2/common.dart';
-import 'package:angular2/router.dart';
+import 'package:angular2/angular2.dart'show Component, Control, ControlGroup, Validators;
 
-import 'package:angular2_material/src/components/button/button.dart';
-import 'package:SmartPeopleUI/shared/index.dart';
+import 'package:angular2_material/src/components/button/button.dart' show MdButton;
+import 'package:SmartPeopleUI/index.dart' show FormComponent, PasswordValidator, ValidationNotificationComponent;
 
 @Component(
-    selector: 'change-password',
+    selector: 'sp-change-password',
     directives: const [
-      ROUTER_DIRECTIVES,
       ValidationNotificationComponent,
-      MdButton,
-      InfoComponent
+      MdButton
     ],
-    templateUrl: 'change-password.component.html',
-    encapsulation: ViewEncapsulation
-        .Native, //TODO it is temporary, in further should remove and avoid
-    styleUrls: const ['change-password.component.css'])
+    templateUrl: 'change-password.component.html')
 class ChangePasswordComponent extends FormComponent {
   ControlGroup form;
 

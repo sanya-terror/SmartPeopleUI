@@ -1,0 +1,26 @@
+<form name="restore-access-email-form" class="form" [ngFormModel]="form">
+
+    <div *ngIf="!isUserNotFound" class="description">Please, input your email to restore access</div>
+    <div *ngIf="isUserNotFound" class="description">User not found</div>
+
+    <div class="error" *ngIf="isInvalidCode">Invalid code</div>
+
+    <div class="input-group">
+
+        <div class="input-control">
+            <label for="restore-access">Email:</label>
+
+            <input type="text"
+                   name="email"
+                   id="restore-access"
+                   class="email"
+                   placeholder="Insert email here"
+                   ngControl="email"
+                   #email="ngForm"/>
+
+        </div>
+        <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
+        <sp-validation-notification *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
+        <a mdRaisedButton class="md-primary next-btn" (click)="getCode()">Next</a>
+    </div>
+</form>

@@ -1,44 +1,8 @@
 <sp-info>
-   <form name="restore-access-form" action="#" class="form" method="post" [ngFormModel]="form">
-      <div class="title">Account access restoring</div>
-
-      <div *ngIf="!isCodeSent">
-
-		  <div *ngIf="!isUserNotFound" class="description">Please, input your email to restore access</div>
-		  <div *ngIf="isUserNotFound" class="description">User not found</div>
-
-		  <div class="error" *ngIf="isInvalidCode">Invalid code</div>
-
-		  <div class="input-group">
-
-			 <div class="input-control">
-				<label for="restore-access">Email:</label>
-
-				<input type="text"
-					   name="email"
-					   id="restore-access"
-					   class="email"
-					   placeholder="Insert email here"
-					   ngControl="email"
-					   #email="ngForm"/>
-
-			 </div>
-			 <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
-			 <sp-validation-notification *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
-			 <a mdRaisedButton class="md-primary next-btn" (click)="getCode()">Next</a>
-		  </div>
-      </div>
-
-	   <div *ngIf="isCodeSent">
-		   <div class="description">Code sent!</div>
-		   <input type="text"
-				  name="code"
-				  id="restore-code"
-				  class="code"
-				  placeholder="XXX"
-				  ngControl="code"
-				  #code="ngForm"/>
-		   <a mdRaisedButton class="md-primary next-btn" (click)="applyCode()">Next</a>
-	   </div>
-   </form>
+    <div class="title">Account access restoring</div>
+    <div *ngIf="!isCodeApplied">
+        <sp-restore-access-email *ngIf="!isCodeSent"></sp-restore-access-email>
+        <sp-restore-access-code *ngIf="isCodeSent"></sp-restore-access-code>
+    </div>
+    <sp-change-password *ngIf="isCodeApplied"></sp-change-password>
 </sp-info>
