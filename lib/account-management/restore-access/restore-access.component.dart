@@ -5,15 +5,14 @@ import 'package:SmartPeopleUI/index.dart'
 import 'package:SmartPeopleUI/redux/index.dart' show State;
 
 @Component(
-    selector: 'restore-access',
+    selector: 'sp-restore-access',
     directives: const [
       RestoreAccessEmailComponent,
       RestoreAccessCodeComponent,
       ChangePasswordComponent,
       InfoComponent
     ],
-    encapsulation: ViewEncapsulation
-        .Native, //TODO it is temporary, in further should remove and avoid
+    encapsulation: ViewEncapsulation.Emulated,
     templateUrl: 'restore-access.component.html',
     styleUrls: const ['restore-access.component.css'])
 class RestoreAccessComponent implements OnInit, OnDestroy {

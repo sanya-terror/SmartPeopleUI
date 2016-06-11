@@ -23,10 +23,8 @@ class ChangePasswordComponent extends FormComponent {
             Validators.minLength(6),
             Validators.maxLength(18)
           ])),
-      'passwordRepeat': new Control(
-          '',
-          Validators
-              .compose([PasswordValidator.validate, Validators.required])),
+      'passwordRepeat': new Control('',
+          Validators.compose([PasswordValidator.validate, Validators.required])),
     });
   }
 }

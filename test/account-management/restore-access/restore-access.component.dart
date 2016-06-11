@@ -1,12 +1,12 @@
+import 'dart:html';
+
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:angular2/common.dart';
+import 'package:angular2_testing/angular2_testing.dart';
 
 import 'package:SmartPeopleUI/index.dart';
 import '../../helpers/angular.dart' as ng;
 import '../../helpers/mocks.dart';
-import 'dart:html';
-import 'package:angular2_testing/angular2_testing.dart';
 
 class RestoreAccessComponentTests {
   static run() {
@@ -21,44 +21,57 @@ class RestoreAccessComponentTests {
       ComponentFixture _fixture;
 
       ngSetUp((TestComponentBuilder tcb) async{
-        _fixture  = await tcb.createAsync(AppComponent);
+        _fixture  = await tcb.createAsync(RestoreAccessComponent);
         _component = _fixture.componentInstance;
         _element = _fixture.nativeElement;
       });
 
-      ngTest('Should have header, footer and contnent part', () {
-        _fixture.detectChanges();
-        expect(_element.querySelector('sp-footer'), isNotNull);
-        expect(_element.querySelector('sp-header'), isNotNull);
-        expect(_element.querySelector('div.content'), isNotNull);
-      });
+      var testCases = [
+        {
+          'state': { 'isCodeSent': true, 'isCodeApplied': true },
+          'resultSelectors': {'code': isNull, 'email': isNull, 'password': isNotNull }
+        },
+        {
+          'state': { 'isCodeSent': true, 'isCodeApplied': false },
+          'resultSelectors': {'code': isNotNull, 'email': isNull, 'password': isNull }
+        },
+        {
+          'state': { 'isCodeSent': false, 'isCodeApplied': true },
+          'resultSelectors': {'code': isNull, 'email': isNull, 'password': isNotNull }
+        },
+        {
+          'state': { 'isCodeSent': false, 'isCodeApplied': false },
+          'resultSelectors': {'code': isNull, 'email': isNotNull, 'password': isNull }
+        },
+      ];
 
-      ngTest('Should show login component if not authentificated', ()  {
-        _component.isAuthenticated = false;
-        _fixture.detectChanges();
-        expect(_element.querySelector('sp-header sp-login'), isNotNull);
-        expect(_element.querySelector('div.user-info'), null);
-      });
+      testCases.forEach((testCase){
+        var state = testCase['state'];
+        var resultSelectors = testCase['resultSelectors'];
 
-      ngTest('Should not show login component if authentificated', () {
-        _component.isAuthenticated = true;
-        _fixture.detectChanges();
-        expect(_element.querySelector('sp-login'), null);
-        expect(_element.querySelector('sp-header div.user-info'), isNotNull);
+        ngTest('Should apply correct view state. State: $state', ()  {
+
+          _component.isCodeSent = state['isCodeSent'];
+          _component.isCodeApplied = state['isCodeApplied'];
+
+          _fixture.detectChanges();
+
+          expect(_element.querySelector('sp-info sp-restore-access-email'), resultSelectors['email']);
+          expect(_element.querySelector('sp-info sp-restore-access-code'), resultSelectors['code']);
+          expect(_element.querySelector('sp-info sp-change-password'), resultSelectors['password']);
+        });
       });
     });
 
     group('Restore access component', () {
 
       var mockStore;
-      var router;
 
       RestoreAccessComponent component;
       setUp((){
         mockStore = getMockStore();
-        router = getRouter();
         when(mockStore.dispatch(argThat(anything))).thenReturn({});
-        component = new RestoreAccessComponent(mockStore, router);
+        component = new RestoreAccessComponent(mockStore);
       });
 
       test('Should subscribe on change during initialization', () {
@@ -81,8 +94,6 @@ class RestoreAccessComponentTests {
           onStateChange(newState);
 
           expect(component.isCodeSent, false);
-          expect(component.isInvalidCode, false);
-          expect(component.isUserNotFound, false);
         });
 
         test('Should change component state base on restoreAccess object in new state', () {
@@ -91,59 +102,12 @@ class RestoreAccessComponentTests {
           onStateChange(newState);
 
           expect(component.isCodeSent, true);
-          expect(component.isInvalidCode, false);
-          expect(component.isUserNotFound, false);
-
-          newState = new State({'restoreAccess': new RestoreAccessData(isInvalidCode: true)});
-          onStateChange(newState);
-
-          expect(component.isCodeSent, false);
-          expect(component.isInvalidCode, true);
-          expect(component.isUserNotFound, false);
-
-          newState = new State({'restoreAccess': new RestoreAccessData(isUserNotFound: true)});
-          onStateChange(newState);
-
-          expect(component.isCodeSent, false);
-          expect(component.isInvalidCode, false);
-          expect(component.isUserNotFound, true);
-
-        });
-
-        test('Should navigate to change password if code applied', () {
-
-          when(router.navigate(argThat(contains('ChangePassword')))).thenReturn({});
-
-          var newState = new State({'restoreAccess': new RestoreAccessData(isCodeApplied: true)});
-          onStateChange(newState);
-
-          expect(verify(router.navigate(argThat(contains('ChangePassword')))).callCount, 1);
         });
 
         test('Should set default on destroy component', () {
           component.ngOnDestroy();
           expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == CLEAR_RESTORE_ACCESS)))).callCount, 1);
         });
-      });
-
-      test('Should get code', () {
-
-        var email = 'test@mail.com';
-        component.form.controls['email'] = new Control(email);
-        component.getCode();
-
-        var isValidAction = predicate((action) => action.type == GET_RESTORE_CODE && action.data['email'] == email);
-        expect(verify(mockStore.dispatch(argThat(isValidAction))).callCount, 1);
-      });
-
-      test('Should apply code', () {
-
-        var code = 'QWERTY123';
-        component.form.controls['code'] = new Control(code);
-        component.applyCode();
-
-        var isValidAction = predicate((action) => action.type == APPLY_RESTORE_CODE && action.data['code'] == code);
-        expect(verify(mockStore.dispatch(argThat(isValidAction))).callCount, 1);
       });
 
       test('Should set default', () {

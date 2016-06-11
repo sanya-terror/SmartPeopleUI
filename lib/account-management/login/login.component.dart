@@ -17,8 +17,7 @@ import 'package:SmartPeopleUI/account-management/index.dart';
       MdCheckbox
     ],
     templateUrl: 'login.component.html',
-    encapsulation: ViewEncapsulation.Native,
-//TODO it is temporary, in further should remove and avoid
+    encapsulation: ViewEncapsulation.Emulated,
     styleUrls: const ['login.component.css'])
 class LoginComponent extends FormComponent {
   ControlGroup form;

@@ -16,9 +16,10 @@ dev_dependencies:
   angular2_testing: '^2.0.0-beta.10'
   mockito: '^0.11.0'
   redstone: '^0.6.1'
+  quiver: '^0.22.0'
 transformers:
 - less_dart:
-    build_mode: dart
+    build_mode: less
 - angular2:
     platform_directives:
     - 'package:angular2/common.dart#CORE_DIRECTIVES'

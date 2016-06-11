@@ -1,5 +1,5 @@
 import 'package:angular2/core.dart' show PACKAGE_ROOT_URL, Provider, reflector;
-import 'package:angular2/src/testing/test_injector.dart' show setBaseTestProviders;
+import 'package:angular2/src/testing/test_injector.dart' show resetBaseTestProviders, setBaseTestProviders;
 import 'package:angular2/platform/testing/browser.dart'
 show TEST_BROWSER_APPLICATION_PROVIDERS, TEST_BROWSER_PLATFORM_PROVIDERS;
 import 'package:angular2/src/core/reflection/reflection_capabilities.dart' show ReflectionCapabilities;
@@ -21,10 +21,13 @@ void initAngularTests() {
       TEST_BROWSER_APPLICATION_PROVIDERS,
       const Provider(PACKAGE_ROOT_URL, useValue: "packages")
    ];
+   resetBaseTestProviders();
    setBaseTestProviders(TEST_BROWSER_PLATFORM_PROVIDERS, CUSTOM_TEST_BROWSER_APPLICATION_PROVIDERS);
 }
 
-void setUpProviders(component, [List<Provider> providers=const[]]) {
+void setUpProviders(component, [List<Provider> providers]) {
+
+   if (providers == null) providers= [];
    providers.addAll([
       router.RouteRegistry,
       provide(router.Location, useClass: MockLocation),
