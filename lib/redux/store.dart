@@ -30,12 +30,17 @@ class Store extends Stream<State> {
 
   bool _isMiddlewareExecuting = false;
   Future<dynamic> dispatch(Action action) async {
-    if (_middleware != null && !_isMiddlewareExecuting) {
-      _isMiddlewareExecuting = true;
-      return await _middleware(this)(dispatch)(action);
-    }
 
-    _isMiddlewareExecuting = false;
+    if (_middleware != null && !_isMiddlewareExecuting) {
+
+      _isMiddlewareExecuting = true;
+
+      try {
+        return await _middleware(this)(dispatch)(action);
+      }
+      catch(e){ throw e; }
+      finally { _isMiddlewareExecuting = false; }
+    }
 
     _currentState = _reducer(_currentState, action);
     _controller.add(_currentState);

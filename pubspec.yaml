@@ -19,7 +19,7 @@ dev_dependencies:
   quiver: '^0.22.0'
 transformers:
 - less_dart:
-    build_mode: less
+    build_mode: dart
 - angular2:
     platform_directives:
     - 'package:angular2/common.dart#CORE_DIRECTIVES'

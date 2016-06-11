@@ -226,6 +226,49 @@ class StoreTests {
         });
       });
 
+      test('Should reset middleware executing state if midleware reject chain', () async {
+        var ACTION_TO_REJECT =  'ACTION_TO_REJECT';
+        Middleware rejectingMiddleware = (store) => (next) => (action) {
+          if (action.type == ACTION_TO_REJECT) return {};
+          return next(addRecordAction('String from middleware'));
+        };
+
+        Store store = new Store(testReducer,
+            initialState: testState, middleware: rejectingMiddleware);
+        await store.dispatch(new Action(ACTION_TO_REJECT));
+        await store.dispatch(addRecordAction("Will not be added"));
+
+        expect(store.state, {
+          'initialized': true,
+          'meaningOfLife': 42,
+          'list': [
+            {'message': 'String from middleware'}
+          ]
+        });
+      });
+
+      test('Should reset middleware executing state if midleware throw error', () async {
+        var ACTION_TO_ERROR =  'ACTION_TO_ERROR';
+        Middleware errorMiddleware = (store) => (next) => (action) {
+          if (action.type == ACTION_TO_ERROR) throw new Error();
+          return next(addRecordAction('String from middleware'));
+        };
+
+        Store store = new Store(testReducer,
+            initialState: testState, middleware: errorMiddleware);
+
+        expect(store.dispatch(new Action(ACTION_TO_ERROR)), throws);
+        await store.dispatch(addRecordAction("Will not be added"));
+
+        expect(store.state, {
+          'initialized': true,
+          'meaningOfLife': 42,
+          'list': [
+            {'message': 'String from middleware'}
+          ]
+        });
+      });
+
       test('Should return function from middleware and not modify data',
           () async {
         bool callbackCalled = false;
