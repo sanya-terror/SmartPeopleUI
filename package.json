@@ -1,0 +1,22 @@
+{
+  "name": "smart-people-ui",
+  "version": "0.0.1",
+  "description": "Scientific Social Network",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SmartPeopleCompany/SmartPeopleUI.git"
+  },
+  "author": "SmartPeople",
+  "bugs": {
+    "url": "https://github.com/SmartPeopleCompany/SmartPeopleUI/issues"
+  },
+  "homepage": "https://github.com/SmartPeopleCompany/SmartPeopleUI#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "cssnano": "^3.7.0",
+    "postcss-fixes": "^1.4.0",
+    "postcss-flexbugs-fixes": "^2.0.0",
+    "postcss-nesting": "^2.3.1",
+    "postcss-sort-style-rules": "^0.2.0",
+  }
+}
