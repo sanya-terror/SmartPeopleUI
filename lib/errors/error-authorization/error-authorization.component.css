@@ -1,39 +1,37 @@
-@verticalPadding: 5px;
-
 .form {
    align-items: center;
    display: flex;
    flex-direction: column;
 
-   .input-group {
+   & .input-group {
       display: flex;
       flex-direction: column;
       padding-top: 30px;
       width: 80%;
 
-      .input-control {
+      & .input-control {
          align-items: flex-end;
          display: flex;
          margin-top: 10px;
 
-         label {
+         & label {
             color: #777;
             font-size: 1.1rem;
             font-weight: bold;
-            padding: @verticalPadding 0;
+            padding: 5px 0;
             width: 20%;
          }
 
-         .repeat-input {
+         & .repeat-input {
             flex: 1;
             font-family: cursive;
             font-size: 1em;
             outline-color: #3f51b5;
-            padding: @verticalPadding 10px;
+            padding: 5px 10px;
          }
       }
 
-      .next-btn {
+      & .next-btn {
          align-self: flex-start;
          flex: 1;
          line-height: 28px;
@@ -41,18 +39,18 @@
          min-width: 74px;
       }
 
-      .custom-md-success {
+      & .custom-md-success {
          background: rgb(76, 175, 80);
          color: rgb(255, 255, 255);
       }
 
-      .sign-up-btn {
+      & .sign-up-btn {
          font-weight: bold;
          min-width: 200px;
          font-size: 1.5em;
       }
 
-      .validation-notification {
+      & .validation-notification {
          margin: 10px 0;
       }
    }

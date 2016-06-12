@@ -1,38 +1,36 @@
-@verticalPadding: 5px;
-
-.form {
+:host >>> .form {
   align-items: center;
   display: flex;
   flex-direction: column;
 
-  .input-group {
+  & .input-group {
     display: flex;
     flex-direction: column;
     padding-top: 30px;
     width: 80%;
 
-    .input-control {
+    & .input-control {
       align-items: flex-end;
       display: flex;
 
-      label{
+      & label{
         color: #777;
         font-size: 1.1rem;
         font-weight: bold;
-        padding: @verticalPadding 0;
+        padding: 5px 0;
         width: 15%;
       }
 
-      input {
+      & input {
         flex: 1;
         font-family: cursive;
         font-size: 1em;
         outline-color: #3f51b5;
-        padding: @verticalPadding 10px;
+        padding: 5px 10px;
       }
     }
 
-    .next-btn {
+    & .next-btn {
       align-self: flex-start;
       flex: 1;
 
@@ -42,7 +40,7 @@
       min-width: 74px;
     }
 
-    .validation-notification {
+    & .validation-notification {
       margin: 10px 0;
     }
   }

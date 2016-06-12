@@ -11,15 +11,18 @@ dependencies:
   http: '^0.11.3+7'
   dart_to_js_script_rewriter: '^1.0.1'
 dev_dependencies:
-  less_dart: '^0.3.3'
   test: '>=0.12.0 <0.13.0'
   angular2_testing: '^2.0.0-beta.10'
   mockito: '^0.11.0'
   redstone: '^0.6.1'
   quiver: '^0.22.0'
+  postcss_transformer: '^0.1.1'
 transformers:
-- less_dart:
-    build_mode: dart
+- postcss_transformer:
+    arguments:
+    - use: autoprefixer
+    - autoprefixer.browsers: '>5%'
+    - use: postcss-nesting
 - angular2:
     platform_directives:
     - 'package:angular2/common.dart#CORE_DIRECTIVES'

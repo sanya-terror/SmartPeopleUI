@@ -4,11 +4,11 @@
   background-color: #3f51b5;
   padding: 10px 0;
 
-  a {
+  & a {
     text-decoration: none;
   }
 
-  .slogan {
+  & .slogan {
     color: #fff;
     display: block;
     font-weight: bold;

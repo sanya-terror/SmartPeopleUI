@@ -6,7 +6,7 @@
 
   background-color: #fff;
 
-  .brand {
+  & .brand {
     color: #555;
     font-family: Verdana, serif;
     font-weight: bold;
