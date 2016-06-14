@@ -3,6 +3,7 @@ sudo: false
 dart:
   - stable
   - dev
+with_content_shell: true
 
 before_script:
   - chmod +x tool/travis.sh
