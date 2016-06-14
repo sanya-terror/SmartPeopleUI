@@ -17,6 +17,9 @@ dev_dependencies:
   redstone: '^0.6.1'
   quiver: '^0.22.0'
   postcss_transformer: '^0.1.1'
+  git: ^0.4.4+2
+  peanut: ^0.0.2
+  grinder: ^0.8.0+1
 transformers:
 - postcss_transformer:
     arguments:
