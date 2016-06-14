@@ -12,6 +12,9 @@ unzip $DARTIUM_DIST > /dev/null
 rm $DARTIUM_DIST
 mv dartium-* dartium;
 
+export DARTIUM_BIN="$PWD/dartium/chrome"
+
+echo Pub install
 pub install
 
 # Verify that the libraries are error free.
