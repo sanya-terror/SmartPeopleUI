@@ -22,11 +22,11 @@ dev_dependencies:
   peanut: ^0.0.2
   grinder: ^0.8.0+1
 transformers:
-- postcss_transformer:
-    arguments:
-    - use: autoprefixer
-    - autoprefixer.browsers: '>5%'
-    - use: postcss-nesting
+#- postcss_transformer:
+#    arguments:
+#    - use: autoprefixer
+#    - autoprefixer.browsers: '>5%'
+#    - use: postcss-nesting
 - angular2:
     platform_directives:
     - 'package:angular2/common.dart#CORE_DIRECTIVES'
