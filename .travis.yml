@@ -3,6 +3,12 @@ dart:
   - dev
   - stable
 sudo: false
+env:
+  - POSTCSS="postcss" POSTCSS_CLI="postcss-cli" AUTOPREFIXER="autoprefixer" NESTING="postcss-nesting"
+install:
+  - travis_retry pub get
+  - travis_retry nvm install node
+  - travis_retry npm install --global $POSTCSS $POSTCSS_CLI $AUTOPREFIXER $NESTING
 script: pub run grinder travis
 with_content_shell: true
 before_install:
