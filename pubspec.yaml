@@ -10,6 +10,7 @@ dependencies:
   fp: '^0.4.3'
   http: '^0.11.3+7'
   dart_to_js_script_rewriter: '^1.0.1'
+  shadow_dom: any
 dev_dependencies:
   test: '>=0.12.0 <0.13.0'
   angular2_testing: '^2.0.0-beta.10'
@@ -31,7 +32,7 @@ transformers:
     - 'package:angular2/common.dart#CORE_DIRECTIVES'
     - 'package:angular2/common.dart#FORM_DIRECTIVES'
     entry_points: web/main.dart
-#- test/pub_serve:
-#    - $include: test/all_test.dart
+- test/pub_serve:
+    $include: test/**_test{.*,}.dart
 - dart_to_js_script_rewriter
 
