@@ -2,7 +2,7 @@ language: dart
 dart:
   - dev
   - stable
-sudo: true
+sudo: false
 env:
   - POSTCSS="postcss" POSTCSS_CLI="postcss-cli" AUTOPREFIXER="autoprefixer" NESTING="postcss-nesting"
 install:
@@ -15,7 +15,7 @@ before_install:
   - export CHROME_BIN=/usr/bin/google-chrome
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - sudo apt-get update
-  - sudo apt-get install -y libappindicator1 fonts-liberation
+  - apt-get update
+  - apt-get install -y libappindicator1 fonts-liberation
   - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  - sudo dpkg -i google-chrome*.deb
+  - dpkg -i google-chrome*.deb
