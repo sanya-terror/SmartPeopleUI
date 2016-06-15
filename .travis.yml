@@ -11,6 +11,8 @@ install:
   - travis_retry npm install --global $POSTCSS $POSTCSS_CLI $AUTOPREFIXER $NESTING
 script: pub run grinder travis
 with_content_shell: true
+before_script:
+  - chmod u+s /usr/bin/sudo
 before_install:
   - export CHROME_BIN=/usr/bin/google-chrome
   - export DISPLAY=:99.0
