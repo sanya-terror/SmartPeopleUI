@@ -28,7 +28,7 @@ void analyze() {
 
 @Task()
 test() async {
-  final platforms = ['content-shell'];
+  final platforms = ['firefox'];
   await runTestsWithPubServe(platforms);
 }
 //
@@ -42,7 +42,7 @@ test() async {
 @Task()
 testTravis() async {
   // travis only supports firefox and content-shell it seems
-  final platforms = ['firefox', 'content-shell'];
+  final platforms = ['firefox'];
   await runTestsWithPubServe(platforms);
 }
 //
