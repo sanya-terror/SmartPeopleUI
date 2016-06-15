@@ -2,7 +2,7 @@ language: dart
 dart:
   - dev
   - stable
-sudo: false
+sudo: true
 env:
   - POSTCSS="postcss" POSTCSS_CLI="postcss-cli" AUTOPREFIXER="autoprefixer" NESTING="postcss-nesting"
 install:
