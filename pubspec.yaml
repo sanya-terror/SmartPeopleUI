@@ -17,11 +17,14 @@ dev_dependencies:
   mockito: '^0.11.0'
   redstone: '^0.6.1'
   quiver: '^0.22.0'
-  postcss_transformer: '^0.1.1'
+  less_dart: '^0.3.3'
+#  postcss_transformer: '^0.1.1'
   git: ^0.4.4+2
   peanut: ^0.0.2
   grinder: ^0.8.0+1
 transformers:
+- less_dart:
+    build_mode: dart
 #- postcss_transformer:
 #    arguments:
 #    - use: autoprefixer
