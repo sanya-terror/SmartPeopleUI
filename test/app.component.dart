@@ -50,12 +50,11 @@ class AppComponentTests {
     group('App component', () {
 
       var mockStore = mocks.getMockStore();
-      var router = mocks.getRouter();
 
       AppComponent component;
       setUp((){
         when(mockStore.dispatch(argThat(anything))).thenReturn({});
-        component =new AppComponent(mockStore, router);
+        component =new AppComponent(mockStore);
       });
 
       test('Should check login during initialization', () {
@@ -69,8 +68,6 @@ class AppComponentTests {
       test('Should react on state change', () {
 
         component.ngOnInit();
-
-          when(router.navigate(argThat(contains('ChangePassword')))).thenReturn({});
 
         var onStateChange = verify(mockStore.listen(captureAny)).captured[0];
 
@@ -88,8 +85,6 @@ class AppComponentTests {
         newState['isAuthenticated'] = false;
         onStateChange(newState);
         expect(component.isAuthenticated, isFalse);
-
-        expect(verify(router.navigate(argThat(contains('ChangePassword')))).callCount, 2);
       });
     });
   }

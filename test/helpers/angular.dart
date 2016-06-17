@@ -11,6 +11,7 @@ import 'package:angular2/src/router/router.dart';
 import 'package:angular2/src/testing/test_component_builder.dart';
 import 'package:angular2_testing/angular2_testing.dart' as ngTesting;
 import 'package:SmartPeopleUI/index.dart';
+import 'package:angular2/platform/common.dart';
 
 /// Replacement of the function with the same name of Angular to replace the
 /// default `PACKAGE_ROOT_URL` `/packages` with `packages`
@@ -30,7 +31,7 @@ void setUpProviders(component, [List<Provider> providers]) {
    if (providers == null) providers= [];
    providers.addAll([
       router.RouteRegistry,
-      provide(router.Location, useClass: MockLocation),
+      provide(Location, useClass: MockLocation),
       provide(router.Router, useClass: RootRouter),
       provide(router.ROUTER_PRIMARY_COMPONENT, useValue: component),
       TestComponentBuilder,

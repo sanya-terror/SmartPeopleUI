@@ -1,7 +1,8 @@
 import 'package:angular2/common.dart';
+import 'package:angular2/core.dart';
 
 class RestoreCodeValidator {
-  static Map<String, bool> validate(Control control) {
+  static Map<String, bool> validate(AbstractControl control) {
     if (control.value == null) return null;
 
     var regex = new RegExp(r'^[0-9a-z]{8}$', caseSensitive: true);
