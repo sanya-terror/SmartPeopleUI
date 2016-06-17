@@ -18,8 +18,8 @@
          </div>
          <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
          <sp-validation-notification *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
-         <button mdRaisedButton class="md-primary next-btn">Repeat</button>
-         <button mdRaisedButton class="custom-md-success sign-up-btn next-btn" [routerLink]="['Home']">Sign up</button>
+         <button class="md-primary next-btn">Repeat</button>
+         <button class="custom-md-success sign-up-btn next-btn" [routerLink]="['Home']">Sign up</button>
       </div>
    </form>
 </sp-info>

@@ -9,8 +9,7 @@ import 'index.dart';
     selector: 'sign-up',
     directives: const [ROUTER_DIRECTIVES, ValidationNotificationComponent],
     styleUrls: const ['sign-up.component.css'],
-    encapsulation: ViewEncapsulation
-        .Native, //TODO it is temporary, in further should remove and avoid
+    encapsulation: ViewEncapsulation.Emulated,
     templateUrl: 'sign-up.component.html')
 class SignUpComponent extends FormComponent {
   ControlGroup form;

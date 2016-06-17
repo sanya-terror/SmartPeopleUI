@@ -6,7 +6,8 @@
          <input type="text" name="email" id="current-email" ngControl="email" #email="ngForm"/>
          <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
          <sp-validation-notification *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
-         <md-checkbox aria-label="Remember me" class="helper" md-no-ink>Remember me</md-checkbox>
+         <label for="remember-me">Remember me</label>
+         <input type="checkbox" id="remember-me">
       </div>
 
       <div class="password input-group">
@@ -19,9 +20,9 @@
          <a [routerLink]="['RestoreAccess']" class="helper">Forgot password ?</a>
       </div>
 
-		<button mdRaisedButton class="custom-md-success sign-in-btn" (click)="login()">Sign in</button>
+		<button class="custom-md-success sign-in-btn" (click)="login()">Sign in</button>
 		<!---->
-		<a mdRaisedButton class="md-accent mock" [routerLink]="['ErrorAuthorization']">Error auth mock</a>
+		<button class="mock" [routerLink]="['ErrorAuthorization']">Error auth mock</button>
 		<!--TODO delete after best ErrorAuthComponent implementation-->
 	</form>
 </div>
