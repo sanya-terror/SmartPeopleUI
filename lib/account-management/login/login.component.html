@@ -3,14 +3,23 @@
 
       <div class="email input-group">
          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input is-invalid" type="text" name="email" id="current-email" ngControl="email"
+            <input class="mdl-textfield__input" type="text" name="email"
+                   id="current-email"
+                   ngControl="email"
                    #email="ngForm" />
             <label class="mdl-textfield__label" for="current-email">Email</label>
+
          </div>
-         <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
+
+         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember-me">
+            <input type="checkbox" id="remember-me" class="mdl-checkbox__input">
+            <span class="mdl-checkbox__label">Remember me</span>
+         </label>
+
+
+         <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'" [forId]="current-email"
+         ></sp-validation-notification>
          <sp-validation-notification *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
-         <label for="remember-me">Remember me</label>
-         <input type="checkbox" id="remember-me">
       </div>
 
       <div class="password input-group">
@@ -23,12 +32,10 @@
          <sp-validation-notification *ngIf="isInsufficientLength(password)" [message]="'Password is too short'"></sp-validation-notification>
          <sp-validation-notification *ngIf="isLengthExcess(password)" [message]="'Password is too long'"></sp-validation-notification>
          <sp-validation-notification *ngIf="!hasRangeError(password)" [message]="'Password is incorrect'"></sp-validation-notification>
-         <a [routerLink]="['RestoreAccess']" class="helper">Forgot password ?</a>
+         <a [routerLink]="['RestoreAccess']" class="helper mdl-checkbox__label">Forgot password?</a>
       </div>
 
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" (click)="login()">Sign in</button>
-		<!---->
-		<button class="mock" [routerLink]="['ErrorAuthorization']">Error auth mock</button>
-		<!--TODO delete after best ErrorAuthComponent implementation-->
+      <button class="login-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+              (click)="login()">Sign in</button>
 	</form>
 </div>
