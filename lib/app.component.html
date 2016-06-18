@@ -1,10 +1,29 @@
 <div class="app">
+
     <sp-header class="header">
-        <sp-login *ngIf="!isAuthenticated"></sp-login>
-        <div *ngIf="isAuthenticated" class="user-info">Hello, world!</div>
+
+        <div class="header-navigation">
+            <nav *ngIf="!isAuthenticated" class="mdl-navigation mdl-layout--large-screen-only">
+                <a class="mdl-navigation__link" href="">Sign in</a>
+            </nav>
+            <div *ngIf="isAuthenticated" class="user-info">Hello, world!</div>
+        </div>
+
+        <div class="drawer">
+            <span class="mdl-layout-title">Title</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="">Link</a>
+            </nav>
+        </div>
+
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+
     </sp-header>
-    <div class="content">
-        <router-outlet></router-outlet>
-    </div>
+
     <sp-footer class="footer"></sp-footer>
 </div>

@@ -1,11 +1,25 @@
-<header class="header">
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
-    <a class="root-link" [routerLink]="['Home']">
-        <img class="logo" src="../images/top-logo.png"/>
-        <!---->
-        <span class="slogan">Keep your knowledge</span>
-        <!--TODO include into svg img and delete-->
-    </a>
+    <header class="header mdl-layout__header">
+        <div class="mdl-layout__header-row">
 
-    <ng-content></ng-content>
-</header>
+            <a class="root-link" [routerLink]="['Home']">
+                <img class="logo" src="../images/top-logo.png" alt="Keep your knowledge"/>
+                <span class="slogan">Keep your knowledge</span>
+            </a>
+
+            <div class="mdl-layout-spacer"></div>
+
+            <!-- Navigation. We hide it in small screens. -->
+            <ng-content select=".header-navigation"></ng-content>
+        </div>
+    </header>
+
+    <div class="mdl-layout__drawer">
+        <ng-content select=".drawer"></ng-content>
+    </div>
+
+    <div class="mdl-layout__content">
+        <ng-content select=".content"></ng-content>
+    </div>
+</div>
