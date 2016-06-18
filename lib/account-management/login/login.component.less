@@ -1,20 +1,28 @@
 .login {
-  & .form {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
 
-    & .header {
-      font-size: 0.75em;
-    }
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 64px;
 
-    & .input-group {
+  & .login-card.mdl-card {
+
+    width: 512px;
+
+    & .form {
       display: flex;
       flex-direction: column;
-      margin-right: 1em;
+      align-items: center;
 
-      & .mdl-textfield{
-        width: 10em;
+      padding-bottom: 32px;
+
+      & .login-button,
+      & .remember-me-group {
+        width: 300px;
+      }
+
+      & .login-button{
+        margin: 20px 0;
       }
     }
   }

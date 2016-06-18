@@ -4,13 +4,13 @@ import 'package:angular2/router.dart';
 import 'index.dart' show AuthActionCreator, ErrorAuthorizationComponent, MainComponent, LoginComponent, RestoreAccessComponent, SignUpComponent, State;
 
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
+import 'package:SmartPeopleUI/shared/components/index.dart';
 
 @Component(
     selector: 'sp-app',
     directives: const [
       ROUTER_DIRECTIVES,
-      MainComponent,
-      LoginComponent
+      MainComponent
     ],
     providers: const [InjectableStore],
     templateUrl: 'app.component.html')

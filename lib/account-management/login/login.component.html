@@ -1,41 +1,63 @@
 <div class="login">
-   <form action="#" class="form" method="post" name="login" [ngFormModel]="form">
+    <div class="login-card mdl-card mdl-shadow--4dp">
 
-      <div class="email input-group">
-         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" name="email"
-                   id="current-email"
-                   ngControl="email"
-                   #email="ngForm" />
-            <label class="mdl-textfield__label" for="current-email">Email</label>
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Login</h2>
+        </div>
 
-         </div>
+        <form class="form"  name="login" [ngFormModel]="form">
 
-         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember-me">
-            <input type="checkbox" id="remember-me" class="mdl-checkbox__input">
-            <span class="mdl-checkbox__label">Remember me</span>
-         </label>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" name="email"
+                       id="current-email"
+                       ngControl="email"
+                       #email="ngForm"/>
+                <label class="mdl-textfield__label" for="current-email">Email</label>
+            </div>
 
+            <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"
+                                        [forId]="'current-email'">
 
-         <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'" [forId]="current-email"
-         ></sp-validation-notification>
-         <sp-validation-notification *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
-      </div>
+            </sp-validation-notification>
+            <sp-validation-notification *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'">
+            </sp-validation-notification>
 
-      <div class="password input-group">
-         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" name="password" id="current-password" ngControl="password"
-                   #password="ngForm" />
-            <label class="mdl-textfield__label" for="current-password">Password</label>
-         </div>
-         <sp-validation-notification *ngIf="isRequired(password)" [message]="'Password is required'"></sp-validation-notification>
-         <sp-validation-notification *ngIf="isInsufficientLength(password)" [message]="'Password is too short'"></sp-validation-notification>
-         <sp-validation-notification *ngIf="isLengthExcess(password)" [message]="'Password is too long'"></sp-validation-notification>
-         <sp-validation-notification *ngIf="!hasRangeError(password)" [message]="'Password is incorrect'"></sp-validation-notification>
-         <a [routerLink]="['RestoreAccess']" class="helper mdl-checkbox__label">Forgot password?</a>
-      </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" name="password" id="current-password"
+                       ngControl="password"
+                       #password="ngForm"/>
+                <label class="mdl-textfield__label" for="current-password">Password</label>
+            </div>
 
-      <button class="login-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
-              (click)="login()">Sign in</button>
-	</form>
+            <sp-validation-notification *ngIf="isRequired(password)"
+                                        [message]="'Password is required'"></sp-validation-notification>
+            <sp-validation-notification *ngIf="isInsufficientLength(password)"
+                                        [message]="'Password is too short'"></sp-validation-notification>
+            <sp-validation-notification *ngIf="isLengthExcess(password)"
+                                        [message]="'Password is too long'"></sp-validation-notification>
+            <sp-validation-notification *ngIf="!hasRangeError(password)"
+                                        [message]="'Password is incorrect'"></sp-validation-notification>
+
+            <button class="login-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
+                    (click)="login()">Sign in
+            </button>
+
+            <label class="remember-me-group mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember-me">
+                <input type="checkbox" id="remember-me" class="mdl-checkbox__input">
+                <span class="mdl-checkbox__label">Remember me</span>
+            </label>
+
+        </form>
+
+        <div class="mdl-card__actions mdl-card--border">
+            <a  [routerLink]="['RestoreAccess']"
+                class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Create account
+            </a>
+            <a  [routerLink]="['RestoreAccess']"
+                class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Forgot password?
+            </a>
+        </div>
+    </div>
 </div>
