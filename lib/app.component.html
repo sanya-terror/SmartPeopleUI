@@ -1,29 +1,26 @@
-<div class="app">
+<sp-main class="app">
 
-    <sp-header class="header">
+    <div class="header">
+        <button *ngIf="!isAuthenticated"
+                class="login-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                [routerLink]="['Login']">
+            Sign in
+        </button>
+        <div *ngIf="isAuthenticated" class="user-info">Hello, world!</div>
+    </div>
 
-        <div class="header-navigation">
-            <nav *ngIf="!isAuthenticated" class="mdl-navigation mdl-layout--large-screen-only">
-                <a class="mdl-navigation__link" href="">Sign in</a>
-            </nav>
-            <div *ngIf="isAuthenticated" class="user-info">Hello, world!</div>
-        </div>
+    <div class="drawer">
+        <span class="mdl-layout-title">Smart People</span>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="">Link</a>
+            <a class="mdl-navigation__link" href="">Link</a>
+            <a class="mdl-navigation__link" href="">Link</a>
+            <a class="mdl-navigation__link" href="">Link</a>
+        </nav>
+    </div>
 
-        <div class="drawer">
-            <span class="mdl-layout-title">Title</span>
-            <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
-                <a class="mdl-navigation__link" href="">Link</a>
-            </nav>
-        </div>
+    <div class="content">
+        <router-outlet></router-outlet>
+    </div>
 
-        <div class="content">
-            <router-outlet></router-outlet>
-        </div>
-
-    </sp-header>
-
-    <sp-footer class="footer"></sp-footer>
-</div>
+</sp-main>

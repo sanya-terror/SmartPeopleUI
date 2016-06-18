@@ -26,17 +26,17 @@ class AppComponentTests {
         _element = _fixture.nativeElement;
       });
 
-      ngTest('Should have header, footer and contnent part', () {
+      ngTest('Should have main, footer and contnent part', () {
         _fixture.detectChanges();
         expect(_element.querySelector('sp-footer'), isNotNull);
-        expect(_element.querySelector('sp-header'), isNotNull);
+        expect(_element.querySelector('sp-main'), isNotNull);
         expect(_element.querySelector('div.content'), isNotNull);
       });
 
       ngTest('Should show login component if not authentificated', ()  {
         _component.isAuthenticated = false;
         _fixture.detectChanges();
-        expect(_element.querySelector('sp-header sp-login'), isNotNull);
+        expect(_element.querySelector('sp-main sp-login'), isNotNull);
         expect(_element.querySelector('div.user-info'), null);
       });
 
@@ -44,7 +44,7 @@ class AppComponentTests {
         _component.isAuthenticated = true;
         _fixture.detectChanges();
         expect(_element.querySelector('sp-login'), null);
-        expect(_element.querySelector('sp-header div.user-info'), isNotNull);
+        expect(_element.querySelector('sp-main div.user-info'), isNotNull);
       });
     });
     group('App component', () {

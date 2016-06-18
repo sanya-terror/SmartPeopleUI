@@ -1,23 +1,26 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
-import 'index.dart' show AuthActionCreator, ErrorAuthorizationComponent, FooterComponent, HeaderComponent, LoginComponent, RestoreAccessComponent, SignUpComponent, State;
+import 'index.dart' show AuthActionCreator, ErrorAuthorizationComponent, MainComponent, LoginComponent, RestoreAccessComponent, SignUpComponent, State;
+
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
 
 @Component(
     selector: 'sp-app',
     directives: const [
       ROUTER_DIRECTIVES,
-      HeaderComponent,
-      FooterComponent,
+      MainComponent,
       LoginComponent
     ],
     providers: const [InjectableStore],
-    templateUrl: 'app.component.html',
-    styleUrls: const ['app.component.css'])
+    templateUrl: 'app.component.html')
 @RouteConfig(const [
   const Route(
       path: '/', name: 'Home', component: SignUpComponent, useAsDefault: true),
+  const Route(
+      path: '/account/login',
+      name: 'Login',
+      component: LoginComponent),
   const Route(
       path: '/account/restore-access',
       name: 'RestoreAccess',

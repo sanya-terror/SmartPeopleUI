@@ -1,7 +1,6 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/common.dart';
 import 'package:angular2/router.dart';
-import 'package:angular2_rbi/directives.dart';
 
 import 'package:SmartPeopleUI/shared/index.dart';
 import 'package:SmartPeopleUI/account-management/index.dart';
@@ -10,9 +9,7 @@ import 'package:SmartPeopleUI/account-management/index.dart';
     selector: 'sp-login',
     directives: const [
       ROUTER_DIRECTIVES,
-      ValidationNotificationComponent,
-      MaterialButton,
-       MaterialTextfield,
+      ValidationNotificationComponent
     ],
     templateUrl: 'login.component.html',
     encapsulation: ViewEncapsulation.Emulated,
