@@ -21,6 +21,7 @@ dev_dependencies:
   git: ^0.4.4+2
   peanut: ^0.0.2
   grinder: ^0.8.0+1
+  angular2_rbi: ^0.0.9
 transformers:
 - less_dart:
     build_mode: dart

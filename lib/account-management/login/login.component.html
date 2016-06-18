@@ -2,8 +2,11 @@
    <form action="#" class="form" method="post" name="login" [ngFormModel]="form">
 
       <div class="email input-group">
-         <label for="current-email">Email</label>
-         <input type="text" name="email" id="current-email" ngControl="email" #email="ngForm"/>
+         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input is-invalid" type="text" name="email" id="current-email" ngControl="email"
+                   #email="ngForm" />
+            <label class="mdl-textfield__label" for="current-email">Email</label>
+         </div>
          <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
          <sp-validation-notification *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
          <label for="remember-me">Remember me</label>
@@ -11,8 +14,11 @@
       </div>
 
       <div class="password input-group">
-         <label for="current-password">Password</label>
-         <input type="password" name="password" id="current-password" ngControl="password" #password="ngForm">
+         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input class="mdl-textfield__input" type="text" name="password" id="current-password" ngControl="password"
+                   #password="ngForm" />
+            <label class="mdl-textfield__label" for="current-password">Password</label>
+         </div>
          <sp-validation-notification *ngIf="isRequired(password)" [message]="'Password is required'"></sp-validation-notification>
          <sp-validation-notification *ngIf="isInsufficientLength(password)" [message]="'Password is too short'"></sp-validation-notification>
          <sp-validation-notification *ngIf="isLengthExcess(password)" [message]="'Password is too long'"></sp-validation-notification>
@@ -20,7 +26,7 @@
          <a [routerLink]="['RestoreAccess']" class="helper">Forgot password ?</a>
       </div>
 
-		<button class="custom-md-success sign-in-btn" (click)="login()">Sign in</button>
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" (click)="login()">Sign in</button>
 		<!---->
 		<button class="mock" [routerLink]="['ErrorAuthorization']">Error auth mock</button>
 		<!--TODO delete after best ErrorAuthComponent implementation-->
