@@ -7,7 +7,7 @@ import 'index.dart';
 
 @Component(
     selector: 'sign-up',
-    directives: const [ROUTER_DIRECTIVES, ValidationNotificationComponent],
+    directives: const [ROUTER_DIRECTIVES, ErrorTooltipComponent],
     styleUrls: const ['sign-up.component.css'],
     encapsulation: ViewEncapsulation.Emulated,
     templateUrl: 'sign-up.component.html')

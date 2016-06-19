@@ -9,7 +9,7 @@ import 'package:SmartPeopleUI/account-management/index.dart';
     selector: 'sp-login',
     directives: const [
       ROUTER_DIRECTIVES,
-      ValidationNotificationComponent
+      ErrorTooltipComponent
     ],
     templateUrl: 'login.component.html',
     encapsulation: ViewEncapsulation.Emulated,

@@ -8,7 +8,7 @@ import 'package:SmartPeopleUI/shared/index.dart';
     selector: 'change-password',
     directives: const [
       ROUTER_DIRECTIVES,
-      ValidationNotificationComponent,
+      ErrorTooltipComponent,
       InfoComponent
     ],
     encapsulation: ViewEncapsulation.Emulated,

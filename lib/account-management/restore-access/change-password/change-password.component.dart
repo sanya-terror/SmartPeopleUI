@@ -1,12 +1,12 @@
 import 'package:angular2/angular2.dart'show Component, Control, ControlGroup, Validators;
 
 
-import 'package:SmartPeopleUI/index.dart' show FormComponent, PasswordValidator, ValidationNotificationComponent;
+import 'package:SmartPeopleUI/index.dart' show FormComponent, PasswordValidator, ErrorTooltipComponent;
 
 @Component(
     selector: 'sp-change-password',
     directives: const [
-      ValidationNotificationComponent
+      ErrorTooltipComponent
     ],
     templateUrl: 'change-password.component.html')
 class ChangePasswordComponent extends FormComponent {
