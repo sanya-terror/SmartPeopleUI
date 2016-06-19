@@ -25,9 +25,24 @@ class DemoService {
     String code = body['code'];
 
     if (code == '123')
-      return { 'codeApplied': true };
+      return {
+        'codeApplied': true,
+        'token': true
+      };
 
     return { 'invalidCode': true };
+  }
+
+  @app.Route("applyPasswordChanging", methods: const [app.POST])
+  applyPasswordChanging(@app.Body(app.JSON) Map body) {
+    String oldPassword = '111111';
+    String password = body['password'];
+    bool token = body['token'];
+print(password != oldPassword);
+    if (password != oldPassword && token == true)
+      return { 'passwordChanged': true };
+
+    return { 'passwordChangingError': true };
   }
 }
 

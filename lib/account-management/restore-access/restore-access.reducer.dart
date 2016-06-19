@@ -1,13 +1,26 @@
 import 'package:SmartPeopleUI/redux/index.dart';
 import 'package:SmartPeopleUI/account-management/restore-access/index.dart';
 
-class RestoreAccessData{
+class RestoreAccessData {
   bool isCodeSent;
   bool isCodeApplied;
   bool isInvalidCode;
   bool isUserNotFound;
+  bool changePasswordToken;
+  bool isPasswordChanged;
+  bool passwordChangingError;
   String email;
-  RestoreAccessData({this.isCodeSent: false, this.isCodeApplied: false, this.isInvalidCode: false, this.isUserNotFound: false, this.email: null});
+
+  RestoreAccessData({
+    this.isCodeSent: false,
+    this.isCodeApplied: false,
+    this.isInvalidCode: false,
+    this.isUserNotFound: false,
+    this.changePasswordToken: false,
+    this.isPasswordChanged: false,
+    this.passwordChangingError: false,
+    this.email: null
+  });
 }
 
 class RestoreAccessReducer {
@@ -20,16 +33,24 @@ class RestoreAccessReducer {
             isUserNotFound: action.data['userNotFound'] == null ? false : action.data['userNotFound']
           );
 
-      case CLEAR_RESTORE_ACCESS:
-        return new State.from(state)
-          ..['restoreAccess'] = null;
-
       case APPLY_RESTORE_CODE:
         return new State.from(state)
           ..['restoreAccess'] = new RestoreAccessData(
             isCodeApplied: action.data['codeApplied'] == null ? false : action.data['codeApplied'],
-            isInvalidCode: action.data['invalidCode'] == null ? false : action.data['invalidCode']
+            changePasswordToken: action.data['token'] == null ? false : action.data['token'],
+            isInvalidCode: action.data['invalidCode'] == null ? false : action.data['invalidCode']);
+
+      case APPLY_PASSWORD_CHANGING:
+        return new State.from(state)
+          ..['restoreAccess'] = new RestoreAccessData(
+              isPasswordChanged: action.data['passwordChanged'] == null ? false : action.data['passwordChanged'],
+              passwordChangingError: action.data['passwordChangingError'] == null ? false : action.data['passwordChangingError']
           );
+
+      case CLEAR_RESTORE_ACCESS:
+        return new State.from(state)
+          ..['restoreAccess'] = null;
+
       default:
         return state;
     }

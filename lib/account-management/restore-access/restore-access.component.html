@@ -5,4 +5,13 @@
         <sp-restore-access-code *ngIf="isCodeSent"></sp-restore-access-code>
     </div>
     <sp-change-password *ngIf="isCodeApplied"></sp-change-password>
+<!--TODO temporary, should remove later-->
+    <div *ngIf="isPasswordChanged" class="description" style="font-weight: bold; color: green; font-size: 200%">
+        Password is changed
+    </div>
+
+    <div *ngIf="passwordChangingError" class="description" style="font-weight: bold; color: red; font-size: 200%">
+        Error is occured while password changing
+    </div>
+<!-- end -->
 </sp-info>
