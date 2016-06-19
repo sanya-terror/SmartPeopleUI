@@ -13,7 +13,8 @@ import 'package:SmartPeopleUI/shared/components/index.dart';
       MainComponent
     ],
     providers: const [InjectableStore],
-    templateUrl: 'app.component.html')
+    templateUrl: 'app.component.html',
+    styleUrls: const ['app.component.css'])
 @RouteConfig(const [
   const Route(
       path: '/', name: 'Home', component: SignUpComponent, useAsDefault: true),
