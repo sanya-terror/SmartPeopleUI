@@ -35,7 +35,7 @@ class RestoreAccessReducer {
         return new State.from(state)
           ..['restoreAccess'] = new RestoreAccessData(
             isCodeApplied: action.data['codeApplied'] == null ? false : action.data['codeApplied'],
-            changePasswordToken: action.data['token'] == null ? false : action.data['token'],
+            changePasswordToken: action.data['token'] == null ? '' : action.data['token'],
             isInvalidCode: action.data['invalidCode'] == null ? false : action.data['invalidCode']);
 
       case APPLY_PASSWORD_CHANGING:
