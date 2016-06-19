@@ -9,7 +9,6 @@ class RestoreAccessData {
   bool changePasswordToken;
   bool isPasswordChanged;
   bool passwordChangingError;
-  String email;
 
   RestoreAccessData({
     this.isCodeSent: false,
@@ -18,8 +17,7 @@ class RestoreAccessData {
     this.isUserNotFound: false,
     this.changePasswordToken: false,
     this.isPasswordChanged: false,
-    this.passwordChangingError: false,
-    this.email: null
+    this.passwordChangingError: false
   });
 }
 

@@ -13,7 +13,7 @@ class RestoreAccessActionCreator {
   static Action applyRestoreCode(String code) =>
     ApiActionCreator.postApiAction(APPLY_RESTORE_CODE, '/applyCode', {'code': code}, false);
 
-  static Action applyPasswordChanging(String password, bool token) {
+  static Action applyPasswordChanging(String password, String token) {
     return ApiActionCreator.postApiAction(APPLY_PASSWORD_CHANGING, '/applyPasswordChanging', {'password': password, 'token': token}, false);
   }
 

@@ -1,6 +1,6 @@
 import 'package:angular2/angular2.dart' show Component, Control, ControlGroup, Validators;
 
-import 'package:SmartPeopleUI/index.dart' show FormComponent, PasswordValidator, ValidationNotificationComponent, InjectableStore, RestoreAccessActionCreator;
+import 'package:SmartPeopleUI/index.dart' show FormComponent, PasswordValidator, ValidationNotificationComponent, InjectableStore, RestoreAccessActionCreator, RestoreAccessData;
 
 @Component(
     selector: 'sp-change-password',
@@ -36,6 +36,9 @@ class ChangePasswordComponent extends FormComponent {
     });
   }
 
-   applyPasswordChanging() => _store.dispatch(RestoreAccessActionCreator.applyPasswordChanging(passwordControl.value, true)); //TODO pass real token instead of static, how to do it?
+   applyPasswordChanging() {
+      var _restoreToken = (_store.state['restoreAccess'] as RestoreAccessData).changePasswordToken;
+      _store.dispatch(RestoreAccessActionCreator.applyPasswordChanging(passwordControl.value, _restoreToken));
+   }
 
 }
