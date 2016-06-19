@@ -23,12 +23,12 @@
                            ngControl="password"
                            #password="ngForm"/>
                     <label class="mdl-textfield__label" for="current-password">Password</label>
-                </div>
 
-                <sp-error-tooltip *ngIf="isRequired(password)" [message]="'Password is required'"></sp-error-tooltip>
-                <sp-error-tooltip *ngIf="isInsufficientLength(password)" [message]="'Password is too short'"></sp-error-tooltip>
-                <sp-error-tooltip *ngIf="isLengthExcess(password)" [message]="'Password is too long'"></sp-error-tooltip>
-                <sp-error-tooltip *ngIf="!hasRangeError(password)" [message]="'Password is incorrect'"></sp-error-tooltip>
+                    <sp-error-tooltip *ngIf="isRequired(password)" [message]="'Password is required'"></sp-error-tooltip>
+                    <sp-error-tooltip *ngIf="isInsufficientLength(password)" [message]="'Password is too short'"></sp-error-tooltip>
+                    <sp-error-tooltip *ngIf="isLengthExcess(password)" [message]="'Password is too long'"></sp-error-tooltip>
+                    <sp-error-tooltip *ngIf="!hasRangeError(password)" [message]="'Password is incorrect'"></sp-error-tooltip>
+                </div>
 
                 <button class="login-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored"
                         (click)="login()">Sign in

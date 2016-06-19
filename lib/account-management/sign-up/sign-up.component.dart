@@ -1,13 +1,20 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/common.dart';
 import 'package:angular2/router.dart';
+import 'package:angular2_rbi/directives.dart' show MaterialButton, MaterialTextfield, MaterialRadio;
 
 import 'package:SmartPeopleUI/shared/index.dart';
 import 'index.dart';
 
 @Component(
     selector: 'sign-up',
-    directives: const [ROUTER_DIRECTIVES, ErrorTooltipComponent],
+    directives: const [
+      ROUTER_DIRECTIVES,
+      ErrorTooltipComponent,
+      MaterialButton,
+      MaterialTextfield,
+      MaterialRadio
+    ],
     styleUrls: const ['sign-up.component.css'],
     encapsulation: ViewEncapsulation.Emulated,
     templateUrl: 'sign-up.component.html')
