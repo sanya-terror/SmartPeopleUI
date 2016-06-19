@@ -1,52 +1,93 @@
-<div class="component">
+<div class="sign-up">
+	<div class="sign-up-card mdl-card mdl-shadow--4dp">
 
-	<div class="content-logo">
-		<img class="logo" src="../images/logo.png"/>
-	</div>
+		<!--<div class="mdl-card__media">-->
+			<!--<img src="../images/logo.png" width="220" height="140" border="0" alt="" style="padding:20px;">-->
+		<!--</div>-->
 
-	<div class="sign-up">
-		<!--TODO should rewrite template to better validation notifications implementation-->
+		<div class="mdl-card__title">
+			<h2 class="mdl-card__title-text">Sign Up</h2>
+		</div>
+
 		<form name="sign-up-form" [ngFormModel]="form" class="form">
 
-			<div class="title">
-				<h3>Sign Up</h3>
-			</div>
-
 			<div class="name-group">
-				<input type="text" placeholder="Name" name="name" ngControl="name" #name="ngForm"/>
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="text" name="name"
+						   id="name"
+						   ngControl="name"
+						   #name="ngForm"/>
+					<label class="mdl-textfield__label" for="name">Name</label>
+				</div>
+
 				<sp-validation-notification *ngIf="isRequired(name)" [message]="'Name is required'"></sp-validation-notification>
 				<sp-validation-notification *ngIf="!hasRequiredError(name)" [message]="'Name is incorrect'"></sp-validation-notification>
-				<input type="text" placeholder="Surname" name="surname" ngControl="surname" #surname="ngForm"/>
+
+				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+					<input class="mdl-textfield__input" type="text" name="surname"
+						   id="surname"
+						   ngControl="surname"
+						   #name="ngForm"/>
+					<label class="mdl-textfield__label" for="surname">Surname</label>
+				</div>
 				<sp-validation-notification *ngIf="isRequired(surname)" [message]="'Surname is required'"></sp-validation-notification>
 				<sp-validation-notification *ngIf="!hasRequiredError(surname)" [message]="'Surname is incorrect'"></sp-validation-notification>
 			</div>
 
-			<input type="text" placeholder="Email" name="email" ngControl="email" #email="ngForm"/>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="text" name="email"
+					   id="email"
+					   ngControl="email"
+					   #name="ngForm"/>
+				<label class="mdl-textfield__label" for="email">Email</label>
+			</div>
 			<sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
 			<sp-validation-notification *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
 
-			<input type="password" placeholder="Password" name="password" ngControl="password" #password="ngForm"/>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="password" name="password"
+					   id="password"
+					   ngControl="password"
+					   #password="ngForm"/>
+				<label class="mdl-textfield__label" for="password">Password</label>
+			</div>
 			<sp-validation-notification *ngIf="isRequired(password)" [message]="'Password is required'"></sp-validation-notification>
 			<sp-validation-notification *ngIf="isInsufficientLength(password)" [message]="'Password is too short'"></sp-validation-notification>
 			<sp-validation-notification *ngIf="isLengthExcess(password)" [message]="'Password is too long'"></sp-validation-notification>
 			<sp-validation-notification *ngIf="!hasRangeError(password)" [message]="'Password is incorrect'"></sp-validation-notification>
 
-			<input type="password" placeholder="Repeat password" name="passwordRepeat" ngControl="passwordRepeat" #passwordRepeat="ngForm"/>
+			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+				<input class="mdl-textfield__input" type="password" name="passwordRepeat"
+					   id="passwordRepeat"
+					   ngControl="passwordRepeat"
+					   #password="ngForm"/>
+				<label class="mdl-textfield__label" for="passwordRepeat">Repeat password</label>
+			</div>
+
 			<sp-validation-notification *ngIf="!isEqual(passwordRepeat, password)" [message]="'Passwords are not equal'"></sp-validation-notification>
 <!--TODO Make validation notification for gender group-->
-			<!--<div class="gender-group">-->
-				<!--<div class="gender">-->
-					<!--<input type="radio" name="gender" value="male" id="male" ngControl="gender" />-->
-					<!--<label for="male">Male</label>-->
-				<!--</div>-->
-				<!--<div class="gender">-->
-					<!--<input type="radio" name="gender" value="female" id="female" ngControl="gender"/>-->
-					<!--<label for="female">Female</label>-->
-				<!--</div>-->
-				<!--<sp-validation-notification *ngIf="!isValid('gender')" [message]="'Gender is required'"></sp-validation-notification>-->
-			<!--</div>-->
+			<div class="gender-group">
+				<div class="gender">
+					<input type="radio" name="gender" value="male" id="male" ngControl="gender" />
+					<label for="male">Male</label>
+				</div>
+				<div class="gender">
+					<input type="radio" name="gender" value="female" id="female" ngControl="gender"/>
+					<label for="female">Female</label>
+				</div>
+				<sp-validation-notification *ngIf="!isValid('gender')" [message]="'Gender is required'"></sp-validation-notification>
+			</div>
 
-			<button class="custom-md-success sign-up-btn">Sign up</button>
+			<button class="login-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+				Sign up
+			</button>
 		</form>
+
+		<div class="mdl-card__actions mdl-card--border">
+			<a [routerLink]="['Login']"
+			   class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+				Sign in
+			</a>
+		</div>
 	</div>
 </div>

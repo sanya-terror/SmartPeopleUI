@@ -26,6 +26,10 @@ import 'package:SmartPeopleUI/shared/components/index.dart';
       name: 'RestoreAccess',
       component: RestoreAccessComponent),
   const Route(
+      path: '/account/sign-up',
+      name: 'SignUp',
+      component: SignUpComponent),
+  const Route(
       path: '/account/error-authorization',
       name: 'ErrorAuthorization',
       component: ErrorAuthorizationComponent)
