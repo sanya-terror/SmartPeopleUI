@@ -38,7 +38,7 @@ class DemoService {
     String oldPassword = '111111';
     String password = body['password'];
     bool token = body['token'];
-print(password != oldPassword);
+
     if (password != oldPassword && token == true)
       return { 'passwordChanged': true };
 
