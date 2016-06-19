@@ -1,3 +1,4 @@
+import 'dart:html';
 import 'package:SmartPeopleUI/redux/index.dart';
 import 'package:SmartPeopleUI/account-management/restore-access/index.dart';
 
@@ -7,7 +8,6 @@ class RestoreAccessData {
   bool isInvalidCode;
   bool isUserNotFound;
   bool changePasswordToken;
-  bool isPasswordChanged;
   bool passwordChangingError;
 
   RestoreAccessData({
@@ -16,7 +16,6 @@ class RestoreAccessData {
     this.isInvalidCode: false,
     this.isUserNotFound: false,
     this.changePasswordToken: false,
-    this.isPasswordChanged: false,
     this.passwordChangingError: false
   });
 }
@@ -39,9 +38,14 @@ class RestoreAccessReducer {
             isInvalidCode: action.data['invalidCode'] == null ? false : action.data['invalidCode']);
 
       case APPLY_PASSWORD_CHANGING:
+        if(action.data['passwordChanged']) {
+          window.alert('Password is changed');
+          return new State.from(state)
+            ..['restoreAccess'] = null;
+        }
+
         return new State.from(state)
           ..['restoreAccess'] = new RestoreAccessData(
-              isPasswordChanged: action.data['passwordChanged'] == null ? false : action.data['passwordChanged'],
               passwordChangingError: action.data['passwordChangingError'] == null ? false : action.data['passwordChangingError']
           );
 

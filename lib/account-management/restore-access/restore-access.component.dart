@@ -19,7 +19,6 @@ class RestoreAccessComponent implements OnInit, OnDestroy {
 
   bool isCodeSent = false;
   bool isCodeApplied = false;
-  bool isPasswordChanged = false;
   bool passwordChangingError = false;
 
   final InjectableStore _store;
@@ -37,7 +36,6 @@ class RestoreAccessComponent implements OnInit, OnDestroy {
 
     isCodeSent = restoreAccess.isCodeSent;
     isCodeApplied = restoreAccess.isCodeApplied;
-    isPasswordChanged = restoreAccess.isPasswordChanged;
     passwordChangingError = restoreAccess.passwordChangingError;
   }
 
