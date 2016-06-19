@@ -1,7 +1,21 @@
 .validation-notification {
-  background-color: #DE8E8E;
-  border: 1px solid pink;
-  padding: 5px 10px;
+  left: 80px;
+  margin-left: -68px;
+  bottom: -36px;
+  line-height: 14px;
+  font-size: 14px;
+  padding: 16px;
   position: absolute;
-  z-index: 9999;
+  transform: scale(0);
+  transform-origin: top center;
+  transition: all 200ms cubic-bezier(0.420, 0.000, 0.580, 1.000);
+  will-change: transform;
+  z-index: 999;
+  background: rgba(97, 97, 97, 0.9);
+  border-radius: 2px;
+  color: #fff;
+  display: inline-block;
+  font-weight: 500;
+  max-width: 170px;
+  text-align: center;
 }
