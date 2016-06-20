@@ -5,6 +5,7 @@ import 'package:angular2_rbi/directives.dart' show MaterialButton, MaterialCheck
 
 import 'package:SmartPeopleUI/shared/index.dart';
 import 'package:SmartPeopleUI/account-management/index.dart';
+import 'package:SmartPeopleUI/shared/components/controls/text-field/text-field.component.dart';
 
 @Component(
     selector: 'sp-login',
@@ -13,27 +14,33 @@ import 'package:SmartPeopleUI/account-management/index.dart';
       ErrorTooltipComponent,
       MaterialButton,
       MaterialTextfield,
-      MaterialCheckbox
+      MaterialCheckbox,
+      InputComponent
     ],
     templateUrl: 'login.component.html',
     encapsulation: ViewEncapsulation.Emulated,
     styleUrls: const ['login.component.css'])
 class LoginComponent extends FormComponent {
+
   ControlGroup form;
+  Control emailControl;
+  Control passwordControl;
+
   final InjectableStore _store;
 
   LoginComponent(this._store) {
-    this.form = new ControlGroup({
-      'email': new Control('',
-          Validators.compose([EmailValidator.validate, Validators.required])),
-      'password': new Control(
+    this.emailControl = new Control('', Validators.compose([EmailValidator.validate, Validators.required]));
+    this.passwordControl = new Control(
           '',
           Validators.compose([
             PasswordValidator.validate,
             Validators.required,
             Validators.minLength(6),
             Validators.maxLength(18)
-          ]))
+          ]));
+    this.form = new ControlGroup({
+      'email': emailControl,
+      'password': passwordControl
     });
   }
 
