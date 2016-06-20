@@ -5,7 +5,7 @@ import 'package:angular2_rbi/directives.dart' show MaterialButton, MaterialCheck
 
 import 'package:SmartPeopleUI/shared/index.dart';
 import 'package:SmartPeopleUI/account-management/index.dart';
-import 'package:SmartPeopleUI/shared/components/controls/text-field/text-field.component.dart';
+import 'package:SmartPeopleUI/shared/components/controls/index.dart';
 
 @Component(
     selector: 'sp-login',
@@ -13,9 +13,8 @@ import 'package:SmartPeopleUI/shared/components/controls/text-field/text-field.c
       ROUTER_DIRECTIVES,
       ErrorTooltipComponent,
       MaterialButton,
-      MaterialTextfield,
-      MaterialCheckbox,
-      InputComponent
+      InputComponent,
+      CheckboxComponent
     ],
     templateUrl: 'login.component.html',
     encapsulation: ViewEncapsulation.Emulated,
@@ -25,6 +24,7 @@ class LoginComponent extends FormComponent {
   ControlGroup form;
   Control emailControl;
   Control passwordControl;
+  Control rememberMeControl;
 
   final InjectableStore _store;
 
@@ -38,9 +38,12 @@ class LoginComponent extends FormComponent {
             Validators.minLength(6),
             Validators.maxLength(18)
           ]));
+    this.rememberMeControl = new Control('');
+
     this.form = new ControlGroup({
       'email': emailControl,
-      'password': passwordControl
+      'password': passwordControl,
+      'rememberMe': rememberMeControl
     });
   }
 
@@ -48,8 +51,9 @@ class LoginComponent extends FormComponent {
     if (!form.valid) return;
 
     _store.dispatch(AuthActionCreator.requestLogin({
-      'user': this.form.controls['email'].value,
-      'password': this.form.controls['password'].value,
+      'user': emailControl.value,
+      'password': passwordControl.value,
+      'rememberMe': rememberMeControl.value,
     }));
   }
 }

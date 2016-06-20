@@ -25,10 +25,7 @@
                         (click)="login()">Sign in
                 </button>
 
-                <label class="remember-me-group mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember-me">
-                    <input type="checkbox" id="remember-me" class="mdl-checkbox__input">
-                    <span class="mdl-checkbox__label">Remember me</span>
-                </label>
+                <sp-checkbox name="remember-me" label="Remember me" [control]="rememberMeControl"></sp-checkbox>
 
             </form>
 
