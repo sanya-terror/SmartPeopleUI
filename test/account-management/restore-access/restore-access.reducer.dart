@@ -29,10 +29,10 @@ class RestoreAccessReducerTests {
           })
         },
         {
-          'action': new Action(APPLY_RESTORE_CODE, { 'codeApplied': true}),
+          'action': new Action(APPLY_RESTORE_CODE, { 'token': 'some_token'}),
           'result': new State({
             'someProperty': 'some value',
-            'restoreAccess': new RestoreAccessData(isCodeApplied: true)
+            'restoreAccess': new RestoreAccessData(changePasswordToken: null)
           })
         },
         {
@@ -66,7 +66,7 @@ class RestoreAccessReducerTests {
             expect(actualRestoreData, null);
           } else {
             expect(actualRestoreData.isCodeSent, expectedRestoreAccess.isCodeSent);
-            expect(actualRestoreData.isCodeApplied, expectedRestoreAccess.isCodeApplied);
+            expect(actualRestoreData.changePasswordToken, expectedRestoreAccess.changePasswordToken);
             expect(actualRestoreData.isInvalidCode, expectedRestoreAccess.isInvalidCode);
             expect(actualRestoreData.isUserNotFound, expectedRestoreAccess.isUserNotFound);
           }
