@@ -35,7 +35,7 @@ class RestoreAccessComponent implements OnInit, OnDestroy {
     if (restoreAccess == null) return;
 
     isCodeSent = restoreAccess.isCodeSent;
-    isCodeApplied = restoreAccess.changePasswordToken != null ? true : false;
+    isCodeApplied = restoreAccess.changePasswordToken != null;
     passwordChangingError = restoreAccess.passwordChangingError;
   }
 
