@@ -25,10 +25,7 @@ class DemoService {
     String code = body['code'];
 
     if (code == '123')
-      return {
-        'codeApplied': true,
-        'token': 'restore_token_$code'
-      };
+      return { 'token': 'restore_token_$code' };
 
     return { 'invalidCode': true };
   }

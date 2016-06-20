@@ -4,7 +4,6 @@ import 'package:SmartPeopleUI/account-management/restore-access/index.dart';
 
 class RestoreAccessData {
   bool isCodeSent;
-  bool isCodeApplied;
   bool isInvalidCode;
   bool isUserNotFound;
   bool changePasswordToken;
@@ -12,10 +11,9 @@ class RestoreAccessData {
 
   RestoreAccessData({
     this.isCodeSent: false,
-    this.isCodeApplied: false,
     this.isInvalidCode: false,
     this.isUserNotFound: false,
-    this.changePasswordToken: false,
+    this.changePasswordToken: null,
     this.passwordChangingError: false
   });
 }
@@ -33,7 +31,6 @@ class RestoreAccessReducer {
       case APPLY_RESTORE_CODE:
         return new State.from(state)
           ..['restoreAccess'] = new RestoreAccessData(
-            isCodeApplied: action.data['codeApplied'] == null ? false : action.data['codeApplied'],
             changePasswordToken: action.data['token'] == null ? '' : action.data['token'],
             isInvalidCode: action.data['invalidCode'] == null ? false : action.data['invalidCode']);
 
