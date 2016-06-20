@@ -12,11 +12,11 @@ import 'package:SmartPeopleUI/shared/components/controls/index.dart';
     directives: const [
       ROUTER_DIRECTIVES,
       ErrorTooltipComponent,
-      MaterialButton,
       InputComponent,
       CheckboxComponent,
       LinkComponent,
-      CardComponent
+      CardComponent,
+      ButtonComponent
     ],
     templateUrl: 'login.component.html',
     encapsulation: ViewEncapsulation.Emulated,
@@ -40,7 +40,7 @@ class LoginComponent extends FormComponent {
             Validators.minLength(6),
             Validators.maxLength(18)
           ]));
-    this.rememberMeControl = new Control('');
+    this.rememberMeControl = new Control(false);
 
     this.form = new ControlGroup({
       'email': emailControl,
