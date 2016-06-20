@@ -31,14 +31,8 @@
 
         </div>
         <div class="mdl-card__actions mdl-card--border">
-            <a [routerLink]="['SignUp']"
-               class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                Create account
-            </a>
-            <a [routerLink]="['RestoreAccess']"
-               class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-                Forgot password?
-            </a>
+            <sp-link [routerLink]="['SignUp']" label="Create account"></sp-link>
+            <sp-link [routerLink]="['RestoreAccess']" label="Forgot password?"></sp-link>
         </div>
     </div>
 </div>

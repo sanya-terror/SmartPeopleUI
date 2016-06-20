@@ -14,7 +14,8 @@ import 'package:SmartPeopleUI/shared/components/controls/index.dart';
       ErrorTooltipComponent,
       MaterialButton,
       InputComponent,
-      CheckboxComponent
+      CheckboxComponent,
+      LinkComponent
     ],
     templateUrl: 'login.component.html',
     encapsulation: ViewEncapsulation.Emulated,

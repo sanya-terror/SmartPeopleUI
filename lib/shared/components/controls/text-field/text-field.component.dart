@@ -1,6 +1,5 @@
-import 'package:angular2/core.dart';
-import 'package:angular2_rbi/directives.dart';
-import 'package:angular2/common.dart';
+import 'package:angular2/angular2.dart' show Component, Control, FORM_PROVIDERS, Input;
+import 'package:angular2_rbi/directives.dart' show MaterialTextfield;
 
 @Component(
 selector: 'sp-input',
@@ -13,6 +12,4 @@ class InputComponent {
    @Input() String name;
    @Input() String placeholder;
    @Input() Control control;
-
-
 }
