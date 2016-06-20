@@ -15,7 +15,8 @@ import 'package:SmartPeopleUI/shared/components/controls/index.dart';
       MaterialButton,
       InputComponent,
       CheckboxComponent,
-      LinkComponent
+      LinkComponent,
+      CardComponent
     ],
     templateUrl: 'login.component.html',
     encapsulation: ViewEncapsulation.Emulated,
