@@ -2,7 +2,7 @@ import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
 import 'index.dart' show AuthActionCreator, ErrorAuthorizationComponent, MainComponent, LoginComponent,
-RestoreAccessComponent, SignUpComponent, State, DrawerComponent;
+RestoreAccessComponent, SignUpComponent, State, DrawerComponent, ButtonComponent;
 
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
 import 'package:SmartPeopleUI/shared/components/index.dart';
@@ -12,7 +12,8 @@ import 'package:SmartPeopleUI/shared/components/index.dart';
     directives: const [
       ROUTER_DIRECTIVES,
       MainComponent,
-      DrawerComponent
+      DrawerComponent,
+      ButtonComponent
     ],
     providers: const [InjectableStore],
     templateUrl: 'app.component.html',

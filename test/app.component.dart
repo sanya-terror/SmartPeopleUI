@@ -30,15 +30,14 @@ class AppComponentTests {
         _fixture.detectChanges();
         expect(_element.querySelector('sp-footer'), isNotNull);
         expect(_element.querySelector('div.header'), isNotNull);
-        expect(_element.querySelector('div.drawer'), isNotNull);
+        expect(_element.querySelector('sp-drawer'), isNotNull);
         expect(_element.querySelector('div.content'), isNotNull);
       });
 
       ngTest('Should show login component if not authentificated', ()  {
         _component.isAuthenticated = false;
         _fixture.detectChanges();
-        //TODO better selector
-        expect(_element.querySelector('sp-main button.login-button'), isNotNull);
+        expect(_element.querySelector('sp-main sp-button.login-button'), isNotNull);
         expect(_element.querySelector('div.user-info'), null);
       });
 

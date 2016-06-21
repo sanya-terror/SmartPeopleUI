@@ -2,12 +2,9 @@
 
     <div class="header">
 
-<!--TODO extend button control and replace this one-->
-        <button *ngIf="!isAuthenticated"
-                class="login-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                [routerLink]="['Login']">
-            Sign in
-        </button>
+        <sp-button *ngIf="!isAuthenticated" [route]="['Login']" [accent]="true" class="login-button"
+                   label="Sign in"></sp-button>
+
         <div *ngIf="isAuthenticated" class="user-info">Hello, world!</div>
     </div>
 
