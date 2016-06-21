@@ -1,74 +1,43 @@
 <div class="sign-up">
-	<div class="sign-up-card mdl-card mdl-shadow--4dp">
+	<sp-card class="sign-up-card">
 
-		<!--<div class="mdl-card__media">-->
-			<!--<img src="../images/logo.png" width="220" height="140" border="0" alt="" style="padding:20px;">-->
-		<!--</div>-->
+		<div class="title">Sign Up</div>
 
-		<div class="mdl-card__title">
-			<h2 class="mdl-card__title-text">Sign Up</h2>
-		</div>
-
-		<form name="sign-up" [ngFormModel]="form" class="form">
+		<form name="sign-up" [ngFormModel]="form" class="content form">
 
 			<div class="name-group">
-				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<input class="mdl-textfield__input" type="text" name="name"
-						   id="name"
-						   ngControl="name"
-						   #name="ngForm"/>
-					<label class="mdl-textfield__label" for="name">Name</label>
-					<sp-error-tooltip *ngIf="isRequired(name)" [message]="'Name is required'"></sp-error-tooltip>
-					<sp-error-tooltip *ngIf="!hasRequiredError(name)" [message]="'Name is incorrect'"></sp-error-tooltip>
-				</div>
 
-				<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-					<input class="mdl-textfield__input" type="text" name="surname"
-						   id="surname"
-						   ngControl="surname"
-						   #surname="ngForm"/>
-					<label class="mdl-textfield__label" for="surname">Surname</label>
+				<sp-input name="name" placeholder="Name*" [control]="nameControl">
+					<span *ngIf="isRequired(nameControl)" class="error">Name is required</span>
+					<span *ngIf="!hasRequiredError(nameControl)" class="error">Name is incorrect</span>
+				</sp-input>
 
-					<sp-error-tooltip *ngIf="isRequired(surname)" [message]="'Surname is required'"></sp-error-tooltip>
-					<sp-error-tooltip *ngIf="!hasRequiredError(surname)" [message]="'Surname is incorrect'"></sp-error-tooltip>
-				</div>
+				<sp-input name="surname" placeholder="Surname*" [control]="surnameControl">
+					<span *ngIf="isRequired(surnameControl)" class="error">Surname is required</span>
+					<span *ngIf="!hasRequiredError(surnameControl)" class="error">Surname is incorrect</span>
+				</sp-input>
+
 			</div>
 
-			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="text" name="email"
-					   id="email"
-					   ngControl="email"
-					   #email="ngForm"/>
-				<label class="mdl-textfield__label" for="email">Email</label>
-				<sp-error-tooltip *ngIf="isRequired(email)" [message]="'Email is required'"></sp-error-tooltip>
-				<sp-error-tooltip *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'"></sp-error-tooltip>
-			</div>
+			<sp-input name="email" placeholder="Email*" [control]="emailControl">
+				<span *ngIf="isRequired(emailControl)" class="error">Email is required</span>
+				<span *ngIf="!hasRequiredError(emailControl)" class="error">Email is incorrect</span>
+			</sp-input>
 
-			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="password" name="password"
-					   id="password"
-					   ngControl="password"
-					   #password="ngForm"/>
-				<label class="mdl-textfield__label" for="password">Password</label>
+			<sp-input name="password" type="password" placeholder="Password*"
+					  [control]="passwordControl">
+				<span *ngIf="isRequired(passwordControl)" class="error">Password is required</span>
+				<span *ngIf="isInsufficientLength(passwordControl)" class="error">Password is too short</span>
+				<span *ngIf="isLengthExcess(passwordControl)" class="error">Password is too long</span>
+				<span *ngIf="!hasRangeError(passwordControl)" class="error">Password is incorrect</span>
+			</sp-input>
 
-				<sp-error-tooltip *ngIf="isRequired(password)" [message]="'Password is required'"></sp-error-tooltip>
-				<sp-error-tooltip *ngIf="isInsufficientLength(password)" [message]="'Password is too short'"></sp-error-tooltip>
-				<sp-error-tooltip *ngIf="isLengthExcess(password)" [message]="'Password is too long'"></sp-error-tooltip>
-				<sp-error-tooltip *ngIf="!hasRangeError(password)" [message]="'Password is incorrect'"></sp-error-tooltip>
-			</div>
+			<sp-input name="password-repeat" type="password" placeholder="Repeat password*"
+					  [control]="passwordRepeatControl">
+				<span *ngIf="!isEqual(passwordRepeatControl, passwordControl)" class="error">Passwords are not
+					equal</span>
+			</sp-input>
 
-			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-				<input class="mdl-textfield__input" type="password" name="passwordRepeat"
-					   id="passwordRepeat"
-					   ngControl="passwordRepeat"
-					   #passwordRepeat="ngForm"/>
-				<label class="mdl-textfield__label" for="passwordRepeat">Repeat password</label>
-
-				<sp-error-tooltip *ngIf="!isEqual(passwordRepeat, password)" [message]="'Passwords are not equal'"></sp-error-tooltip>
-			</div>
-
-
-<!--TODO Make validation notification for gender group-->
 			<div class="gender-group">
 
 				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="male">
@@ -80,20 +49,13 @@
 					<input type="radio" id="female" class="mdl-radio__button" name="options" value="1" checked>
 					<span class="mdl-radio__label">Female</span>
 				</label>
-
-				<!--<sp-error-tooltip *ngIf="!isValid('gender')" [message]="'Gender is required'"></sp-error-tooltip>-->
 			</div>
 
-			<button class="login-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-				Sign up
-			</button>
+			<sp-button class="sign-up-button" label="Sign up"></sp-button>
 		</form>
 
-		<div class="mdl-card__actions mdl-card--border">
-			<a [routerLink]="['Login']"
-			   class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-				Sign in
-			</a>
+		<div class="extra-actions">
+			<sp-link [routerLink]="['Login']" label="Sign in"></sp-link>
 		</div>
-	</div>
+	</sp-card>
 </div>
