@@ -24,7 +24,7 @@ dev_dependencies:
   angular2_rbi: ^0.0.9
 transformers:
 - less_dart:
-    build_mode: less
+    build_mode: dart
 #- postcss_transformer:
 #    arguments:
 #    - use: autoprefixer

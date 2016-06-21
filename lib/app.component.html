@@ -11,16 +11,7 @@
         <div *ngIf="isAuthenticated" class="user-info">Hello, world!</div>
     </div>
 
-    <!--TODO add drawer control and replace this one-->
-    <div class="drawer">
-        <span class="mdl-layout-title">Smart People</span>
-        <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-        </nav>
-    </div>
+    <sp-drawer class="drawer" title="Smart People" [links]="drawerLinks"></sp-drawer>
 
     <div class="content">
         <router-outlet></router-outlet>

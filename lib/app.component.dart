@@ -1,7 +1,8 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
-import 'index.dart' show AuthActionCreator, ErrorAuthorizationComponent, MainComponent, LoginComponent, RestoreAccessComponent, SignUpComponent, State;
+import 'index.dart' show AuthActionCreator, ErrorAuthorizationComponent, MainComponent, LoginComponent,
+RestoreAccessComponent, SignUpComponent, State, DrawerComponent;
 
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
 import 'package:SmartPeopleUI/shared/components/index.dart';
@@ -10,7 +11,8 @@ import 'package:SmartPeopleUI/shared/components/index.dart';
     selector: 'sp-app',
     directives: const [
       ROUTER_DIRECTIVES,
-      MainComponent
+      MainComponent,
+      DrawerComponent
     ],
     providers: const [InjectableStore],
     templateUrl: 'app.component.html',
@@ -39,6 +41,13 @@ class AppComponent implements OnInit{
 
   final InjectableStore _store;
   bool isAuthenticated = false;
+
+  List<Link> drawerLinks = [
+    new Link('Login', ['Login']),
+    new Link('Restore Access', ['RestoreAccess']),
+    new Link('Sign Up', ['SignUp']),
+    new Link('Error Authorization', ['ErrorAuthorization'])
+  ];
 
   AppComponent(this._store);
 
