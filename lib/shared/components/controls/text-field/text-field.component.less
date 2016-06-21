@@ -1,12 +1,25 @@
 /*Disable MDL validation styles*/
 
-.mdl-textfield.is-invalid {
-  & .mdl-textfield__input {
-    border-bottom: 1px solid rgba(0, 0, 0, .12);
+.mdl-textfield {
+
+  & .mdl-textfield__input:not(:focus) + .mdl-textfield__label {
+    font-size: 16px;
   }
 
-  & .mdl-textfield__label:after {
-    background-color: rgb(63, 81, 181);
+  &.is-invalid {
+    & .mdl-textfield__input {
+      border-bottom: 1px solid rgba(0, 0, 0, .12);
+    }
+
+    & .mdl-textfield__label:after {
+      background-color: rgb(63, 81, 181);
+    }
+  }
+
+
+
+  & .mdl-textfield__error {
+    visibility: visible;
   }
 }
 
@@ -22,10 +35,6 @@
       color: rgb(63, 81, 181);
     }
   }
-}
-
-.mdl-textfield__error {
-  visibility: visible;
 }
 
 /*Validation styles based on MDL*/
