@@ -1,10 +1,9 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/common.dart';
 import 'package:angular2/router.dart';
-import 'package:angular2_rbi/directives.dart' show MaterialRadio;
-
 import 'package:SmartPeopleUI/shared/index.dart';
 import 'index.dart';
+import 'package:angular2/src/common/forms/directives.dart';
 
 @Component(
     selector: 'sign-up',
@@ -16,7 +15,8 @@ import 'index.dart';
       LinkComponent,
       CardComponent,
       ButtonComponent,
-      MaterialRadio
+      RadioButtonComponent,
+      RadioControlValueAccessor
     ],
     styleUrls: const ['sign-up.component.css'],
     encapsulation: ViewEncapsulation.Emulated,
@@ -30,6 +30,8 @@ class SignUpComponent extends FormComponent {
   Control passwordControl;
   Control passwordRepeatControl;
   Control genderControl;
+
+  String sex;
 
   SignUpComponent() {
     this.nameControl = new Control('', Validators.compose([NameValidator.validate, Validators.required]));

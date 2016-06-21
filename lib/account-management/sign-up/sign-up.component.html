@@ -39,16 +39,8 @@
 			</sp-input>
 
 			<div class="gender-group">
-
-				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="male">
-					<input type="radio" id="male" class="mdl-radio__button" name="options" value="1" checked>
-					<span class="mdl-radio__label">Male</span>
-				</label>
-
-				<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="female">
-					<input type="radio" id="female" class="mdl-radio__button" name="options" value="1" checked>
-					<span class="mdl-radio__label">Female</span>
-				</label>
+				<sp-radio id="male" name="gender" label="Male" [control]="genderControl" value="male"></sp-radio>
+				<sp-radio id="female" name="gender" label="Female" [control]="genderControl" value="female"></sp-radio>
 			</div>
 
 			<sp-button class="sign-up-button" label="Sign up"></sp-button>
