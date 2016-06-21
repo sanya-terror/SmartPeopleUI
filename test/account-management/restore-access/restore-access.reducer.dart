@@ -32,7 +32,7 @@ class RestoreAccessReducerTests {
           'action': new Action(APPLY_RESTORE_CODE, { 'token': 'some_token'}),
           'result': new State({
             'someProperty': 'some value',
-            'restoreAccess': new RestoreAccessData(changePasswordToken: null)
+            'restoreAccess': new RestoreAccessData(changePasswordToken: 'some_token')
           })
         },
         {

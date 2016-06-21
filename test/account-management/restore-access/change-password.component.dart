@@ -24,9 +24,12 @@ class ChangePasswordComponentTests {
 
          test('Should apply changing password', () {
 
-            var password = 'qwerty123',
-            token = 'change_password_token';
-            component.passwordControl = new Control(password, token);
+            String password = 'qwerty123';
+
+            String token = 'change_password_token';
+            when(mockStore.state).thenReturn(new State({'restoreAccess': new RestoreAccessData(changePasswordToken: token)}));
+
+            component.passwordControl = new Control(password);
             component.applyPasswordChanging();
 
             var isValidAction = predicate((action) => action.type == APPLY_PASSWORD_CHANGING && action.data['password'] == password && action.data['token'] == token);

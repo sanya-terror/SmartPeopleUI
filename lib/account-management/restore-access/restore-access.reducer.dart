@@ -6,7 +6,7 @@ class RestoreAccessData {
   bool isCodeSent;
   bool isInvalidCode;
   bool isUserNotFound;
-  bool changePasswordToken;
+  String changePasswordToken;
   bool passwordChangingError;
 
   RestoreAccessData({
@@ -33,7 +33,8 @@ class RestoreAccessReducer {
           ..['restoreAccess'] = new RestoreAccessData(
             changePasswordToken: action.data['token'],
             isInvalidCode: action.data['invalidCode'] == null ? false : action.data['invalidCode']);
-
+//Temporary realization
+//    TODO rewrite RESTORE ACCESS DATA STATE further
       case APPLY_PASSWORD_CHANGING:
         if(action.data['passwordChanged']) {
           window.alert('Password is changed');
@@ -41,10 +42,12 @@ class RestoreAccessReducer {
             ..['restoreAccess'] = null;
         }
 
-        return new State.from(state)
-          ..['restoreAccess'] = new RestoreAccessData(
-              passwordChangingError: action.data['passwordChangingError'] == null ? false : action.data['passwordChangingError']
-          );
+        if(action.data['passwordChangingError']) {
+          window.alert('Error while password changing');
+          return new State.from(state)
+            ..['restoreAccess'] = null;
+        }
+// end
 
       case CLEAR_RESTORE_ACCESS:
         return new State.from(state)

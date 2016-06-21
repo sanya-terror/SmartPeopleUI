@@ -27,6 +27,17 @@ class RestoreAccessActionCreatorTests {
         expect(result.data, {'code': code});
       });
 
+      test('Should return apply password changing action', () {
+        var password = 'qwerty123';
+        var token = 'password_changing_token';
+        ApiAction result = RestoreAccessActionCreator.applyPasswordChanging(password, token);
+        expect(result is ApiAction, true);
+        expect(result.type, APPLY_PASSWORD_CHANGING);
+        expect(result.endpoint, '/applyPasswordChanging');
+        expect(result.checkAuthorization, isFalse);
+        expect(result.data, {'password': password, 'token': token});
+      });
+
       test('Should return clear restore access action', () {
         Action result = RestoreAccessActionCreator.clearRestoreAccess();
         expect(result.type, CLEAR_RESTORE_ACCESS);
