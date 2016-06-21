@@ -3,20 +3,20 @@ import 'package:angular2/common.dart';
 import 'package:mockito/mockito.dart';
 import 'package:SmartPeopleUI/shared/components/form.component.dart';
 
-class MockNgControlName extends Mock implements NgControlName {
+class MockControl extends Mock implements Control {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
 class FormComponentTests {
   static run() {
     group('Form component', () {
-      NgControlName mockControl;
-      NgControlName mockControlToCompare;
+      Control mockControl;
+      Control mockControlToCompare;
       FormComponent component = new FormComponent();
 
       setUp(() {
         mockControl = spy(
-            new MockNgControlName(), new NgControlName(null, null, null, null));
+            new MockControl(), new Control(''));
       });
 
       _mockValid(bool valid) {
@@ -227,7 +227,7 @@ class FormComponentTests {
 
       group('Are controls equal each other', () {
         setUp(() {
-          mockControlToCompare = spy(new MockNgControlName(),
+          mockControlToCompare = spy(new MockControl(),
               new NgControlName(null, null, null, null));
         });
 

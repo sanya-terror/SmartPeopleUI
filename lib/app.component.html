@@ -1,6 +1,8 @@
 <sp-main class="app">
 
     <div class="header">
+
+<!--TODO extend button control and replace this one-->
         <button *ngIf="!isAuthenticated"
                 class="login-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
                 [routerLink]="['Login']">
@@ -9,6 +11,7 @@
         <div *ngIf="isAuthenticated" class="user-info">Hello, world!</div>
     </div>
 
+    <!--TODO add drawer control and replace this one-->
     <div class="drawer">
         <span class="mdl-layout-title">Smart People</span>
         <nav class="mdl-navigation">
