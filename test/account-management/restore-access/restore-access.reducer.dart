@@ -43,6 +43,20 @@ class RestoreAccessReducerTests {
           })
         },
         {
+          'action': new Action(APPLY_PASSWORD_CHANGING, { 'passwordChanged': true}),
+          'result': new State({
+            'someProperty': 'some value',
+            'restoreAccess': null
+          })
+        },
+        {
+          'action': new Action(APPLY_PASSWORD_CHANGING, { 'passwordChangingError': true}),
+          'result': new State({
+            'someProperty': 'some value',
+            'passwordChangingError': new RestoreAccessData(passwordChangingError: true)
+          })
+        },
+        {
           'action': new Action(CLEAR_RESTORE_ACCESS),
           'result': new State({
             'someProperty': 'some value',
@@ -69,6 +83,7 @@ class RestoreAccessReducerTests {
             expect(actualRestoreData.changePasswordToken, expectedRestoreAccess.changePasswordToken);
             expect(actualRestoreData.isInvalidCode, expectedRestoreAccess.isInvalidCode);
             expect(actualRestoreData.isUserNotFound, expectedRestoreAccess.isUserNotFound);
+            expect(actualRestoreData.passwordChangingError, expectedRestoreAccess.passwordChangingError);
           }
         });
       });

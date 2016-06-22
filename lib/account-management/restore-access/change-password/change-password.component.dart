@@ -1,5 +1,5 @@
 import 'package:angular2/angular2.dart' show Component, Control, ControlGroup, Validators;
-
+import 'dart:html' show window;
 import 'package:SmartPeopleUI/index.dart' show FormComponent, PasswordValidator, ValidationNotificationComponent, InjectableStore, RestoreAccessActionCreator, RestoreAccessData;
 
 @Component(
@@ -13,7 +13,6 @@ class ChangePasswordComponent extends FormComponent {
 
    Control passwordControl;
    Control passwordRepeatControl;
-
    ControlGroup form;
 
    ChangePasswordComponent(this._store) {
@@ -37,8 +36,14 @@ class ChangePasswordComponent extends FormComponent {
   }
 
    applyPasswordChanging() {
-      var _restoreToken = (_store.state['restoreAccess'] as RestoreAccessData).changePasswordToken;
-      _store.dispatch(RestoreAccessActionCreator.applyPasswordChanging(passwordControl.value, _restoreToken));
+      String restoreToken = (_store.state['restoreAccess'] as RestoreAccessData)?.changePasswordToken;
+      _store.dispatch(RestoreAccessActionCreator.applyPasswordChanging(passwordControl.value, restoreToken));
+
+      bool isPasswordChangingError = (_store.state['restoreAccess'] as RestoreAccessData)?.passwordChangingError;
+
+      if (isPasswordChangingError) window.alert('Error while password changing');
+      else window.alert('Password is changed');
+
    }
 
 }
