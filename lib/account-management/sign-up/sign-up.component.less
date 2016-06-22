@@ -1,70 +1,35 @@
-.component {
+.sign-up {
+
 	display: flex;
-	justify-content: space-around;
+	align-items: center;
+	flex-direction: column;
+	padding-top: 32px;
 
-	& .content-logo {
-		align-items: center;
-		display: flex;
+	& .sign-up-card {
 
-		& img {
-			width: 350px;
-		}
-	}
-
-	& .sign-up {
-		display: flex;
-		justify-content: flex-end;
-
-		& .title {
-			color: #000;
-			font-size: 1.2rem;
-
-			& h3 {
-				margin-left: 10px;
-			}
-		}
+		width: 512px;
 
 		& .form {
 			display: flex;
 			flex-direction: column;
-			padding-top: 30px;
-			width: 100%;
+			align-items: center;
 
 			& > * {
-				margin: 5px 0;
+				width: 90%;
 			}
 
-			& input {
-				border: 2px inset rgba(16, 16, 224, 0.37);
-				border-radius: 5px;
-				flex: 1;
-				font-family: cursive;
-				font-size: 1em;
-				outline: none;
-				padding: 10px 20px;
-			}
-
-			& input:focus {
-				border: 2px solid #3f51b5;
-			}
-
-			& .gender-group {
+			& .name-group{
 				display: flex;
+				justify-content: space-between;
+				& input{
+					width: 218px;
+				}
 			}
 
-			& .custom-md-success {
-				background: rgb(76, 175, 80);
-				color: rgb(255, 255, 255);
-			}
-
-			& .sign-up-btn {
-				font-weight: bold;
-				min-width: 200px;
-				font-size: 1.5em;
-			}
-
-			& .validation-notification {
-				margin-bottom: 10px;
+			& .gender-group{
+				display: flex;
+				justify-content: space-around;
+				padding: 20px 0;
 			}
 		}
 	}

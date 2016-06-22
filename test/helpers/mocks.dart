@@ -1,6 +1,7 @@
 import 'package:mockito/mockito.dart';
 import 'package:SmartPeopleUI/shared/index.dart';
 import 'package:angular2/router.dart';
+import 'package:angular2/platform/common.dart';
 
 class MockStore extends Mock implements InjectableStore {
   noSuchMethod(i) => super.noSuchMethod(i);

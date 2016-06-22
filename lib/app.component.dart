@@ -1,15 +1,19 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
-import 'index.dart';
+import 'index.dart' show AuthActionCreator, ErrorAuthorizationComponent, MainComponent, LoginComponent,
+RestoreAccessComponent, SignUpComponent, State, DrawerComponent, ButtonComponent;
+
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
+import 'package:SmartPeopleUI/shared/components/index.dart';
 
 @Component(
     selector: 'sp-app',
     directives: const [
       ROUTER_DIRECTIVES,
-      HeaderComponent,
-      FooterComponent,
-      LoginComponent
+      MainComponent,
+      DrawerComponent,
+      ButtonComponent
     ],
     providers: const [InjectableStore],
     templateUrl: 'app.component.html',
@@ -18,13 +22,17 @@ import 'index.dart';
   const Route(
       path: '/', name: 'Home', component: SignUpComponent, useAsDefault: true),
   const Route(
+      path: '/account/login',
+      name: 'Login',
+      component: LoginComponent),
+  const Route(
       path: '/account/restore-access',
       name: 'RestoreAccess',
       component: RestoreAccessComponent),
   const Route(
-      path: '/account/change-password',
-      name: 'ChangePassword',
-      component: ChangePasswordComponent),
+      path: '/account/sign-up',
+      name: 'SignUp',
+      component: SignUpComponent),
   const Route(
       path: '/account/error-authorization',
       name: 'ErrorAuthorization',
@@ -33,10 +41,16 @@ import 'index.dart';
 class AppComponent implements OnInit{
 
   final InjectableStore _store;
-  Router _router;
   bool isAuthenticated = false;
 
-  AppComponent(this._store, this._router);
+  List<Link> drawerLinks = [
+    new Link('Login', ['Login']),
+    new Link('Restore Access', ['RestoreAccess']),
+    new Link('Sign Up', ['SignUp']),
+    new Link('Error Authorization', ['ErrorAuthorization'])
+  ];
+
+  AppComponent(this._store);
 
   @override
   ngOnInit() {
@@ -50,9 +64,5 @@ class AppComponent implements OnInit{
     if(isAuthenticated == null || this.isAuthenticated == isAuthenticated) return;
 
     this.isAuthenticated = isAuthenticated;
-
-    //TODO change to redirect to correct page
-     _router.navigate(['ChangePassword']);
   }
-
 }

@@ -1,6 +1,5 @@
 import 'dart:html' show window;
-
-import 'package:angular2/core.dart';
+import 'package:angular2/core.dart' show Injectable;
 
 @Injectable()
 class LocalStorageService {

@@ -1,25 +1,25 @@
 import 'package:angular2/common.dart';
 
 class FormComponent {
-  isValid(NgControlName control) => control.untouched || control.valid;
+  isValid(Control control) => control.untouched || control.valid;
 
-  isRequired(NgControlName control) =>
+  isRequired(Control control) =>
       !isValid(control) && control.errors.containsKey('required');
 
-  isInsufficientLength(NgControlName control) =>
+  isInsufficientLength(Control control) =>
       !isValid(control) && control.errors.containsKey('minlength');
 
-  isLengthExcess(NgControlName control) =>
+  isLengthExcess(Control control) =>
       !isValid(control) && control.errors.containsKey('maxlength');
 
-  hasRequiredError(NgControlName control) =>
+  hasRequiredError(Control control) =>
       isValid(control) || isRequired(control);
 
-  hasRangeError(NgControlName control) =>
+  hasRangeError(Control control) =>
       hasRequiredError(control) ||
       isInsufficientLength(control) ||
       isLengthExcess(control);
 
-  isEqual(NgControlName comparativeControl, NgControlName controlToCompare) =>
+  isEqual(Control comparativeControl, Control controlToCompare) =>
       comparativeControl.value == controlToCompare.value;
 }

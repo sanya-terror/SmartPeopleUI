@@ -1,0 +1,7 @@
+<div class="drawer">
+    <span class="mdl-layout-title">{{title}}</span>
+    <nav class="mdl-navigation">
+        <a *ngFor="let link of links" class="mdl-navigation__link" [routerLink]="link.route">
+            {{link.title}}</a>
+    </nav>
+</div>

@@ -1,69 +1,26 @@
 .login {
-  & .form {
-    display: flex;
-    flex-direction: row;
 
-    & a, & label {
-      color: #fff;
-      padding: 5px 0;
-      text-decoration: none;
-      text-shadow: 0 0 1px #000;
-    }
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 32px;
 
-    & .header {
-      font-size: 0.75em;
-    }
+  & .login-card {
 
-    & .input-group {
+    width: 512px;
+
+    & .form {
       display: flex;
       flex-direction: column;
-      margin-right: 10px;
-    }
+      align-items: center;
 
-    & .email {
-
-      & md-checkbox {
-        color: #fff;
-        margin: 0;
-
-        & .md-checkbox-label {
-          border: none;
-        }
-
-        & .md-checkbox-icon {
-          background-color: rgb(255, 255, 255);
-        }
+      & > * {
+        width: 90%;
       }
 
-      & md-checkbox[aria-checked="true"] {
-        & .md-checkbox-icon {
-          background-color: rgb(76, 175, 80);
-        }
+      & .login-button{
+        margin: 20px 0;
       }
-    }
-
-    & .sign-in-btn {
-      align-self: center;
-      line-height: 22px;
-      margin: 0;
-      min-width: 64px;
-    }
-
-    & .custom-md-success {
-      background: rgb(76, 175, 80);
-      color: rgb(255, 255, 255);
-    }
-
-    & .mock { //TODO delete after best ErrorAuthComponent implementation
-      min-height: 20px;
-      height: 22px;
-      line-height: 12px;
-      display: flex;
-      align-self: center;
-    }
-
-    & .validation-notification {
-      margin: 5px 0 10px 0%;
     }
   }
 }

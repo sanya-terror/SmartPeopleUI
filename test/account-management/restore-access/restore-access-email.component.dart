@@ -62,7 +62,7 @@ class RestoreAccessEmailComponentTests {
           expect(_element.querySelector('form #user-not-found-desc'), resultSelectors['userNotFound']);
           expect(_element.querySelector('form #enter-email-desc'), resultSelectors['enterEmail']);
           expect(_element.querySelector('form #invalid-code-error'), resultSelectors['invalidCode']);
-          expect(_element.querySelector('sp-validation-notification'), isNull);
+          expect(_element.querySelector('sp-error-tooltip'), isNull);
         });
       });
 
@@ -84,8 +84,8 @@ class RestoreAccessEmailComponentTests {
 //        flushMicrotasks();
 //
 //        print(element.outerHtml);
-////        expect(_element.querySelector('sp-validation-notification#email-required-error'), isNotNull);
-//        expect(element.querySelector('sp-validation-notification#email-incorrect-error'), isNull);
+////        expect(_element.querySelector('sp-error-tooltip#email-required-error'), isNotNull);
+//        expect(element.querySelector('sp-error-tooltip#email-incorrect-error'), isNull);
 //      }));
     });
 
