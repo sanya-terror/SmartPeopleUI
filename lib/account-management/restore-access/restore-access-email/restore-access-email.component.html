@@ -7,25 +7,10 @@
 
     <div *ngIf="isInvalidCode" id="invalid-code-error" class="error">Invalid code</div>
 
-    <div class="input-group">
+    <sp-input name="email" placeholder="Email*" [control]="emailControl">
+        <span *ngIf="isRequired(emailControl)" class="error">Email is required</span>
+        <span *ngIf="!hasRequiredError(emailControl)" class="error">Email is incorrect</span>
+    </sp-input>
 
-        <div class="input-control">
-            <label for="restore-access-email">Email:</label>
-
-            <input type="text"
-                   name="email"
-                   id="restore-access-email"
-                   class="email"
-                   placeholder="Insert email here"
-                   ngControl="email"
-                   #email="ngForm"/>
-
-        </div>
-        <sp-validation-notification id="email-required-error" *ngIf="isRequired(email)"
-                                    [message]="'Email is required'"></sp-validation-notification>
-        <sp-validation-notification id="email-incorrect-error" *ngIf="!hasRequiredError(email)"
-                                    [message]="'Email is incorrect'"></sp-validation-notification>
-
-        <a mdRaisedButton class="md-primary next-btn" (click)="getCode()">Next</a>
-    </div>
+    <sp-button (click)="getCode()" label="Next"></sp-button>
 </form>

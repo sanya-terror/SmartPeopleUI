@@ -26,17 +26,18 @@ class AppComponentTests {
         _element = _fixture.nativeElement;
       });
 
-      ngTest('Should have header, footer and contnent part', () {
+      ngTest('Should have main, header, drawer and contnent part', () {
         _fixture.detectChanges();
         expect(_element.querySelector('sp-footer'), isNotNull);
-        expect(_element.querySelector('sp-header'), isNotNull);
+        expect(_element.querySelector('div.header'), isNotNull);
+        expect(_element.querySelector('sp-drawer'), isNotNull);
         expect(_element.querySelector('div.content'), isNotNull);
       });
 
       ngTest('Should show login component if not authentificated', ()  {
         _component.isAuthenticated = false;
         _fixture.detectChanges();
-        expect(_element.querySelector('sp-header sp-login'), isNotNull);
+        expect(_element.querySelector('sp-main sp-button.login-button'), isNotNull);
         expect(_element.querySelector('div.user-info'), null);
       });
 
@@ -44,18 +45,17 @@ class AppComponentTests {
         _component.isAuthenticated = true;
         _fixture.detectChanges();
         expect(_element.querySelector('sp-login'), null);
-        expect(_element.querySelector('sp-header div.user-info'), isNotNull);
+        expect(_element.querySelector('sp-main div.user-info'), isNotNull);
       });
     });
     group('App component', () {
 
       var mockStore = mocks.getMockStore();
-      var router = mocks.getRouter();
 
       AppComponent component;
       setUp((){
         when(mockStore.dispatch(argThat(anything))).thenReturn({});
-        component =new AppComponent(mockStore, router);
+        component =new AppComponent(mockStore);
       });
 
       test('Should check login during initialization', () {
@@ -69,8 +69,6 @@ class AppComponentTests {
       test('Should react on state change', () {
 
         component.ngOnInit();
-
-          when(router.navigate(argThat(contains('ChangePassword')))).thenReturn({});
 
         var onStateChange = verify(mockStore.listen(captureAny)).captured[0];
 
@@ -88,8 +86,6 @@ class AppComponentTests {
         newState['isAuthenticated'] = false;
         onStateChange(newState);
         expect(component.isAuthenticated, isFalse);
-
-        expect(verify(router.navigate(argThat(contains('ChangePassword')))).callCount, 2);
       });
     });
   }

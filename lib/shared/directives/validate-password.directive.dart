@@ -1,10 +1,8 @@
-import 'package:angular2/core.dart';
-import 'package:angular2/common.dart';
+import 'package:angular2/angular2.dart' show Directive, NG_VALIDATORS, Provider;
+import 'package:SmartPeopleUI/index.dart' show PasswordValidator;
 
-import '../validators/password.validator.dart';
+const PASSWORD = PasswordValidator.validate;
+const PASSWORD_VALIDATOR = const Provider(NG_VALIDATORS, useValue: PASSWORD, multi: true);
 
-@Directive(selector: '[sp-validate-password][ngControl]', providers: const [
-  const Provider(NG_VALIDATORS,
-      useValue: PasswordValidator.validate, multi: true)
-])
+@Directive(selector: '[sp-validate-password][ngControl]', providers: const [PASSWORD_VALIDATOR])
 class PasswordValidatorDirective {}

@@ -4,24 +4,27 @@ version: 0.0.1
 environment:
   sdk: '>=1.13.0 <2.0.0'
 dependencies:
-  angular2: '2.0.0-beta.10'
+  angular2: '2.0.0-beta.17'
   browser: '^0.10.0'
-  angular2_material: '^2.0.0-beta.10'
   fp: '^0.4.3'
   http: '^0.11.3+7'
   dart_to_js_script_rewriter: '^1.0.1'
   shadow_dom: any
 dev_dependencies:
   test: '>=0.12.0 <0.13.0'
-  angular2_testing: '^2.0.0-beta.10'
+  angular2_testing: '^2.0.0-beta.17'
   mockito: '^0.11.0'
   redstone: '^0.6.1'
   quiver: '^0.22.0'
-  postcss_transformer: '^0.1.1'
+  less_dart: '^0.3.4'
+#  postcss_transformer: '^0.1.1'
   git: ^0.4.4+2
   peanut: ^0.0.2
   grinder: ^0.8.0+1
+  angular2_rbi: ^0.0.9
 transformers:
+- less_dart:
+    build_mode: dart
 #- postcss_transformer:
 #    arguments:
 #    - use: autoprefixer
@@ -32,7 +35,7 @@ transformers:
     - 'package:angular2/common.dart#CORE_DIRECTIVES'
     - 'package:angular2/common.dart#FORM_DIRECTIVES'
     entry_points: web/main.dart
-- test/pub_serve:
-    $include: test/**_test{.*,}.dart
-- dart_to_js_script_rewriter
+#- test/pub_serve:
+#    $include: test/**_test{.*,}.dart
+#- dart_to_js_script_rewriter
 

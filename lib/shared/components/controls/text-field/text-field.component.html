@@ -1,0 +1,11 @@
+<div class="input mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    <input class="mdl-textfield__input" type="{{type}}" name="{{name}}"
+           id="{{name}}"
+           [ngFormControl]="control"
+           />
+    <label class="mdl-textfield__label" for="{{name}}">{{placeholder}}</label>
+
+    <div class="mdl-textfield__error" style="">
+        <ng-content select=".error"></ng-content>
+    </div>
+</div>

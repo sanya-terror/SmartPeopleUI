@@ -1,0 +1,5 @@
+<label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="{{id}}">
+    <input type="radio" id="{{id}}" class="mdl-radio__button" name="{{name}}"
+           [checked]="control.value == value" (click)="control.updateValue(value)">
+    <span class="mdl-radio__label">{{label}}</span>
+</label>

@@ -11,11 +11,12 @@ import 'package:SmartPeopleUI/index.dart'
     InjectableStore,
     RestoreAccessActionCreator,
     RestoreCodeValidator,
-    ValidationNotificationComponent;
+    InputComponent,
+    ButtonComponent;
 
 @Component(
     selector: 'sp-restore-access-code',
-    directives: const [ValidationNotificationComponent],
+    directives: const [InputComponent, ButtonComponent],
     templateUrl: 'restore-access-code.component.html')
 
 class RestoreAccessCodeComponent extends FormComponent{

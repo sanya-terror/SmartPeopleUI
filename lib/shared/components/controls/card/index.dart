@@ -1,0 +1,1 @@
+export 'card.component.dart';
