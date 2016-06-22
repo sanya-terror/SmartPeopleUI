@@ -103,11 +103,11 @@ class RestoreAccessComponentTests {
 
           expect(component.isCodeSent, true);
         });
+      });
 
-        test('Should set default on destroy component', () {
-          component.ngOnDestroy();
-          expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == CLEAR_RESTORE_ACCESS)))).callCount, 1);
-        });
+      test('Should set default on destroy component', () {
+        component.ngOnDestroy();
+        expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == CLEAR_RESTORE_ACCESS)))).callCount, 1);
       });
 
       test('Should set default', () {
