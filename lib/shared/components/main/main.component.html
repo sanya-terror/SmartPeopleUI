@@ -1,0 +1,28 @@
+<div class="layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+
+    <header class="header mdl-layout__header">
+        <div class="mdl-layout__header-row">
+
+            <a class="root-link" [routerLink]="['Home']">
+                <img class="logo" src="../images/top-logo.png" alt="Keep your knowledge"/>
+                <span class="slogan">Keep your knowledge</span>
+            </a>
+
+            <div class="mdl-layout-spacer"></div>
+
+            <!-- Navigation. We hide it in small screens. -->
+            <ng-content select=".header"></ng-content>
+        </div>
+    </header>
+
+    <div class="mdl-layout__drawer">
+        <ng-content select=".drawer"></ng-content>
+    </div>
+
+    <div class="mdl-layout__content">
+        <ng-content select=".content" class="content"></ng-content>
+    </div>
+
+    <sp-footer class="footer"></sp-footer>
+
+</div>

@@ -1,27 +1,32 @@
 <div class="login">
-   <form action="#" class="form" method="post" name="login" [ngFormModel]="form">
+    <sp-card class="login-card">
 
-      <div class="email input-group">
-         <label for="current-email">Email</label>
-         <input type="text" name="email" id="current-email" ngControl="email" #email="ngForm"/>
-         <sp-validation-notification *ngIf="isRequired(email)" [message]="'Email is required'"></sp-validation-notification>
-         <sp-validation-notification *ngIf="!hasRequiredError(email)" [message]="'Email is incorrect'"></sp-validation-notification>
-         <md-checkbox aria-label="Remember me" class="helper" md-no-ink>Remember me</md-checkbox>
-      </div>
+        <div class="title">Login</div>
 
-      <div class="password input-group">
-         <label for="current-password">Password</label>
-         <input type="password" name="password" id="current-password" ngControl="password" #password="ngForm">
-         <sp-validation-notification *ngIf="isRequired(password)" [message]="'Password is required'"></sp-validation-notification>
-         <sp-validation-notification *ngIf="isInsufficientLength(password)" [message]="'Password is too short'"></sp-validation-notification>
-         <sp-validation-notification *ngIf="isLengthExcess(password)" [message]="'Password is too long'"></sp-validation-notification>
-         <sp-validation-notification *ngIf="!hasRangeError(password)" [message]="'Password is incorrect'"></sp-validation-notification>
-         <a [routerLink]="['RestoreAccess']" class="helper">Forgot password ?</a>
-      </div>
+        <form class="content form" name="login" [ngFormModel]="form">
 
-		<button mdRaisedButton class="custom-md-success sign-in-btn" (click)="login()">Sign in</button>
-		<!---->
-		<a mdRaisedButton class="md-accent mock" [routerLink]="['ErrorAuthorization']">Error auth mock</a>
-		<!--TODO delete after best ErrorAuthComponent implementation-->
-	</form>
+            <sp-input name="email" placeholder="Email*" [control]="emailControl">
+                <span *ngIf="isRequired(emailControl)" class="error">Email is required</span>
+                <span *ngIf="!hasRequiredError(emailControl)" class="error">Email is incorrect</span>
+            </sp-input>
+
+            <sp-input name="password" type="password" placeholder="Password*"
+                      [control]="passwordControl">
+                <span *ngIf="isRequired(passwordControl)" class="error">Password is required</span>
+                <span *ngIf="isInsufficientLength(passwordControl)" class="error">Password is too short</span>
+                <span *ngIf="isLengthExcess(passwordControl)" class="error">Password is too long</span>
+                <span *ngIf="!hasRangeError(passwordControl)" class="error">Password is incorrect</span>
+            </sp-input>
+
+            <sp-button (click)="login()" class="login-button" label="Sign in"></sp-button>
+
+            <sp-checkbox name="remember-me" label="Remember me" [control]="rememberMeControl"></sp-checkbox>
+
+        </form>
+
+        <div class="extra-actions">
+            <sp-link [routerLink]="['SignUp']" label="Create account"></sp-link>
+            <sp-link [routerLink]="['RestoreAccess']" label="Forgot password?"></sp-link>
+        </div>
+    </sp-card>
 </div>

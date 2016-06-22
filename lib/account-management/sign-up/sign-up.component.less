@@ -1,0 +1,36 @@
+.sign-up {
+
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding-top: 32px;
+
+	& .sign-up-card {
+
+		width: 512px;
+
+		& .form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			& > * {
+				width: 90%;
+			}
+
+			& .name-group{
+				display: flex;
+				justify-content: space-between;
+				& input{
+					width: 218px;
+				}
+			}
+
+			& .gender-group{
+				display: flex;
+				justify-content: space-around;
+				padding: 20px 0;
+			}
+		}
+	}
+}

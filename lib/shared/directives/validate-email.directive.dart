@@ -1,9 +1,8 @@
-import 'package:angular2/core.dart';
-import 'package:angular2/common.dart';
+import 'package:angular2/angular2.dart' show Directive, NG_VALIDATORS, Provider;
+import 'package:SmartPeopleUI/index.dart' show EmailValidator;
 
-import '../validators/email.validator.dart';
+const EMAIL = EmailValidator.validate;
+const EMAIL_VALIDATOR = const Provider(NG_VALIDATORS, useValue: EMAIL, multi: true);
 
-@Directive(selector: '[sp-validate-email][ngControl]', providers: const [
-  const Provider(NG_VALIDATORS, useValue: EmailValidator.validate, multi: true)
-])
+@Directive(selector: '[sp-validate-email][ngControl]', providers: const [EMAIL_VALIDATOR])
 class EmailValidatorDirective {}

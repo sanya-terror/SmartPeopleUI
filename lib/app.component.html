@@ -1,10 +1,17 @@
-<div class="app">
-    <sp-header class="header">
-        <sp-login *ngIf="!isAuthenticated"></sp-login>
+<sp-main class="app">
+
+    <div class="header">
+
+        <sp-button *ngIf="!isAuthenticated" [route]="['Login']" [accent]="true" class="login-button"
+                   label="Sign in"></sp-button>
+
         <div *ngIf="isAuthenticated" class="user-info">Hello, world!</div>
-    </sp-header>
+    </div>
+
+    <sp-drawer class="drawer" title="Smart People" [links]="drawerLinks"></sp-drawer>
+
     <div class="content">
         <router-outlet></router-outlet>
     </div>
-    <sp-footer class="footer"></sp-footer>
-</div>S
+
+</sp-main>

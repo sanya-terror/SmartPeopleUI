@@ -1,41 +1,60 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/common.dart';
 import 'package:angular2/router.dart';
-
 import 'package:SmartPeopleUI/shared/index.dart';
 import 'index.dart';
+import 'package:angular2/src/common/forms/directives.dart';
 
 @Component(
     selector: 'sign-up',
-    directives: const [ROUTER_DIRECTIVES, ValidationNotificationComponent],
+    directives: const [
+      ROUTER_DIRECTIVES,
+      ErrorTooltipComponent,
+      InputComponent,
+      CheckboxComponent,
+      LinkComponent,
+      CardComponent,
+      ButtonComponent,
+      RadioButtonComponent,
+      RadioControlValueAccessor
+    ],
     styleUrls: const ['sign-up.component.css'],
-    encapsulation: ViewEncapsulation
-        .Native, //TODO it is temporary, in further should remove and avoid
+    encapsulation: ViewEncapsulation.Emulated,
     templateUrl: 'sign-up.component.html')
 class SignUpComponent extends FormComponent {
+
   ControlGroup form;
+  Control nameControl;
+  Control surnameControl;
+  Control emailControl;
+  Control passwordControl;
+  Control passwordRepeatControl;
+  Control genderControl;
+
+  String sex;
 
   SignUpComponent() {
+    this.nameControl = new Control('', Validators.compose([NameValidator.validate, Validators.required]));
+    this.surnameControl = new Control('', Validators.compose([NameValidator.validate, Validators.required]));
+    this.emailControl = new Control('', Validators.compose([EmailValidator.validate, Validators.required]));
+    this.passwordControl = new Control('',
+       Validators.compose([
+         PasswordValidator.validate,
+         Validators.required,
+         Validators.minLength(6),
+         Validators.maxLength(18)
+       ]));
+    this.passwordRepeatControl = new Control('',
+          Validators.compose([PasswordValidator.validate, Validators.required]));
+    this.genderControl = new Control('male');
+
     this.form = new ControlGroup({
-      'name': new Control('',
-          Validators.compose([NameValidator.validate, Validators.required])),
-      'surname': new Control('',
-          Validators.compose([NameValidator.validate, Validators.required])),
-      'email': new Control('',
-          Validators.compose([EmailValidator.validate, Validators.required])),
-      'password': new Control(
-          '',
-          Validators.compose([
-            PasswordValidator.validate,
-            Validators.required,
-            Validators.minLength(6),
-            Validators.maxLength(18)
-          ])),
-      'passwordRepeat': new Control(
-          '',
-          Validators
-              .compose([PasswordValidator.validate, Validators.required])),
-      'gender': new Control('', Validators.required)
+      'name': this.nameControl,
+      'surname': this.surnameControl,
+      'email': this.emailControl,
+      'password': this.passwordControl,
+      'passwordRepeat': this.passwordRepeatControl,
+      'gender': this.genderControl
     });
   }
 }

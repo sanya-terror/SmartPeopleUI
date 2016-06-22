@@ -1,12 +1,10 @@
-import 'package:angular2/angular2.dart' show Component, Control, ControlGroup, Validators;
 import 'dart:html' show window;
-import 'package:SmartPeopleUI/index.dart' show FormComponent, PasswordValidator, ValidationNotificationComponent, InjectableStore,
-                                                RestoreAccessActionCreator, RestoreAccessData;
-import 'package:SmartPeopleUI/redux/index.dart' show State;
+import 'package:SmartPeopleUI/index.dart' show FormComponent, PasswordValidator, ValidationNotificationComponent, InjectableStore, RestoreAccessActionCreator, RestoreAccessData, ErrorTooltipComponent;
+import 'package:angular2/angular2.dart'show Component, Control, ControlGroup, Validators;
 
 @Component(
     selector: 'sp-change-password',
-    directives: const [ValidationNotificationComponent],
+    directives: const [ErrorTooltipComponent],
     templateUrl: 'change-password.component.html')
 
 class ChangePasswordComponent extends FormComponent {

@@ -1,8 +1,9 @@
 import 'package:angular2/core.dart' show Component, OnDestroy, OnInit, ViewEncapsulation;
 
 import 'package:SmartPeopleUI/index.dart'
-  show ChangePasswordComponent, InfoComponent, InjectableStore, RestoreAccessActionCreator, RestoreAccessCodeComponent, RestoreAccessData, RestoreAccessEmailComponent;
+  show ChangePasswordComponent, InfoComponent, RestoreAccessActionCreator, RestoreAccessCodeComponent, RestoreAccessData, RestoreAccessEmailComponent;
 import 'package:SmartPeopleUI/redux/index.dart' show State;
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
 
 @Component(
     selector: 'sp-restore-access',
