@@ -24,7 +24,7 @@ class DemoService {
   applyCode(@app.Body(app.JSON) Map body) {
     String code = body['code'];
 
-    if (code == '123')
+    if (code == '12345678')
       return { 'token': 'restore_token_$code' };
 
     return { 'invalidCode': true };
@@ -36,7 +36,7 @@ class DemoService {
     String password = body['password'];
     String token = body['token'];
 
-    if (password != oldPassword && token == 'restore_token_123')
+    if (password != oldPassword && token == 'restore_token_12345678')
       return { 'passwordChanged': true };
 
     return { 'passwordChangingError': true };
