@@ -1,6 +1,8 @@
 import 'package:angular2/angular2.dart' show Component, Control, ControlGroup, Validators;
 import 'dart:html' show window;
-import 'package:SmartPeopleUI/index.dart' show FormComponent, PasswordValidator, ValidationNotificationComponent, InjectableStore, RestoreAccessActionCreator, RestoreAccessData;
+import 'package:SmartPeopleUI/index.dart' show FormComponent, PasswordValidator, ValidationNotificationComponent, InjectableStore,
+                                                RestoreAccessActionCreator, RestoreAccessData;
+import 'package:SmartPeopleUI/redux/index.dart' show State;
 
 @Component(
     selector: 'sp-change-password',
@@ -14,6 +16,9 @@ class ChangePasswordComponent extends FormComponent {
    Control passwordControl;
    Control passwordRepeatControl;
    ControlGroup form;
+
+   bool isPasswordChangingError = false;
+   bool isPasswordChanged = false;
 
    ChangePasswordComponent(this._store) {
 
@@ -35,15 +40,29 @@ class ChangePasswordComponent extends FormComponent {
     });
   }
 
+   _onStateChange(State state) {
+      RestoreAccessData restoreAccess = state['restoreAccess'];
+      if (restoreAccess == null) return;
+
+      isPasswordChanged = restoreAccess.isPasswordChanged;
+      isPasswordChangingError = restoreAccess.isPasswordChangingError;
+
+      print(isPasswordChanged);
+      print(isPasswordChangingError);
+
+      if (isPasswordChanged) {
+         restoreAccess = null;
+         window.alert('Password is changed');
+      }
+
+      if (isPasswordChangingError) window.alert('Error while password changing');
+
+   }
+
    applyPasswordChanging() {
       String restoreToken = (_store.state['restoreAccess'] as RestoreAccessData)?.changePasswordToken;
       _store.dispatch(RestoreAccessActionCreator.applyPasswordChanging(passwordControl.value, restoreToken));
-
-      bool isPasswordChangingError = (_store.state['restoreAccess'] as RestoreAccessData)?.passwordChangingError;
-
-      if (isPasswordChangingError) window.alert('Error while password changing');
-      else window.alert('Password is changed');
-
+      _store.subscribeOnce(_onStateChange);
    }
 
 }

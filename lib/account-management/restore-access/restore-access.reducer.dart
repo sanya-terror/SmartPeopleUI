@@ -6,14 +6,16 @@ class RestoreAccessData {
   bool isInvalidCode;
   bool isUserNotFound;
   String changePasswordToken;
-  bool passwordChangingError;
+  bool isPasswordChanged;
+  bool isPasswordChangingError;
 
   RestoreAccessData({
     this.isCodeSent: false,
     this.isInvalidCode: false,
     this.isUserNotFound: false,
     this.changePasswordToken: null,
-    this.passwordChangingError: false
+    this.isPasswordChanged: false,
+    this.isPasswordChangingError: false
   });
 }
 
@@ -34,14 +36,10 @@ class RestoreAccessReducer {
             isInvalidCode: action.data['invalidCode'] == null ? false : action.data['invalidCode']);
 
       case APPLY_PASSWORD_CHANGING:
-        if(action.data['passwordChanged']) {
-          return new State.from(state)
-            ..['restoreAccess'] = null;
-        }
-
         return new State.from(state)
           ..['restoreAccess'] = new RestoreAccessData(
-              passwordChangingError: action.data['passwordChangingError'] == null ? false : action.data['passwordChangingError']);
+              isPasswordChanged: action.data['passwordChanged'] == null ? false : action.data['passwordChanged'],
+              isPasswordChangingError: action.data['passwordChangingError'] == null ? false : action.data['passwordChangingError']);
 
       case CLEAR_RESTORE_ACCESS:
         return new State.from(state)
