@@ -27,7 +27,7 @@ class RestoreAccessCodeComponent extends FormComponent{
    ControlGroup form;
 
    RestoreAccessCodeComponent(this._store) {
-      this.codeControl = new Control('123', Validators.compose([RestoreCodeValidator.validate, Validators.required]));
+      this.codeControl = new Control('12345678', Validators.compose([RestoreCodeValidator.validate, Validators.required]));
       this.form = new ControlGroup({ 'code': this.codeControl});
    }
 
