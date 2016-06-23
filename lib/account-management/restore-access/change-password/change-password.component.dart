@@ -60,6 +60,8 @@ class ChangePasswordComponent extends FormComponent {
    }
 
    applyPasswordChanging() {
+      if (!form.valid) return;
+
       String restoreToken = (_store.state['restoreAccess'] as RestoreAccessData)?.changePasswordToken;
       _store.dispatch(RestoreAccessActionCreator.applyPasswordChanging(passwordControl.value, restoreToken));
       _store.take(1).listen(_onStateChange);
