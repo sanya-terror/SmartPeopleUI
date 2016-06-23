@@ -1,8 +1,7 @@
 import 'package:angular2/angular2.dart' show Component, Control, ControlGroup, Validators;
-import 'dart:html' show window;
 import 'package:SmartPeopleUI/index.dart'
    show FormComponent, PasswordValidator, ButtonComponent, InputComponent,
-      RestoreAccessActionCreator, RestoreAccessData;
+      RestoreAccessActionCreator, RestoreAccessData, AuthActionCreator;
 
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
 import 'package:SmartPeopleUI/redux/index.dart' show State;
@@ -22,6 +21,7 @@ class ChangePasswordComponent extends FormComponent {
 
    bool isPasswordChangingError = false;
    bool isPasswordChanged = false;
+   String email = null;
 
    ChangePasswordComponent(this._store) {
 
@@ -43,19 +43,21 @@ class ChangePasswordComponent extends FormComponent {
     });
   }
 
-   _onStateChange(State state) {
+   _onStateChange(State state) async {
       RestoreAccessData restoreAccess = state['restoreAccess'];
-      if (restoreAccess == null) return;
 
-      isPasswordChanged = restoreAccess.isPasswordChanged;
-      isPasswordChangingError = restoreAccess.isPasswordChangingError;
+      email = restoreAccess?.email;
+      isPasswordChanged = restoreAccess?.isPasswordChanged;
+      isPasswordChangingError = restoreAccess?.isPasswordChangingError;
 
       if (isPasswordChanged) {
-         _store.dispatch(RestoreAccessActionCreator.clearRestoreAccess());
-         window.alert('Password is changed');
-      }
+         await _store.dispatch(RestoreAccessActionCreator.clearRestoreAccess());
+         await _store.dispatch(AuthActionCreator.requestLogin({
+            'user': email,
+            'password': passwordControl.value
+         }));
 
-      if (isPasswordChangingError) window.alert('Error while password changing');
+      }
 
    }
 

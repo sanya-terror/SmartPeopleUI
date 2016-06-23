@@ -15,7 +15,7 @@ class DemoService {
     String email = body['email'];
 
     if (email == 'test@test.com')
-      return { 'codeSent': true };
+      return {'codeSent': true, 'email': email};
 
     return { 'userNotFound': true };
   }
