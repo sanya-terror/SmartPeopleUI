@@ -42,5 +42,9 @@ class RestoreAccessEmailComponent extends FormComponent implements OnInit {
       isInvalidCode = restoreAccess.isInvalidCode;
    }
 
-   getCode() => _store.dispatch(RestoreAccessActionCreator.getRestoreCode(emailControl.value));
+   getCode() {
+      if (!form.valid) return;
+
+      _store.dispatch(RestoreAccessActionCreator.getRestoreCode(emailControl.value));
+   }
 }

@@ -32,5 +32,9 @@ class RestoreAccessCodeComponent extends FormComponent{
       this.form = new ControlGroup({ 'code': this.codeControl});
    }
 
-   applyCode() => _store.dispatch(RestoreAccessActionCreator.applyRestoreCode(codeControl.value));
+   applyCode() {
+      if (!form.valid) return;
+
+      _store.dispatch(RestoreAccessActionCreator.applyRestoreCode(codeControl.value));
+   }
 }
