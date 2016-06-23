@@ -50,11 +50,8 @@ class ChangePasswordComponent extends FormComponent {
       isPasswordChanged = restoreAccess.isPasswordChanged;
       isPasswordChangingError = restoreAccess.isPasswordChangingError;
 
-      print(isPasswordChanged);
-      print(isPasswordChangingError);
-
       if (isPasswordChanged) {
-         restoreAccess = null;
+         _store.dispatch(RestoreAccessActionCreator.clearRestoreAccess());
          window.alert('Password is changed');
       }
 
