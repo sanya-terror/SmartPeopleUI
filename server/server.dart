@@ -7,6 +7,12 @@ class DemoService {
   @app.Route("authorize", methods: const [app.POST])
   authorize(@app.Body(app.JSON) Map body) {
     Map credentials = body['credentials'];
+    String user = credentials['user'];
+    String password = credentials['password'];
+
+    if (user != 'test@test.com' || password != '777777')
+      return {'error': 'Inserted credentials are invalid'};
+
     return { 'token': '${credentials['user']}_${credentials['password']}' };
   }
 

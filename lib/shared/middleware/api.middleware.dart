@@ -40,9 +40,11 @@ class ApiMiddleware {
     try {
       var result = await _callApi('/authorize', 'POST', body: action.data);
 
-      var token = result['token'];
+      String token = result['token'];
+      String error = result['error'];
+
       if (token == null)
-        return AuthActionCreator.loginError(result['error']);
+        return AuthActionCreator.loginError(error);
 
       _localStorage.setItem(TOKEN_KEY, token);
       return AuthActionCreator.receiveLogin();

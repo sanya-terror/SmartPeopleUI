@@ -18,6 +18,8 @@
                 <span *ngIf="!hasRangeError(passwordControl)" class="error">Password is incorrect</span>
             </sp-input>
 
+            <div class="error" *ngIf="!areCredentialsValid" id="login-error"> {{ errorMessage }} </div>
+
             <sp-button (click)="login()" class="login-button" label="Sign in"></sp-button>
 
             <sp-checkbox name="remember-me" label="Remember me" [control]="rememberMeControl"></sp-checkbox>

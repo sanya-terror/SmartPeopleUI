@@ -6,6 +6,7 @@ import 'package:angular2_rbi/directives.dart' show MaterialButton, MaterialCheck
 import 'package:SmartPeopleUI/shared/index.dart';
 import 'package:SmartPeopleUI/account-management/index.dart';
 import 'package:SmartPeopleUI/shared/components/controls/index.dart';
+import 'package:SmartPeopleUI/redux/index.dart' show State;
 
 @Component(
     selector: 'sp-login',
@@ -28,12 +29,14 @@ class LoginComponent extends FormComponent {
   Control passwordControl;
   Control rememberMeControl;
 
+  bool areCredentialsValid = null;
+  String errorMessage = null;
+
   final InjectableStore _store;
 
   LoginComponent(this._store) {
     this.emailControl = new Control('', Validators.compose([EmailValidator.validate, Validators.required]));
-    this.passwordControl = new Control(
-          '',
+    this.passwordControl = new Control('',
           Validators.compose([
             PasswordValidator.validate,
             Validators.required,
@@ -49,6 +52,16 @@ class LoginComponent extends FormComponent {
     });
   }
 
+  _onStateChange(State state) {
+     areCredentialsValid = state['isAuthenticated'];
+     errorMessage = state['errorMessage'];
+
+     form.controls.forEach((name, control) {
+        control.updateValue('');
+        control.setErrors(null);
+     });
+  }
+
   login() {
     if (!form.valid) return;
 
@@ -57,5 +70,7 @@ class LoginComponent extends FormComponent {
       'password': passwordControl.value,
       'rememberMe': rememberMeControl.value,
     }));
+
+     _store.take(1).listen(_onStateChange);
   }
 }
