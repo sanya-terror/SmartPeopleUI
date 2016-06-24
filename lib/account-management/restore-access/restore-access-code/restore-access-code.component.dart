@@ -35,7 +35,14 @@ class RestoreAccessCodeComponent extends FormComponent{
    applyCode() {
       if (!form.valid) return;
 
-      _store.map((state) => state['restoreAccess']).where((data)=>data!=null).take(1).listen(_onStateChange);
+      _subscribeOnceForRestoreAccessData();
       _store.dispatch(RestoreAccessActionCreator.applyRestoreCode(codeControl.value));
    }
+
+   _subscribeOnceForRestoreAccessData() =>
+       _store
+         .map((state) => state['restoreAccess'])
+         .where((data) => data != null)
+         .take(1)
+         .listen(_onStateChange);
 }

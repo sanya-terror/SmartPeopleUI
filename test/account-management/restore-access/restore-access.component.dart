@@ -98,7 +98,7 @@ class RestoreAccessComponentTests {
 
         test('Should change component state base on restoreAccess object in new state', () {
 
-          var newState = new State({'restoreAccess': new RestoreAccessData(isCodeSent: true)});
+          var newState = new State({'restoreAccess': new RestoreAccessData()..isCodeSent = true});
           onStateChange(newState);
 
           expect(component.isCodeSent, true);

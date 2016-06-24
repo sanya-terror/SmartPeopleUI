@@ -27,7 +27,7 @@ class ChangePasswordComponentTests {
             String password = 'qwerty123';
 
             String token = 'change_password_token';
-            when(mockStore.state).thenReturn(new State({'restoreAccess': new RestoreAccessData(changePasswordToken: token)}));
+            when(mockStore.state).thenReturn(new State({'restoreAccess': new RestoreAccessData()..changePasswordToken = token}));
 
             component.passwordControl = new Control(password);
             component.applyPasswordChanging();

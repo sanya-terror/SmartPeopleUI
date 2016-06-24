@@ -21,7 +21,7 @@ class AuthReducer {
         return new State.from(state)
           ..['isFetching'] = false
           ..['isAuthenticated'] = false
-          ..['errorMessage'] = action.data['message'];
+          ..['errorMessage'] = action.data['error'];
 
       case LOGOUT_SUCCESS:
         return new State.from(state)
