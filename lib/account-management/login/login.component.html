@@ -2,6 +2,7 @@
     <sp-card class="login-card">
 
         <div class="title">Login</div>
+        <div class="error" *ngIf="!areCredentialsValid" id="login-error"> {{ errorMessage }} </div>
 
         <form class="content form" name="login" [ngFormModel]="form">
 
