@@ -35,8 +35,8 @@ class LoginComponent extends FormComponent {
   final InjectableStore _store;
 
   LoginComponent(this._store) {
-    this.emailControl = new Control('test@test.con', Validators.compose([EmailValidator.validate, Validators.required]));
-    this.passwordControl = new Control('777777',
+    this.emailControl = new Control('', Validators.compose([EmailValidator.validate, Validators.required]));
+    this.passwordControl = new Control('',
           Validators.compose([
             PasswordValidator.validate,
             Validators.required,
@@ -55,6 +55,11 @@ class LoginComponent extends FormComponent {
   _onStateChange(State state) {
      areCredentialsValid = state['isAuthenticated'];
      errorMessage = state['errorMessage'];
+
+     form.controls.forEach((name, control) {
+        control.updateValue('');
+        control.setErrors(null);
+     });
   }
 
   login() {
