@@ -21,9 +21,10 @@ class DemoService {
     String email = body['email'];
 
     if (email == 'test@test.com')
-      return {'codeSent': true, 'email': email};
+      return {};
 
-    return { 'userNotFound': true };
+    var userNotFoundErrorCode = 1111;
+    return { 'errorCode': userNotFoundErrorCode };
   }
 
   @app.Route("applyCode", methods: const [app.POST])
@@ -33,7 +34,8 @@ class DemoService {
     if (code == '12345678')
       return { 'token': 'restore_token_$code' };
 
-    return { 'invalidCode': true };
+    var invalidCodeErrorCode = 2222;
+    return { 'errorCode': invalidCodeErrorCode };
   }
 
   @app.Route("applyPasswordChanging", methods: const [app.POST])
@@ -43,9 +45,10 @@ class DemoService {
     String token = body['token'];
 
     if (password != oldPassword && token == 'restore_token_12345678')
-      return { 'passwordChanged': true };
+      return { };
 
-    return { 'passwordChangingError': true };
+    var passwordChangeErrorCode = 3333;
+    return { 'errorCode': passwordChangeErrorCode };
   }
 }
 

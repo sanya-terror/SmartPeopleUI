@@ -4,7 +4,6 @@ import 'package:SmartPeopleUI/index.dart'
       RestoreAccessActionCreator, RestoreAccessData, AuthActionCreator;
 
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
-import 'package:SmartPeopleUI/redux/index.dart' show State;
 
 @Component(
     selector: 'sp-change-password',
@@ -20,8 +19,6 @@ class ChangePasswordComponent extends FormComponent {
    ControlGroup form;
 
    bool isPasswordChangingError = false;
-   bool isPasswordChanged = false;
-   String email = null;
 
    ChangePasswordComponent(this._store) {
 
@@ -43,20 +40,16 @@ class ChangePasswordComponent extends FormComponent {
     });
   }
 
-   _onStateChange(State state) async {
-      RestoreAccessData restoreAccess = state['restoreAccess'];
+   _onStateChange(RestoreAccessData data) async {
 
-      email = restoreAccess?.email;
-      isPasswordChanged = restoreAccess?.isPasswordChanged;
-      isPasswordChangingError = restoreAccess?.isPasswordChangingError;
+      isPasswordChangingError = data.errorCode == 3333;
 
-      if (isPasswordChanged) {
+      if (!isPasswordChangingError) {
          await _store.dispatch(RestoreAccessActionCreator.clearRestoreAccess());
          await _store.dispatch(AuthActionCreator.requestLogin({
-            'user': email,
+            'user': data.email,
             'password': passwordControl.value
          }));
-
       }
 
    }
@@ -65,8 +58,9 @@ class ChangePasswordComponent extends FormComponent {
       if (!form.valid) return;
 
       String restoreToken = (_store.state['restoreAccess'] as RestoreAccessData)?.changePasswordToken;
+
+      _store.map((state) => state['restoreAccess']).where((data)=>data!=null).take(1).listen(_onStateChange);
       _store.dispatch(RestoreAccessActionCreator.applyPasswordChanging(passwordControl.value, restoreToken));
-      _store.take(1).listen(_onStateChange);
    }
 
 }

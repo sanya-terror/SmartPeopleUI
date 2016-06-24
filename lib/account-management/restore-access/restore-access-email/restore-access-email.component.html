@@ -1,15 +1,13 @@
 <form name="restore-access-email-form" class="form" [ngFormModel]="form">
 
-    <div *ngIf="!isUserNotFound" id="enter-email-desc" class="description">
+    <div id="enter-email-desc" class="description">
         Please, input your email to restore access
     </div>
-    <div *ngIf="isUserNotFound" id="user-not-found-desc" class="description">User not found</div>
-
-    <div *ngIf="isInvalidCode" id="invalid-code-error" class="error">Invalid code</div>
 
     <sp-input name="email" placeholder="Email*" [control]="emailControl">
         <span *ngIf="isRequired(emailControl)" class="error">Email is required</span>
         <span *ngIf="!hasRequiredError(emailControl)" class="error">Email is incorrect</span>
+        <span *ngIf="isUserNotFound" class="error">User not found</span>
     </sp-input>
 
     <sp-button (click)="getCode()" label="Next"></sp-button>

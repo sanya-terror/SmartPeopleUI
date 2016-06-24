@@ -6,13 +6,7 @@ import 'package:angular2/angular2.dart'
     Validators;
 
 import 'package:SmartPeopleUI/index.dart'
-    show
-    FormComponent,
-    InjectableStore,
-    RestoreAccessActionCreator,
-    RestoreCodeValidator,
-    InputComponent,
-    ButtonComponent;
+    show ButtonComponent, FormComponent, InjectableStore, InputComponent, RestoreAccessActionCreator, RestoreAccessData, RestoreCodeValidator;
 
 @Component(
     selector: 'sp-restore-access-code',
@@ -23,6 +17,8 @@ class RestoreAccessCodeComponent extends FormComponent{
 
    final InjectableStore _store;
 
+   bool isInvalidCode = false;
+
    Control codeControl;
 
    ControlGroup form;
@@ -32,9 +28,14 @@ class RestoreAccessCodeComponent extends FormComponent{
       this.form = new ControlGroup({ 'code': this.codeControl});
    }
 
+   _onStateChange(RestoreAccessData data){
+      isInvalidCode = data.errorCode == 2222;
+   }
+
    applyCode() {
       if (!form.valid) return;
 
+      _store.map((state) => state['restoreAccess']).where((data)=>data!=null).take(1).listen(_onStateChange);
       _store.dispatch(RestoreAccessActionCreator.applyRestoreCode(codeControl.value));
    }
 }

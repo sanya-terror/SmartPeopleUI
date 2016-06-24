@@ -1,9 +1,10 @@
 <form name="restore-access-code-form" class="form" [ngFormModel]="form">
-    <div class="description">Code sent!</div>
+    <div class="description">Restore code is sent to your email.</div>
 
     <sp-input name="code" placeholder="Code(XXXXXX)*" [control]="codeControl">
         <span *ngIf="isRequired(codeControl)" class="error">Restore code is required</span>
         <span *ngIf="!hasRangeError(codeControl)" class="error">Restore code is incorrect</span>
+        <span *ngIf="isInvalidCode" class="error">Invalid code</span>
     </sp-input>
 
     <sp-button (click)="applyCode()" label="Next"></sp-button>

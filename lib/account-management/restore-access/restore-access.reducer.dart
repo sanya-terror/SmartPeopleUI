@@ -3,31 +3,19 @@ import 'package:SmartPeopleUI/account-management/restore-access/index.dart';
 
 class RestoreAccessData {
   String email;
-  bool isCodeSent;
-  bool isInvalidCode;
-  bool isUserNotFound;
+  bool isCodeSent = false;
   String changePasswordToken;
-  bool isPasswordChanged;
-  bool isPasswordChangingError;
+  int errorCode;
 
-  RestoreAccessData({
-    this.email: null,
-    this.isCodeSent: false,
-    this.isInvalidCode: false,
-    this.isUserNotFound: false,
-    this.changePasswordToken: null,
-    this.isPasswordChanged: false,
-    this.isPasswordChangingError: false
-  });
+  RestoreAccessData();
 
   RestoreAccessData.from(RestoreAccessData data) {
-    this.email = data?.email;
-    this.isCodeSent = data?.isCodeSent;
-    this.isInvalidCode = data?.isInvalidCode;
-    this.isUserNotFound = data?.isUserNotFound;
-    this.changePasswordToken = data?.changePasswordToken;
-    this.isPasswordChanged = data?.isPasswordChanged;
-    this.isPasswordChangingError = data?.isPasswordChangingError;
+    if (data == null) return;
+
+    this.email = data.email;
+    this.isCodeSent = data.isCodeSent;
+    this.changePasswordToken = data.changePasswordToken;
+    this.errorCode = data.errorCode;
   }
 }
 
@@ -36,24 +24,28 @@ class RestoreAccessReducer {
     switch (action.type) {
 
       case GET_RESTORE_CODE:
-        RestoreAccessData data = new RestoreAccessData.from(state['restoreAccess'])
-          ..isCodeSent = action.data['codeSent'] == null ? false : action.data['codeSent']
-          ..email = action.data['email']
-          ..isUserNotFound =  action.data['userNotFound'] == null ? false : action.data['userNotFound'];
+        var data = new RestoreAccessData.from(state['restoreAccess'])
+          ..errorCode = action.data['errorCode']
+          ..isCodeSent = action.data['errorCode'] == null;
+        return new State.from(state)
+          ..['restoreAccess'] = data;
+
+      case SAVE_EMAIL:
+        var data = new RestoreAccessData.from(state['restoreAccess'])
+          ..email = action.data['email'];
         return new State.from(state)
           ..['restoreAccess'] = data;
 
       case APPLY_RESTORE_CODE:
-        RestoreAccessData data = new RestoreAccessData.from(state['restoreAccess'])
+        var data = new RestoreAccessData.from(state['restoreAccess'])
           ..changePasswordToken = action.data['token']
-          ..isInvalidCode = action.data['invalidCode'] == null ? false : action.data['invalidCode'];
+          ..errorCode = action.data['errorCode'];
         return new State.from(state)
           ..['restoreAccess'] = data;
 
       case APPLY_PASSWORD_CHANGING:
-        RestoreAccessData data = new RestoreAccessData.from(state['restoreAccess'])
-          ..isPasswordChanged = action.data['passwordChanged'] == null ? false : action.data['passwordChanged']
-          ..isPasswordChangingError = action.data['passwordChangingError'] == null ? false : action.data['passwordChangingError'];
+        var data = new RestoreAccessData.from(state['restoreAccess'])
+          ..errorCode = action.data['errorCode'];
         return new State.from(state)
           ..['restoreAccess'] = data;
 

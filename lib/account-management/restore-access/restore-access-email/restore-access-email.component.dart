@@ -38,13 +38,14 @@ class RestoreAccessEmailComponent extends FormComponent implements OnInit {
       RestoreAccessData restoreAccess = state['restoreAccess'];
       if (restoreAccess == null) return;
 
-      isUserNotFound = restoreAccess.isUserNotFound;
-      isInvalidCode = restoreAccess.isInvalidCode;
+      isUserNotFound = restoreAccess.errorCode == 1111;
    }
 
-   getCode() {
+   getCode() async {
       if (!form.valid) return;
 
-      _store.dispatch(RestoreAccessActionCreator.getRestoreCode(emailControl.value));
+      var email = emailControl.value;
+      await _store.dispatch(RestoreAccessActionCreator.saveEmail(email));
+      await _store.dispatch(RestoreAccessActionCreator.getRestoreCode(email));
    }
 }
