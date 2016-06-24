@@ -1,8 +1,15 @@
-<sp-info>
-    <div class="title">Account access restoring</div>
-    <div *ngIf="!isCodeApplied">
-        <sp-restore-access-email *ngIf="!isCodeSent"></sp-restore-access-email>
-        <sp-restore-access-code *ngIf="isCodeSent"></sp-restore-access-code>
-    </div>
-    <sp-change-password *ngIf="isCodeApplied"></sp-change-password>
-</sp-info>
+<div class="restore-access">
+    <sp-card class="restore-access-card" [hasExtraActions]="false">
+
+        <div class="title">Account access restoring</div>
+
+        <div class="content">
+            <div *ngIf="!isCodeApplied">
+                <sp-restore-access-email *ngIf="!isCodeSent"></sp-restore-access-email>
+                <sp-restore-access-code *ngIf="isCodeSent"></sp-restore-access-code>
+            </div>
+            <sp-change-password *ngIf="isCodeApplied"></sp-change-password>
+        </div>
+
+    </sp-card>
+</div>

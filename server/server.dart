@@ -15,7 +15,7 @@ class DemoService {
     String email = body['email'];
 
     if (email == 'test@test.com')
-      return { 'codeSent': true };
+      return {'codeSent': true, 'email': email};
 
     return { 'userNotFound': true };
   }
@@ -24,10 +24,22 @@ class DemoService {
   applyCode(@app.Body(app.JSON) Map body) {
     String code = body['code'];
 
-    if (code == '123')
-      return { 'codeApplied': true };
+    if (code == '12345678')
+      return { 'token': 'restore_token_$code' };
 
     return { 'invalidCode': true };
+  }
+
+  @app.Route("applyPasswordChanging", methods: const [app.POST])
+  applyPasswordChanging(@app.Body(app.JSON) Map body) {
+    String oldPassword = '111111';
+    String password = body['password'];
+    String token = body['token'];
+
+    if (password != oldPassword && token == 'restore_token_12345678')
+      return { 'passwordChanged': true };
+
+    return { 'passwordChangingError': true };
   }
 }
 

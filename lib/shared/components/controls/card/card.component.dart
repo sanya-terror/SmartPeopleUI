@@ -1,7 +1,9 @@
-import 'package:angular2/angular2.dart' show Component, Control, FORM_PROVIDERS, Input;
+import 'package:angular2/angular2.dart' show Component, Input;
 
 @Component(
    selector: 'sp-card',
    templateUrl: 'card.component.html',
    styleUrls: const ['card.component.css'])
-class CardComponent {}
+class CardComponent {
+   @Input() bool hasExtraActions = true;
+}

@@ -10,7 +10,7 @@
         <ng-content select=".content"></ng-content>
     </div>
 
-    <div class="mdl-card__actions mdl-card--border">
+    <div class="mdl-card__actions mdl-card--border" *ngIf="hasExtraActions">
         <ng-content select=".extra-actions"></ng-content>
     </div>
 </div>

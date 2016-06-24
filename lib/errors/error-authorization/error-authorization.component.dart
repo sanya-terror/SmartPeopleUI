@@ -8,8 +8,7 @@ import 'package:SmartPeopleUI/shared/index.dart';
     selector: 'change-password',
     directives: const [
       ROUTER_DIRECTIVES,
-      ErrorTooltipComponent,
-      InfoComponent
+      ErrorTooltipComponent
     ],
     encapsulation: ViewEncapsulation.Emulated,
     templateUrl: 'error-authorization.component.html',

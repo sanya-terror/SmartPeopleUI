@@ -1,12 +1,14 @@
 import 'package:angular2/angular2.dart'
    show Component, Control, ControlGroup, OnInit, Validators;
 import 'package:SmartPeopleUI/index.dart'
-   show EmailValidator, FormComponent, InjectableStore, RestoreAccessActionCreator, RestoreAccessData, State;
+   show EmailValidator, FormComponent, InjectableStore, RestoreAccessActionCreator, RestoreAccessData,
+   InputComponent, ButtonComponent;
 
 import 'package:SmartPeopleUI/redux/index.dart' show State;
 
 @Component(
 selector: 'sp-restore-access-email',
+directives: const[ InputComponent, ButtonComponent ],
 templateUrl: 'restore-access-email.component.html')
 class RestoreAccessEmailComponent extends FormComponent implements OnInit {
 
@@ -40,5 +42,9 @@ class RestoreAccessEmailComponent extends FormComponent implements OnInit {
       isInvalidCode = restoreAccess.isInvalidCode;
    }
 
-   getCode() => _store.dispatch(RestoreAccessActionCreator.getRestoreCode(emailControl.value));
+   getCode() {
+      if (!form.valid) return;
+
+      _store.dispatch(RestoreAccessActionCreator.getRestoreCode(emailControl.value));
+   }
 }

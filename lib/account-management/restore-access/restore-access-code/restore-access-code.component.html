@@ -1,16 +1,10 @@
 <form name="restore-access-code-form" class="form" [ngFormModel]="form">
     <div class="description">Code sent!</div>
 
-    <div class="input-group">
-        <div class="input-control">
+    <sp-input name="code" placeholder="Code(XXXXXX)*" [control]="codeControl">
+        <span *ngIf="isRequired(codeControl)" class="error">Restore code is required</span>
+        <span *ngIf="!hasRangeError(codeControl)" class="error">Restore code is incorrect</span>
+    </sp-input>
 
-            <input type="text"
-                   name="code"
-                   id="code"
-                   class="code"
-                   placeholder="XXXXXX"
-                   ngControl="code"/>
-        </div>
-        <a class="md-primary next-btn" (click)="applyCode()">Next</a>
-    </div>
+    <sp-button (click)="applyCode()" label="Next"></sp-button>
 </form>

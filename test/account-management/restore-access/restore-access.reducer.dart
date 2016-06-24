@@ -29,10 +29,10 @@ class RestoreAccessReducerTests {
           })
         },
         {
-          'action': new Action(APPLY_RESTORE_CODE, { 'codeApplied': true}),
+          'action': new Action(APPLY_RESTORE_CODE, { 'token': 'some_token'}),
           'result': new State({
             'someProperty': 'some value',
-            'restoreAccess': new RestoreAccessData(isCodeApplied: true)
+            'restoreAccess': new RestoreAccessData(changePasswordToken: 'some_token')
           })
         },
         {
@@ -40,6 +40,20 @@ class RestoreAccessReducerTests {
           'result': new State({
             'someProperty': 'some value',
             'restoreAccess': new RestoreAccessData(isInvalidCode: true)
+          })
+        },
+        {
+          'action': new Action(APPLY_PASSWORD_CHANGING, { 'passwordChanged': true}),
+          'result': new State({
+            'someProperty': 'some value',
+            'restoreAccess': new RestoreAccessData(isPasswordChanged: true)
+          })
+        },
+        {
+          'action': new Action(APPLY_PASSWORD_CHANGING, { 'passwordChangingError': true}),
+          'result': new State({
+            'someProperty': 'some value',
+            'restoreAccess': new RestoreAccessData(isPasswordChangingError: true)
           })
         },
         {
@@ -66,9 +80,10 @@ class RestoreAccessReducerTests {
             expect(actualRestoreData, null);
           } else {
             expect(actualRestoreData.isCodeSent, expectedRestoreAccess.isCodeSent);
-            expect(actualRestoreData.isCodeApplied, expectedRestoreAccess.isCodeApplied);
+            expect(actualRestoreData.changePasswordToken, expectedRestoreAccess.changePasswordToken);
             expect(actualRestoreData.isInvalidCode, expectedRestoreAccess.isInvalidCode);
             expect(actualRestoreData.isUserNotFound, expectedRestoreAccess.isUserNotFound);
+            expect(actualRestoreData.isPasswordChangingError, expectedRestoreAccess.isPasswordChangingError);
           }
         });
       });
