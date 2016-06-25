@@ -15,7 +15,6 @@ class RestoreAccessEmailComponent extends FormComponent {
    final InjectableStore _store;
 
    bool isUserNotFound = false;
-   bool isInvalidCode = false;
 
    Control emailControl;
    ControlGroup form;
