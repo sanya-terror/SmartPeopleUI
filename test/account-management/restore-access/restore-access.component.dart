@@ -7,6 +7,7 @@ import 'package:angular2_testing/angular2_testing.dart';
 import 'package:SmartPeopleUI/index.dart';
 import '../../helpers/angular.dart' as ng;
 import '../../helpers/mocks.dart';
+import '../../helpers/matchers.dart';
 
 class RestoreAccessComponentTests {
   static run() {
@@ -24,6 +25,16 @@ class RestoreAccessComponentTests {
         _fixture  = await tcb.createAsync(RestoreAccessComponent);
         _component = _fixture.componentInstance;
         _element = _fixture.nativeElement;
+      });
+
+      ngTest('Should init correcr view', ()  {
+
+        _fixture.detectChanges();
+
+        var baseSelector = 'div.restore-access > sp-card.restore-access-card';
+
+        expect(_element.querySelector('$baseSelector .title'), isNotNull, reason: 'No title found');
+        expect(_element.querySelector('$baseSelector .content'), isNotNull, reason: 'No content found');
       });
 
       var testCases = [
@@ -56,9 +67,12 @@ class RestoreAccessComponentTests {
 
           _fixture.detectChanges();
 
-          expect(_element.querySelector('sp-info sp-restore-access-email'), resultSelectors['email']);
-          expect(_element.querySelector('sp-info sp-restore-access-code'), resultSelectors['code']);
-          expect(_element.querySelector('sp-info sp-change-password'), resultSelectors['password']);
+          expect(_element.querySelector('.content sp-restore-access-email'), resultSelectors['email'],
+            reason: 'Wrong input email component state');
+          expect(_element.querySelector('.content sp-restore-access-code'), resultSelectors['code'],
+            reason: 'Wrong input code component state');
+          expect(_element.querySelector('.content sp-change-password'), resultSelectors['password'],
+            reason: 'Wrong change password component state');
         });
       });
     });
@@ -75,8 +89,9 @@ class RestoreAccessComponentTests {
       });
 
       test('Should subscribe on change during initialization', () {
+        var subscriptionStream = _mockSubscription(mockStore);
         component.ngOnInit();
-        expect(verify(mockStore.listen(argThat(anything))).callCount, 1);
+        expect(verify(subscriptionStream.listen(captureAny)).callCount, 1);
       });
 
       group('On state change', (){
@@ -84,24 +99,34 @@ class RestoreAccessComponentTests {
         var onStateChange;
 
         setUp((){
+          var subscriptionStream = _mockSubscription(mockStore);
           component.ngOnInit();
-          onStateChange = verify(mockStore.listen(captureAny)).captured[0];
-        });
-
-        test('Should not change component state if no restoreAccess object in new state', () {
-
-          var newState = new State({'restoreAccess': null});
-          onStateChange(newState);
-
-          expect(component.isCodeSent, false);
+          onStateChange = verify(subscriptionStream.listen(captureAny)).captured[0];
         });
 
         test('Should change component state base on restoreAccess object in new state', () {
 
-          var newState = new State({'restoreAccess': new RestoreAccessData()..isCodeSent = true});
-          onStateChange(newState);
+          var data = new RestoreAccessData()
+            ..isCodeSent = true;
+          onStateChange(data);
 
           expect(component.isCodeSent, true);
+          expect(component.isCodeApplied, false);
+
+          data = new RestoreAccessData()
+            ..changePasswordToken = 'some_token';
+          onStateChange(data);
+
+          expect(component.isCodeSent, false);
+          expect(component.isCodeApplied, true);
+
+          data = new RestoreAccessData()
+            ..isCodeSent = true
+            ..changePasswordToken = 'some_token';
+          onStateChange(data);
+
+          expect(component.isCodeSent, true);
+          expect(component.isCodeApplied, true);
         });
       });
 
@@ -115,6 +140,16 @@ class RestoreAccessComponentTests {
         expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == CLEAR_RESTORE_ACCESS)))).callCount, 1);
       });
     });
+  }
+
+  static _mockSubscription(mockStore) {
+
+    var mappedStream = getStream();
+    var filteredStream = getStream();
+
+    when(mockStore.map(anything)).thenReturn(mappedStream);
+    when(mappedStream.where(notNullPredicate)).thenReturn(filteredStream);
+    return filteredStream;
   }
 }
 

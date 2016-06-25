@@ -98,7 +98,7 @@ class RestoreAccessEmailComponentTests {
 
       test('Should subscribe on state change when get code', () async {
 
-        var subscriptionStream = mockSubscription(mockStore);
+        var subscriptionStream = _mockSubscription(mockStore);
 
         await component.getCode();
 
@@ -133,7 +133,7 @@ class RestoreAccessEmailComponentTests {
 
         component.form.setErrors({'some_error': 'error'});
 
-        var subscriptionStream = mockSubscription(mockStore);
+        var subscriptionStream = _mockSubscription(mockStore);
 
         await component.getCode();
 
@@ -144,7 +144,7 @@ class RestoreAccessEmailComponentTests {
     });
   }
 
-  static mockSubscription(mockStore) {
+  static _mockSubscription(mockStore) {
 
     var mappedStream = getStream();
     var filteredStream = getStream();
