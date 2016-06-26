@@ -3,13 +3,13 @@ import 'dart:html';
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:angular2/common.dart';
+import 'package:angular2/core.dart';
 import 'package:angular2_testing/angular2_testing.dart';
 import 'package:angular2/testing.dart' show fakeAsync, flushMicrotasks, tick;
 
 import 'package:SmartPeopleUI/index.dart';
 import '../../helpers/angular.dart' as ng;
 import '../../helpers/mocks.dart';
-import 'package:angular2/core.dart';
 import '../../helpers/matchers.dart';
 
 class RestoreAccessEmailComponentTests {
