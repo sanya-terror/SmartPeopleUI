@@ -147,7 +147,13 @@ class RestoreAccessComponentTests {
     var mappedStream = getStream();
     var filteredStream = getStream();
 
-    when(mockStore.map(anything)).thenReturn(mappedStream);
+    var restoreAccessMapPredicate = predicate((f) {
+      var data = new RestoreAccessData();
+      var state = new State({'restoreAccess': data});
+      return f(state) == data;
+    });
+
+    when(mockStore.map(restoreAccessMapPredicate)).thenReturn(mappedStream);
     when(mappedStream.where(notNullPredicate)).thenReturn(filteredStream);
     return filteredStream;
   }
