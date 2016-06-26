@@ -27,6 +27,21 @@ class DemoService {
     return { 'errorCode': userNotFoundErrorCode };
   }
 
+  @app.Route("handleSignUpForm", methods: const [app.POST])
+  getConfirmCode(@app.Body(app.JSON) Map body) {
+    Map credentials = body['credentials'];
+    String user = credentials['user'];
+    String password = credentials['password'];
+
+    if (user != 'test@test.con')
+      return {
+        'token': '${user}_${password}'
+      };
+
+    var userAlreadyExists = 3333;
+    return { 'errorCode': userAlreadyExists };
+  }
+
   @app.Route("applyCode", methods: const [app.POST])
   applyCode(@app.Body(app.JSON) Map body) {
     String code = body['code'];
@@ -35,6 +50,17 @@ class DemoService {
       return { 'token': 'restore_token_$code' };
 
     var invalidCodeErrorCode = 2222;
+    return { 'errorCode': invalidCodeErrorCode };
+  }
+
+  @app.Route("applyConfirmationCode", methods: const [app.POST])
+  applyConfirmationCode(@app.Body(app.JSON) Map body) {
+    String code = body['code'];
+
+    if (code == '12345678')
+      return { };
+
+    var invalidCodeErrorCode = 4444;
     return { 'errorCode': invalidCodeErrorCode };
   }
 

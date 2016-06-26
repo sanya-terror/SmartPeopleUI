@@ -1,9 +1,9 @@
 import 'package:angular2/core.dart' show Component, OnDestroy, OnInit, ViewEncapsulation;
 
 import 'package:SmartPeopleUI/index.dart'
-  show ChangePasswordComponent, CardComponent, RestoreAccessActionCreator, RestoreAccessCodeComponent, RestoreAccessData, RestoreAccessEmailComponent;
-import 'package:SmartPeopleUI/redux/index.dart' show State;
-import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
+  show ChangePasswordComponent, CardComponent, RestoreAccessActionCreator,
+  RestoreAccessCodeComponent, RestoreAccessData, RestoreAccessEmailComponent,
+  InjectableStore;
 
 @Component(
     selector: 'sp-restore-access',
@@ -32,7 +32,7 @@ class RestoreAccessComponent implements OnInit, OnDestroy {
       .listen(_onStateChange);
   }
 
-  _onStateChange(RestoreAccessData restoreAccess){
+  _onStateChange(RestoreAccessData restoreAccess) {
     isCodeSent = restoreAccess.isCodeSent;
     isCodeApplied = restoreAccess.changePasswordToken != null;
   }

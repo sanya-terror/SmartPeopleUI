@@ -1,1 +1,1 @@
-
+export 'shared.reducer.dart';

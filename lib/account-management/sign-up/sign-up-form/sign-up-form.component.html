@@ -1,0 +1,39 @@
+<form name="sign-up" [ngFormModel]="form" class="form">
+
+    <div class="name-group">
+
+        <sp-input name="name" placeholder="Name*" [control]="nameControl">
+            <span *ngIf="isRequired(nameControl)" class="error">Name is required</span>
+            <span *ngIf="!hasRequiredError(nameControl)" class="error">Name is incorrect</span>
+        </sp-input>
+
+        <sp-input name="surname" placeholder="Surname*" [control]="surnameControl">
+            <span *ngIf="isRequired(surnameControl)" class="error">Surname is required</span>
+            <span *ngIf="!hasRequiredError(surnameControl)" class="error">Surname is incorrect</span>
+        </sp-input>
+
+    </div>
+
+    <sp-input name="email" placeholder="Email*" [control]="emailControl">
+        <span *ngIf="isRequired(emailControl)" class="error">Email is required</span>
+        <span *ngIf="!hasRequiredError(emailControl)" class="error">Email is incorrect</span>
+    </sp-input>
+
+    <sp-input name="password" type="password" placeholder="Password*" [control]="passwordControl">
+        <span *ngIf="isRequired(passwordControl)" class="error">Password is required</span>
+        <span *ngIf="isInsufficientLength(passwordControl)" class="error">Password is too short</span>
+        <span *ngIf="isLengthExcess(passwordControl)" class="error">Password is too long</span>
+        <span *ngIf="!hasRangeError(passwordControl)" class="error">Password is incorrect</span>
+    </sp-input>
+
+    <sp-input name="password-repeat" type="password" placeholder="Repeat password*" [control]="passwordRepeatControl">
+				<span *ngIf="!isEqual(passwordRepeatControl, passwordControl)" class="error">Passwords are not equal</span>
+    </sp-input>
+
+    <div class="gender-group">
+        <sp-radio id="male" name="gender" label="Male" [control]="genderControl" value="male"></sp-radio>
+        <sp-radio id="female" name="gender" label="Female" [control]="genderControl" value="female"></sp-radio>
+    </div>
+
+    <sp-button class="sign-up-button" label="Sign up" (click)="sendForm()"></sp-button>
+</form>

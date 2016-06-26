@@ -1,8 +1,10 @@
 import 'package:angular2/angular2.dart'
    show Component, Control, ControlGroup, OnInit, Validators;
+
 import 'package:SmartPeopleUI/index.dart'
-   show EmailValidator, FormComponent, InjectableStore, RestoreAccessActionCreator, RestoreAccessData,
-   InputComponent, ButtonComponent;
+   show EmailValidator, FormComponent, InjectableStore,
+   RestoreAccessActionCreator, RestoreAccessData,
+   InputComponent, ButtonComponent, SharedActionCreator;
 
 import 'package:SmartPeopleUI/redux/index.dart' show State;
 
@@ -45,7 +47,7 @@ class RestoreAccessEmailComponent extends FormComponent implements OnInit {
       if (!form.valid) return;
 
       var email = emailControl.value;
-      await _store.dispatch(RestoreAccessActionCreator.saveEmail(email));
+      await _store.dispatch(SharedActionCreator.saveEmail(email));
       await _store.dispatch(RestoreAccessActionCreator.getRestoreCode(email));
    }
 }

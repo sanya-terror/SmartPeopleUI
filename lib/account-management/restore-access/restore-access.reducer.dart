@@ -30,12 +30,6 @@ class RestoreAccessReducer {
         return new State.from(state)
           ..['restoreAccess'] = data;
 
-      case SAVE_EMAIL:
-        var data = new RestoreAccessData.from(state['restoreAccess'])
-          ..email = action.data['email'];
-        return new State.from(state)
-          ..['restoreAccess'] = data;
-
       case APPLY_RESTORE_CODE:
         var data = new RestoreAccessData.from(state['restoreAccess'])
           ..changePasswordToken = action.data['token']
