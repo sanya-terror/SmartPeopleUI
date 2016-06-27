@@ -1,32 +1,15 @@
 import 'package:angular2/angular2.dart'
-    show
-    Component,
-    Control,
-    ControlGroup,
-    Validators;
+    show Component, Control, ControlGroup, Validators;
 
 import 'package:SmartPeopleUI/index.dart'
-    show
-    ErrorTooltipComponent,
-    InputComponent,
-    CheckboxComponent,
-    LinkComponent,
-    CardComponent,
-    ButtonComponent,
-    RadioButtonComponent,
-    FormComponent,
-    EmailValidator,
-    RestoreCodeValidator,
-    InjectableStore,
-    PasswordValidator,
-    SignUpData,
-    SignUpActionCreator,
-    AuthActionCreator;
+    show InputComponent, ButtonComponent, FormComponent, InjectableStore,
+    RestoreCodeValidator, SignUpActionCreator, SignUpData, AuthActionCreator;
 
 @Component(
     selector: 'sp-sign-up-code',
     directives: const [InputComponent, ButtonComponent],
-    templateUrl: 'sign-up-code.component.html')
+    templateUrl: 'sign-up-code.component.html'
+)
 
 class SignUpCodeComponent extends FormComponent {
 
@@ -35,11 +18,7 @@ class SignUpCodeComponent extends FormComponent {
    bool isInvalidCode = false;
    bool isApplyingCodeError = false;
 
-   String email;
-   String password;
-
    Control codeControl;
-
    ControlGroup form;
 
    SignUpCodeComponent(this._store) {
@@ -48,8 +27,8 @@ class SignUpCodeComponent extends FormComponent {
    }
 
    _onStateChange(SignUpData data) async {
-      email = _store.state['email'];
-      password = data.password;
+      String email = _store.state['email'];
+      String password = data.password;
       isApplyingCodeError = data.errorCode == 4444;
 
       if (!isApplyingCodeError) {

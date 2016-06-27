@@ -2,30 +2,21 @@ import 'package:angular2/angular2.dart'
     show Component, OnInit, Control, ControlGroup, Validators;
 
 import 'package:angular2/router.dart' show ROUTER_DIRECTIVES;
-import 'package:angular2/src/common/forms/directives.dart'
-    show RadioControlValueAccessor;
 
 import 'package:SmartPeopleUI/redux/index.dart' show State;
 
 import 'package:SmartPeopleUI/index.dart'
-    show ErrorTooltipComponent, InputComponent, CheckboxComponent, LinkComponent,
-    CardComponent, ButtonComponent, RadioButtonComponent, FormComponent,
-    EmailValidator, RestoreCodeValidator, InjectableStore, PasswordValidator,
-    SignUpData, SignUpActionCreator, RestoreAccessActionCreator, NameValidator,
-    SharedActionCreator;
+    show InputComponent, ButtonComponent, RadioButtonComponent, FormComponent,
+    InjectableStore, NameValidator, EmailValidator, PasswordValidator,
+    SharedActionCreator, SignUpActionCreator;
 
 @Component(
     selector: 'sp-sign-up-form',
     directives: const [
        ROUTER_DIRECTIVES,
-       ErrorTooltipComponent,
        InputComponent,
-       CheckboxComponent,
-       LinkComponent,
-       CardComponent,
        ButtonComponent,
-       RadioButtonComponent,
-       RadioControlValueAccessor
+       RadioButtonComponent
     ],
     templateUrl: 'sign-up-form.component.html')
 class SignUpFormComponent extends FormComponent implements OnInit {

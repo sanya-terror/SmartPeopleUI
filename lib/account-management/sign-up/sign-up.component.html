@@ -8,12 +8,9 @@
 			<sp-sign-up-code *ngIf="isFormSent"></sp-sign-up-code>
 		</div>
 
-		<div *ngIf="!isFormSent" class="extra-actions">
-			<sp-link [routerLink]="['Login']" label="Sign in"></sp-link>
-		</div>
-
-		<div *ngIf="isFormSent" class="extra-actions">
-			<sp-link label="Resend code"></sp-link>
+		<div class="extra-actions">
+			<sp-link *ngIf="!isFormSent" [routerLink]="['Login']" label="Sign in"></sp-link>
+			<sp-link *ngIf="isFormSent" label="Resend code"></sp-link>
 		</div>
 	</sp-card>
 </div>

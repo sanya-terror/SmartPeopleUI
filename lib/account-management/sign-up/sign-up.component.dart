@@ -1,12 +1,7 @@
 import 'package:angular2/core.dart' show Component, ViewEncapsulation, OnInit, OnDestroy;
 import 'package:angular2/router.dart' show ROUTER_DIRECTIVES;
 import 'package:SmartPeopleUI/index.dart'
-    show
-    LinkComponent,
-    CardComponent,
-    InjectableStore,
-    SignUpData,
-    SignUpActionCreator;
+    show LinkComponent, CardComponent, InjectableStore, SignUpData, SignUpActionCreator;
 
 import 'index.dart' show SignUpCodeComponent, SignUpFormComponent;
 
