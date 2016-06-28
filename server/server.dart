@@ -31,11 +31,12 @@ class DemoService {
   getConfirmCode(@app.Body(app.JSON) Map body) {
     Map credentials = body['credentials'];
     String user = credentials['user'];
-    String password = credentials['password'];
+    int key = credentials['key'];
 
     if (user != 'test@test.con')
       return {
-        'token': '${user}_${password}'
+        'isFormSent': true,
+        'restoreCodeKey': key
       };
 
     var userAlreadyExists = 3333;

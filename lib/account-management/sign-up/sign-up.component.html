@@ -10,7 +10,8 @@
 
 		<div class="extra-actions">
 			<sp-link *ngIf="!isFormSent" [routerLink]="['Login']" label="Sign in"></sp-link>
-			<sp-link *ngIf="isFormSent" label="Resend code"></sp-link>
+			<sp-link *ngIf="isFormSent" label="Resend code" (click)="resendCode()"></sp-link>
+			<div class="notification" *ngIf="isConfirmationCodeResent">Confirmation code was resent</div>
 		</div>
 	</sp-card>
 </div>

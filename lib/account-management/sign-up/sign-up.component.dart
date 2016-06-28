@@ -21,6 +21,7 @@ import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
 class SignUpComponent implements OnInit, OnDestroy {
 
    bool isFormSent = false;
+   bool isConfirmationCodeResent = false;
 
    final InjectableStore _store;
 
@@ -34,7 +35,18 @@ class SignUpComponent implements OnInit, OnDestroy {
    }
 
    _onStateChange(SignUpData signUp) {
-      isFormSent = signUp.errorCode == null;
+      isFormSent = signUp.isFormSent;
+      isConfirmationCodeResent = signUp.restoreCodeKey == 200;
+   }
+
+   resendCode() async {
+      String email = _store.state['email'];
+      int resendCodeKey = 200;
+
+      await _store.dispatch(SignUpActionCreator.sendSignUpForm({
+         'user': email,
+         'key': resendCodeKey
+      }));
    }
 
    setDefault() => _store.dispatch(SignUpActionCreator.clearSignUp());

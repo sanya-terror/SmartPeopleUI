@@ -4,8 +4,8 @@ import 'package:SmartPeopleUI/account-management/sign-up/index.dart';
 class SignUpData {
    String password;
    bool isFormSent = false;
-   String signUpToken;
    int errorCode;
+   int restoreCodeKey;
 
    SignUpData();
 
@@ -15,12 +15,12 @@ class SignUpData {
 
       this.password = data?.password;
       this.isFormSent = data?.isFormSent;
-      this.signUpToken = data?.signUpToken;
       this.errorCode = data?.errorCode;
+      this.restoreCodeKey = data?.restoreCodeKey;
    }
 
    toString(){
-      return '{ password: $password, isFormSent: $isFormSent, signUpToken: $signUpToken, errorCode: $errorCode }';
+      return '{ password: $password, isFormSent: $isFormSent, errorCode: $errorCode, restoreCodeKey: $restoreCodeKey }';
    }
 }
 
@@ -37,7 +37,9 @@ class SignUpReducer {
 
          case SEND_SIGN_UP_FORM:
             var data = new SignUpData.from(state['signUp'])
-               ..signUpToken = action.data['token'];
+               ..isFormSent = action.data['isFormSent']
+               ..restoreCodeKey = action.data['restoreCodeKey']
+               ..errorCode = action.data['errorCode'];
             return new State.from(state)
                ..['signUp'] = data;
 
