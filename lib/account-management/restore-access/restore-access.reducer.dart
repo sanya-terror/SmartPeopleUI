@@ -17,6 +17,11 @@ class RestoreAccessData {
     this.changePasswordToken = data.changePasswordToken;
     this.errorCode = data.errorCode;
   }
+
+  toString(){
+    return '{ email: $email, isCodeSent: $isCodeSent, changePasswordToken: $changePasswordToken, errorCode: '
+    '$errorCode }';
+  }
 }
 
 class RestoreAccessReducer {

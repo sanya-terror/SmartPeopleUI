@@ -1,9 +1,9 @@
 import 'package:angular2/core.dart' show Component, ViewEncapsulation, OnInit, OnDestroy;
 import 'package:angular2/router.dart' show ROUTER_DIRECTIVES;
 import 'package:SmartPeopleUI/index.dart'
-    show LinkComponent, CardComponent, InjectableStore, SignUpData, SignUpActionCreator;
+    show LinkComponent, CardComponent, SignUpData, SignUpActionCreator, SignUpCodeComponent, SignUpFormComponent;
 
-import 'index.dart' show SignUpCodeComponent, SignUpFormComponent;
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
 
 @Component(
     selector: 'sign-up',
@@ -34,7 +34,7 @@ class SignUpComponent implements OnInit, OnDestroy {
    }
 
    _onStateChange(SignUpData signUp) {
-      isFormSent = signUp.signUpToken != null;
+      isFormSent = signUp.errorCode == null;
    }
 
    setDefault() => _store.dispatch(SignUpActionCreator.clearSignUp());

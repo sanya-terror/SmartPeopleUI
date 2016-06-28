@@ -2,18 +2,25 @@ import 'package:SmartPeopleUI/redux/index.dart';
 import 'package:SmartPeopleUI/account-management/sign-up/index.dart';
 
 class SignUpData {
-   String password = null;
+   String password;
    bool isFormSent = false;
-   String signUpToken = null;
+   String signUpToken;
    int errorCode;
 
    SignUpData();
 
    SignUpData.from(SignUpData data) {
+
+      if (data == null) return;
+
       this.password = data?.password;
       this.isFormSent = data?.isFormSent;
       this.signUpToken = data?.signUpToken;
       this.errorCode = data?.errorCode;
+   }
+
+   toString(){
+      return '{ password: $password, isFormSent: $isFormSent, signUpToken: $signUpToken, errorCode: $errorCode }';
    }
 }
 

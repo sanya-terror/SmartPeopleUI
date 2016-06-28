@@ -7,8 +7,10 @@ import 'package:SmartPeopleUI/redux/index.dart' show State;
 
 import 'package:SmartPeopleUI/index.dart'
     show InputComponent, ButtonComponent, RadioButtonComponent, FormComponent,
-    InjectableStore, NameValidator, EmailValidator, PasswordValidator,
+    NameValidator, EmailValidator, PasswordValidator,
     SharedActionCreator, SignUpActionCreator;
+
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
 
 @Component(
     selector: 'sp-sign-up-form',
@@ -77,8 +79,6 @@ class SignUpFormComponent extends FormComponent implements OnInit {
       var email = emailControl.value;
       var password = passwordControl.value;
 
-      await _store.dispatch(SharedActionCreator.saveEmail(email));
-      await _store.dispatch(SignUpActionCreator.savePassword(password));
       await _store.dispatch(SignUpActionCreator.sendSignUpForm({
          'name': nameControl.value,
          'surname': surnameControl.value,
@@ -86,5 +86,8 @@ class SignUpFormComponent extends FormComponent implements OnInit {
          'password': passwordControl.value,
          'gender': genderControl.value
       }));
+
+      _store.dispatch(SharedActionCreator.saveEmail(email));
+      _store.dispatch(SignUpActionCreator.savePassword(password));
    }
 }

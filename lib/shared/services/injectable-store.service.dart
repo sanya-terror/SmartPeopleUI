@@ -4,6 +4,7 @@ import 'package:SmartPeopleUI/redux/index.dart';
 import 'package:SmartPeopleUI/index.dart' show AuthReducer, SharedReducer, SignUpReducer, RestoreAccessReducer;
 import 'package:SmartPeopleUI/shared/middleware/api.middleware.dart';
 import 'package:SmartPeopleUI/shared/middleware/print.middleware.dart';
+import 'dart:html';
 
 @Injectable()
 class InjectableStore extends Store {
@@ -12,5 +13,8 @@ class InjectableStore extends Store {
             initialState: new State({}),
             middleware: applyMiddleware(
                 [printMiddleware, new ApiMiddleware(localStorage).apply])){
+
+    this.listen((state) => window.console.debug('PRINTER: State changed to: $state'));
+
   }
 }

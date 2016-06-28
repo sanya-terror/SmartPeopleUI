@@ -2,8 +2,10 @@ import 'package:angular2/angular2.dart'
     show Component, Control, ControlGroup, Validators;
 
 import 'package:SmartPeopleUI/index.dart'
-    show InputComponent, ButtonComponent, FormComponent, InjectableStore,
+    show InputComponent, ButtonComponent, FormComponent,
     RestoreCodeValidator, SignUpActionCreator, SignUpData, AuthActionCreator;
+
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
 
 @Component(
     selector: 'sp-sign-up-code',
@@ -32,8 +34,8 @@ class SignUpCodeComponent extends FormComponent {
       isApplyingCodeError = data.errorCode == 4444;
 
       if (!isApplyingCodeError) {
-         await _store.dispatch(SignUpActionCreator.clearSignUp());
-         await _store.dispatch(AuthActionCreator.requestLogin({
+         _store.dispatch(SignUpActionCreator.clearSignUp());
+         _store.dispatch(AuthActionCreator.requestLogin({
             'user': email,
             'password': password
          }));
