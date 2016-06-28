@@ -35,6 +35,8 @@ class SignUpFormComponent extends FormComponent implements OnInit {
 
    String sex;
 
+   bool isUserAlreadyExists = false;
+
    SignUpFormComponent(this._store) {
       this.nameControl = new Control('Aleksander',
           Validators.compose([NameValidator.validate, Validators.required]));
@@ -70,7 +72,7 @@ class SignUpFormComponent extends FormComponent implements OnInit {
    }
 
    _onStateChange(State state) {
-
+      isUserAlreadyExists = state['signUp']?.errorCode == 3333;
    }
 
    sendForm() async {

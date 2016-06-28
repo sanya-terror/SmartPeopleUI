@@ -17,6 +17,7 @@
     <sp-input name="email" placeholder="Email*" [control]="emailControl">
         <span *ngIf="isRequired(emailControl)" class="error">Email is required</span>
         <span *ngIf="!hasRequiredError(emailControl)" class="error">Email is incorrect</span>
+        <span *ngIf="isUserAlreadyExists" class="error">User already exists</span>
     </sp-input>
 
     <sp-input name="password" type="password" placeholder="Password*" [control]="passwordControl">
