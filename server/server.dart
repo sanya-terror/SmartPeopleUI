@@ -1,5 +1,6 @@
 import 'package:redstone/redstone.dart' as app;
 import 'dart:io';
+import 'package:shelf/shelf.dart' as shelf;
 
 @app.Group("/api")
 class DemoService {
@@ -33,6 +34,9 @@ class DemoService {
 
     if (code == '12345678')
       return { 'token': 'restore_token_$code' };
+    
+    if (code == '12345679')
+      return new shelf.Response.notFound('not found');
 
     var invalidCodeErrorCode = 2222;
     return { 'errorCode': invalidCodeErrorCode };
@@ -63,7 +67,7 @@ handleCORS() async {
   }
   return app.response.change(headers: {
     "Access-Control-Allow-Origin": "*",
-    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept, Autorization'
   });
 }
 

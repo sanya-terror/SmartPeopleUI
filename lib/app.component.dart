@@ -1,7 +1,7 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
-import 'index.dart' show AuthActionCreator, ErrorAuthorizationComponent, MainComponent, LoginComponent,
+import 'index.dart' show AuthActionCreator, NotFoundErrorComponent, MainComponent, LoginComponent,
 RestoreAccessComponent, SignUpComponent, State, DrawerComponent, ButtonComponent;
 
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
@@ -30,27 +30,28 @@ import 'package:SmartPeopleUI/shared/components/index.dart';
       name: 'RestoreAccess',
       component: RestoreAccessComponent),
   const Route(
+      path: '/not-found',
+      name: 'NotFound',
+      component: NotFoundErrorComponent),
+  const Route(
       path: '/account/sign-up',
       name: 'SignUp',
-      component: SignUpComponent),
-  const Route(
-      path: '/account/error-authorization',
-      name: 'ErrorAuthorization',
-      component: ErrorAuthorizationComponent)
+      component: SignUpComponent)
 ])
 class AppComponent implements OnInit{
 
   final InjectableStore _store;
+  final Router _router;
   bool isAuthenticated = false;
 
   List<Link> drawerLinks = [
     new Link('Login', ['Login']),
     new Link('Restore Access', ['RestoreAccess']),
     new Link('Sign Up', ['SignUp']),
-    new Link('Error Authorization', ['ErrorAuthorization'])
+    new Link('NotFound', ['NotFound'])
   ];
 
-  AppComponent(this._store);
+  AppComponent(this._store, this._router);
 
   @override
   ngOnInit() {
@@ -61,6 +62,11 @@ class AppComponent implements OnInit{
   void _onStateChanged(State state) {
 
     var isAuthenticated = state['isAuthenticated'];
+    var isNotFound = state['isNotFound'] == null ? false : state['isNotFound'];
+    if(isNotFound){
+      _router.navigate(['NotFound']);
+    }
+    
     if(isAuthenticated == null || this.isAuthenticated == isAuthenticated) return;
 
     this.isAuthenticated = isAuthenticated;
