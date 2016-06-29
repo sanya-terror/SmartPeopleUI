@@ -24,7 +24,7 @@ const NOT_FOUND_ACTION = 'NOT_FOUND_ACTION';
 const INTERNAL_SERVER_ERROR_ACTION = 'INTERNAL_SERVER_ERROR_ACTION';
 
 class ApiErrorAction extends Action {
-  ApiErrorAction(String type, ApiError error) : super(type, error.data) {
+  ApiErrorAction(String type, ApiError error) : super(type, {'response' : error.response }) {
     var allowedActions = [
       BAD_REQUEST_ACTION,
       UNAUTHORIZED_ACTION,

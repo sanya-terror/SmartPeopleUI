@@ -51,11 +51,12 @@ class AppComponentTests {
     group('App component', () {
 
       var mockStore = mocks.getMockStore();
+      var mockRouter = mocks.getRouter();
 
       AppComponent component;
       setUp((){
         when(mockStore.dispatch(argThat(anything))).thenReturn({});
-        component =new AppComponent(mockStore);
+        component =new AppComponent(mockStore, mockRouter);
       });
 
       test('Should check login during initialization', () {

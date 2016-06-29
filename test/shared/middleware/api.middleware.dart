@@ -158,12 +158,12 @@ class ApiMiddlewareTests {
 
             when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
 
-            Response fakeResponse = new Response('{"error": "error message"}', testCase['statusCode']);
+            Response fakeResponse = new Response('Some error message!', testCase['statusCode']);
             when(httpClient.get(url, headers: headers)).thenReturn(fakeResponse);
 
             var result = await middleware.apply(store)(next)(action);
             expect(result.type, testCase['actionType']);
-            expect(result.data, {'error': 'error message'});
+            expect(result.data, {'response': 'Some error message!'});
           });
         });
       });
@@ -203,13 +203,13 @@ class ApiMiddlewareTests {
 
           when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
 
-          Response fakeResponse = new Response('{"error": "message"}', 400);
+          Response fakeResponse = new Response('Some error message!', 400);
           when(httpClient.post(url, headers: _headers, body: JSON.encode(data))).thenReturn(fakeResponse);
 
           var action = new Action(LOGIN_REQUEST, data);
           var result = await middleware.apply(store)(next)(action);
           expect(result.type, BAD_REQUEST_ACTION);
-          expect(result.data, {'error': 'message'});
+          expect(result.data, {'response': 'Some error message!'});
         });
       });
 
