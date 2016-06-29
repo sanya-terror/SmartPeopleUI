@@ -29,15 +29,13 @@ class SignUpCodeComponent extends FormComponent {
    }
 
    _onStateChange(SignUpData data) async {
-      String email = _store.state['email'];
-      String password = data.password;
       isApplyingCodeError = data.errorCode == 4444;
 
       if (!isApplyingCodeError) {
          _store.dispatch(SignUpActionCreator.clearSignUp());
          _store.dispatch(AuthActionCreator.requestLogin({
-            'user': email,
-            'password': password
+            'user': _store.state['email'],
+            'password': data.password
          }));
       }
    }
