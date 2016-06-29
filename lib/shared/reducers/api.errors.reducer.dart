@@ -8,7 +8,7 @@ class ApiErrorsReducer {
     switch (action.type) {
       case NOT_FOUND_ACTION:
         return new State.from(state)
-          ..['isNotFound'] = true;
+          ..['isResourceNotFound'] = true;
 
       default:
         return new State.from(state)

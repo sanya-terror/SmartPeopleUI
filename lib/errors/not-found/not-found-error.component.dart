@@ -8,6 +8,6 @@ class NotFoundErrorComponent implements OnDestroy{
    
   @override
   ngOnDestroy() {
-    // TODO: implement state clen up
+    // TODO: implement state cleanup
   }
 }

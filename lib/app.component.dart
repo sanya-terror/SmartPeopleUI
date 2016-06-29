@@ -31,7 +31,7 @@ import 'package:SmartPeopleUI/shared/components/index.dart';
       component: RestoreAccessComponent),
   const Route(
       path: '/not-found',
-      name: 'NotFound',
+      name: 'NotFoundPage',
       component: NotFoundErrorComponent),
   const Route(
       path: '/account/sign-up',
@@ -48,7 +48,7 @@ class AppComponent implements OnInit{
     new Link('Login', ['Login']),
     new Link('Restore Access', ['RestoreAccess']),
     new Link('Sign Up', ['SignUp']),
-    new Link('NotFound', ['NotFound'])
+    new Link('NotFoundPage', ['NotFoundPage'])
   ];
 
   AppComponent(this._store, this._router);
@@ -61,12 +61,12 @@ class AppComponent implements OnInit{
 
   void _onStateChanged(State state) {
 
-    var isAuthenticated = state['isAuthenticated'];
-    var isNotFound = state['isNotFound'] == null ? false : state['isNotFound'];
-    if(isNotFound){
-      _router.navigate(['NotFound']);
+    var isResourceNotFound = state['isResourceNotFound'] == null ? false : state['isResourceNotFound'];
+    if(isResourceNotFound){
+      _router.navigate(['NotFoundPage']);
     }
-    
+
+    var isAuthenticated = state['isAuthenticated'];
     if(isAuthenticated == null || this.isAuthenticated == isAuthenticated) return;
 
     this.isAuthenticated = isAuthenticated;
