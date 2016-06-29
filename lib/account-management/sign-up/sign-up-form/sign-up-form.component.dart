@@ -20,7 +20,10 @@ import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
        ButtonComponent,
        RadioButtonComponent
     ],
-    templateUrl: 'sign-up-form.component.html')
+    templateUrl: 'sign-up-form.component.html',
+    styleUrls: const ['sign-up-form.component.css']
+)
+
 class SignUpFormComponent extends FormComponent implements OnInit {
 
    final InjectableStore _store;
@@ -78,9 +81,6 @@ class SignUpFormComponent extends FormComponent implements OnInit {
    sendForm() async {
       if (!form.valid) return;
 
-      String email = emailControl.value;
-      String password = passwordControl.value;
-
       await _store.dispatch(SignUpActionCreator.sendSignUpForm({
          'name': nameControl.value,
          'surname': surnameControl.value,
@@ -89,7 +89,7 @@ class SignUpFormComponent extends FormComponent implements OnInit {
          'gender': genderControl.value
       }));
 
-      _store.dispatch(SharedActionCreator.saveEmail(email));
-      _store.dispatch(SignUpActionCreator.savePassword(password));
+      _store.dispatch(SharedActionCreator.saveEmail(emailControl.value));
+      _store.dispatch(SignUpActionCreator.savePassword(passwordControl.value));
    }
 }

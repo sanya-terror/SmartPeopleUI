@@ -29,7 +29,7 @@ class SignUpReducer {
 
       switch (action.type) {
 
-         case SAVE_PASSWORD:
+         case SAVE_SIGN_UP_PASSWORD:
             var data = new SignUpData.from(state['signUp'])
                ..password = action.data['password'];
             return new State.from(state)
@@ -43,7 +43,7 @@ class SignUpReducer {
             return new State.from(state)
                ..['signUp'] = data;
 
-         case APPLY_CONFIRMATION_CODE:
+         case APPLY_SIGN_UP_CONFIRMATION_CODE:
             var data = new SignUpData.from(state['signUp'])
                ..errorCode = action.data['errorCode'];
             return new State.from(state)

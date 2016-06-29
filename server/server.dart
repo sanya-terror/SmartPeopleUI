@@ -29,9 +29,9 @@ class DemoService {
 
   @app.Route("handleSignUpForm", methods: const [app.POST])
   getConfirmCode(@app.Body(app.JSON) Map body) {
-    Map credentials = body['credentials'];
-    String user = credentials['user'];
-    int key = credentials['key'];
+    Map sendSignUpData  = body['sendSignUpData '];
+    String user = sendSignUpData['user'];
+    int key = sendSignUpData['key'];
 
     if (user != 'test@test.con')
       return {

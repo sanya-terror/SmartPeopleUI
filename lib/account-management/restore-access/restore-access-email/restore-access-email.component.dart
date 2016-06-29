@@ -46,8 +46,9 @@ class RestoreAccessEmailComponent extends FormComponent implements OnInit {
    getCode() async {
       if (!form.valid) return;
 
-      var email = emailControl.value;
-      await _store.dispatch(SharedActionCreator.saveEmail(email));
-      await _store.dispatch(RestoreAccessActionCreator.getRestoreCode(email));
+      String email = emailControl.value;
+
+      _store.dispatch(SharedActionCreator.saveEmail(email));
+      _store.dispatch(RestoreAccessActionCreator.getRestoreCode(email));
    }
 }

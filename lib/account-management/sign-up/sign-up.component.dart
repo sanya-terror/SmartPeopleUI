@@ -15,7 +15,6 @@ import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
        CardComponent
     ],
     styleUrls: const ['sign-up.component.css'],
-    encapsulation: ViewEncapsulation.None,
     templateUrl: 'sign-up.component.html')
 
 class SignUpComponent implements OnInit, OnDestroy {
