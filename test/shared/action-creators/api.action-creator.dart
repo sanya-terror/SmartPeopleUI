@@ -27,35 +27,35 @@ class ApiActionCreatorTests {
         Action result =
             ApiActionCreator.unauthorizedAction(new AuthorizationError());
         expect(result.type, UNAUTHORIZED_ACTION);
-        expect(result.data, {});
+        expect(result.data, { 'response': ''});
       });
 
       test('Should return bad request error action', () {
         Action result = ApiActionCreator
-            .badRequestAction(new ApiError(400, {'error': 'message'}));
+            .badRequestAction(new ApiError(400, 'Some error message!'));
         expect(result.type, BAD_REQUEST_ACTION);
-        expect(result.data, {'error': 'message'});
+        expect(result.data, {'response': 'Some error message!'});
       });
 
       test('Should return forbidden error action', () {
         Action result = ApiActionCreator
-            .forbiddenAction(new ApiError(400, {'error': 'message'}));
+            .forbiddenAction(new ApiError(400, 'Some error message!'));
         expect(result.type, FORBIDDEN_ACTION);
-        expect(result.data, {'error': 'message'});
+        expect(result.data, {'response': 'Some error message!'});
       });
 
       test('Should return not found error action', () {
         Action result = ApiActionCreator
-            .notFoundAction(new ApiError(400, {'error': 'message'}));
+            .notFoundAction(new ApiError(400, 'Some error message!'));
         expect(result.type, NOT_FOUND_ACTION);
-        expect(result.data, {'error': 'message'});
+        expect(result.data, {'response': 'Some error message!'});
       });
 
       test('Should return internal server error action', () {
         Action result = ApiActionCreator
-            .internalServerErrorAction(new ApiError(400, {'error': 'message'}));
+            .internalServerErrorAction(new ApiError(400, 'Some error message!'));
         expect(result.type, INTERNAL_SERVER_ERROR_ACTION);
-        expect(result.data, {'error': 'message'});
+        expect(result.data, {'response': 'Some error message!'});
       });
 
       test('Should return api action', () {

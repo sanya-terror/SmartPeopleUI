@@ -93,11 +93,10 @@ class ApiMiddleware {
         response = await _httpClient.get(url, headers: _headers);
     }
 
-    var result = JSON.decode(response.body);
     if (response.statusCode != 200)
-      throw new ApiError(response.statusCode, result);
+      throw new ApiError(response.statusCode, response.body);
 
-    return result;
+    return JSON.decode(response.body);
   }
 
   Action _handleError(error) {
