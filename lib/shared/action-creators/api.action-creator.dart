@@ -20,7 +20,8 @@ class ApiAction extends Action {
 const BAD_REQUEST_ACTION = 'BAD_REQUEST_ACTION';
 const FORBIDDEN_ACTION = 'FORBIDDEN_ACTION';
 const UNAUTHORIZED_ACTION = 'UNAUTHORIZED_ACTION';
-const NOT_FOUND_ACTION = 'NOT_FOUND_ACTION';
+const NOT_FOUND_ERROR = 'NOT_FOUND_ERROR';
+const NOT_FOUND_ERROR_CLEAN = 'NOT_FOUND_ERROR_CLEAN';
 const INTERNAL_SERVER_ERROR_ACTION = 'INTERNAL_SERVER_ERROR_ACTION';
 
 class ApiErrorAction extends Action {
@@ -29,7 +30,7 @@ class ApiErrorAction extends Action {
       BAD_REQUEST_ACTION,
       UNAUTHORIZED_ACTION,
       FORBIDDEN_ACTION,
-      NOT_FOUND_ACTION,
+      NOT_FOUND_ERROR,
       INTERNAL_SERVER_ERROR_ACTION
     ];
 
@@ -63,7 +64,10 @@ class ApiActionCreator {
       new ApiErrorAction(UNAUTHORIZED_ACTION, error);
 
   static ApiErrorAction notFoundAction(ApiError error) =>
-      new ApiErrorAction(NOT_FOUND_ACTION, error);
+      new ApiErrorAction(NOT_FOUND_ERROR, error);
+
+  static Action notFoundCleanAction() =>
+      new Action(NOT_FOUND_ERROR_CLEAN);
 
   static ApiErrorAction badRequestAction(ApiError error) =>
       new ApiErrorAction(BAD_REQUEST_ACTION, error);

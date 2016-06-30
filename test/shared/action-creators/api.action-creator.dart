@@ -47,8 +47,14 @@ class ApiActionCreatorTests {
       test('Should return not found error action', () {
         Action result = ApiActionCreator
             .notFoundAction(new ApiError(400, 'Some error message!'));
-        expect(result.type, NOT_FOUND_ACTION);
+        expect(result.type, NOT_FOUND_ERROR);
         expect(result.data, {'response': 'Some error message!'});
+      });
+
+      test('Should return not found error clean action', () {
+        Action result = ApiActionCreator.notFoundCleanAction();
+        expect(result.type, NOT_FOUND_ERROR_CLEAN);
+        expect(result.data, null);
       });
 
       test('Should return internal server error action', () {

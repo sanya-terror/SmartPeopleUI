@@ -3,17 +3,17 @@ import 'package:SmartPeopleUI/index.dart';
 
 class ApiErrorsReducer {
   static State reduce(State state, Action action) {
-    if (!(action is ApiErrorAction)) return state;
 
     switch (action.type) {
-      case NOT_FOUND_ACTION:
+      case NOT_FOUND_ERROR:
         return new State.from(state)
           ..['isResourceNotFound'] = true;
+      case NOT_FOUND_ERROR_CLEAN:
+        return new State.from(state)
+          ..remove('isResourceNotFound');
 
       default:
-        return new State.from(state)
-          ..['isUnhadledError'] = true
-          ..['errorDetails'] = action.data;
+        return state;
     }
   }
 }

@@ -144,7 +144,7 @@ class ApiMiddlewareTests {
           {'statusCode': 400, 'actionType': BAD_REQUEST_ACTION},
           {'statusCode': 401, 'actionType': UNAUTHORIZED_ACTION},
           {'statusCode': 403, 'actionType': FORBIDDEN_ACTION},
-          {'statusCode': 404, 'actionType': NOT_FOUND_ACTION},
+          {'statusCode': 404, 'actionType': NOT_FOUND_ERROR},
           {'statusCode': 500, 'actionType': INTERNAL_SERVER_ERROR_ACTION},
         ];
 
