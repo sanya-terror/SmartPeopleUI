@@ -31,15 +31,9 @@ class DemoService {
   getConfirmCode(@app.Body(app.JSON) Map body) {
     Map sendSignUpData  = body['sendSignUpData '];
     String user = sendSignUpData['user'];
-    int restoreCodeKey = sendSignUpData['key'];
 
     if (user != 'test@test.con')
       return {};
-
-//    int resentCodeError = 5555;
-//
-//    if (restoreCodeKey == null)
-//      return {'errorCode': resentCodeError};
 
     int userAlreadyExists = 3333;
 
@@ -48,9 +42,9 @@ class DemoService {
 
   @app.Route("resendConfirmCode", methods: const [app.POST])
   resendConfirmCode(@app.Body(app.JSON) Map body) {
-    bool shouldResendCode = body['shouldResendCode'];
+    String user = body['user'];
 
-    if (shouldResendCode)
+    if (user != 'test@test.con')
       return {'isConfirmCodeResend': true};
   }
 

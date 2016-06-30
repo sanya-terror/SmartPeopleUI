@@ -39,7 +39,7 @@ class SignUpComponent implements OnInit, OnDestroy {
    }
 
    resendCode() async {
-      await _store.dispatch(SharedActionCreator.resendConfirmCode(true));
+      await _store.dispatch(SharedActionCreator.resendConfirmCode(_store.state['email']));
    }
 
    setDefault() => _store.dispatch(SignUpActionCreator.clearSignUp());
