@@ -31,16 +31,27 @@ class DemoService {
   getConfirmCode(@app.Body(app.JSON) Map body) {
     Map sendSignUpData  = body['sendSignUpData '];
     String user = sendSignUpData['user'];
-    int key = sendSignUpData['key'];
+    int restoreCodeKey = sendSignUpData['key'];
 
     if (user != 'test@test.con')
-      return {
-        'isFormSent': true,
-        'restoreCodeKey': key
-      };
+      return {};
 
-    var userAlreadyExists = 3333;
-    return { 'errorCode': userAlreadyExists };
+//    int resentCodeError = 5555;
+//
+//    if (restoreCodeKey == null)
+//      return {'errorCode': resentCodeError};
+
+    int userAlreadyExists = 3333;
+
+    return {'errorCode': userAlreadyExists};
+  }
+
+  @app.Route("resendConfirmCode", methods: const [app.POST])
+  resendConfirmCode(@app.Body(app.JSON) Map body) {
+    bool shouldResendCode = body['shouldResendCode'];
+
+    if (shouldResendCode)
+      return {'isConfirmCodeResend': true};
   }
 
   @app.Route("applyCode", methods: const [app.POST])
@@ -50,7 +61,7 @@ class DemoService {
     if (code == '12345678')
       return { 'token': 'restore_token_$code' };
 
-    var invalidCodeErrorCode = 2222;
+    int invalidCodeErrorCode = 2222;
     return { 'errorCode': invalidCodeErrorCode };
   }
 
@@ -61,7 +72,7 @@ class DemoService {
     if (code == '12345678')
       return { };
 
-    var invalidCodeErrorCode = 4444;
+    int invalidCodeErrorCode = 4444;
     return { 'errorCode': invalidCodeErrorCode };
   }
 
@@ -74,7 +85,7 @@ class DemoService {
     if (password != oldPassword && token == 'restore_token_12345678')
       return { };
 
-    var passwordChangeErrorCode = 3333;
+    int passwordChangeErrorCode = 3333;
     return { 'errorCode': passwordChangeErrorCode };
   }
 }
