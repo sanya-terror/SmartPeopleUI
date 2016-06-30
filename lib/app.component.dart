@@ -61,8 +61,8 @@ class AppComponent implements OnInit{
 
   void _onStateChanged(State state) {
 
-    var isResourceNotFound = state['isResourceNotFound'] == null ? false : state['isResourceNotFound'];
-    if(isResourceNotFound){
+    var isResourceNotFoundError = state['isResourceNotFoundError'] == null ? false : state['isResourceNotFoundError'];
+    if(isResourceNotFoundError){
       _router.navigate(['NotFoundPage']);
     }
 

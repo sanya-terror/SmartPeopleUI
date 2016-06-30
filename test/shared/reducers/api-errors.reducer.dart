@@ -6,19 +6,37 @@ class ApiErrorsReducerTests {
   static run() {
     group('Api errors reducer', () {
 
-      var initialState = new State({'some':'property', 'isResourceNotFound': null});
+      var initialState = new State({
+        'some':'property',
+        'isResourceNotFoundError': null,
+        'isUnauthorizedError': null
+      });
 
       List<Map<String, dynamic>> cases = [
         {
           'action': new Action(NOT_FOUND_ERROR),
           'result': new State({
             'some':'property',
-            'isResourceNotFound': true
+            'isResourceNotFoundError': true,
+            'isUnauthorizedError': null
           })
         },
         {
           'action': new Action(NOT_FOUND_ERROR_CLEAN),
-          'result': new State({'some':'property'})
+          'result': new State({'some':'property', 'isUnauthorizedError': null})
+        },
+        {
+          'action': new Action(UNAUTHORIZED_ERROR),
+          'result': new State({
+            'some':'property',
+            'isResourceNotFoundError': null,
+            'isUnauthorizedError': true,
+            'isAuthenticated': false
+          })
+        },
+        {
+          'action': new Action(UNAUTHORIZED_ERROR_CLEAN),
+          'result': new State({'some':'property', 'isResourceNotFoundError': null})
         }
       ];
 

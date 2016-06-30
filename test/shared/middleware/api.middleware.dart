@@ -55,7 +55,7 @@ class ApiMiddlewareTests {
 
           var action = new ApiAction('NEXT', '/test/url', 'POST', {'test': 'passed'});
           var result = await middleware.apply(store)(next)(action);
-          expect(result.type, UNAUTHORIZED_ACTION);
+          expect(result.type, UNAUTHORIZED_ERROR);
         });
 
         test('Should handle action if no token in local storage but checkAuthorization flag is false', () async {
@@ -142,7 +142,7 @@ class ApiMiddlewareTests {
 
         var errorTestCases = [
           {'statusCode': 400, 'actionType': BAD_REQUEST_ACTION},
-          {'statusCode': 401, 'actionType': UNAUTHORIZED_ACTION},
+          {'statusCode': 401, 'actionType': UNAUTHORIZED_ERROR},
           {'statusCode': 403, 'actionType': FORBIDDEN_ACTION},
           {'statusCode': 404, 'actionType': NOT_FOUND_ERROR},
           {'statusCode': 500, 'actionType': INTERNAL_SERVER_ERROR_ACTION},

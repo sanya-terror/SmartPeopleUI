@@ -19,7 +19,8 @@ class ApiAction extends Action {
 
 const BAD_REQUEST_ACTION = 'BAD_REQUEST_ACTION';
 const FORBIDDEN_ACTION = 'FORBIDDEN_ACTION';
-const UNAUTHORIZED_ACTION = 'UNAUTHORIZED_ACTION';
+const UNAUTHORIZED_ERROR = 'UNAUTHORIZED_ERROR';
+const UNAUTHORIZED_ERROR_CLEAN = 'UNAUTHORIZED_ERROR_CLEAN';
 const NOT_FOUND_ERROR = 'NOT_FOUND_ERROR';
 const NOT_FOUND_ERROR_CLEAN = 'NOT_FOUND_ERROR_CLEAN';
 const INTERNAL_SERVER_ERROR_ACTION = 'INTERNAL_SERVER_ERROR_ACTION';
@@ -28,7 +29,7 @@ class ApiErrorAction extends Action {
   ApiErrorAction(String type, ApiError error) : super(type, {'response' : error.response }) {
     var allowedActions = [
       BAD_REQUEST_ACTION,
-      UNAUTHORIZED_ACTION,
+      UNAUTHORIZED_ERROR,
       FORBIDDEN_ACTION,
       NOT_FOUND_ERROR,
       INTERNAL_SERVER_ERROR_ACTION
@@ -61,13 +62,14 @@ class ApiActionCreator {
       new ApiAction(type, endpoint, 'GET', data, checkAuthorization);
 
   static ApiErrorAction unauthorizedAction(ApiError error) =>
-      new ApiErrorAction(UNAUTHORIZED_ACTION, error);
+      new ApiErrorAction(UNAUTHORIZED_ERROR, error);
+
+  static Action unauthorizedCleanAction() => new Action(UNAUTHORIZED_ERROR_CLEAN);
 
   static ApiErrorAction notFoundAction(ApiError error) =>
       new ApiErrorAction(NOT_FOUND_ERROR, error);
 
-  static Action notFoundCleanAction() =>
-      new Action(NOT_FOUND_ERROR_CLEAN);
+  static Action notFoundCleanAction() => new Action(NOT_FOUND_ERROR_CLEAN);
 
   static ApiErrorAction badRequestAction(ApiError error) =>
       new ApiErrorAction(BAD_REQUEST_ACTION, error);

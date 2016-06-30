@@ -97,12 +97,12 @@ class AppComponentTests {
 
         var onStateChange = verify(mockStore.listen(captureAny)).captured[0];
 
-        var newState = new State({'isResourceNotFound': false});
+        var newState = new State({'isResourceNotFoundError': false});
 
         onStateChange(newState);
         verifyNever(mockRouter.navigate(['NotFoundPage']));
 
-        newState['isResourceNotFound'] = true;
+        newState['isResourceNotFoundError'] = true;
         onStateChange(newState);
         verify(mockRouter.navigate(['NotFoundPage']));
       });
