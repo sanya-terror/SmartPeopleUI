@@ -1,4 +1,4 @@
-import 'package:angular2/core.dart' show Component, ViewEncapsulation, OnInit, OnDestroy;
+import 'package:angular2/core.dart' show Component, OnInit, OnDestroy;
 import 'package:angular2/router.dart' show ROUTER_DIRECTIVES;
 import 'package:SmartPeopleUI/index.dart'
     show LinkComponent, CardComponent, SignUpData, SignUpActionCreator, SharedActionCreator, SignUpCodeComponent, SignUpFormComponent;
@@ -21,6 +21,7 @@ class SignUpComponent implements OnInit, OnDestroy {
 
    bool isFormSent = false;
    bool isConfirmationCodeResent = false;
+   bool isConfirmationCodeResentError = false;
 
    final InjectableStore _store;
 
@@ -35,11 +36,12 @@ class SignUpComponent implements OnInit, OnDestroy {
 
    _onStateChange(SignUpData signUp) {
       isFormSent = signUp?.errorCode != 3333;
-      isConfirmationCodeResent = _store.state['isConfirmCodeResend'] != null;
+      isConfirmationCodeResent = _store.state['isConfirmationCodeResend'];
+      isConfirmationCodeResentError = _store.state['errorCode'] == 5555;
    }
 
    resendCode() async {
-      await _store.dispatch(SharedActionCreator.resendConfirmCode(_store.state['email']));
+      await _store.dispatch(SharedActionCreator.resendConfirmCode(_store.state['signUp'].signUpToken));
    }
 
    setDefault() => _store.dispatch(SignUpActionCreator.clearSignUp());

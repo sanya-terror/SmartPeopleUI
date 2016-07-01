@@ -31,9 +31,10 @@ class DemoService {
   getConfirmCode(@app.Body(app.JSON) Map body) {
     Map sendSignUpData  = body['sendSignUpData '];
     String user = sendSignUpData['user'];
+    String password = sendSignUpData['password'];
 
     if (user != 'test@test.con')
-      return {};
+      return { 'token': '${user}_${password}' };
 
     int userAlreadyExists = 3333;
 
@@ -42,10 +43,13 @@ class DemoService {
 
   @app.Route("resendConfirmCode", methods: const [app.POST])
   resendConfirmCode(@app.Body(app.JSON) Map body) {
-    String user = body['user'];
+    String token = body['token'];
 
-    if (user != 'test@test.con')
-      return {'isConfirmCodeResend': true};
+    if (token == 'test@test.com_777777')
+      return { 'isConfirmationCodeResend': true };
+
+    int resendConfirmationCodeError = 5555;
+    return { 'errorCode': resendConfirmationCodeError };
   }
 
   @app.Route("applyCode", methods: const [app.POST])

@@ -11,7 +11,8 @@ class SharedReducer {
 
          case RESEND_CONFIRM_CODE:
             return new State.from(state)
-               ..['isConfirmCodeResend'] = action.data['isConfirmCodeResend'];
+               ..['isConfirmationCodeResend'] = action.data['isConfirmationCodeResend']
+               ..['errorCode'] = action.data['errorCode'];
 
          default:
             return state;

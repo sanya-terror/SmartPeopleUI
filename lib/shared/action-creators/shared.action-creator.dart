@@ -7,6 +7,6 @@ const RESEND_CONFIRM_CODE = 'RESEND_CONFIRM_CODE';
 class SharedActionCreator {
    static Action saveEmail(String email) => new Action(SAVE_EMAIL, {'email': email});
 
-   static Action resendConfirmCode(String user) =>
-      ApiActionCreator.postApiAction(RESEND_CONFIRM_CODE, '/resendConfirmCode', {'user': user }, false);
+   static Action resendConfirmCode(String token) =>
+      ApiActionCreator.postApiAction(RESEND_CONFIRM_CODE, '/resendConfirmCode', {'token': token }, false);
 }
