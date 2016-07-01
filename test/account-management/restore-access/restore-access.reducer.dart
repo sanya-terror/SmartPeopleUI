@@ -30,14 +30,6 @@ class RestoreAccessReducerTests {
                      ..isCodeSent = true
                })
             },
-//            {
-//               'action': new Action(SAVE_EMAIL, { 'email': 'some@email.com'}),
-//               'result': new State({
-//                  'someProperty': 'some value',
-//                  'restoreAccess': new RestoreAccessData()
-//                     ..email = 'some@email.com'
-//               })
-//            },
             {
                'action': new Action(APPLY_RESTORE_CODE, { 'token': 'some_token'}),
                'result': new State({
