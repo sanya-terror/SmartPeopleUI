@@ -12,12 +12,11 @@ import 'package:SmartPeopleUI/redux/index.dart' show State;
 selector: 'sp-restore-access-email',
 directives: const[ InputComponent, ButtonComponent ],
 templateUrl: 'restore-access-email.component.html')
-class RestoreAccessEmailComponent extends FormComponent implements OnInit {
+class RestoreAccessEmailComponent extends FormComponent {
 
    final InjectableStore _store;
 
    bool isUserNotFound = false;
-   bool isInvalidCode = false;
 
    Control emailControl;
    ControlGroup form;
@@ -30,17 +29,8 @@ class RestoreAccessEmailComponent extends FormComponent implements OnInit {
       this.form = new ControlGroup({ 'email': this.emailControl});
    }
 
-   ngOnInit() {
-      _store.listen(_onStateChange);
-      _onStateChange(_store.state);
-   }
-
-   _onStateChange(State state){
-
-      RestoreAccessData restoreAccess = state['restoreAccess'];
-      if (restoreAccess == null) return;
-
-      isUserNotFound = restoreAccess.errorCode == 1111;
+   _onStateChange(RestoreAccessData data){
+      isUserNotFound = data.errorCode == 1111;
    }
 
    getCode() async {
@@ -50,5 +40,15 @@ class RestoreAccessEmailComponent extends FormComponent implements OnInit {
 
       _store.dispatch(SharedActionCreator.saveEmail(email));
       _store.dispatch(RestoreAccessActionCreator.getRestoreCode(email));
+
+      _subscribeOnceForRestoreAccessData();
    }
-}
+
+   _subscribeOnceForRestoreAccessData() =>
+      _store
+        .map((state) => state['restoreAccess'])
+        .where((data) => data != null)
+        .take(1)
+        .listen(_onStateChange);
+
+   }

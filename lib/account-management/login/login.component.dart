@@ -1,7 +1,6 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/common.dart';
 import 'package:angular2/router.dart';
-import 'package:angular2_rbi/directives.dart' show MaterialButton, MaterialCheckbox, MaterialTextfield;
 
 import 'package:SmartPeopleUI/shared/index.dart';
 import 'package:SmartPeopleUI/account-management/index.dart';
@@ -12,7 +11,6 @@ import 'package:SmartPeopleUI/redux/index.dart' show State;
     selector: 'sp-login',
     directives: const [
       ROUTER_DIRECTIVES,
-      ErrorTooltipComponent,
       InputComponent,
       CheckboxComponent,
       LinkComponent,
@@ -29,8 +27,7 @@ class LoginComponent extends FormComponent {
   Control passwordControl;
   Control rememberMeControl;
 
-  bool areCredentialsValid = null;
-  String errorMessage = null;
+  String errorMessage;
 
   final InjectableStore _store;
 
@@ -53,7 +50,6 @@ class LoginComponent extends FormComponent {
   }
 
   _onStateChange(State state) {
-     areCredentialsValid = state['isAuthenticated'];
      errorMessage = state['errorMessage'];
 
      form.controls.forEach((name, control) {

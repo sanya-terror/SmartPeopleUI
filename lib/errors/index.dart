@@ -1,1 +1,2 @@
-export 'error-authorization/index.dart';
+export 'not-found/index.dart';
+export 'unauthorized/index.dart';

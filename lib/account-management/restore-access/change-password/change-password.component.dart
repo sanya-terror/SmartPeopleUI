@@ -31,8 +31,7 @@ class ChangePasswordComponent extends FormComponent {
           ]));
 
       this.passwordRepeatControl = new Control('777777',
-          Validators.compose(
-              [PasswordValidator.validate, Validators.required]));
+          Validators.compose([PasswordValidator.validate, Validators.required]));
 
       this.form = new ControlGroup({
          'password': this.passwordControl,
@@ -51,7 +50,6 @@ class ChangePasswordComponent extends FormComponent {
             'password': passwordControl.value
          }));
       }
-
    }
 
    applyPasswordChanging() {
@@ -59,7 +57,7 @@ class ChangePasswordComponent extends FormComponent {
 
       String restoreToken = (_store.state['restoreAccess'] as RestoreAccessData)?.changePasswordToken;
 
-      _store.map((state) => state['restoreAccess']).where((data)=>data!=null).take(1).listen(_onStateChange);
+      _store.map((state) => state['restoreAccess']).where((data) => data != null).take(1).listen(_onStateChange);
       _store.dispatch(RestoreAccessActionCreator.applyPasswordChanging(passwordControl.value, restoreToken));
    }
 

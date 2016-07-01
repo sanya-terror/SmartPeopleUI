@@ -7,6 +7,7 @@ import 'package:angular2_testing/angular2_testing.dart';
 import 'helpers/angular.dart' as ng;
 import 'helpers/mocks.dart' as mocks;
 import 'package:SmartPeopleUI/index.dart';
+import 'package:angular2/router.dart';
 
 class AppComponentTests {
   static run() {
@@ -51,11 +52,13 @@ class AppComponentTests {
     group('App component', () {
 
       var mockStore = mocks.getMockStore();
+      Router mockRouter = mocks.getRouter();
 
       AppComponent component;
       setUp((){
         when(mockStore.dispatch(argThat(anything))).thenReturn({});
-        component =new AppComponent(mockStore);
+        when(mockRouter.navigate(argThat(anything))).thenReturn({});
+        component =new AppComponent(mockStore, mockRouter);
       });
 
       test('Should check login during initialization', () {
@@ -86,6 +89,22 @@ class AppComponentTests {
         newState['isAuthenticated'] = false;
         onStateChange(newState);
         expect(component.isAuthenticated, isFalse);
+      });
+
+      test('Should navigate to not found page is not found state', () {
+
+        component.ngOnInit();
+
+        var onStateChange = verify(mockStore.listen(captureAny)).captured[0];
+
+        var newState = new State({'isResourceNotFoundError': false});
+
+        onStateChange(newState);
+        verifyNever(mockRouter.navigate(['NotFoundPage']));
+
+        newState['isResourceNotFoundError'] = true;
+        onStateChange(newState);
+        verify(mockRouter.navigate(['NotFoundPage']));
       });
     });
   }

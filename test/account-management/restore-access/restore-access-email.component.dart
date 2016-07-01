@@ -3,13 +3,14 @@ import 'dart:html';
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:angular2/common.dart';
+import 'package:angular2/core.dart';
 import 'package:angular2_testing/angular2_testing.dart';
 import 'package:angular2/testing.dart' show fakeAsync, flushMicrotasks, tick;
 
 import 'package:SmartPeopleUI/index.dart';
 import '../../helpers/angular.dart' as ng;
 import '../../helpers/mocks.dart';
-import 'package:angular2/core.dart';
+import '../../helpers/matchers.dart';
 
 class RestoreAccessEmailComponentTests {
   static run() {
@@ -29,47 +30,37 @@ class RestoreAccessEmailComponentTests {
         _element = _fixture.nativeElement;
       });
 
+      ngTest('Should init correcr view', ()  {
+
+        _fixture.detectChanges();
+
+        expect(_element.querySelector('form .description'), isNotNull, reason: 'No description found');
+        expect(_element.querySelector('form sp-input .error'), isNull, reason: 'Error found');
+        expect(_element.querySelector('form sp-input'), isNotNull, reason: 'No input found');
+        expect(_element.querySelector('form sp-button'), isNotNull, reason: 'No button found');
+      });
+
       var testCases = [
-        {
-          'state': { 'isUserNotFound': true, 'isInvalidCode': true },
-          'resultSelectors': {'enterEmail': isNull, 'userNotFound': isNotNull, 'invalidCode': isNotNull }
-        },
-        {
-          'state': { 'isUserNotFound': true, 'isInvalidCode': false },
-          'resultSelectors': {'enterEmail': isNull, 'userNotFound': isNotNull, 'invalidCode': isNull }
-        },
-        {
-          'state': { 'isUserNotFound': false, 'isInvalidCode': true },
-          'resultSelectors': {'enterEmail': isNotNull, 'userNotFound': isNull, 'invalidCode': isNotNull }
-        },
-        {
-          'state': { 'isUserNotFound': false, 'isInvalidCode': false },
-          'resultSelectors': {'enterEmail': isNotNull, 'userNotFound': isNull, 'invalidCode': isNull }
-        },
+        { 'isUserNotFound': true, 'result': isNotNull},
+        { 'isUserNotFound': false, 'result': isNull}
       ];
 
       testCases.forEach((testCase){
-        var state = testCase['state'];
-        var resultSelectors = testCase['resultSelectors'];
+        var isUserNotFound = testCase['isUserNotFound'];
+        var result = testCase['result'];
 
-        ngTest('Should apply correct view state. State: $state', ()  {
-
-          _component.isUserNotFound = state['isUserNotFound'];
-          _component.isInvalidCode = state['isInvalidCode'];
-
+        ngTest('Should show isUserNotFound error: $isUserNotFound', ()  {
+          _component.isUserNotFound = isUserNotFound;
           _fixture.detectChanges();
-
-          expect(_element.querySelector('form #user-not-found-desc'), resultSelectors['userNotFound']);
-          expect(_element.querySelector('form #enter-email-desc'), resultSelectors['enterEmail']);
-          expect(_element.querySelector('form #invalid-code-error'), resultSelectors['invalidCode']);
-          expect(_element.querySelector('sp-error-tooltip'), isNull);
+          expect(_element.querySelector('form sp-input #user-not-found-error.error'), result);
         });
       });
 
-// TODO Add tests to check if notifications appear on errors
-//
-//      ngTest('Should show email required error', fakeAsync(()  async {
+      // TODO SP-63 Add tests to check if error appears.
+      // Need a mechanism to detect if input was changed
 
+//      ngTest('Should show email required error', fakeAsync(()  async {
+//
 //        var fixture  = await tcb.createAsync(RestoreAccessEmailComponent);
 //        var element = fixture.nativeElement;
 //
@@ -87,6 +78,7 @@ class RestoreAccessEmailComponentTests {
 ////        expect(_element.querySelector('sp-error-tooltip#email-required-error'), isNotNull);
 //        expect(element.querySelector('sp-error-tooltip#email-incorrect-error'), isNull);
 //      }));
+
     });
 
     group('Restore access email component', () {
@@ -100,60 +92,74 @@ class RestoreAccessEmailComponentTests {
         component = new RestoreAccessEmailComponent(mockStore);
       });
 
-      test('Should subscribe on change during initialization', () {
-        component.ngOnInit();
-        expect(verify(mockStore.listen(argThat(anything))).callCount, 1);
-      });
-
-      group('On state change', (){
-
-        var onStateChange;
-
-        setUp((){
-          component.ngOnInit();
-          onStateChange = verify(mockStore.listen(captureAny)).captured[0];
-        });
-
-        test('Should not change component state if no restoreAccess object in new state', () {
-
-          var newState = new State({'restoreAccess': null});
-          onStateChange(newState);
-
-          expect(component.isInvalidCode, false);
-          expect(component.isUserNotFound, false);
-        });
-
-        test('Should change component state base on restoreAccess object in new state', () {
-
-          var newState = new State({'restoreAccess': new RestoreAccessData(isInvalidCode: true)});
-          onStateChange(newState);
-
-          expect(component.isInvalidCode, true);
-          expect(component.isUserNotFound, false);
-
-          newState = new State({'restoreAccess': new RestoreAccessData(isUserNotFound: true)});
-          onStateChange(newState);
-
-          expect(component.isInvalidCode, false);
-          expect(component.isUserNotFound, true);
-        });
-      });
-
       test('Should add emailControl to form group', () {
         expect(component.form.controls['email'], component.emailControl);
       });
 
-      test('Should get code', () {
+      test('Should subscribe on state change when get code', () async {
+
+        var subscriptionStream = _mockSubscription(mockStore);
+
+        await component.getCode();
+
+        var onStateChange = verify(subscriptionStream.listen(captureAny)).captured[0];
+
+        var data = new RestoreAccessData()..errorCode = 1111;
+        onStateChange(data);
+
+        expect(component.isUserNotFound, true);
+
+        data = new RestoreAccessData()..errorCode = 2222;
+        onStateChange(data);
+
+        expect(component.isUserNotFound, false);
+      });
+
+      test('Should get code', () async {
 
         var email = 'test@mail.com';
-        component.emailControl = new Control(email);
-        component.getCode();
+        component.emailControl.updateValue(email);
 
-        var isValidAction = predicate((action) => action.type == GET_RESTORE_CODE && action.data['email'] == email);
-        expect(verify(mockStore.dispatch(argThat(isValidAction))).callCount, 1);
+        await component.getCode();
+
+        var isValidSaveEmailAction = predicate((action) => action.type == SAVE_EMAIL && action.data['email'] == email);
+        expect(verify(mockStore.dispatch(argThat(isValidSaveEmailAction))).callCount, 1);
+
+        var isValidGetCodeAction = predicate((action) => action.type == GET_RESTORE_CODE && action.data['email'] == email);
+        expect(verify(mockStore.dispatch(argThat(isValidGetCodeAction))).callCount, 1);
+      });
+
+      test('Should not get code and subscribe when form is invalid', () async {
+
+        component.form.setErrors({'some_error': 'error'});
+
+        var subscriptionStream = _mockSubscription(mockStore);
+
+        await component.getCode();
+
+        verifyNever(subscriptionStream.listen(argThat(anything)));
+        verifyNever(mockStore.dispatch(anything));
       });
 
     });
+  }
+
+  static _mockSubscription(mockStore) {
+
+    var mappedStream = getStream();
+    var filteredStream = getStream();
+    var takenStream = getStream();
+
+    var restoreAccessMapPredicate = predicate((f) {
+      var data = new RestoreAccessData();
+      var state = new State({'restoreAccess': data});
+      return f(state) == data;
+    });
+
+    when(mockStore.map(restoreAccessMapPredicate)).thenReturn(mappedStream);
+    when(mappedStream.where(notNullPredicate)).thenReturn(filteredStream);
+    when(filteredStream.take(1)).thenReturn(takenStream);
+    return takenStream;
   }
 }
 
