@@ -46,7 +46,7 @@ class DemoService {
     String token = body['token'];
 
     if (token == 'test@test.com_777777')
-      return { 'isConfirmationCodeResend': true };
+      return {};
 
     int resendConfirmationCodeError = 5555;
     return { 'errorCode': resendConfirmationCodeError };
