@@ -8,11 +8,10 @@ const CLEAR_SIGN_UP = 'CLEAR_SIGN_UP';
 
 class SignUpActionCreator {
 
-
    static Action savePassword(String password) => new Action(SAVE_SIGN_UP_PASSWORD, {'password': password});
 
    static Action sendSignUpForm(sendSignUpData) =>
-       ApiActionCreator.postApiAction(SEND_SIGN_UP_FORM, '/handleSignUpForm', {'sendSignUpData ': sendSignUpData }, false);
+       ApiActionCreator.postApiAction(SEND_SIGN_UP_FORM, '/handleSignUpForm', {'sendSignUpData': sendSignUpData }, false);
 
    static Action applyConfirmationCode(String code) =>
        ApiActionCreator.postApiAction(APPLY_SIGN_UP_CONFIRMATION_CODE, '/applyConfirmationCode', {'code': code}, false);
