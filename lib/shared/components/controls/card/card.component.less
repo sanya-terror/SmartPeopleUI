@@ -1,3 +1,21 @@
 .card {
     width: 100%;
+
+    & .mdl-card__supporting-text {
+
+        width: auto;
+
+        & .notification {
+
+            padding-bottom: 20px;
+
+            &.warning {
+                color: #ffc107;
+            }
+
+            &.error {
+                color: #de3226;
+            }
+        }
+    }
 }
