@@ -45,10 +45,12 @@ class ChangePasswordComponentTests {
 
             test('Should clear restore info and login if changing password is successful', () async {
 
-               var data = new RestoreAccessData()
-                  ..errorCode = null
-                  ..email = 'some@email.com';
+               var email = 'some@email.com';
+               var data = new RestoreAccessData()..errorCode = null;
+
                component.passwordControl.updateValue('pass1234');
+
+               when(mockStore.state).thenReturn(new State({'email': email}));
 
                await onStateChange(data);
 
@@ -57,13 +59,12 @@ class ChangePasswordComponentTests {
                var isClearRestoreAccessDataAction = predicate((action) => action.type == CLEAR_RESTORE_ACCESS);
                expect(verify(mockStore.dispatch(argThat(isClearRestoreAccessDataAction))).callCount, 1);
 
-               print(data.email);
-               print(component.passwordControl.value);
                var isLoginRequestAction = predicate((action) =>
                   action.type == LOGIN_REQUEST
-                  && action.data['credentials']['user'] == data.email
+                  && action.data['credentials']['user'] == email
                   && action.data['credentials']['password'] == component.passwordControl.value);
-               expect(verify(mockStore.dispatch(argThat(isLoginRequestAction))).callCount, 1);
+               expect(verify(mockStore.dispatch(argThat(isLoginRequestAction))).callCount, 1,
+               reason: 'No matching login request call found!');
             });
          });
 
