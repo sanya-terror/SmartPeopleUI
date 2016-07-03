@@ -17,7 +17,6 @@ class SignUpCodeComponent extends FormComponent {
 
    final InjectableStore _store;
 
-   bool isInvalidCode = false;
    bool isApplyingCodeError = false;
 
    Control codeControl;
@@ -43,7 +42,14 @@ class SignUpCodeComponent extends FormComponent {
    confirmCode() {
       if (!form.valid) return;
 
-      _store.map((state) => state['signUp']).where((data)=>data!=null).take(1).listen(_onStateChange);
+      _subscribeOnceForSignUpData();
       _store.dispatch(SignUpActionCreator.applyConfirmationCode(codeControl.value));
+   }
+
+   _subscribeOnceForSignUpData() {
+      _store
+          .map((state) => state['signUp'])
+          .where((data)=>data!=null).take(1)
+          .listen(_onStateChange);
    }
 }

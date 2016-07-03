@@ -28,11 +28,11 @@ class DemoService {
     return { 'errorCode': userNotFoundErrorCode };
   }
 
-  @app.Route("handleSignUpForm", methods: const [app.POST])
+  @app.Route("handleSignUpData", methods: const [app.POST])
   getConfirmCode(@app.Body(app.JSON) Map body) {
-    Map sendSignUpData  = body['sendSignUpData '];
-    String user = sendSignUpData['user'];
-    String password = sendSignUpData['password'];
+    Map signUpData  = body['signUpData'];
+    String user = signUpData['user'];
+    String password = signUpData['password'];
 
     if (user != 'test@test.con')
       return { 'token': '${user}_${password}' };

@@ -11,25 +11,34 @@ class SignUpActionCreatorTests {
          test('Should return save password action', () {
             String password = '1q2w3e4r';
             Action result = SignUpActionCreator.savePassword(password);
-            expect(result is Action, true);
             expect(result.type, SAVE_SIGN_UP_PASSWORD);
             expect(result.data, {'password': password});
          });
 
          test('Should return send sign up action', () {
-            Map<String, dynamic> sendSignUpData = {
+            Map<String, dynamic> signUpData = {
                'name': 'Aleksander',
                'surname': 'Kabanov',
                'user': 'test@test.com',
                'password': '777777',
-               'gender': 'male'
+               'sex': 'male'
             };
-            ApiAction result = SignUpActionCreator.sendSignUpForm(sendSignUpData);
+            ApiAction result = SignUpActionCreator.sendSignUpData(signUpData);
             expect(result is ApiAction, true);
-            expect(result.type, SEND_SIGN_UP_FORM);
-            expect(result.endpoint, '/handleSignUpForm');
+            expect(result.type, SEND_SIGN_UP_DATA);
+            expect(result.endpoint, '/handleSignUpData');
             expect(result.checkAuthorization, isFalse);
-            expect(result.data, {'sendSignUpData': sendSignUpData});
+            expect(result.data, {'signUpData': signUpData});
+         });
+
+         test('Should return resend confirm code action', () {
+            String token = 'some_token';
+            ApiAction result = SignUpActionCreator.resendConfirmCode(token);
+            expect(result is ApiAction, true);
+            expect(result.type, RESEND_CONFIRM_CODE);
+            expect(result.endpoint, '/resendConfirmCode');
+            expect(result.checkAuthorization, isFalse);
+            expect(result.data, {'token': token});
          });
 
          test('Should return apply confirmation code action', () {

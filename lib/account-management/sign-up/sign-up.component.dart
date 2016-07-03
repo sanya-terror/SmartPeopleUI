@@ -1,7 +1,7 @@
 import 'package:angular2/core.dart' show Component, OnInit, OnDestroy;
 import 'package:angular2/router.dart' show ROUTER_DIRECTIVES;
 import 'package:SmartPeopleUI/index.dart'
-    show LinkComponent, CardComponent, SignUpData, SignUpActionCreator, SharedActionCreator, SignUpCodeComponent, SignUpFormComponent;
+    show LinkComponent, CardComponent, SignUpData, SignUpActionCreator, SignUpCodeComponent, SignUpFormComponent;
 
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
 
@@ -36,12 +36,12 @@ class SignUpComponent implements OnInit, OnDestroy {
 
    _onStateChange(SignUpData signUp) {
       isFormSent = signUp?.errorCode != 3333;
-      isConfirmationCodeResent = _store.state['isConfirmationCodeResend'];
-      isConfirmationCodeResentError = _store.state['errorCode'] == 5555;
+      isConfirmationCodeResent = signUp?.isConfirmationCodeResend;
+      isConfirmationCodeResentError = signUp?.errorCode == 5555;
    }
 
-   resendCode() async {
-      await _store.dispatch(SharedActionCreator.resendConfirmCode(_store.state['signUp'].signUpToken));
+   resendCode() {
+      _store.dispatch(SignUpActionCreator.resendConfirmCode(_store.state['signUp'].signUpToken));
    }
 
    setDefault() => _store.dispatch(SignUpActionCreator.clearSignUp());

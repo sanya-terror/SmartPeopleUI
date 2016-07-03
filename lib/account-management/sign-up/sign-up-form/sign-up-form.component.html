@@ -32,9 +32,9 @@
     </sp-input>
 
     <div class="gender-group">
-        <sp-radio id="male" name="gender" label="Male" [control]="genderControl" value="male"></sp-radio>
-        <sp-radio id="female" name="gender" label="Female" [control]="genderControl" value="female"></sp-radio>
+        <sp-radio id="male" name="sex" label="Male" [control]="sexControl" value="male"></sp-radio>
+        <sp-radio id="female" name="sex" label="Female" [control]="sexControl" value="female"></sp-radio>
     </div>
 
-    <sp-button class="sign-up-button" label="Sign up" (click)="sendForm()"></sp-button>
+    <sp-button label="Sign up" (click)="sendForm()"></sp-button>
 </form>

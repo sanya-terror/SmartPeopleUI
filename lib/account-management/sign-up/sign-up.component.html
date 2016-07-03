@@ -12,7 +12,7 @@
 		</div>
 
 		<div class="extra-actions">
-			<sp-link *ngIf="!isFormSent" [routerLink]="['Login']" label="Sign in"></sp-link>
+			<sp-link [routerLink]="['Login']" label="Sign in"></sp-link>
 			<sp-link *ngIf="isFormSent" label="Resend code" (click)="resendCode()"></sp-link>
 		</div>
 	</sp-card>

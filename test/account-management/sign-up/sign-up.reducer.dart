@@ -21,7 +21,7 @@ class SignUpReducerTests {
                })
             },
             {
-               'action': new Action(SEND_SIGN_UP_FORM, { 'token': 'some_token'}),
+               'action': new Action(SEND_SIGN_UP_DATA, { 'token': 'some_token'}),
                'result': new State({
                   'someProperty': 'some value',
                   'signUp': new SignUpData()
@@ -30,7 +30,25 @@ class SignUpReducerTests {
                })
             },
             {
-               'action': new Action(SEND_SIGN_UP_FORM, { 'errorCode': 3333 }),
+               'action':new Action(RESEND_CONFIRM_CODE, {'errorCode': null}),
+               'result': new State({
+                  'someProperty': 'some value',
+                  'signUp': new SignUpData()
+                     ..isConfirmationCodeResend = true
+                     ..errorCode = null
+               })
+            },
+            {
+               'action':new Action(RESEND_CONFIRM_CODE, {'errorCode': 5555}),
+               'result': new State({
+                  'someProperty': 'some value',
+                  'signUp': new SignUpData()
+                     ..isConfirmationCodeResend = false
+                     ..errorCode = 5555
+               })
+            },
+            {
+               'action': new Action(SEND_SIGN_UP_DATA, { 'errorCode': 3333 }),
                'result': new State({
                   'someProperty': 'some value',
                   'signUp': new SignUpData()
@@ -56,10 +74,7 @@ class SignUpReducerTests {
             },
             {
                'action': new Action(CLEAR_SIGN_UP),
-               'result': new State({
-                  'someProperty': 'some value',
-                  'signUp': null
-               })
+               'result': new State({})
             }
          ];
 
@@ -79,6 +94,7 @@ class SignUpReducerTests {
                } else {
                   expect(actualSignUpData.password, expectedSignUp.password);
                   expect(actualSignUpData.signUpToken, expectedSignUp.signUpToken);
+                  expect(actualSignUpData.isConfirmationCodeResend, expectedSignUp.isConfirmationCodeResend);
                   expect(actualSignUpData.errorCode, expectedSignUp.errorCode);
                }
             });

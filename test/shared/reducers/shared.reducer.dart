@@ -12,21 +12,7 @@ class SharedReducerTests {
                'result': new State({
                   'email': 'test@test.com'
                })
-            },
-            {
-               'action':new Action(RESEND_CONFIRM_CODE, {'errorCode': null}),
-               'result': new State({
-                  'isConfirmationCodeResend': true,
-                  'errorCode': null
-               })
-            },
-            {
-               'action':new Action(RESEND_CONFIRM_CODE, {'errorCode': 5555}),
-               'result': new State({
-                  'isConfirmationCodeResend': false,
-                  'errorCode': 5555
-               })
-            },
+            }
          ];
 
          cases.forEach((testCase) {

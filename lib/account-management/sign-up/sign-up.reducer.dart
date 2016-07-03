@@ -4,6 +4,7 @@ import 'package:SmartPeopleUI/account-management/sign-up/index.dart';
 class SignUpData {
    String password;
    String signUpToken;
+   bool isConfirmationCodeResend;
    int errorCode;
 
    SignUpData();
@@ -11,11 +12,12 @@ class SignUpData {
    SignUpData.from(SignUpData data) {
       this.password = data?.password;
       this.signUpToken = data?.signUpToken;
+      this.isConfirmationCodeResend = data?.isConfirmationCodeResend;
       this.errorCode = data?.errorCode;
    }
 
    toString(){
-      return '{ password: $password, signUpToken: $signUpToken, errorCode: $errorCode }';
+      return '{ password: $password, signUpToken: $signUpToken, isConfirmationCodeResend: $isConfirmationCodeResend, errorCode: $errorCode }';
    }
 }
 
@@ -30,12 +32,20 @@ class SignUpReducer {
             return new State.from(state)
                ..['signUp'] = data;
 
-         case SEND_SIGN_UP_FORM:
+         case SEND_SIGN_UP_DATA:
             var data = new SignUpData.from(state['signUp'])
                ..signUpToken = action.data['token']
                ..errorCode = action.data['errorCode'];
             return new State.from(state)
                ..['signUp'] = data;
+
+         case RESEND_CONFIRM_CODE:
+            var data = new SignUpData.from(state['signUp'])
+               ..isConfirmationCodeResend = action.data['errorCode'] == null
+               ..errorCode = action.data['errorCode'];
+            return new State.from(state)
+               ..['signUp'] = data;
+
 
          case APPLY_SIGN_UP_CONFIRMATION_CODE:
             var data = new SignUpData.from(state['signUp'])
@@ -44,8 +54,7 @@ class SignUpReducer {
                ..['signUp'] = data;
 
          case CLEAR_SIGN_UP:
-            return new State.from(state)
-               ..['signUp'] = null;
+            return new State.from(state).remove('signUp');
 
          default:
             return state;
