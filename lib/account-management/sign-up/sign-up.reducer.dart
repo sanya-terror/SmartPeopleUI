@@ -54,7 +54,8 @@ class SignUpReducer {
                ..['signUp'] = data;
 
          case CLEAR_SIGN_UP:
-            return new State.from(state).remove('signUp');
+            return new State.from(state)
+               ..remove('signUp');
 
          default:
             return state;

@@ -74,7 +74,9 @@ class SignUpReducerTests {
             },
             {
                'action': new Action(CLEAR_SIGN_UP),
-               'result': new State({})
+               'result': new State({
+                  'someProperty': 'some value'
+               })
             }
          ];
 
