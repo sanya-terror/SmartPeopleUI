@@ -3,6 +3,8 @@
 
         <div class="title">Login</div>
 
+        <div class="notification error" *ngIf="isInvalidCredentialsError">Inserted credentials are invalid</div>
+
         <form class="content form" name="login" [ngFormModel]="form">
 
             <sp-input name="email" placeholder="Email*" [control]="emailControl">
@@ -17,8 +19,6 @@
                 <span *ngIf="isLengthExcess(passwordControl)" class="error">Password is too long</span>
                 <span *ngIf="!hasRangeError(passwordControl)" class="error">Password is incorrect</span>
             </sp-input>
-
-            <div class="error" *ngIf="errorMessage != null" id="login-error"> {{ errorMessage }} </div>
 
             <sp-button (click)="login()" class="login-button" label="Sign in"></sp-button>
 

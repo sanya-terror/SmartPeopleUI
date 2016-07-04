@@ -41,7 +41,7 @@ class ApiMiddleware {
       var result = await _callApi('/authorize', 'POST', body: action.data);
 
       String token = result['token'];
-      String error = result['error'];
+      int error = result['errorCode'];
 
       if (token == null)
         return AuthActionCreator.loginError(error);

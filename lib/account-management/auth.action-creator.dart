@@ -15,8 +15,8 @@ class AuthActionCreator {
     return new Action(LOGIN_SUCCESS);
   }
 
-  static Action loginError(message) {
-    return new Action(LOGIN_FAILURE, {'message': message});
+  static Action loginError(errorCode) {
+    return new Action(LOGIN_FAILURE, {'errorCode': errorCode});
   }
 
   static Action checkLogin(){

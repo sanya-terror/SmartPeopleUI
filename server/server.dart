@@ -11,8 +11,9 @@ class DemoService {
     String user = credentials['user'];
     String password = credentials['password'];
 
+    var invalidCredentialsErrorCode = 7777;
     if (user != 'test@test.com' || password != '777777')
-      return {'error': 'Inserted credentials are invalid'};
+      return {'errorCode': invalidCredentialsErrorCode};
 
     return { 'token': '${credentials['user']}_${credentials['password']}' };
   }
