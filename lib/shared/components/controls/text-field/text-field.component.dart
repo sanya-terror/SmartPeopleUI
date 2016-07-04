@@ -11,5 +11,6 @@ class InputComponent {
    @Input() String type = 'text';
    @Input() String name;
    @Input() String placeholder;
+   @Input() bool required = false;
    @Input() Control control;
 }
