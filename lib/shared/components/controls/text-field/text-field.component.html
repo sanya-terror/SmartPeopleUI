@@ -3,7 +3,7 @@
            id="{{name}}"
            [ngFormControl]="control"
            />
-    <label class="mdl-textfield__label" for="{{name}}">{{placeholder}}</label>
+    <label class="mdl-textfield__label" for="{{name}}">{{placeholder}}<span *ngIf="required">*</span></label>
 
     <div class="mdl-textfield__error" style="">
         <ng-content select=".error"></ng-content>
