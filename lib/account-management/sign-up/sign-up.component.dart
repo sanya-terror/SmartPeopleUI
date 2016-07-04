@@ -35,9 +35,9 @@ class SignUpComponent implements OnInit, OnDestroy {
    }
 
    _onStateChange(SignUpData signUp) {
-      isFormSent = signUp?.errorCode != 3333;
-      isConfirmationCodeResent = signUp?.isConfirmationCodeResend;
-      isConfirmationCodeResentError = signUp?.errorCode == 5555;
+      isFormSent = signUp.errorCode != 3333;
+      isConfirmationCodeResent = signUp.isConfirmationCodeResent;
+      isConfirmationCodeResentError = signUp.errorCode == 5555;
    }
 
    resendCode() {

@@ -1,8 +1,6 @@
 import 'package:angular2/angular2.dart'
     show Component, OnInit, Control, ControlGroup, Validators;
 
-//import 'package:SmartPeopleUI/redux/index.dart' show State;
-
 import 'package:SmartPeopleUI/index.dart'
     show InputComponent, ButtonComponent, RadioButtonComponent, FormComponent,
     NameValidator, EmailValidator, PasswordValidator,
@@ -66,13 +64,13 @@ class SignUpFormComponent extends FormComponent implements OnInit {
 
    ngOnInit() {
       _store
-          .map((state) => state['signUp'])
-          .where((data)=>data!=null).take(1)
-          .listen(_onStateChange);
+         .map((state) => state['signUp'])
+         .where((data) => data != null)
+         .listen(_onStateChange);
    }
 
    _onStateChange(SignUpData data) {
-      isUserAlreadyExists = data?.errorCode == 3333;
+      isUserAlreadyExists = data.errorCode == 3333;
    }
 
    sendForm() async {

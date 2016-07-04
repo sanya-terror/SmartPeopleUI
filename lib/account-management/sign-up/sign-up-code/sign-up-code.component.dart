@@ -48,8 +48,9 @@ class SignUpCodeComponent extends FormComponent {
 
    _subscribeOnceForSignUpData() {
       _store
-          .map((state) => state['signUp'])
-          .where((data)=>data!=null).take(1)
-          .listen(_onStateChange);
+         .map((state) => state['signUp'])
+         .where((data) => data != null)
+         .take(1)
+         .listen(_onStateChange);
    }
 }

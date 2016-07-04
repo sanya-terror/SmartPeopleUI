@@ -18,6 +18,9 @@ class SignUpReducerTests {
                   'someProperty': 'some value',
                   'signUp': new SignUpData()
                      ..password = '1q2w3e4r'
+                     ..signUpToken = null
+                     ..isConfirmationCodeResent = false
+                     ..errorCode = null
                })
             },
             {
@@ -27,6 +30,8 @@ class SignUpReducerTests {
                   'signUp': new SignUpData()
                      ..signUpToken = 'some_token'
                      ..errorCode = null
+                     ..password = null
+                     ..isConfirmationCodeResent = false
                })
             },
             {
@@ -34,8 +39,10 @@ class SignUpReducerTests {
                'result': new State({
                   'someProperty': 'some value',
                   'signUp': new SignUpData()
-                     ..isConfirmationCodeResend = true
+                     ..isConfirmationCodeResent = true
                      ..errorCode = null
+                     ..password = null
+                     ..signUpToken = null
                })
             },
             {
@@ -43,8 +50,10 @@ class SignUpReducerTests {
                'result': new State({
                   'someProperty': 'some value',
                   'signUp': new SignUpData()
-                     ..isConfirmationCodeResend = false
+                     ..isConfirmationCodeResent = false
                      ..errorCode = 5555
+                     ..password = null
+                     ..signUpToken = null
                })
             },
             {
@@ -54,6 +63,8 @@ class SignUpReducerTests {
                   'signUp': new SignUpData()
                      ..errorCode = 3333
                      ..signUpToken = null
+                     ..password = null
+                     ..isConfirmationCodeResent = false
                })
             },
             {
@@ -61,6 +72,9 @@ class SignUpReducerTests {
                'result': new State({
                   'someProperty': 'some value',
                   'signUp': new SignUpData()
+                     ..password = null
+                     ..signUpToken = null
+                     ..isConfirmationCodeResent = false
                      ..errorCode = null
                })
             },
@@ -70,6 +84,9 @@ class SignUpReducerTests {
                   'someProperty': 'some value',
                   'signUp': new SignUpData()
                      ..errorCode = 5555
+                     ..password = null
+                     ..signUpToken = null
+                     ..isConfirmationCodeResent = false
                })
             },
             {
@@ -96,7 +113,7 @@ class SignUpReducerTests {
                } else {
                   expect(actualSignUpData.password, expectedSignUp.password);
                   expect(actualSignUpData.signUpToken, expectedSignUp.signUpToken);
-                  expect(actualSignUpData.isConfirmationCodeResend, expectedSignUp.isConfirmationCodeResend);
+                  expect(actualSignUpData.isConfirmationCodeResent, expectedSignUp.isConfirmationCodeResent);
                   expect(actualSignUpData.errorCode, expectedSignUp.errorCode);
                }
             });

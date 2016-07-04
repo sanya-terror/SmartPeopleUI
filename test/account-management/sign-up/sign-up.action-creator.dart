@@ -24,7 +24,6 @@ class SignUpActionCreatorTests {
                'sex': 'male'
             };
             ApiAction result = SignUpActionCreator.sendSignUpData(signUpData);
-            expect(result is ApiAction, true);
             expect(result.type, SEND_SIGN_UP_DATA);
             expect(result.endpoint, '/handleSignUpData');
             expect(result.checkAuthorization, isFalse);
@@ -34,7 +33,6 @@ class SignUpActionCreatorTests {
          test('Should return resend confirm code action', () {
             String token = 'some_token';
             ApiAction result = SignUpActionCreator.resendConfirmCode(token);
-            expect(result is ApiAction, true);
             expect(result.type, RESEND_CONFIRM_CODE);
             expect(result.endpoint, '/resendConfirmCode');
             expect(result.checkAuthorization, isFalse);
@@ -44,7 +42,6 @@ class SignUpActionCreatorTests {
          test('Should return apply confirmation code action', () {
             String code = '1q2w3e4r';
             ApiAction result = SignUpActionCreator.applyConfirmationCode(code);
-            expect(result is ApiAction, true);
             expect(result.type, APPLY_SIGN_UP_CONFIRMATION_CODE);
             expect(result.endpoint, '/applyConfirmationCode');
             expect(result.checkAuthorization, isFalse);

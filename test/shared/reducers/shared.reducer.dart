@@ -6,10 +6,14 @@ import 'package:SmartPeopleUI/index.dart'
 class SharedReducerTests {
    static run() {
       group('Shared reducer', () {
+         
+         var initialState = new State({'some': 'property'});
+         
          List<Map<String, dynamic>> cases = [
             {
                'action': new Action(SAVE_EMAIL, { 'email': 'test@test.com'}),
                'result': new State({
+                  'some': 'property',
                   'email': 'test@test.com'
                })
             }
@@ -20,7 +24,7 @@ class SharedReducerTests {
             var expected = testCase['result'];
 
             test('Should apply reducer: ${action.type}', () {
-               var actual = SharedReducer.reduce(State.emptyState, action);
+               var actual = SharedReducer.reduce(initialState, action);
                expect(actual, expected);
             });
          });
