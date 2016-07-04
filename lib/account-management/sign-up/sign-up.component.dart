@@ -1,60 +1,51 @@
-import 'package:angular2/core.dart';
-import 'package:angular2/common.dart';
-import 'package:angular2/router.dart';
-import 'package:SmartPeopleUI/shared/index.dart';
-import 'index.dart';
-import 'package:angular2/src/common/forms/directives.dart';
+import 'package:angular2/core.dart' show Component, OnInit, OnDestroy;
+import 'package:angular2/router.dart' show ROUTER_DIRECTIVES;
+import 'package:SmartPeopleUI/index.dart'
+    show LinkComponent, CardComponent, SignUpData, SignUpActionCreator, SignUpCodeComponent, SignUpFormComponent;
+
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
 
 @Component(
     selector: 'sign-up',
     directives: const [
-      ROUTER_DIRECTIVES,
-      ErrorTooltipComponent,
-      InputComponent,
-      CheckboxComponent,
-      LinkComponent,
-      CardComponent,
-      ButtonComponent,
-      RadioButtonComponent,
-      RadioControlValueAccessor
+       ROUTER_DIRECTIVES,
+       SignUpFormComponent,
+       SignUpCodeComponent,
+       LinkComponent,
+       CardComponent
     ],
     styleUrls: const ['sign-up.component.css'],
-    encapsulation: ViewEncapsulation.Emulated,
     templateUrl: 'sign-up.component.html')
-class SignUpComponent extends FormComponent {
 
-  ControlGroup form;
-  Control nameControl;
-  Control surnameControl;
-  Control emailControl;
-  Control passwordControl;
-  Control passwordRepeatControl;
-  Control genderControl;
+class SignUpComponent implements OnInit, OnDestroy {
 
-  String sex;
+   bool isFormSent = false;
+   bool isConfirmationCodeResent = false;
+   bool isConfirmationCodeResentError = false;
 
-  SignUpComponent() {
-    this.nameControl = new Control('', Validators.compose([NameValidator.validate, Validators.required]));
-    this.surnameControl = new Control('', Validators.compose([NameValidator.validate, Validators.required]));
-    this.emailControl = new Control('', Validators.compose([EmailValidator.validate, Validators.required]));
-    this.passwordControl = new Control('',
-       Validators.compose([
-         PasswordValidator.validate,
-         Validators.required,
-         Validators.minLength(6),
-         Validators.maxLength(18)
-       ]));
-    this.passwordRepeatControl = new Control('',
-          Validators.compose([PasswordValidator.validate, Validators.required]));
-    this.genderControl = new Control('male');
+   final InjectableStore _store;
 
-    this.form = new ControlGroup({
-      'name': this.nameControl,
-      'surname': this.surnameControl,
-      'email': this.emailControl,
-      'password': this.passwordControl,
-      'passwordRepeat': this.passwordRepeatControl,
-      'gender': this.genderControl
-    });
-  }
+   SignUpComponent(this._store);
+
+   ngOnInit() {
+      _store
+          .map((state) => state['signUp'])
+          .where((data) => data != null)
+          .listen(_onStateChange);
+   }
+
+   _onStateChange(SignUpData signUp) {
+      isFormSent = signUp.errorCode != 3333;
+      isConfirmationCodeResent = signUp.isConfirmationCodeResent;
+      isConfirmationCodeResentError = signUp.errorCode == 5555;
+   }
+
+   resendCode() {
+      _store.dispatch(SignUpActionCreator.resendConfirmCode(_store.state['signUp'].signUpToken));
+   }
+
+   setDefault() => _store.dispatch(SignUpActionCreator.clearSignUp());
+
+   @override
+   ngOnDestroy() => setDefault();
 }

@@ -7,10 +7,10 @@ class AuthorizationActionCreatorTests {
   static run() {
     group('Authorization action creator', () {
       test('Should return login error action', () {
-        var error = "error message";
-        Action result = AuthActionCreator.loginError(error);
+        var errorCode = 123456;
+        Action result = AuthActionCreator.loginError(errorCode);
         expect(result.type, LOGIN_FAILURE);
-        expect(result.data, {'message': error});
+        expect(result.data, {'errorCode': errorCode});
       });
 
       test('Should return login request action', () {

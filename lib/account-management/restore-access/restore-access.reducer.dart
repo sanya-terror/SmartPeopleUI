@@ -17,6 +17,11 @@ class RestoreAccessData {
     this.changePasswordToken = data.changePasswordToken;
     this.errorCode = data.errorCode;
   }
+
+  toString(){
+    return '{ email: $email, isCodeSent: $isCodeSent, changePasswordToken: $changePasswordToken, errorCode: '
+    '$errorCode }';
+  }
 }
 
 class RestoreAccessReducer {
@@ -27,12 +32,6 @@ class RestoreAccessReducer {
         var data = new RestoreAccessData.from(state['restoreAccess'])
           ..errorCode = action.data['errorCode']
           ..isCodeSent = action.data['errorCode'] == null;
-        return new State.from(state)
-          ..['restoreAccess'] = data;
-
-      case SAVE_EMAIL:
-        var data = new RestoreAccessData.from(state['restoreAccess'])
-          ..email = action.data['email'];
         return new State.from(state)
           ..['restoreAccess'] = data;
 

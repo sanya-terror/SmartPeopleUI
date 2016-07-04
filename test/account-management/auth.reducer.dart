@@ -22,16 +22,15 @@ class AuthReducerTests {
           'result': new State({
             'isFetching': false,
             'isAuthenticated': true,
-            'errorMessage': ''
+            'errorCode': null
           })
         },
         {
-          'action': new Action(
-              LOGIN_FAILURE, new State({'error': 'Some error message'})),
+          'action': new Action(LOGIN_FAILURE, new State({'errorCode': 7777})),
           'result': new State({
             'isFetching': false,
             'isAuthenticated': false,
-            'errorMessage': 'Some error message'
+            'errorCode': 7777
           })
         },
         {

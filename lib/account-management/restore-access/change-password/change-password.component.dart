@@ -44,9 +44,9 @@ class ChangePasswordComponent extends FormComponent {
       isPasswordChangingError = data.errorCode == 3333;
 
       if (!isPasswordChangingError) {
-         await _store.dispatch(RestoreAccessActionCreator.clearRestoreAccess());
-         await _store.dispatch(AuthActionCreator.requestLogin({
-            'user': data.email,
+         _store.dispatch(RestoreAccessActionCreator.clearRestoreAccess());
+         _store.dispatch(AuthActionCreator.requestLogin({
+            'user': _store.state['email'],
             'password': passwordControl.value
          }));
       }

@@ -10,7 +10,6 @@ class RestoreAccessActionCreatorTests {
       test('Should return get code action', () {
         var email = 'test@test.test';
         ApiAction result = RestoreAccessActionCreator.getRestoreCode(email);
-        expect(result is ApiAction, true);
         expect(result.type, GET_RESTORE_CODE);
         expect(result.endpoint, '/getCode');
         expect(result.checkAuthorization, isFalse);
@@ -20,7 +19,6 @@ class RestoreAccessActionCreatorTests {
       test('Should return apply code action', () {
         var code = '123QWERTY';
         ApiAction result = RestoreAccessActionCreator.applyRestoreCode(code);
-        expect(result is ApiAction, true);
         expect(result.type, APPLY_RESTORE_CODE);
         expect(result.endpoint, '/applyCode');
         expect(result.checkAuthorization, isFalse);
@@ -31,7 +29,6 @@ class RestoreAccessActionCreatorTests {
         var password = 'qwerty123';
         var token = 'password_changing_token';
         ApiAction result = RestoreAccessActionCreator.applyPasswordChanging(password, token);
-        expect(result is ApiAction, true);
         expect(result.type, APPLY_PASSWORD_CHANGING);
         expect(result.endpoint, '/applyPasswordChanging');
         expect(result.checkAuthorization, isFalse);

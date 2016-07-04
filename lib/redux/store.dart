@@ -28,29 +28,27 @@ class Store extends Stream<State> {
 
   get state => _currentState;
 
-  bool _isMiddlewareExecuting = false;
+  Map<Action, bool> _isMiddlewareExecutingByAction= {};
+
   Future<dynamic> dispatch(Action action) async {
 
-    if (_middleware != null && !_isMiddlewareExecuting) {
+    var isMiddlewareExecuting = _isMiddlewareExecutingByAction[action] ?? false;
 
-      _isMiddlewareExecuting = true;
+    if (_middleware != null && !isMiddlewareExecuting) {
+
+      _isMiddlewareExecutingByAction[action] = true;
 
       try {
         return await _middleware(this)(dispatch)(action);
       }
       catch(e){ throw e; }
-      finally { _isMiddlewareExecuting = false; }
+      finally { _isMiddlewareExecutingByAction.remove(action); }
     }
 
     _currentState = _reducer(_currentState, action);
     _controller.add(_currentState);
 
     return await action;
-  }
-
-  subscribeOnce(Function listener) {
-    //TODO AN: subscription which will be removed after first execution
-    throw new UnimplementedError();
   }
 
   replaceReducer() {

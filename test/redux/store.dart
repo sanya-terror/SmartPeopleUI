@@ -207,10 +207,12 @@ class StoreTests {
       });
 
       test('Should apply middleware before reducers', () async {
+        var newAction = addRecordAction('String from middleware');
+
         Middleware middleware = (Store store) {
           expect(store.state, testState);
           return (next) =>
-              (action) => next(addRecordAction('String from middleware'));
+              (action) => action != newAction ? next(newAction) : next(action);
         };
 
         Store store = new Store(testReducer,
@@ -228,9 +230,11 @@ class StoreTests {
 
       test('Should reset middleware executing state if midleware reject chain', () async {
         var ACTION_TO_REJECT =  'ACTION_TO_REJECT';
+        var newAction = addRecordAction('String from middleware');
+
         Middleware rejectingMiddleware = (store) => (next) => (action) {
           if (action.type == ACTION_TO_REJECT) return {};
-          return next(addRecordAction('String from middleware'));
+          return action != newAction ? next(newAction) : next(action);
         };
 
         Store store = new Store(testReducer,
@@ -249,9 +253,11 @@ class StoreTests {
 
       test('Should reset middleware executing state if midleware throw error', () async {
         var ACTION_TO_ERROR =  'ACTION_TO_ERROR';
+        var newAction = addRecordAction('String from middleware');
+
         Middleware errorMiddleware = (store) => (next) => (action) {
           if (action.type == ACTION_TO_ERROR) throw new Error();
-          return next(addRecordAction('String from middleware'));
+          return action != newAction ? next(newAction) : next(action);
         };
 
         Store store = new Store(testReducer,
@@ -265,6 +271,37 @@ class StoreTests {
           'meaningOfLife': 42,
           'list': [
             {'message': 'String from middleware'}
+          ]
+        });
+      });
+
+      test('Should apply middleware when several async actions are dispatching', () async {
+
+        var separatorAction = addRecordAction('Separator');
+        Middleware middleware = (store) => (next) => (action) {
+          if (action != separatorAction){
+            next(separatorAction);
+          }
+          return next(action);
+        };
+
+        Store store = new Store(testReducer,
+            initialState: testState, middleware: middleware);
+
+        store.dispatch(addRecordAction("Line 1"));
+        store.dispatch(addRecordAction("Line 2"));
+        await store.dispatch(addRecordAction("Final"));
+
+        expect(store.state, {
+          'initialized': true,
+          'meaningOfLife': 42,
+          'list': [
+            {'message': 'Line 1'},
+            {'message': 'Separator'},
+            {'message': 'Line 2'},
+            {'message': 'Separator'},
+            {'message': 'Final'},
+            {'message': 'Separator'},
           ]
         });
       });

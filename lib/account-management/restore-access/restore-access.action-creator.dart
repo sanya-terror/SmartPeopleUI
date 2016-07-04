@@ -2,7 +2,6 @@ import 'package:SmartPeopleUI/redux/index.dart';
 import 'package:SmartPeopleUI/shared/index.dart';
 
 const GET_RESTORE_CODE = 'GET_RESTORE_CODE';
-const SAVE_EMAIL = 'SAVE_EMAIL';
 const APPLY_RESTORE_CODE = 'APPLY_RESTORE_CODE';
 const APPLY_PASSWORD_CHANGING = 'APPLY_PASSWORD_CHANGING';
 const CLEAR_RESTORE_ACCESS = 'CLEAR_RESTORE_ACCESS';
@@ -17,8 +16,6 @@ class RestoreAccessActionCreator {
   static Action applyPasswordChanging(String password, String token) {
     return ApiActionCreator.postApiAction(APPLY_PASSWORD_CHANGING, '/applyPasswordChanging', {'password': password, 'token': token}, false);
   }
-
-  static Action saveEmail(String email) => new Action(SAVE_EMAIL, {'email': email});
 
   static Action clearRestoreAccess() => new Action(CLEAR_RESTORE_ACCESS);
 }

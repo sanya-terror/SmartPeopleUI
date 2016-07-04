@@ -27,7 +27,7 @@ class LoginComponent extends FormComponent {
   Control passwordControl;
   Control rememberMeControl;
 
-  String errorMessage;
+  bool isInvalidCredentialsError = false;
 
   final InjectableStore _store;
 
@@ -50,12 +50,14 @@ class LoginComponent extends FormComponent {
   }
 
   _onStateChange(State state) {
-     errorMessage = state['errorMessage'];
+     isInvalidCredentialsError = state['errorCode'] == 7777;
 
-     form.controls.forEach((name, control) {
-        control.updateValue('');
-        control.setErrors(null);
-     });
+     if(!isInvalidCredentialsError) {
+        form.controls.forEach((name, control) {
+           control.updateValue('');
+           control.setErrors(null);
+        });
+     }
   }
 
   login() {

@@ -1,0 +1,14 @@
+<form name="confirm-email" [ngFormModel]="form" class="form">
+
+    <div class="description">
+        Check your email and apply received code here
+    </div>
+
+    <sp-input name="code" placeholder="Code" [control]="codeControl" [required]="true">
+        <span *ngIf="isRequired(codeControl)" class="error">Code is required</span>
+        <span *ngIf="!hasRequiredError(codeControl)" class="error">Code is incorrect</span>
+        <span *ngIf="isApplyingCodeError" class="error">Mismatching of confirming code, check input accuracy</span>
+    </sp-input>
+
+    <sp-button label="Confirm" (click)="confirmCode()"></sp-button>
+</form>

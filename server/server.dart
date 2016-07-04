@@ -11,8 +11,9 @@ class DemoService {
     String user = credentials['user'];
     String password = credentials['password'];
 
+    var invalidCredentialsErrorCode = 7777;
     if (user != 'test@test.com' || password != '777777')
-      return {'error': 'Inserted credentials are invalid'};
+      return {'errorCode': invalidCredentialsErrorCode};
 
     return { 'token': '${credentials['user']}_${credentials['password']}' };
   }
@@ -28,6 +29,31 @@ class DemoService {
     return { 'errorCode': userNotFoundErrorCode };
   }
 
+  @app.Route("handleSignUpData", methods: const [app.POST])
+  getConfirmCode(@app.Body(app.JSON) Map body) {
+    Map signUpData  = body['signUpData'];
+    String user = signUpData['user'];
+    String password = signUpData['password'];
+
+    if (user != 'test@test.con')
+      return { 'token': '${user}_${password}' };
+
+    int userAlreadyExists = 3333;
+
+    return {'errorCode': userAlreadyExists};
+  }
+
+  @app.Route("resendConfirmCode", methods: const [app.POST])
+  resendConfirmCode(@app.Body(app.JSON) Map body) {
+    String token = body['token'];
+
+    if (token == 'test@test.com_777777')
+      return {};
+
+    int resendConfirmationCodeError = 5555;
+    return { 'errorCode': resendConfirmationCodeError };
+  }
+
   @app.Route("applyCode", methods: const [app.POST])
   applyCode(@app.Body(app.JSON) Map body) {
     String code = body['code'];
@@ -38,7 +64,18 @@ class DemoService {
     if (code == '12345679')
       return new shelf.Response.notFound('not found');
 
-    var invalidCodeErrorCode = 2222;
+    int invalidCodeErrorCode = 2222;
+    return { 'errorCode': invalidCodeErrorCode };
+  }
+
+  @app.Route("applyConfirmationCode", methods: const [app.POST])
+  applyConfirmationCode(@app.Body(app.JSON) Map body) {
+    String code = body['code'];
+
+    if (code == '12345678')
+      return { };
+
+    int invalidCodeErrorCode = 4444;
     return { 'errorCode': invalidCodeErrorCode };
   }
 
@@ -51,7 +88,7 @@ class DemoService {
     if (password != oldPassword && token == 'restore_token_12345678')
       return { };
 
-    var passwordChangeErrorCode = 3333;
+    int passwordChangeErrorCode = 3333;
     return { 'errorCode': passwordChangeErrorCode };
   }
 }

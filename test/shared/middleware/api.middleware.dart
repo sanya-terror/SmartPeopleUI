@@ -189,13 +189,13 @@ class ApiMiddlewareTests {
 
         test('Should return login failure if authorization failed', () async {
 
-          Response fakeResponse = new Response('{"error": "Some error message!"}', 200);
+          Response fakeResponse = new Response('{"errorCode": 7777}', 200);
           when(httpClient.post(url, headers: _headers, body: JSON.encode(data))).thenReturn(fakeResponse);
 
           var action = new Action(LOGIN_REQUEST, data);
           var result = await middleware.apply(store)(next)(action);
           expect(result.type, LOGIN_FAILURE);
-          expect(result.data, {'message': 'Some error message!'});
+          expect(result.data, {'errorCode': 7777});
         });
 
         test('Should return api error action if authorization request failed', () async {
