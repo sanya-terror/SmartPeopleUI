@@ -57,8 +57,6 @@ class ChangePasswordComponentTests {
                var isClearRestoreAccessDataAction = predicate((action) => action.type == CLEAR_RESTORE_ACCESS);
                expect(verify(mockStore.dispatch(argThat(isClearRestoreAccessDataAction))).callCount, 1);
 
-               print(data.email);
-               print(component.passwordControl.value);
                var isLoginRequestAction = predicate((action) =>
                   action.type == LOGIN_REQUEST
                   && action.data['credentials']['user'] == data.email

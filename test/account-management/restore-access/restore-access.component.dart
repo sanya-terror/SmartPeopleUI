@@ -33,7 +33,7 @@ class RestoreAccessComponentTests {
 
         var baseSelector = 'div.restore-access > sp-card.restore-access-card';
 
-        expect(_element.querySelector('$baseSelector .title'), isNotNull, reason: 'No title found');
+        expect(_element.querySelector('$baseSelector[title]'), isNotNull, reason: 'No title found');
         expect(_element.querySelector('$baseSelector .content'), isNotNull, reason: 'No content found');
       });
 
