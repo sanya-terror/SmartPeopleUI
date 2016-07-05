@@ -17,7 +17,7 @@ class AuthorizationActionCreatorTests {
         var credentials = {'user': 'TestUser', 'password': 'test123'};
         Action result = AuthActionCreator.requestLogin(credentials);
         expect(result.type, LOGIN_REQUEST);
-        expect(result.data, {'credentials': credentials});
+        expect(result.data, {'user': credentials['user'], 'password': credentials['password']});
       });
 
       test('Should return login success action', () {

@@ -6,8 +6,6 @@ import 'package:SmartPeopleUI/index.dart'
    RestoreAccessActionCreator, RestoreAccessData,
    InputComponent, ButtonComponent, SharedActionCreator;
 
-import 'package:SmartPeopleUI/redux/index.dart' show State;
-
 @Component(
 selector: 'sp-restore-access-email',
 directives: const[ InputComponent, ButtonComponent ],
@@ -22,8 +20,7 @@ class RestoreAccessEmailComponent extends FormComponent {
    ControlGroup form;
 
    RestoreAccessEmailComponent(this._store) {
-      this.emailControl = new Control(
-         'test@test.com',
+      this.emailControl = new Control('',
          Validators.compose([EmailValidator.validate, Validators.required]));
 
       this.form = new ControlGroup({ 'email': this.emailControl});

@@ -22,7 +22,7 @@ class ChangePasswordComponent extends FormComponent {
 
    ChangePasswordComponent(this._store) {
 
-      this.passwordControl = new Control('777777',
+      this.passwordControl = new Control('',
           Validators.compose([
              PasswordValidator.validate,
              Validators.required,
@@ -30,7 +30,7 @@ class ChangePasswordComponent extends FormComponent {
              Validators.maxLength(18)
           ]));
 
-      this.passwordRepeatControl = new Control('777777',
+      this.passwordRepeatControl = new Control('',
           Validators.compose([PasswordValidator.validate, Validators.required]));
 
       this.form = new ControlGroup({

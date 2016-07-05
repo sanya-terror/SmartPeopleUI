@@ -61,8 +61,8 @@ class ChangePasswordComponentTests {
 
                var isLoginRequestAction = predicate((action) =>
                   action.type == LOGIN_REQUEST
-                  && action.data['credentials']['user'] == email
-                  && action.data['credentials']['password'] == component.passwordControl.value);
+                  && action.data['user'] == email
+                  && action.data['password'] == component.passwordControl.value);
                expect(verify(mockStore.dispatch(argThat(isLoginRequestAction))).callCount, 1,
                reason: 'No matching login request call found!');
             });

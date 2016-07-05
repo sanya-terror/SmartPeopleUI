@@ -8,12 +8,12 @@ class AuthReducerTests {
       List<Map<String, dynamic>> cases = [
         {
           'action': new Action(LOGIN_REQUEST, {
-            'credentials': {'login': 'TestUser', 'password': 'pass123'}
+            'credentials': {'user': 'TestUser', 'password': 'pass123'}
           }),
           'result': new State({
             'isFetching': true,
             'isAuthenticated': false,
-            'user': {'login': 'TestUser', 'password': 'pass123'}
+            'userData': {'user': 'TestUser', 'password': 'pass123'}
           })
         },
         {
