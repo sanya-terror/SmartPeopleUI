@@ -34,7 +34,8 @@ class ApiMiddleware {
   };
 
   dynamic _checkLogin(Dispatcher next) {
-    String token = _rememberMe ? _localStorage.getItem(TOKEN_KEY) : _sessionStorage.getItem(TOKEN_KEY);
+    String token = _localStorage.getItem(TOKEN_KEY) ?? _sessionStorage.getItem(TOKEN_KEY);
+
     if (token == null)
       return {};
 
@@ -68,9 +69,11 @@ class ApiMiddleware {
 
   Future<Action> _tryCallApi(ApiAction action) async {
     String token = _rememberMe ? _localStorage.getItem(TOKEN_KEY) : _sessionStorage.getItem(TOKEN_KEY);
-    if (action.checkAuthorization && token == null)
-      return await ApiActionCreator
-          .unauthorizedAction(new AuthorizationError());
+    if (action.checkAuthorization && token == null) {
+      _localStorage.clear();
+      _sessionStorage.clear();
+      return await ApiActionCreator.unauthorizedAction(new AuthorizationError());
+    }
 
     try {
       var result = await _callApi(action.endpoint, action.method,

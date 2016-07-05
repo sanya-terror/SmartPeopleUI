@@ -15,6 +15,10 @@ class MockLocalStorage extends Mock implements LocalStorageService {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
+class MockSessionStorage extends Mock implements SessionStorageService {
+  noSuchMethod(i) => super.noSuchMethod(i);
+}
+
 class MockHttpClient extends Mock implements BrowserClient {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
@@ -25,6 +29,7 @@ class ApiMiddlewareTests {
   static run() {
     group('Api middleware', () {
       LocalStorageService localStorage;
+      SessionStorageService sessionStorage;
       BrowserClient httpClient;
       Store store;
       Dispatcher next = (Action action) async => await action;
@@ -35,10 +40,11 @@ class ApiMiddlewareTests {
 
       setUp(() {
         localStorage = spy(new MockLocalStorage(), new LocalStorageService());
+        sessionStorage = spy(new MockSessionStorage(), new SessionStorageService());
         httpClient = spy(new MockHttpClient(), new BrowserClient());
         store = getMockStore();
 
-        middleware = new ApiMiddleware(localStorage, httpClient);
+        middleware = new ApiMiddleware(localStorage, sessionStorage, httpClient);
       });
 
       group('Non-api actions', () {
