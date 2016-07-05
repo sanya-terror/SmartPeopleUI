@@ -8,7 +8,11 @@ const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 class AuthActionCreator {
   static Action requestLogin(credentials) {
-    return new Action(LOGIN_REQUEST, {'user': credentials['user'], 'password': credentials['password']});
+    return new Action(LOGIN_REQUEST, {
+      'user': credentials['user'],
+      'password': credentials['password'],
+      'rememberMe': credentials['rememberMe']
+    });
   }
 
   static Action receiveLogin() {

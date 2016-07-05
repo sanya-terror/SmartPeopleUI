@@ -1,6 +1,6 @@
 import 'dart:html' show window;
 import 'package:angular2/core.dart' show Injectable;
-import 'package:SmartPeopleUI/shared/services/local-storage.service.dart' show LocalStorageService;
+import 'package:SmartPeopleUI/shared/services/index.dart' show LocalStorageService, SessionStorageService;
 import 'package:SmartPeopleUI/redux/index.dart' show combineReducers, applyMiddleware, Store, State;
 import 'package:SmartPeopleUI/index.dart' show AuthReducer, RestoreAccessReducer, SignUpReducer;
 import 'package:SmartPeopleUI/shared/middleware/api.middleware.dart' show ApiMiddleware;
@@ -10,7 +10,7 @@ import 'package:SmartPeopleUI/shared/reducers/index.dart' show ApiErrorsReducer,
 
 @Injectable()
 class InjectableStore extends Store {
-   InjectableStore(LocalStorageService localStorage) :
+   InjectableStore(LocalStorageService localStorage, SessionStorageService sessionStorage) :
           super(combineReducers(
            [
               AuthReducer.reduce,
@@ -21,8 +21,7 @@ class InjectableStore extends Store {
            ]
        ),
             initialState: new State({}),
-            middleware: applyMiddleware(
-                [printMiddleware, new ApiMiddleware(localStorage).apply])){
+            middleware: applyMiddleware([printMiddleware, new ApiMiddleware(localStorage, sessionStorage).apply])){
 
     this.listen((state) => window.console.debug('PRINTER: State changed to: $state'));
 
