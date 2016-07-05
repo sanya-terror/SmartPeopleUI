@@ -50,7 +50,7 @@ class RestoreAccessReducer {
 
       case CLEAR_RESTORE_ACCESS:
         return new State.from(state)
-          ..['restoreAccess'] = null;
+          ..remove('restoreAccess');
 
       default:
         return state;

@@ -9,7 +9,7 @@ class AuthReducer {
         return new State.from(state)
           ..['isFetching'] = true
           ..['isAuthenticated'] = false
-          ..['user'] = action.data['credentials'];
+          ..['userData'] = action.data['credentials'];
 
       case LOGIN_SUCCESS:
         return new State.from(state)

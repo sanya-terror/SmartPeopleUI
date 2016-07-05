@@ -34,20 +34,20 @@ class SignUpFormComponent extends FormComponent implements OnInit {
    bool isUserAlreadyExists = false;
 
    SignUpFormComponent(this._store) {
-      this.nameControl = new Control('Aleksander',
+      this.nameControl = new Control('',
           Validators.compose([NameValidator.validate, Validators.required]));
-      this.surnameControl = new Control('Kabanov',
+      this.surnameControl = new Control('',
           Validators.compose([NameValidator.validate, Validators.required]));
-      this.emailControl = new Control('test@test.com',
+      this.emailControl = new Control('',
           Validators.compose([EmailValidator.validate, Validators.required]));
-      this.passwordControl = new Control('777777',
+      this.passwordControl = new Control('',
           Validators.compose([
              PasswordValidator.validate,
              Validators.required,
              Validators.minLength(6),
              Validators.maxLength(18)
           ]));
-      this.passwordRepeatControl = new Control('777777',
+      this.passwordRepeatControl = new Control('',
           Validators.compose(
               [PasswordValidator.validate, Validators.required]));
       this.sexControl = new Control('male');

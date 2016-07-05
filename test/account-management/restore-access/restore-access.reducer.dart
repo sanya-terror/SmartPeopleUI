@@ -67,8 +67,7 @@ class RestoreAccessReducerTests {
             {
                'action': new Action(CLEAR_RESTORE_ACCESS),
                'result': new State({
-                  'someProperty': 'some value',
-                  'restoreAccess': null
+                  'someProperty': 'some value'
                })
             }
          ];

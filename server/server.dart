@@ -7,15 +7,14 @@ class DemoService {
 
   @app.Route("authorize", methods: const [app.POST])
   authorize(@app.Body(app.JSON) Map body) {
-    Map credentials = body['credentials'];
-    String user = credentials['user'];
-    String password = credentials['password'];
+    String user = body['user'];
+    String password = body['password'];
 
     var invalidCredentialsErrorCode = 7777;
     if (user != 'test@test.com' || password != '777777')
       return {'errorCode': invalidCredentialsErrorCode};
 
-    return { 'token': '${credentials['user']}_${credentials['password']}' };
+    return { 'token': '${user}_${password}' };
   }
 
   @app.Route("getCode", methods: const [app.POST])
