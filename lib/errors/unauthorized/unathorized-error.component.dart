@@ -5,6 +5,7 @@ import 'package:SmartPeopleUI/index.dart';
 @Component(
 selector: 'sp-unauthorized-error',
 templateUrl: 'unathorized-error.component.html',
+directives: const[DialogComponent],
 styleUrls: const['unathorized-error.component.css'])
 class UnauthorizedErrorComponent implements OnDestroy{
 

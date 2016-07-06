@@ -1,7 +1,7 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
-import 'index.dart' show AuthActionCreator, NotFoundErrorComponent, MainComponent, LoginComponent,
+import 'index.dart' show AuthActionCreator, NotFoundErrorComponent, UnauthorizedErrorComponent, MainComponent, LoginComponent,
 RestoreAccessComponent, SignUpComponent, State, DrawerComponent, ButtonComponent;
 
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
@@ -34,6 +34,10 @@ import 'package:SmartPeopleUI/shared/components/index.dart';
       name: 'NotFoundPage',
       component: NotFoundErrorComponent),
   const Route(
+      path: '/unauthorized',
+      name: 'UnathorizedPage',
+      component: UnauthorizedErrorComponent),
+  const Route(
       path: '/account/sign-up',
       name: 'SignUp',
       component: SignUpComponent)
@@ -48,7 +52,8 @@ class AppComponent implements OnInit{
     new Link('Login', ['Login']),
     new Link('Restore Access', ['RestoreAccess']),
     new Link('Sign Up', ['SignUp']),
-    new Link('NotFoundPage', ['NotFoundPage'])
+    new Link('NotFoundPage', ['NotFoundPage']),
+    new Link('UnathorizedPage', ['UnathorizedPage'])
   ];
 
   AppComponent(this._store, this._router);

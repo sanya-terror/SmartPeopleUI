@@ -1,1 +1,11 @@
-<div class="unauthorized">You are not authorized</div>
+<div class="unauthorized">
+    <sp-dialog #dialog1 title="Unauthorized">
+        <div class="content">Some content</div>
+    </sp-dialog>
+
+    <button id="show-dialog4" (click)="dialog1.showModal()" type="button"
+            class="mdl-button mdl-button--colored
+                                  mdl-js-button mdl-button--raised">
+        Show Dialog
+    </button>
+</div>

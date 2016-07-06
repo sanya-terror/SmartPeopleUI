@@ -1,0 +1,14 @@
+<rbi-dialog class="mdl-dialog" (close)="showClose(dialog1.returnValue)">
+    <h4 class="mdl-dialog__title">{{title}}</h4>
+    <div class="mdl-dialog__content">
+        <ng-content select=".content"></ng-content>
+    </div>
+    <div class="mdl-dialog__actions">
+        <button (click)="dialog1.close('Agree')" type="button"
+                class="mdl-button">Agree
+        </button>
+        <button (click)="dialog1.close('Disagree')" type="button"
+                class="mdl-button close">Disagree
+        </button>
+    </div>
+</rbi-dialog>

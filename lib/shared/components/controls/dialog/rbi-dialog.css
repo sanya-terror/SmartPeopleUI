@@ -1,0 +1,60 @@
+rbi-dialog {
+    border: solid;
+    padding: 1em;
+    background: white;
+    color: black;
+    width: 75%;
+    width: -moz-fit-content;
+    width: -webkit-fit-content;
+    width: fit-content;
+    height: 75%;
+    height: -moz-fit-content;
+    height: -webkit-fit-content;
+    height: fit-content;
+    display: none;
+}
+
+rbi-dialog.rbi-dialog-magic {
+    position: absolute;
+}
+
+rbi-dialog[open] {
+    display: block;
+}
+
+/* for small devices, modal dialogs go full-screen */
+@media screen and (max-width: 540px) {
+    rbi-dialog[open] {
+        top: 0;
+        margin: 1em;
+        /*display:block;*/
+    }
+}
+
+._dialog_overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .1);
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    overflow: auto;
+}
+
+@media screen and (max-width: 540px) {
+    ._dialog_overlay {
+        position: absolute;
+        display: block;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, .1);
+    }
+}

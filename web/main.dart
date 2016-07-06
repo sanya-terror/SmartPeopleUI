@@ -6,10 +6,12 @@ import 'package:angular2/platform/common.dart';
 import 'package:SmartPeopleUI/shared/services/local-storage.service.dart';
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
 import 'package:SmartPeopleUI/app.component.dart';
+import 'package:SmartPeopleUI/shared/components/controls/dialog/rbi-dialog.dart';
 
 main() => bootstrap(AppComponent, [
    ROUTER_PROVIDERS,
    provide(LocationStrategy, useClass: HashLocationStrategy),
    LocalStorageService,
-   InjectableStore
+   InjectableStore,
+   DialogManager
 ]);
