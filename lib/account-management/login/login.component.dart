@@ -7,6 +7,8 @@ import 'package:SmartPeopleUI/account-management/index.dart';
 import 'package:SmartPeopleUI/shared/components/controls/index.dart';
 import 'package:SmartPeopleUI/redux/index.dart' show State;
 
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
+
 @Component(
     selector: 'sp-login',
     directives: const [

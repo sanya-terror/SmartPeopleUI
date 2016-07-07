@@ -1,10 +1,12 @@
 import 'package:angular2/angular2.dart'
-   show Component, Control, ControlGroup, OnInit, Validators;
+   show Component, Control, ControlGroup, Validators;
 
 import 'package:SmartPeopleUI/index.dart'
-   show EmailValidator, FormComponent, InjectableStore,
+   show EmailValidator, FormComponent,
    RestoreAccessActionCreator, RestoreAccessData,
    InputComponent, ButtonComponent, SharedActionCreator;
+
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
 
 @Component(
 selector: 'sp-restore-access-email',

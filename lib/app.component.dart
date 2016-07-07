@@ -4,7 +4,7 @@ import 'package:angular2/router.dart';
 import 'index.dart' show AuthActionCreator, NotFoundErrorComponent, MainComponent, LoginComponent,
 RestoreAccessComponent, SignUpComponent, State, DrawerComponent, ButtonComponent;
 
-import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
 import 'package:SmartPeopleUI/shared/components/index.dart';
 
 @Component(

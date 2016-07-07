@@ -65,13 +65,13 @@ class ApiMiddleware {
 
   Future<Action> _tryCallApi(ApiAction action) async {
     String token = _localStorage.getItem(TOKEN_KEY) ?? _sessionStorage.getItem(TOKEN_KEY);
+
     if (action.checkAuthorization && token == null) {
       return await ApiActionCreator.unauthorizedAction(new AuthorizationError());
     }
 
     try {
-      var result = await _callApi(action.endpoint, action.method,
-          token: token, body: action.data);
+      var result = await _callApi(action.endpoint, action.method, token: token, body: action.data);
       return new Action(action.type, result);
     } catch (error) {
       return _handleError(error);
