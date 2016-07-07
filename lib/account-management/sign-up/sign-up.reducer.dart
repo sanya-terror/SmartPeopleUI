@@ -1,5 +1,5 @@
 import 'package:SmartPeopleUI/redux/index.dart';
-import 'package:SmartPeopleUI/account-management/sign-up/index.dart';
+import 'package:SmartPeopleUI/shared/actions.dart';
 
 class SignUpData {
    String password;
@@ -29,20 +29,20 @@ class SignUpReducer {
 
       switch (action.type) {
 
-         case SAVE_SIGN_UP_PASSWORD:
+         case SIGN_UP_SAVE_PASSWORD:
             var data = new SignUpData.from(state['signUp'])
                ..password = action.data['password'];
             return new State.from(state)
                ..['signUp'] = data;
 
-         case SEND_SIGN_UP_DATA:
+         case SIGN_UP_SEND_DATA:
             var data = new SignUpData.from(state['signUp'])
                ..signUpToken = action.data['token']
                ..errorCode = action.data['errorCode'];
             return new State.from(state)
                ..['signUp'] = data;
 
-         case RESEND_CONFIRM_CODE:
+         case SIGN_UP_RESEND_CONFIRM_CODE:
             var data = new SignUpData.from(state['signUp'])
                ..isConfirmationCodeResent = action.data['errorCode'] == null
                ..errorCode = action.data['errorCode'];
@@ -50,13 +50,13 @@ class SignUpReducer {
                ..['signUp'] = data;
 
 
-         case APPLY_SIGN_UP_CONFIRMATION_CODE:
+         case SIGN_UP_APPLY_CONFIRMATION_CODE:
             var data = new SignUpData.from(state['signUp'])
                ..errorCode = action.data['errorCode'];
             return new State.from(state)
                ..['signUp'] = data;
 
-         case CLEAR_SIGN_UP:
+         case SIGN_UP_CLEAR_DATA:
             return new State.from(state)
                ..remove('signUp');
 

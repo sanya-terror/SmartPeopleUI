@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:SmartPeopleUI/redux/index.dart';
 import 'package:SmartPeopleUI/index.dart'
-    show SharedReducer, SAVE_EMAIL, RESEND_CONFIRM_CODE;
+    show SharedReducer, SAVE_EMAIL, SIGN_UP_RESEND_CONFIRM_CODE;
 
 class SharedReducerTests {
    static run() {

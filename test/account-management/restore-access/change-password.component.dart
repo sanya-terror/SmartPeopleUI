@@ -57,7 +57,7 @@ class ChangePasswordComponentTests {
 
                expect(component.isPasswordChangingError, false);
 
-               var isClearRestoreAccessDataAction = predicate((action) => action.type == CLEAR_RESTORE_ACCESS);
+               var isClearRestoreAccessDataAction = predicate((action) => action.type == RESTORE_ACCESS_CLEAR_DATA);
                expect(verify(mockStore.dispatch(argThat(isClearRestoreAccessDataAction))).callCount, 1);
 
                var isLoginRequestAction = predicate((action) =>
@@ -76,7 +76,7 @@ class ChangePasswordComponentTests {
             component.applyPasswordChanging();
 
             var isValidAction = predicate((action) =>
-               action.type == APPLY_PASSWORD_CHANGING
+               action.type == RESTORE_ACCESS_CHANGE_PASSWORD
                && action.data['password'] == password
                && action.data['token'] == token);
             expect(verify(mockStore.dispatch(argThat(isValidAction))).callCount, 1);

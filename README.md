@@ -25,7 +25,7 @@ Installing project:
 	a) run `pub get` to get dependencies;
 	b) install npm dependencies(now everything is global but will be reduced to local when PR to postcss transformer
 	will be applied):
-	```
+	```bat
 	npm install -g postcss@ postcss-cli@2.3.2 autoprefixer@ postcss-nesting@
 	```
 	c) run `pub build` to build project;

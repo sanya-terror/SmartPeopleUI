@@ -7,18 +7,18 @@ class ApiActionCreatorTests {
   static run() {
     group('Api action', () {
       test('Should throw error if passed non-supported http method', () {
-        expect(() => new ApiAction(UNAUTHORIZED_ERROR, '/test', 'UNKNOWN'),
+        expect(() => new ApiAction(ERROR_UNAUTHORIZED, '/test', 'UNKNOWN'),
             throwsArgumentError);
       });
 
       test('Should not throw error if supported http method', () {
-        expect(() => new ApiAction(UNAUTHORIZED_ERROR, '/test', 'GET'),
+        expect(() => new ApiAction(ERROR_UNAUTHORIZED, '/test', 'GET'),
             returnsNormally);
-        expect(() => new ApiAction(UNAUTHORIZED_ERROR, '/test', 'POST'),
+        expect(() => new ApiAction(ERROR_UNAUTHORIZED, '/test', 'POST'),
             returnsNormally);
-        expect(() => new ApiAction(UNAUTHORIZED_ERROR, '/test', 'PUT'),
+        expect(() => new ApiAction(ERROR_UNAUTHORIZED, '/test', 'PUT'),
             returnsNormally);
-        expect(() => new ApiAction(UNAUTHORIZED_ERROR, '/test', 'DELETE'),
+        expect(() => new ApiAction(ERROR_UNAUTHORIZED, '/test', 'DELETE'),
             returnsNormally);
       });
     });
@@ -26,47 +26,47 @@ class ApiActionCreatorTests {
       test('Should return unauthorized error action', () {
         Action result =
             ApiActionCreator.unauthorizedAction(new AuthorizationError());
-        expect(result.type, UNAUTHORIZED_ERROR);
+        expect(result.type, ERROR_UNAUTHORIZED);
         expect(result.data, { 'response': ''});
       });
 
       test('Should return unauthorized error clean action', () {
         Action result = ApiActionCreator.unauthorizedCleanAction();
-        expect(result.type, UNAUTHORIZED_ERROR_CLEAN);
+        expect(result.type, ERROR_REMOVE_UNAUTHORIZED);
         expect(result.data, null);
       });
 
       test('Should return bad request error action', () {
         Action result = ApiActionCreator
             .badRequestAction(new ApiError(400, 'Some error message!'));
-        expect(result.type, BAD_REQUEST_ACTION);
+        expect(result.type, ERROR_BAD_REQUEST);
         expect(result.data, {'response': 'Some error message!'});
       });
 
       test('Should return forbidden error action', () {
         Action result = ApiActionCreator
             .forbiddenAction(new ApiError(400, 'Some error message!'));
-        expect(result.type, FORBIDDEN_ACTION);
+        expect(result.type, ERROR_FORBIDDEN);
         expect(result.data, {'response': 'Some error message!'});
       });
 
       test('Should return not found error action', () {
         Action result = ApiActionCreator
             .notFoundAction(new ApiError(400, 'Some error message!'));
-        expect(result.type, NOT_FOUND_ERROR);
+        expect(result.type, ERROR_NOT_FOUND);
         expect(result.data, {'response': 'Some error message!'});
       });
 
       test('Should return not found error clean action', () {
         Action result = ApiActionCreator.notFoundCleanAction();
-        expect(result.type, NOT_FOUND_ERROR_CLEAN);
+        expect(result.type, ERROR_REMOVE_NOT_FOUND);
         expect(result.data, null);
       });
 
       test('Should return internal server error action', () {
         Action result = ApiActionCreator
             .internalServerErrorAction(new ApiError(400, 'Some error message!'));
-        expect(result.type, INTERNAL_SERVER_ERROR_ACTION);
+        expect(result.type, ERROR_INTERNAL_SERVER);
         expect(result.data, {'response': 'Some error message!'});
       });
 

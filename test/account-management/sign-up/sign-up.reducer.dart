@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
-import 'package:SmartPeopleUI/account-management/index.dart';
 import 'package:SmartPeopleUI/redux/index.dart';
+import 'package:SmartPeopleUI/index.dart';
 
 class SignUpReducerTests {
    static run() {
@@ -13,7 +13,7 @@ class SignUpReducerTests {
 
          List<Map<String, dynamic>> cases = [
             {
-               'action': new Action(SAVE_SIGN_UP_PASSWORD, { 'password': '1q2w3e4r'}),
+               'action': new Action(SIGN_UP_SAVE_PASSWORD, { 'password': '1q2w3e4r'}),
                'result': new State({
                   'someProperty': 'some value',
                   'signUp': new SignUpData()
@@ -24,7 +24,7 @@ class SignUpReducerTests {
                })
             },
             {
-               'action': new Action(SEND_SIGN_UP_DATA, { 'token': 'some_token'}),
+               'action': new Action(SIGN_UP_SEND_DATA, { 'token': 'some_token'}),
                'result': new State({
                   'someProperty': 'some value',
                   'signUp': new SignUpData()
@@ -35,7 +35,7 @@ class SignUpReducerTests {
                })
             },
             {
-               'action':new Action(RESEND_CONFIRM_CODE, {'errorCode': null}),
+               'action':new Action(SIGN_UP_RESEND_CONFIRM_CODE, {'errorCode': null}),
                'result': new State({
                   'someProperty': 'some value',
                   'signUp': new SignUpData()
@@ -46,7 +46,7 @@ class SignUpReducerTests {
                })
             },
             {
-               'action':new Action(RESEND_CONFIRM_CODE, {'errorCode': 5555}),
+               'action':new Action(SIGN_UP_RESEND_CONFIRM_CODE, {'errorCode': 5555}),
                'result': new State({
                   'someProperty': 'some value',
                   'signUp': new SignUpData()
@@ -57,7 +57,7 @@ class SignUpReducerTests {
                })
             },
             {
-               'action': new Action(SEND_SIGN_UP_DATA, { 'errorCode': 3333 }),
+               'action': new Action(SIGN_UP_SEND_DATA, { 'errorCode': 3333 }),
                'result': new State({
                   'someProperty': 'some value',
                   'signUp': new SignUpData()
@@ -68,7 +68,7 @@ class SignUpReducerTests {
                })
             },
             {
-               'action': new Action(APPLY_SIGN_UP_CONFIRMATION_CODE, { }),
+               'action': new Action(SIGN_UP_APPLY_CONFIRMATION_CODE, { }),
                'result': new State({
                   'someProperty': 'some value',
                   'signUp': new SignUpData()
@@ -79,7 +79,7 @@ class SignUpReducerTests {
                })
             },
             {
-               'action': new Action(APPLY_SIGN_UP_CONFIRMATION_CODE, { 'errorCode': 5555}),
+               'action': new Action(SIGN_UP_APPLY_CONFIRMATION_CODE, { 'errorCode': 5555}),
                'result': new State({
                   'someProperty': 'some value',
                   'signUp': new SignUpData()
@@ -90,7 +90,7 @@ class SignUpReducerTests {
                })
             },
             {
-               'action': new Action(CLEAR_SIGN_UP),
+               'action': new Action(SIGN_UP_CLEAR_DATA),
                'result': new State({
                   'someProperty': 'some value'
                })

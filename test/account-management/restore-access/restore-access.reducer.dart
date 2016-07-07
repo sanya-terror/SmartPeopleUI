@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
-import 'package:SmartPeopleUI/account-management/index.dart';
 import 'package:SmartPeopleUI/redux/index.dart';
+import 'package:SmartPeopleUI/index.dart';
 
 class RestoreAccessReducerTests {
    static run() {
@@ -13,7 +13,7 @@ class RestoreAccessReducerTests {
 
          List<Map<String, dynamic>> cases = [
             {
-               'action': new Action(GET_RESTORE_CODE, { 'errorCode': 1111}),
+               'action': new Action(RESTORE_ACCESS_GET_CODE, { 'errorCode': 1111}),
                'result': new State({
                   'someProperty': 'some value',
                   'restoreAccess': new RestoreAccessData()
@@ -22,7 +22,7 @@ class RestoreAccessReducerTests {
                })
             },
             {
-               'action': new Action(GET_RESTORE_CODE, { }),
+               'action': new Action(RESTORE_ACCESS_GET_CODE, { }),
                'result': new State({
                   'someProperty': 'some value',
                   'restoreAccess': new RestoreAccessData()
@@ -31,7 +31,7 @@ class RestoreAccessReducerTests {
                })
             },
             {
-               'action': new Action(APPLY_RESTORE_CODE, { 'token': 'some_token'}),
+               'action': new Action(RESTORE_ACCESS_APPLY_CODE, { 'token': 'some_token'}),
                'result': new State({
                   'someProperty': 'some value',
                   'restoreAccess': new RestoreAccessData()
@@ -40,7 +40,7 @@ class RestoreAccessReducerTests {
                })
             },
             {
-               'action': new Action(APPLY_RESTORE_CODE, { 'errorCode': 2222 }),
+               'action': new Action(RESTORE_ACCESS_APPLY_CODE, { 'errorCode': 2222 }),
                'result': new State({
                   'someProperty': 'some value',
                   'restoreAccess': new RestoreAccessData()
@@ -49,7 +49,7 @@ class RestoreAccessReducerTests {
                })
             },
             {
-               'action': new Action(APPLY_PASSWORD_CHANGING, { }),
+               'action': new Action(RESTORE_ACCESS_CHANGE_PASSWORD, { }),
                'result': new State({
                   'someProperty': 'some value',
                   'restoreAccess': new RestoreAccessData()
@@ -57,7 +57,7 @@ class RestoreAccessReducerTests {
                })
             },
             {
-               'action': new Action(APPLY_PASSWORD_CHANGING, { 'errorCode': 1234}),
+               'action': new Action(RESTORE_ACCESS_CHANGE_PASSWORD, { 'errorCode': 1234}),
                'result': new State({
                   'someProperty': 'some value',
                   'restoreAccess': new RestoreAccessData()
@@ -65,7 +65,7 @@ class RestoreAccessReducerTests {
                })
             },
             {
-               'action': new Action(CLEAR_RESTORE_ACCESS),
+               'action': new Action(RESTORE_ACCESS_CLEAR_DATA),
                'result': new State({
                   'someProperty': 'some value'
                })

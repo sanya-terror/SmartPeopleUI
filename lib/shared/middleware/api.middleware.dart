@@ -10,6 +10,8 @@ import 'package:SmartPeopleUI/shared/index.dart'
     ApiError, LocalStorageService, SessionStorageService;
 import 'package:SmartPeopleUI/account-management/index.dart';
 
+import 'package:SmartPeopleUI/shared/actions.dart';
+
 class ApiMiddleware {
   static final BASE_URL = 'http://localhost:9999/api';
   static final TOKEN_KEY = 'access_token';

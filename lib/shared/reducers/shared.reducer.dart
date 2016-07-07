@@ -1,6 +1,5 @@
 import 'package:SmartPeopleUI/redux/index.dart';
-
-import '../action-creators/shared.action-creator.dart';
+import 'package:SmartPeopleUI/shared/actions.dart';
 
 class SharedReducer {
    static State reduce(State state, Action action) {

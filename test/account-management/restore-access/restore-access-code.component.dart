@@ -48,7 +48,7 @@ class RestoreAccessCodeComponentTests {
 
         component.applyCode();
 
-        var isValidAction = predicate((action) => action.type == APPLY_RESTORE_CODE && action.data['code'] == code);
+        var isValidAction = predicate((action) => action.type == RESTORE_ACCESS_APPLY_CODE && action.data['code'] == code);
         expect(verify(mockStore.dispatch(argThat(isValidAction))).callCount, 1);
 
       });

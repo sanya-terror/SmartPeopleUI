@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
-import 'package:SmartPeopleUI/account-management/index.dart';
 import 'package:SmartPeopleUI/redux/index.dart';
+import 'package:SmartPeopleUI/index.dart';
 
 class AuthReducerTests {
   static run() {

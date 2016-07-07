@@ -5,17 +5,17 @@ class ApiErrorsReducer {
   static State reduce(State state, Action action) {
 
     switch (action.type) {
-      case NOT_FOUND_ERROR:
+      case ERROR_NOT_FOUND:
         return new State.from(state)
           ..['isResourceNotFoundError'] = true;
-      case NOT_FOUND_ERROR_CLEAN:
+      case ERROR_REMOVE_NOT_FOUND:
         return new State.from(state)
           ..remove('isResourceNotFoundError');
-      case UNAUTHORIZED_ERROR:
+      case ERROR_UNAUTHORIZED:
         return new State.from(state)
           ..['isAuthenticated'] = false
           ..['isUnauthorizedError'] = true;
-      case UNAUTHORIZED_ERROR_CLEAN:
+      case ERROR_REMOVE_UNAUTHORIZED:
         return new State.from(state)
           ..remove('isUnauthorizedError');
 

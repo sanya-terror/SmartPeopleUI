@@ -1,6 +1,7 @@
 import 'package:SmartPeopleUI/redux/index.dart';
 
 import 'api.errors.dart';
+import 'package:SmartPeopleUI/index.dart';
 
 class ApiAction extends Action {
 
@@ -17,22 +18,14 @@ class ApiAction extends Action {
   }
 }
 
-const BAD_REQUEST_ACTION = 'BAD_REQUEST_ACTION';
-const FORBIDDEN_ACTION = 'FORBIDDEN_ACTION';
-const UNAUTHORIZED_ERROR = 'UNAUTHORIZED_ERROR';
-const UNAUTHORIZED_ERROR_CLEAN = 'UNAUTHORIZED_ERROR_CLEAN';
-const NOT_FOUND_ERROR = 'NOT_FOUND_ERROR';
-const NOT_FOUND_ERROR_CLEAN = 'NOT_FOUND_ERROR_CLEAN';
-const INTERNAL_SERVER_ERROR_ACTION = 'INTERNAL_SERVER_ERROR_ACTION';
-
 class ApiErrorAction extends Action {
   ApiErrorAction(String type, ApiError error) : super(type, {'response' : error.response }) {
     var allowedActions = [
-      BAD_REQUEST_ACTION,
-      UNAUTHORIZED_ERROR,
-      FORBIDDEN_ACTION,
-      NOT_FOUND_ERROR,
-      INTERNAL_SERVER_ERROR_ACTION
+      ERROR_BAD_REQUEST,
+      ERROR_UNAUTHORIZED,
+      ERROR_FORBIDDEN,
+      ERROR_NOT_FOUND,
+      ERROR_INTERNAL_SERVER
     ];
 
     if (!allowedActions.contains(type))
@@ -62,21 +55,21 @@ class ApiActionCreator {
       new ApiAction(type, endpoint, 'GET', data, checkAuthorization);
 
   static ApiErrorAction unauthorizedAction(ApiError error) =>
-      new ApiErrorAction(UNAUTHORIZED_ERROR, error);
+      new ApiErrorAction(ERROR_UNAUTHORIZED, error);
 
-  static Action unauthorizedCleanAction() => new Action(UNAUTHORIZED_ERROR_CLEAN);
+  static Action unauthorizedCleanAction() => new Action(ERROR_REMOVE_UNAUTHORIZED);
 
   static ApiErrorAction notFoundAction(ApiError error) =>
-      new ApiErrorAction(NOT_FOUND_ERROR, error);
+      new ApiErrorAction(ERROR_NOT_FOUND, error);
 
-  static Action notFoundCleanAction() => new Action(NOT_FOUND_ERROR_CLEAN);
+  static Action notFoundCleanAction() => new Action(ERROR_REMOVE_NOT_FOUND);
 
   static ApiErrorAction badRequestAction(ApiError error) =>
-      new ApiErrorAction(BAD_REQUEST_ACTION, error);
+      new ApiErrorAction(ERROR_BAD_REQUEST, error);
 
   static ApiErrorAction forbiddenAction(ApiError error) =>
-      new ApiErrorAction(FORBIDDEN_ACTION, error);
+      new ApiErrorAction(ERROR_FORBIDDEN, error);
 
   static ApiErrorAction internalServerErrorAction(ApiError error) =>
-      new ApiErrorAction(INTERNAL_SERVER_ERROR_ACTION, error);
+      new ApiErrorAction(ERROR_INTERNAL_SERVER, error);
 }

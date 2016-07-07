@@ -1,10 +1,5 @@
 import 'package:SmartPeopleUI/redux/index.dart';
-
-const LOGIN_REQUEST = 'LOGIN_REQUEST';
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-const LOGIN_FAILURE = 'LOGIN_FAILURE';
-const LOGIN_CHECK = 'LOGIN_CHECK';
-const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+import 'package:SmartPeopleUI/shared/actions.dart';
 
 class AuthActionCreator {
   static Action requestLogin(credentials) {

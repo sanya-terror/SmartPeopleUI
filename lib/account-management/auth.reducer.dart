@@ -1,6 +1,5 @@
 import 'package:SmartPeopleUI/redux/index.dart';
-
-import 'auth.action-creator.dart';
+import 'package:SmartPeopleUI/shared/actions.dart';
 
 class AuthReducer {
   static State reduce(State state, Action action) {

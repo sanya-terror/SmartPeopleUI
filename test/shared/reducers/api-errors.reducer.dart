@@ -14,7 +14,7 @@ class ApiErrorsReducerTests {
 
       List<Map<String, dynamic>> cases = [
         {
-          'action': new Action(NOT_FOUND_ERROR),
+          'action': new Action(ERROR_NOT_FOUND),
           'result': new State({
             'some':'property',
             'isResourceNotFoundError': true,
@@ -22,11 +22,11 @@ class ApiErrorsReducerTests {
           })
         },
         {
-          'action': new Action(NOT_FOUND_ERROR_CLEAN),
+          'action': new Action(ERROR_REMOVE_NOT_FOUND),
           'result': new State({'some':'property', 'isUnauthorizedError': null})
         },
         {
-          'action': new Action(UNAUTHORIZED_ERROR),
+          'action': new Action(ERROR_UNAUTHORIZED),
           'result': new State({
             'some':'property',
             'isResourceNotFoundError': null,
@@ -35,7 +35,7 @@ class ApiErrorsReducerTests {
           })
         },
         {
-          'action': new Action(UNAUTHORIZED_ERROR_CLEAN),
+          'action': new Action(ERROR_REMOVE_UNAUTHORIZED),
           'result': new State({'some':'property', 'isResourceNotFoundError': null})
         }
       ];

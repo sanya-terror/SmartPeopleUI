@@ -124,7 +124,7 @@ class RestoreAccessEmailComponentTests {
         var isValidSaveEmailAction = predicate((action) => action.type == SAVE_EMAIL && action.data['email'] == email);
         expect(verify(mockStore.dispatch(argThat(isValidSaveEmailAction))).callCount, 1);
 
-        var isValidGetCodeAction = predicate((action) => action.type == GET_RESTORE_CODE && action.data['email'] == email);
+        var isValidGetCodeAction = predicate((action) => action.type == RESTORE_ACCESS_GET_CODE && action.data['email'] == email);
         expect(verify(mockStore.dispatch(argThat(isValidGetCodeAction))).callCount, 1);
       });
 

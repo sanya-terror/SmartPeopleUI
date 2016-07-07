@@ -72,7 +72,7 @@ class ApiMiddlewareTests {
           var action = new ApiAction('NEXT', '/test/url', 'POST', {'test': 'passed'});
           var result = await middleware.apply(store)(next)(action);
 
-          expect(result.type, UNAUTHORIZED_ERROR);
+          expect(result.type, ERROR_UNAUTHORIZED);
         });
 
         test('Should handle action if no token in storages but checkAuthorization flag is false', () async {
@@ -180,11 +180,11 @@ class ApiMiddlewareTests {
         });
 
         var errorTestCases = [
-          {'statusCode': 400, 'actionType': BAD_REQUEST_ACTION},
-          {'statusCode': 401, 'actionType': UNAUTHORIZED_ERROR},
-          {'statusCode': 403, 'actionType': FORBIDDEN_ACTION},
-          {'statusCode': 404, 'actionType': NOT_FOUND_ERROR},
-          {'statusCode': 500, 'actionType': INTERNAL_SERVER_ERROR_ACTION},
+          {'statusCode': 400, 'actionType': ERROR_BAD_REQUEST},
+          {'statusCode': 401, 'actionType': ERROR_UNAUTHORIZED},
+          {'statusCode': 403, 'actionType': ERROR_FORBIDDEN},
+          {'statusCode': 404, 'actionType': ERROR_NOT_FOUND},
+          {'statusCode': 500, 'actionType': ERROR_INTERNAL_SERVER},
         ];
 
         errorTestCases.forEach((testCase) {
@@ -283,7 +283,7 @@ class ApiMiddlewareTests {
 
           var action = new Action(LOGIN_REQUEST, data);
           var result = await middleware.apply(store)(next)(action);
-          expect(result.type, BAD_REQUEST_ACTION);
+          expect(result.type, ERROR_BAD_REQUEST);
           expect(result.data, {'response': 'Some error message!'});
         });
       });
