@@ -11,12 +11,14 @@ class RestoreAccessCodeComponentTests {
     group('Restore access code component', () {
 
       var mockStore;
+      var code = 'QWERTY12';
 
       RestoreAccessCodeComponent component;
       setUp((){
         mockStore = getMockStore();
         when(mockStore.dispatch(argThat(anything))).thenReturn({});
         component = new RestoreAccessCodeComponent(mockStore);
+        component.codeControl.updateValue(code);
       });
 
       test('Should add codeControl to form group', () {
@@ -44,8 +46,6 @@ class RestoreAccessCodeComponentTests {
 
       test('Should apply code', () {
 
-        var code = 'QWERTY123';
-        component.codeControl = new Control(code);
         component.applyCode();
 
         var isValidAction = predicate((action) => action.type == APPLY_RESTORE_CODE && action.data['code'] == code);

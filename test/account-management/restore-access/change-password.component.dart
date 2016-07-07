@@ -11,12 +11,15 @@ class ChangePasswordComponentTests {
       group('Change password component', () {
 
          var mockStore;
+         var password = 'qwerty12';
 
          ChangePasswordComponent component;
          setUp((){
             mockStore = getMockStore();
             when(mockStore.dispatch(argThat(anything))).thenReturn({});
             component = new ChangePasswordComponent(mockStore);
+            component.passwordControl.updateValue(password);
+            component.passwordRepeatControl.updateValue(password);
          });
 
          test('Should add all controls to form group', () {
@@ -48,8 +51,6 @@ class ChangePasswordComponentTests {
                var email = 'some@email.com';
                var data = new RestoreAccessData()..errorCode = null;
 
-               component.passwordControl.updateValue('pass1234');
-
                when(mockStore.state).thenReturn(new State({'email': email}));
 
                await onStateChange(data);
@@ -69,13 +70,9 @@ class ChangePasswordComponentTests {
          });
 
          test('Should apply changing password', () {
-
-            String password = 'qwerty123';
-
             String token = 'change_password_token';
             when(mockStore.state).thenReturn(new State({'restoreAccess': new RestoreAccessData()..changePasswordToken = token}));
 
-            component.passwordControl = new Control(password);
             component.applyPasswordChanging();
 
             var isValidAction = predicate((action) =>

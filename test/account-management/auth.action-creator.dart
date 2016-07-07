@@ -14,10 +14,14 @@ class AuthorizationActionCreatorTests {
       });
 
       test('Should return login request action', () {
-        var credentials = {'user': 'TestUser', 'password': 'test123'};
+        var credentials = {'user': 'TestUser', 'password': 'test123', 'rememberMe': true};
         Action result = AuthActionCreator.requestLogin(credentials);
         expect(result.type, LOGIN_REQUEST);
-        expect(result.data, {'user': credentials['user'], 'password': credentials['password']});
+        expect(result.data, {
+          'user': credentials['user'],
+          'password': credentials['password'],
+          'rememberMe': credentials['rememberMe']
+        });
       });
 
       test('Should return login success action', () {
