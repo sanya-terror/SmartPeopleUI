@@ -1,0 +1,9 @@
+.sign-up {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 32px;
+}
+.sign-up .sign-up-card {
+  width: 512px;
+}

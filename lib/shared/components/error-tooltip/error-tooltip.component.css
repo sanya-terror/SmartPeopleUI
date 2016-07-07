@@ -1,0 +1,21 @@
+.error-tooltip {
+  left: 80px;
+  margin-left: -68px;
+  bottom: -36px;
+  line-height: 14px;
+  font-size: 14px;
+  padding: 16px;
+  position: absolute;
+  transform: scale(0);
+  transform-origin: top center;
+  transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+  will-change: transform;
+  z-index: 999;
+  background: rgba(213, 0, 0, 0.7);
+  border-radius: 2px;
+  color: #fff;
+  display: inline-block;
+  font-weight: 500;
+  max-width: 170px;
+  text-align: center;
+}

@@ -5,7 +5,9 @@ import 'package:http/browser_client.dart';
 import 'package:http/http.dart';
 
 import 'package:SmartPeopleUI/redux/index.dart';
-import 'package:SmartPeopleUI/shared/index.dart';
+import 'package:SmartPeopleUI/shared/index.dart'
+    show ApiAction, ApiActionCreator, AuthorizationError,
+    ApiError, LocalStorageService, SessionStorageService;
 import 'package:SmartPeopleUI/account-management/index.dart';
 
 class ApiMiddleware {
@@ -14,8 +16,9 @@ class ApiMiddleware {
 
   BrowserClient _httpClient;
   LocalStorageService _localStorage;
+  SessionStorageService _sessionStorage;
 
-  ApiMiddleware(LocalStorageService this._localStorage,
+  ApiMiddleware(LocalStorageService this._localStorage, SessionStorageService this._sessionStorage,
       [BrowserClient httpClient = null]) {
     this._httpClient = (httpClient == null) ? new BrowserClient() : httpClient;
   }
@@ -28,8 +31,9 @@ class ApiMiddleware {
     return next(await _tryCallApi(action));
   };
 
-  dynamic _checkLogin(Dispatcher next){
-    String token = _localStorage.getItem(TOKEN_KEY);
+  dynamic _checkLogin(Dispatcher next) {
+    String token = _localStorage.getItem(TOKEN_KEY) ?? _sessionStorage.getItem(TOKEN_KEY);
+
     if (token == null)
       return {};
 
@@ -38,6 +42,8 @@ class ApiMiddleware {
 
   Future<Action> _tryAuthorize(Action action) async {
     try {
+      bool rememberMe = action.data['rememberMe'];
+
       var result = await _callApi('/authorize', 'POST', body: action.data);
 
       String token = result['token'];
@@ -46,7 +52,11 @@ class ApiMiddleware {
       if (token == null)
         return AuthActionCreator.loginError(error);
 
-      _localStorage.setItem(TOKEN_KEY, token);
+      if (rememberMe)
+        _localStorage.setItem(TOKEN_KEY, token);
+      else
+        _sessionStorage.setItem(TOKEN_KEY, token);
+
       return AuthActionCreator.receiveLogin();
     } catch (error) {
       return _handleError(error);
@@ -54,14 +64,14 @@ class ApiMiddleware {
   }
 
   Future<Action> _tryCallApi(ApiAction action) async {
-    String token = _localStorage.getItem(TOKEN_KEY);
-    if (action.checkAuthorization && token == null)
-      return await ApiActionCreator
-          .unauthorizedAction(new AuthorizationError());
+    String token = _localStorage.getItem(TOKEN_KEY) ?? _sessionStorage.getItem(TOKEN_KEY);
+
+    if (action.checkAuthorization && token == null) {
+      return await ApiActionCreator.unauthorizedAction(new AuthorizationError());
+    }
 
     try {
-      var result = await _callApi(action.endpoint, action.method,
-          token: token, body: action.data);
+      var result = await _callApi(action.endpoint, action.method, token: token, body: action.data);
       return new Action(action.type, result);
     } catch (error) {
       return _handleError(error);
@@ -110,6 +120,8 @@ class ApiMiddleware {
       case 400:
         return ApiActionCreator.badRequestAction(error);
       case 401:
+        _localStorage.remove(TOKEN_KEY);
+        _sessionStorage.remove(TOKEN_KEY);
         return ApiActionCreator.unauthorizedAction(error);
       case 403:
         return ApiActionCreator.forbiddenAction(error);

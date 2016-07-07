@@ -25,7 +25,7 @@ class MockStream extends Mock implements Stream{
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
-getMockStore() => spy(new MockStore(), new InjectableStore(null));
+getMockStore() => spy(new MockStore(), new InjectableStore(null, null));
 getRouter() => spy(new MockRouter(), new Router(null, null, null));
 getLocation() => spy(new MockLocation(), new Location(null));
 getStream() => spy(new MockStream(), new Stream.empty());

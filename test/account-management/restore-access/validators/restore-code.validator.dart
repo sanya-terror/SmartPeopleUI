@@ -10,6 +10,7 @@ class RestoreCodeValidatorTests {
 
       List<Map<String, dynamic>> cases = [
         {'code': '12345678', 'result': success},
+        {'code': 'QWERTY12', 'result': success},
         {'code': 'qwertyui', 'result': success},
         {'code': '1q2w3e4r', 'result': success},
         {'code': '123456789', 'result': failed},

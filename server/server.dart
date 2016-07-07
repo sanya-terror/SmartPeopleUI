@@ -14,7 +14,9 @@ class DemoService {
     if (user != 'test@test.com' || password != '777777')
       return {'errorCode': invalidCredentialsErrorCode};
 
-    return { 'token': '${user}_${password}' };
+    return {
+      'token': '${user}_${password}'
+    };
   }
 
   @app.Route("getCode", methods: const [app.POST])

@@ -15,6 +15,10 @@ class MockLocalStorage extends Mock implements LocalStorageService {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
+class MockSessionStorage extends Mock implements SessionStorageService {
+  noSuchMethod(i) => super.noSuchMethod(i);
+}
+
 class MockHttpClient extends Mock implements BrowserClient {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
@@ -25,6 +29,7 @@ class ApiMiddlewareTests {
   static run() {
     group('Api middleware', () {
       LocalStorageService localStorage;
+      SessionStorageService sessionStorage;
       BrowserClient httpClient;
       Store store;
       Dispatcher next = (Action action) async => await action;
@@ -35,10 +40,12 @@ class ApiMiddlewareTests {
 
       setUp(() {
         localStorage = spy(new MockLocalStorage(), new LocalStorageService());
+        sessionStorage = spy(new MockSessionStorage(), new SessionStorageService());
+
         httpClient = spy(new MockHttpClient(), new BrowserClient());
         store = getMockStore();
 
-        middleware = new ApiMiddleware(localStorage, httpClient);
+        middleware = new ApiMiddleware(localStorage, sessionStorage, httpClient);
       });
 
       group('Non-api actions', () {
@@ -50,36 +57,76 @@ class ApiMiddlewareTests {
       });
 
       group('Api actions', () {
-        test('Should return unauthorized action if no token in local storage', () async {
+
+        var testToken = 'test_token';
+
+        setUp((){
+          when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
+        });
+
+        test('Should return unauthorized action if no token in storages', () async {
+
           when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
+          when(sessionStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
 
           var action = new ApiAction('NEXT', '/test/url', 'POST', {'test': 'passed'});
           var result = await middleware.apply(store)(next)(action);
+
           expect(result.type, UNAUTHORIZED_ERROR);
         });
 
-        test('Should handle action if no token in local storage but checkAuthorization flag is false', () async {
-          var action = new ApiAction('NEXT', '/test/url', 'GET', {}, false);
-          var url = ApiMiddleware.BASE_URL + action.endpoint;
+        test('Should handle action if no token in storages but checkAuthorization flag is false', () async {
 
           when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
+          when(sessionStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
 
+          var action = new ApiAction('NEXT', '/test/url', 'GET', {}, false);
+          var url = ApiMiddleware.BASE_URL + action.endpoint;
           Response fakeResponse = new Response('{"test": "result"}', 200);
           when(httpClient.get(url, headers: _headers)).thenReturn(fakeResponse);
 
           var result = await middleware.apply(store)(next)(action);
+
           expect(result.type, action.type);
           expect(result.data, {'test': 'result'});
         });
 
+        test('Should take token form local storage in prior to session storage', () async {
+
+          var localStorageToken = 'local_storage_token';
+          var sessionStorageToken = 'session_storage_token';
+
+          when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(localStorageToken);
+          when(sessionStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(sessionStorageToken);
+
+          var action = new ApiAction('NEXT', '/test/url', 'GET', {}, false);
+          var headers = new Map.from(_headers)..['Authorization'] = localStorageToken;
+
+          await middleware.apply(store)(next)(action);
+
+          verify(httpClient.get(argThat(anything), headers: headers));
+        });
+
+        test('Should take token form session storage if no token in local storage', () async {
+
+          var sessionStorageToken = 'session_storage_token';
+
+          when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
+          when(sessionStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(sessionStorageToken);
+
+          var action = new ApiAction('NEXT', '/test/url', 'GET', {}, false);
+          var headers = new Map.from(_headers)..['Authorization'] = sessionStorageToken;
+
+          await middleware.apply(store)(next)(action);
+
+          verify(httpClient.get(argThat(anything), headers: headers));
+        });
+
         test('Should handle http GET request', () async {
-          var testToken = 'test_token';
           var action = new ApiAction('NEXT', '/test/url', 'GET');
           var url = ApiMiddleware.BASE_URL + action.endpoint;
           var headers = new Map.from(_headers)
             ..['Authorization'] = testToken;
-
-          when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
 
           Response fakeResponse = new Response('{"test": "result"}', 200);
           when(httpClient.get(url, headers: headers)).thenReturn(fakeResponse);
@@ -90,13 +137,10 @@ class ApiMiddlewareTests {
         });
 
         test('Should handle http DELETE request', () async {
-          var testToken = 'test_token';
           var action = new ApiAction('NEXT', '/test/url', 'DELETE');
           var url = ApiMiddleware.BASE_URL + action.endpoint;
           var headers = new Map.from(_headers)
             ..['Authorization'] = testToken;
-
-          when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
 
           Response fakeResponse = new Response('{"test": "result"}', 200);
           when(httpClient.delete(url, headers: headers)).thenReturn(fakeResponse);
@@ -107,13 +151,10 @@ class ApiMiddlewareTests {
         });
 
         test('Should handle http POST request', () async {
-          var testToken = 'test_token';
           var action = new ApiAction('NEXT', '/test/url', 'POST', {'test': 'passed'});
           var url = ApiMiddleware.BASE_URL + action.endpoint;
           var headers = new Map.from(_headers)
             ..['Authorization'] = testToken;
-
-          when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
 
           Response fakeResponse = new Response('{"test": "result"}', 200);
           when(httpClient.post(url, headers: headers, body: JSON.encode(action.data))).thenReturn(fakeResponse);
@@ -129,8 +170,6 @@ class ApiMiddlewareTests {
           var url = ApiMiddleware.BASE_URL + action.endpoint;
           var headers = new Map.from(_headers)
             ..['Authorization'] = testToken;
-
-          when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
 
           Response fakeResponse = new Response('{"test": "result"}', 200);
           when(httpClient.put(url, headers: headers, body: JSON.encode(action.data))).thenReturn(fakeResponse);
@@ -156,8 +195,6 @@ class ApiMiddlewareTests {
             var headers = new Map.from(_headers)
               ..['Authorization'] = testToken;
 
-            when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
-
             Response fakeResponse = new Response('Some error message!', testCase['statusCode']);
             when(httpClient.get(url, headers: headers)).thenReturn(fakeResponse);
 
@@ -166,12 +203,24 @@ class ApiMiddlewareTests {
             expect(result.data, {'response': 'Some error message!'});
           });
         });
+
+        test('Should clear storages if unauthorized error', () async {
+          var action = new ApiAction('NEXT', '/test/url', 'GET');
+
+          Response fakeResponse = new Response('Some error message!', 401);
+          when(httpClient.get(argThat(anything), headers: argThat(anything))).thenReturn(fakeResponse);
+
+          await middleware.apply(store)(next)(action);
+
+          verify(localStorage.remove(ApiMiddleware.TOKEN_KEY));
+          verify(sessionStorage.remove(ApiMiddleware.TOKEN_KEY));
+        });
       });
 
       group('Login request action', () {
 
         var url = ApiMiddleware.BASE_URL + '/authorize';
-        var data = {'user': 'TestUser', 'password': 'qwerty123'};
+        var data = {'user': 'TestUser', 'password': 'qwerty123', 'rememberMe': true};
 
         test('Should try to authorize if requested login', () async {
 
@@ -181,10 +230,36 @@ class ApiMiddlewareTests {
           var action = new Action(LOGIN_REQUEST, data);
           var result = await middleware.apply(store)(next)(action);
 
-          verify(localStorage.setItem(ApiMiddleware.TOKEN_KEY, 'some_cool_token'));
-
           expect(result.type, LOGIN_SUCCESS);
           expect(result.data, null);
+        });
+
+        test('Should store token to local storage when remeber me option is true', () async {
+
+          data['rememberMe'] = true;
+
+          Response fakeResponse = new Response('{"token": "some_cool_token"}', 200);
+          when(httpClient.post(url, headers: _headers, body: JSON.encode(data))).thenReturn(fakeResponse);
+
+          var action = new Action(LOGIN_REQUEST, data);
+          await middleware.apply(store)(next)(action);
+
+          verify(localStorage.setItem(ApiMiddleware.TOKEN_KEY, 'some_cool_token'));
+          verifyNever(sessionStorage.setItem(argThat(anything), argThat(anything)));
+        });
+
+        test('Should store token to session storage when remeber me option is false', () async {
+
+          data['rememberMe'] = false;
+
+          Response fakeResponse = new Response('{"token": "some_cool_token"}', 200);
+          when(httpClient.post(url, headers: _headers, body: JSON.encode(data))).thenReturn(fakeResponse);
+
+          var action = new Action(LOGIN_REQUEST, data);
+          await middleware.apply(store)(next)(action);
+
+          verifyNever(localStorage.setItem(argThat(anything), argThat(anything)));
+          verify(sessionStorage.setItem(ApiMiddleware.TOKEN_KEY, 'some_cool_token'));
         });
 
         test('Should return login failure if authorization failed', () async {
@@ -228,6 +303,7 @@ class ApiMiddlewareTests {
         test('Should not call next if there is no token', () async {
 
           when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
+          when(sessionStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
 
           var result = await middleware.apply(store)(mockNext)(action);
 
@@ -235,8 +311,9 @@ class ApiMiddlewareTests {
           expect(result, {});
         });
 
-        test('Should return login success if there is token', () async {
+        test('Should return login success if there is token in local storage', () async {
 
+          when(sessionStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
           when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn('some_key');
 
           var result = await middleware.apply(store)(mockNext)(action);
@@ -245,8 +322,19 @@ class ApiMiddlewareTests {
           expect(result.type, LOGIN_SUCCESS);
           expect(result.data, null);
         });
-      });
 
+        test('Should return login success if there is token in session storage', () async {
+
+          when(sessionStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn('some_key');
+          when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
+
+          var result = await middleware.apply(store)(mockNext)(action);
+
+          expect(calls, 1);
+          expect(result.type, LOGIN_SUCCESS);
+          expect(result.data, null);
+        });
+      });
     });
   }
 }

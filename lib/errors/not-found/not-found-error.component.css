@@ -1,0 +1,8 @@
+.not-found {
+  padding-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+.not-found .image {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}

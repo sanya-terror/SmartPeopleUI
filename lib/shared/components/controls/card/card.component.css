@@ -1,0 +1,15 @@
+.card {
+  width: 100%;
+}
+.card .mdl-card__supporting-text {
+  width: auto;
+}
+.card .mdl-card__supporting-text .notification {
+  padding-bottom: 20px;
+}
+.card .mdl-card__supporting-text .notification.warning {
+  color: #ffc107;
+}
+.card .mdl-card__supporting-text .notification.error {
+  color: #de3226;
+}

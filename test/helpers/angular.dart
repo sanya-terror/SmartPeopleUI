@@ -36,6 +36,7 @@ void setUpProviders(component, [List<Provider> providers]) {
       provide(router.ROUTER_PRIMARY_COMPONENT, useValue: component),
       TestComponentBuilder,
       LocalStorageService,
+      SessionStorageService,
       InjectableStore
    ]);
    ngTesting.setUpProviders(() => providers);
