@@ -9,15 +9,13 @@ class DemoService {
   authorize(@app.Body(app.JSON) Map body) {
     String user = body['user'];
     String password = body['password'];
-    bool rememberMe = body['rememberMe'];
 
     var invalidCredentialsErrorCode = 7777;
     if (user != 'test@test.com' || password != '777777')
       return {'errorCode': invalidCredentialsErrorCode};
 
     return {
-      'token': '${user}_${password}',
-      'rememberMe': rememberMe
+      'token': '${user}_${password}'
     };
   }
 

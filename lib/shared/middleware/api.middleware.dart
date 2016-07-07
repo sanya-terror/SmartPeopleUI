@@ -18,8 +18,6 @@ class ApiMiddleware {
   LocalStorageService _localStorage;
   SessionStorageService _sessionStorage;
 
-  bool _rememberMe = false;
-
   ApiMiddleware(LocalStorageService this._localStorage, SessionStorageService this._sessionStorage,
       [BrowserClient httpClient = null]) {
     this._httpClient = (httpClient == null) ? new BrowserClient() : httpClient;
@@ -44,21 +42,19 @@ class ApiMiddleware {
 
   Future<Action> _tryAuthorize(Action action) async {
     try {
+      bool rememberMe = action.data['rememberMe'];
+
       var result = await _callApi('/authorize', 'POST', body: action.data);
 
       String token = result['token'];
-      bool rememberMe = result['rememberMe'];
       int error = result['errorCode'];
-
-      _rememberMe = rememberMe;
 
       if (token == null)
         return AuthActionCreator.loginError(error);
 
-      if (_rememberMe)
+      if (rememberMe)
         _localStorage.setItem(TOKEN_KEY, token);
-
-      if (!_rememberMe)
+      else
         _sessionStorage.setItem(TOKEN_KEY, token);
 
       return AuthActionCreator.receiveLogin();
@@ -68,10 +64,8 @@ class ApiMiddleware {
   }
 
   Future<Action> _tryCallApi(ApiAction action) async {
-    String token = _rememberMe ? _localStorage.getItem(TOKEN_KEY) : _sessionStorage.getItem(TOKEN_KEY);
+    String token = _localStorage.getItem(TOKEN_KEY) ?? _sessionStorage.getItem(TOKEN_KEY);
     if (action.checkAuthorization && token == null) {
-      _localStorage.clear();
-      _sessionStorage.clear();
       return await ApiActionCreator.unauthorizedAction(new AuthorizationError());
     }
 
@@ -126,6 +120,8 @@ class ApiMiddleware {
       case 400:
         return ApiActionCreator.badRequestAction(error);
       case 401:
+        _localStorage.remove(TOKEN_KEY);
+        _sessionStorage.remove(TOKEN_KEY);
         return ApiActionCreator.unauthorizedAction(error);
       case 403:
         return ApiActionCreator.forbiddenAction(error);
