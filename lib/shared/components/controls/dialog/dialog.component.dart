@@ -1,17 +1,15 @@
-import 'package:angular2/angular2.dart' show Component, ContentChild, ElementRef, Input, ViewChild, ViewEncapsulation;
-import 'package:angular2/router.dart' show Router;
-import 'package:angular2_rbi/directives.dart' show MaterialButton;
-import 'dart:html';
+import 'package:angular2/angular2.dart' show Component, Input, ViewChild, ViewEncapsulation;
 
-import 'package:SmartPeopleUI/shared/components/controls/dialog/rbi-dialog.dart';
+import 'package:SmartPeopleUI/shared/components/controls/dialog/rbi-dialog.dart' show DialogWrapper;
 
 @Component(
    selector: 'sp-dialog',
    templateUrl: 'dialog.component.html',
    directives: const[DialogWrapper],
     encapsulation: ViewEncapsulation.None,
-   styleUrls: const ['dialog.component.css', 'rbi-dialog.css'])
+   styleUrls: const ['rbi-dialog.css'])
 class DialogComponent {
+
    @Input() String title;
    @Input() List<DialogAction> actions;
 
@@ -19,6 +17,15 @@ class DialogComponent {
 
    showModal(){
       dialog.showModal();
+   }
+
+   show(){
+      dialog.show();
+   }
+
+   execute(DialogAction action){
+      action.execute();
+      dialog.close();
    }
 }
 
