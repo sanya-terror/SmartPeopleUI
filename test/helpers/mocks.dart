@@ -3,6 +3,7 @@ import 'package:SmartPeopleUI/shared/index.dart';
 import 'package:angular2/router.dart';
 import 'package:angular2/platform/common.dart';
 import 'dart:async';
+import 'package:test/test.dart';
 
 class MockStore extends Mock implements InjectableStore {
   noSuchMethod(i) => super.noSuchMethod(i);
@@ -25,8 +26,17 @@ class MockStream extends Mock implements Stream{
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
-getMockStore() => spy(new MockStore(), new InjectableStore(null, null));
-getRouter() => spy(new MockRouter(), new Router(null, null, null));
+getMockStore() {
+  var mock = spy(new MockStore(), new InjectableStore(null, null));
+  when(mock.dispatch(argThat(anything))).thenReturn({});
+  return mock;
+}
+getRouter() {
+  var mock = spy(new MockRouter(), new Router(null, null, null));
+  when(mock.navigate(argThat(anything))).thenReturn({});
+  return mock;
+}
+
 getLocation() => spy(new MockLocation(), new Location(null));
 getStream() => spy(new MockStream(), new Stream.empty());
 

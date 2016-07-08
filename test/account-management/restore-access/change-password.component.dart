@@ -16,7 +16,6 @@ class ChangePasswordComponentTests {
          ChangePasswordComponent component;
          setUp((){
             mockStore = getMockStore();
-            when(mockStore.dispatch(argThat(anything))).thenReturn({});
             component = new ChangePasswordComponent(mockStore);
             component.passwordControl.updateValue(password);
             component.passwordRepeatControl.updateValue(password);

@@ -16,7 +16,6 @@ class RestoreAccessCodeComponentTests {
       RestoreAccessCodeComponent component;
       setUp((){
         mockStore = getMockStore();
-        when(mockStore.dispatch(argThat(anything))).thenReturn({});
         component = new RestoreAccessCodeComponent(mockStore);
         component.codeControl.updateValue(code);
       });

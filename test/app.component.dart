@@ -56,8 +56,6 @@ class AppComponentTests {
 
       AppComponent component;
       setUp((){
-        when(mockStore.dispatch(argThat(anything))).thenReturn({});
-        when(mockRouter.navigate(argThat(anything))).thenReturn({});
         component =new AppComponent(mockStore, mockRouter);
       });
 

@@ -89,7 +89,6 @@ class RestoreAccessEmailComponentTests {
       RestoreAccessEmailComponent component;
       setUp((){
         mockStore = getMockStore();
-        when(mockStore.dispatch(argThat(anything))).thenReturn({});
         component = new RestoreAccessEmailComponent(mockStore);
         component.emailControl.updateValue(email);
       });

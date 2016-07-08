@@ -26,6 +26,9 @@ class DemoService {
     if (email == 'test@test.com')
       return {};
 
+    if (email == 'test1@test.com')
+      return new app.ErrorResponse(401, 'Access denied');
+
     var userNotFoundErrorCode = 1111;
     return { 'errorCode': userNotFoundErrorCode };
   }

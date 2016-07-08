@@ -84,7 +84,6 @@ class RestoreAccessComponentTests {
       RestoreAccessComponent component;
       setUp((){
         mockStore = getMockStore();
-        when(mockStore.dispatch(argThat(anything))).thenReturn({});
         component = new RestoreAccessComponent(mockStore);
       });
 

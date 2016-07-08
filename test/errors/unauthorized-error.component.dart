@@ -5,21 +5,49 @@ import '../helpers/mocks.dart' as mocks;
 
 import 'package:SmartPeopleUI/index.dart';
 
+class MockDialogComponent extends Mock implements DialogComponent {
+   noSuchMethod(i) => super.noSuchMethod(i);
+}
+
 class UnauthorizedErrorTests {
+
    static run() {
       group('Unauthorized error component', () {
 
          var mockStore = mocks.getMockStore();
+         var mockRouter = mocks.getRouter();
+         var mockDialog = spy(new MockDialogComponent(), new DialogComponent());
 
          UnauthorizedErrorComponent component;
          setUp((){
-            when(mockStore.dispatch(argThat(anything))).thenReturn({});
-            component = new UnauthorizedErrorComponent(mockStore);
+            component = new UnauthorizedErrorComponent(mockStore, mockRouter);
+
+            when(mockDialog.showModal()).thenReturn({});
+            component.dialog = mockDialog;
          });
 
-         test('Should clean error from state on destroy', () {
-            component.ngOnDestroy();
-            expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == ERROR_REMOVE_UNAUTHORIZED)))).callCount, 1);
+         test('Should clear unauthorized state and go to login page', () {
+            component.goToSignIn();
+
+            var isRemoveErrorAction = argThat(predicate((action) => action.type == ERROR_REMOVE_UNAUTHORIZED));
+            verify(mockStore.dispatch(isRemoveErrorAction));
+
+            verify(mockRouter.navigate(['Login']));
+         });
+
+         test('Should show popup', () {
+            component.show();
+            verify(mockDialog.showModal());
+         });
+
+         test('Should add dialog actions during initialization', () {
+
+            component.ngOnInit();
+
+            List<DialogAction> actions = component.dialogActions;
+            expect(actions.length, 1);
+            expect(actions[0].title, 'Sign in');
+            expect(actions[0].execute, component.goToSignIn);
          });
       });
    }

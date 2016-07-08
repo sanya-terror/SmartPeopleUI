@@ -1,29 +1,37 @@
-import 'package:angular2/core.dart';
-import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
-import 'package:SmartPeopleUI/index.dart';
+import 'package:angular2/core.dart' show Component, OnInit, ViewChild;
+import 'package:angular2/router.dart' show Router;
+
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
+import 'package:SmartPeopleUI/index.dart' show ApiActionCreator, DialogAction;
 import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog.component.dart';
 
 @Component(
 selector: 'sp-unauthorized-error',
 templateUrl: 'unathorized-error.component.html',
-directives: const[DialogComponent],
-styleUrls: const['unathorized-error.component.css'])
-class UnauthorizedErrorComponent implements OnDestroy{
+directives: const[DialogComponent])
+class UnauthorizedErrorComponent implements OnInit{
+
+  @ViewChild(DialogComponent)
+  DialogComponent dialog;
 
   final InjectableStore _store;
+  final Router _router;
 
-  UnauthorizedErrorComponent(this._store);
+  List<DialogAction> dialogActions = [];
 
-  List<DialogAction> dialogActions = [
-    new DialogAction('Close', _hello)
-  ];
-
-  static _hello(){
-    print('hello');
-  }
+  UnauthorizedErrorComponent(this._store, this._router);
 
   @override
-  ngOnDestroy() {
+  ngOnInit() {
+    dialogActions.add(new DialogAction('Sign in', goToSignIn));
+  }
+
+  goToSignIn(){
     _store.dispatch(ApiActionCreator.unauthorizedCleanAction());
+    _router.navigate(['Login']);
+  }
+
+  show(){
+    dialog.showModal();
   }
 }

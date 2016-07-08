@@ -13,8 +13,7 @@ class NotFoundErrorTests {
 
          NotFoundErrorComponent component;
          setUp((){
-            when(mockStore.dispatch(argThat(anything))).thenReturn({});
-            component =new NotFoundErrorComponent(mockStore);
+            component = new NotFoundErrorComponent(mockStore);
          });
 
          test('Should clean error from state on destroy', () {

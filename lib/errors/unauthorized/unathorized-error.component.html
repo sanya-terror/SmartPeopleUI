@@ -1,11 +1,3 @@
-<div class="unauthorized">
-    <sp-dialog #dialog1 title="Unauthorized" [actions]="dialogActions">
-        <div class="content">Some content dsf sd dsf dsf dsf df dsf dfd sfds ds fdsf sdf</div>
-    </sp-dialog>
-
-    <button id="show-dialog4" (click)="dialog1.showModal()" type="button"
-            class="mdl-button mdl-button--colored
-                                  mdl-js-button mdl-button--raised">
-        Show Dialog
-    </button>
-</div>
+<sp-dialog title="Unauthorized error" [actions]="dialogActions">
+    <div class="content">You are not authorized to perform this action.</div>
+</sp-dialog>
