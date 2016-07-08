@@ -19,7 +19,7 @@ class UnauthorizedErrorTests {
 
          test('Should clean error from state on destroy', () {
             component.ngOnDestroy();
-            expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == UNAUTHORIZED_ERROR_CLEAN)))).callCount, 1);
+            expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == ERROR_REMOVE_UNAUTHORIZED)))).callCount, 1);
          });
       });
    }

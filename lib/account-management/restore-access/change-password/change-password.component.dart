@@ -22,7 +22,7 @@ class ChangePasswordComponent extends FormComponent {
 
    ChangePasswordComponent(this._store) {
 
-      this.passwordControl = new Control('777777',
+      this.passwordControl = new Control('',
           Validators.compose([
              PasswordValidator.validate,
              Validators.required,
@@ -30,7 +30,7 @@ class ChangePasswordComponent extends FormComponent {
              Validators.maxLength(18)
           ]));
 
-      this.passwordRepeatControl = new Control('777777',
+      this.passwordRepeatControl = new Control('',
           Validators.compose([PasswordValidator.validate, Validators.required]));
 
       this.form = new ControlGroup({
@@ -44,9 +44,9 @@ class ChangePasswordComponent extends FormComponent {
       isPasswordChangingError = data.errorCode == 3333;
 
       if (!isPasswordChangingError) {
-         await _store.dispatch(RestoreAccessActionCreator.clearRestoreAccess());
-         await _store.dispatch(AuthActionCreator.requestLogin({
-            'user': data.email,
+         _store.dispatch(RestoreAccessActionCreator.clearRestoreAccess());
+         _store.dispatch(AuthActionCreator.requestLogin({
+            'user': _store.state['email'],
             'password': passwordControl.value
          }));
       }

@@ -1,16 +1,16 @@
 <div class="login">
-    <sp-card class="login-card">
+    <sp-card class="login-card" title="Login">
 
-        <div class="title">Login</div>
+        <div class="notification error" *ngIf="isInvalidCredentialsError">Inserted credentials are invalid</div>
 
         <form class="content form" name="login" [ngFormModel]="form">
 
-            <sp-input name="email" placeholder="Email*" [control]="emailControl">
+            <sp-input name="email" placeholder="Email" [required]="true" [control]="emailControl">
                 <span *ngIf="isRequired(emailControl)" class="error">Email is required</span>
                 <span *ngIf="!hasRequiredError(emailControl)" class="error">Email is incorrect</span>
             </sp-input>
 
-            <sp-input name="password" type="password" placeholder="Password*"
+            <sp-input name="password" type="password" placeholder="Password" [required]="true"
                       [control]="passwordControl">
                 <span *ngIf="isRequired(passwordControl)" class="error">Password is required</span>
                 <span *ngIf="isInsufficientLength(passwordControl)" class="error">Password is too short</span>
@@ -18,9 +18,7 @@
                 <span *ngIf="!hasRangeError(passwordControl)" class="error">Password is incorrect</span>
             </sp-input>
 
-            <div class="error" *ngIf="errorMessage != null" id="login-error"> {{ errorMessage }} </div>
-
-            <sp-button (click)="login()" class="login-button" [fill]="true" label="Sign in"></sp-button>
+            <sp-button (click)="login()" class="login-button" fill]="true" label="Sign in"></sp-button>
 
             <sp-checkbox name="remember-me" label="Remember me" [control]="rememberMeControl"></sp-checkbox>
 

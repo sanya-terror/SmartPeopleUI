@@ -1,5 +1,5 @@
 import 'package:SmartPeopleUI/redux/index.dart';
-import 'package:SmartPeopleUI/account-management/restore-access/index.dart';
+import 'package:SmartPeopleUI/shared/actions.dart';
 
 class RestoreAccessData {
   String email;
@@ -17,41 +17,40 @@ class RestoreAccessData {
     this.changePasswordToken = data.changePasswordToken;
     this.errorCode = data.errorCode;
   }
+
+  toString(){
+    return '{ email: $email, isCodeSent: $isCodeSent, changePasswordToken: $changePasswordToken, errorCode: '
+    '$errorCode }';
+  }
 }
 
 class RestoreAccessReducer {
   static State reduce(State state, Action action) {
     switch (action.type) {
 
-      case GET_RESTORE_CODE:
+      case RESTORE_ACCESS_GET_CODE:
         var data = new RestoreAccessData.from(state['restoreAccess'])
           ..errorCode = action.data['errorCode']
           ..isCodeSent = action.data['errorCode'] == null;
         return new State.from(state)
           ..['restoreAccess'] = data;
 
-      case SAVE_EMAIL:
-        var data = new RestoreAccessData.from(state['restoreAccess'])
-          ..email = action.data['email'];
-        return new State.from(state)
-          ..['restoreAccess'] = data;
-
-      case APPLY_RESTORE_CODE:
+      case RESTORE_ACCESS_APPLY_CODE:
         var data = new RestoreAccessData.from(state['restoreAccess'])
           ..changePasswordToken = action.data['token']
           ..errorCode = action.data['errorCode'];
         return new State.from(state)
           ..['restoreAccess'] = data;
 
-      case APPLY_PASSWORD_CHANGING:
+      case RESTORE_ACCESS_CHANGE_PASSWORD:
         var data = new RestoreAccessData.from(state['restoreAccess'])
           ..errorCode = action.data['errorCode'];
         return new State.from(state)
           ..['restoreAccess'] = data;
 
-      case CLEAR_RESTORE_ACCESS:
+      case RESTORE_ACCESS_CLEAR_DATA:
         return new State.from(state)
-          ..['restoreAccess'] = null;
+          ..remove('restoreAccess');
 
       default:
         return state;

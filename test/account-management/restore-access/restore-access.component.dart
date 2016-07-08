@@ -33,7 +33,7 @@ class RestoreAccessComponentTests {
 
         var baseSelector = 'div.restore-access > sp-card.restore-access-card';
 
-        expect(_element.querySelector('$baseSelector .title'), isNotNull, reason: 'No title found');
+        expect(_element.querySelector('$baseSelector[title]'), isNotNull, reason: 'No title found');
         expect(_element.querySelector('$baseSelector .content'), isNotNull, reason: 'No content found');
       });
 
@@ -132,12 +132,12 @@ class RestoreAccessComponentTests {
 
       test('Should set default on destroy component', () {
         component.ngOnDestroy();
-        expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == CLEAR_RESTORE_ACCESS)))).callCount, 1);
+        expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == RESTORE_ACCESS_CLEAR_DATA)))).callCount, 1);
       });
 
       test('Should set default', () {
         component.setDefault();
-        expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == CLEAR_RESTORE_ACCESS)))).callCount, 1);
+        expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == RESTORE_ACCESS_CLEAR_DATA)))).callCount, 1);
       });
     });
   }

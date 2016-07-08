@@ -11,12 +11,15 @@ class ChangePasswordComponentTests {
       group('Change password component', () {
 
          var mockStore;
+         var password = 'qwerty12';
 
          ChangePasswordComponent component;
          setUp((){
             mockStore = getMockStore();
             when(mockStore.dispatch(argThat(anything))).thenReturn({});
             component = new ChangePasswordComponent(mockStore);
+            component.passwordControl.updateValue(password);
+            component.passwordRepeatControl.updateValue(password);
          });
 
          test('Should add all controls to form group', () {
@@ -45,40 +48,35 @@ class ChangePasswordComponentTests {
 
             test('Should clear restore info and login if changing password is successful', () async {
 
-               var data = new RestoreAccessData()
-                  ..errorCode = null
-                  ..email = 'some@email.com';
-               component.passwordControl.updateValue('pass1234');
+               var email = 'some@email.com';
+               var data = new RestoreAccessData()..errorCode = null;
+
+               when(mockStore.state).thenReturn(new State({'email': email}));
 
                await onStateChange(data);
 
                expect(component.isPasswordChangingError, false);
 
-               var isClearRestoreAccessDataAction = predicate((action) => action.type == CLEAR_RESTORE_ACCESS);
+               var isClearRestoreAccessDataAction = predicate((action) => action.type == RESTORE_ACCESS_CLEAR_DATA);
                expect(verify(mockStore.dispatch(argThat(isClearRestoreAccessDataAction))).callCount, 1);
 
-               print(data.email);
-               print(component.passwordControl.value);
                var isLoginRequestAction = predicate((action) =>
                   action.type == LOGIN_REQUEST
-                  && action.data['credentials']['user'] == data.email
-                  && action.data['credentials']['password'] == component.passwordControl.value);
-               expect(verify(mockStore.dispatch(argThat(isLoginRequestAction))).callCount, 1);
+                  && action.data['user'] == email
+                  && action.data['password'] == component.passwordControl.value);
+               expect(verify(mockStore.dispatch(argThat(isLoginRequestAction))).callCount, 1,
+               reason: 'No matching login request call found!');
             });
          });
 
          test('Should apply changing password', () {
-
-            String password = 'qwerty123';
-
             String token = 'change_password_token';
             when(mockStore.state).thenReturn(new State({'restoreAccess': new RestoreAccessData()..changePasswordToken = token}));
 
-            component.passwordControl = new Control(password);
             component.applyPasswordChanging();
 
             var isValidAction = predicate((action) =>
-               action.type == APPLY_PASSWORD_CHANGING
+               action.type == RESTORE_ACCESS_CHANGE_PASSWORD
                && action.data['password'] == password
                && action.data['token'] == token);
             expect(verify(mockStore.dispatch(argThat(isValidAction))).callCount, 1);

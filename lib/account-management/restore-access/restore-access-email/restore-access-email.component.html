@@ -4,7 +4,7 @@
         Please, input your email to restore access
     </div>
 
-    <sp-input name="email" placeholder="Email*" [control]="emailControl">
+    <sp-input name="email" placeholder="Email" [required]="true" [control]="emailControl">
         <span *ngIf="isRequired(emailControl)" class="error">Email is required</span>
         <span *ngIf="!hasRequiredError(emailControl)" class="error">Email is incorrect</span>
         <span *ngIf="isUserNotFound" id="user-not-found-error" class="error">User not found</span>

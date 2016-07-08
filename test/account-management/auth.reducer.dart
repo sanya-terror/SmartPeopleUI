@@ -1,6 +1,6 @@
 import 'package:test/test.dart';
-import 'package:SmartPeopleUI/account-management/index.dart';
 import 'package:SmartPeopleUI/redux/index.dart';
+import 'package:SmartPeopleUI/index.dart';
 
 class AuthReducerTests {
   static run() {
@@ -8,12 +8,12 @@ class AuthReducerTests {
       List<Map<String, dynamic>> cases = [
         {
           'action': new Action(LOGIN_REQUEST, {
-            'credentials': {'login': 'TestUser', 'password': 'pass123'}
+            'credentials': {'user': 'TestUser', 'password': 'pass123'}
           }),
           'result': new State({
             'isFetching': true,
             'isAuthenticated': false,
-            'user': {'login': 'TestUser', 'password': 'pass123'}
+            'userData': {'user': 'TestUser', 'password': 'pass123'}
           })
         },
         {
@@ -22,16 +22,15 @@ class AuthReducerTests {
           'result': new State({
             'isFetching': false,
             'isAuthenticated': true,
-            'errorMessage': ''
+            'errorCode': null
           })
         },
         {
-          'action': new Action(
-              LOGIN_FAILURE, new State({'error': 'Some error message'})),
+          'action': new Action(LOGIN_FAILURE, new State({'errorCode': 7777})),
           'result': new State({
             'isFetching': false,
             'isAuthenticated': false,
-            'errorMessage': 'Some error message'
+            'errorCode': 7777
           })
         },
         {

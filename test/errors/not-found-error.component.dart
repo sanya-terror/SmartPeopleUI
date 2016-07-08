@@ -19,7 +19,7 @@ class NotFoundErrorTests {
 
          test('Should clean error from state on destroy', () {
             component.ngOnDestroy();
-            expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == NOT_FOUND_ERROR_CLEAN)))).callCount, 1);
+            expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == ERROR_REMOVE_NOT_FOUND)))).callCount, 1);
          });
       });
    }

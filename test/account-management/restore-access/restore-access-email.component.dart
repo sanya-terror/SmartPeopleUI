@@ -84,12 +84,14 @@ class RestoreAccessEmailComponentTests {
     group('Restore access email component', () {
 
       var mockStore;
+      var email = 'some@email.com';
 
       RestoreAccessEmailComponent component;
       setUp((){
         mockStore = getMockStore();
         when(mockStore.dispatch(argThat(anything))).thenReturn({});
         component = new RestoreAccessEmailComponent(mockStore);
+        component.emailControl.updateValue(email);
       });
 
       test('Should add emailControl to form group', () {
@@ -117,15 +119,12 @@ class RestoreAccessEmailComponentTests {
 
       test('Should get code', () async {
 
-        var email = 'test@mail.com';
-        component.emailControl.updateValue(email);
-
         await component.getCode();
 
         var isValidSaveEmailAction = predicate((action) => action.type == SAVE_EMAIL && action.data['email'] == email);
         expect(verify(mockStore.dispatch(argThat(isValidSaveEmailAction))).callCount, 1);
 
-        var isValidGetCodeAction = predicate((action) => action.type == GET_RESTORE_CODE && action.data['email'] == email);
+        var isValidGetCodeAction = predicate((action) => action.type == RESTORE_ACCESS_GET_CODE && action.data['email'] == email);
         expect(verify(mockStore.dispatch(argThat(isValidGetCodeAction))).callCount, 1);
       });
 

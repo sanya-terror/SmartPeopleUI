@@ -1,10 +1,12 @@
 import 'package:angular2/angular2.dart'
-   show Component, Control, ControlGroup, OnInit, Validators;
-import 'package:SmartPeopleUI/index.dart'
-   show EmailValidator, FormComponent, InjectableStore, RestoreAccessActionCreator, RestoreAccessData,
-   InputComponent, ButtonComponent;
+   show Component, Control, ControlGroup, Validators;
 
-import 'package:SmartPeopleUI/redux/index.dart' show State;
+import 'package:SmartPeopleUI/index.dart'
+   show EmailValidator, FormComponent,
+   RestoreAccessActionCreator, RestoreAccessData,
+   InputComponent, ButtonComponent, SharedActionCreator;
+
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
 
 @Component(
 selector: 'sp-restore-access-email',
@@ -20,8 +22,7 @@ class RestoreAccessEmailComponent extends FormComponent {
    ControlGroup form;
 
    RestoreAccessEmailComponent(this._store) {
-      this.emailControl = new Control(
-         'test@test.com',
+      this.emailControl = new Control('',
          Validators.compose([EmailValidator.validate, Validators.required]));
 
       this.form = new ControlGroup({ 'email': this.emailControl});
@@ -34,11 +35,12 @@ class RestoreAccessEmailComponent extends FormComponent {
    getCode() async {
       if (!form.valid) return;
 
-      _subscribeOnceForRestoreAccessData();
+      String email = emailControl.value;
 
-      var email = emailControl.value;
-      await _store.dispatch(RestoreAccessActionCreator.saveEmail(email));
+      _store.dispatch(SharedActionCreator.saveEmail(email));
       _store.dispatch(RestoreAccessActionCreator.getRestoreCode(email));
+
+      _subscribeOnceForRestoreAccessData();
    }
 
    _subscribeOnceForRestoreAccessData() =>
@@ -47,4 +49,5 @@ class RestoreAccessEmailComponent extends FormComponent {
         .where((data) => data != null)
         .take(1)
         .listen(_onStateChange);
+
    }

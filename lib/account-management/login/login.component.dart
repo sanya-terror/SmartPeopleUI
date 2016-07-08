@@ -7,6 +7,8 @@ import 'package:SmartPeopleUI/account-management/index.dart';
 import 'package:SmartPeopleUI/shared/components/controls/index.dart';
 import 'package:SmartPeopleUI/redux/index.dart' show State;
 
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
+
 @Component(
     selector: 'sp-login',
     directives: const [
@@ -27,7 +29,7 @@ class LoginComponent extends FormComponent {
   Control passwordControl;
   Control rememberMeControl;
 
-  String errorMessage;
+  bool isInvalidCredentialsError = false;
 
   final InjectableStore _store;
 
@@ -50,12 +52,14 @@ class LoginComponent extends FormComponent {
   }
 
   _onStateChange(State state) {
-     errorMessage = state['errorMessage'];
+     isInvalidCredentialsError = state['errorCode'] == 7777;
 
-     form.controls.forEach((name, control) {
-        control.updateValue('');
-        control.setErrors(null);
-     });
+     if(!isInvalidCredentialsError) {
+        form.controls.forEach((name, control) {
+           control.updateValue('');
+           control.setErrors(null);
+        });
+     }
   }
 
   login() {
