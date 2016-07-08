@@ -5,3 +5,4 @@ export 'card/index.dart';
 export 'button/index.dart';
 export 'radio-button/index.dart';
 export 'drawer/index.dart';
+export 'dialog/index.dart';

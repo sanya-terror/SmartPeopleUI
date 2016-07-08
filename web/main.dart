@@ -6,11 +6,13 @@ import 'package:angular2/platform/common.dart' show LocationStrategy, HashLocati
 import 'package:SmartPeopleUI/shared/services/index.dart' show LocalStorageService, SessionStorageService;
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
 import 'package:SmartPeopleUI/app.component.dart' show AppComponent;
+import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog-manager.dart' show DialogManager;
 
 main() => bootstrap(AppComponent, [
    ROUTER_PROVIDERS,
    provide(LocationStrategy, useClass: HashLocationStrategy),
    LocalStorageService,
    SessionStorageService,
-   InjectableStore
+   InjectableStore,
+   DialogManager
 ]);

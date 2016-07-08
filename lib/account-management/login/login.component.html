@@ -18,7 +18,7 @@
                 <span *ngIf="!hasRangeError(passwordControl)" class="error">Password is incorrect</span>
             </sp-input>
 
-            <sp-button (click)="login()" class="login-button" label="Sign in"></sp-button>
+            <sp-button (click)="login()" class="login-button" fill]="true" label="Sign in"></sp-button>
 
             <sp-checkbox name="remember-me" label="Remember me" [control]="rememberMeControl"></sp-checkbox>
 

@@ -11,6 +11,7 @@ class ButtonComponent {
    @Input() String label;
    @Input() List<String> route;
    @Input() bool accent = false;
+   @Input() bool fill = false;
 
    Router _router;
 
