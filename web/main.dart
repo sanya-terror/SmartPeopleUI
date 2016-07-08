@@ -6,7 +6,7 @@ import 'package:angular2/platform/common.dart';
 import 'package:SmartPeopleUI/shared/services/local-storage.service.dart';
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
 import 'package:SmartPeopleUI/app.component.dart';
-import 'package:SmartPeopleUI/shared/components/controls/dialog/rbi-dialog.dart';
+import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog-manager.dart';
 
 main() => bootstrap(AppComponent, [
    ROUTER_PROVIDERS,
