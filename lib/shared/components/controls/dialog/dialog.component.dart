@@ -23,8 +23,7 @@ class DialogComponent {
       dialog.show();
    }
 
-   execute(DialogAction action){
-      action.execute();
+   close(){
       dialog.close();
    }
 }

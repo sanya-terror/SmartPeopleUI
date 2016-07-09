@@ -23,21 +23,8 @@ class UnauthorizedErrorTests {
             component = new UnauthorizedErrorComponent(mockStore, mockRouter);
 
             when(mockDialog.showModal()).thenReturn({});
+            when(mockDialog.close()).thenReturn({});
             component.dialog = mockDialog;
-         });
-
-         test('Should clear unauthorized state and go to login page', () {
-            component.goToSignIn();
-
-            var isRemoveErrorAction = argThat(predicate((action) => action.type == ERROR_REMOVE_UNAUTHORIZED));
-            verify(mockStore.dispatch(isRemoveErrorAction));
-
-            verify(mockRouter.navigate(['Login']));
-         });
-
-         test('Should show popup', () {
-            component.show();
-            verify(mockDialog.showModal());
          });
 
          test('Should add dialog actions during initialization', () {
@@ -47,8 +34,27 @@ class UnauthorizedErrorTests {
             List<DialogAction> actions = component.dialogActions;
             expect(actions.length, 1);
             expect(actions[0].title, 'Sign in');
-            expect(actions[0].execute, component.goToSignIn);
          });
+
+         test('Should clear unauthorized state, go to login page and close dialog on sign in click', () {
+
+            component.ngOnInit();
+
+            var signInAction = component.dialogActions[0];
+            signInAction.execute();
+
+            var isRemoveErrorAction = argThat(predicate((action) => action.type == ERROR_REMOVE_UNAUTHORIZED));
+            verify(mockStore.dispatch(isRemoveErrorAction));
+
+            verify(mockRouter.navigate(['Login']));
+            verify(mockDialog.close());
+         });
+
+         test('Should show popup', () {
+            component.show();
+            verify(mockDialog.showModal());
+         });
+
       });
    }
 }

@@ -23,12 +23,13 @@ class UnauthorizedErrorComponent implements OnInit{
 
   @override
   ngOnInit() {
-    dialogActions.add(new DialogAction('Sign in', goToSignIn));
+    dialogActions.add(new DialogAction('Sign in', _onSignInClick));
   }
 
-  goToSignIn(){
+  _onSignInClick() {
     _store.dispatch(ApiActionCreator.unauthorizedCleanAction());
     _router.navigate(['Login']);
+    dialog.close();
   }
 
   show(){
