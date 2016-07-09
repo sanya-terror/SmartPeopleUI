@@ -1,13 +1,24 @@
-import 'dart:html';
+import 'dart:html' show Element;
 
-import 'package:test/test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:angular2_testing/angular2_testing.dart';
+import 'package:test/test.dart'
+    show group, expect, isNull, isNotNull, test, setUp, predicate;
 
-import 'package:SmartPeopleUI/index.dart';
-import '../../helpers/angular.dart' as ng;
-import '../../helpers/mocks.dart';
-import '../../helpers/matchers.dart';
+import 'package:mockito/mockito.dart'
+    show verify, captureAny, argThat, when;
+
+import 'package:angular2_testing/angular2_testing.dart'
+    show ComponentFixture, ngSetUp, TestComponentBuilder, ngTest;
+
+import 'package:SmartPeopleUI/index.dart'
+    show SignUpComponent, SignUpData, State, SIGN_UP_CLEAR_DATA;
+
+import '../../helpers/angular.dart' as ng
+    show initAngularTests, setUpProviders;
+
+import '../../helpers/mocks.dart'
+    show getMockStore, getStream;
+
+import '../../helpers/matchers.dart' show notNullPredicate;
 
 class SignUpComponentTests {
   static run() {
@@ -21,7 +32,7 @@ class SignUpComponentTests {
       Element _element;
       ComponentFixture _fixture;
 
-      ngSetUp((TestComponentBuilder tcb) async{
+      ngSetUp((TestComponentBuilder tcb) async {
         _fixture  = await tcb.createAsync(SignUpComponent);
         _component = _fixture.componentInstance;
         _element = _fixture.nativeElement;
