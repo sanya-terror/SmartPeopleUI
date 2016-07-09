@@ -200,7 +200,8 @@ class ApiMiddlewareTests {
 
             var result = await middleware.apply(store)(next)(action);
             expect(result.type, testCase['actionType']);
-            expect(result.data, {'response': 'Some error message!'});
+            expect(result.data['message'], 'Some error message!');
+            expect(result.data['stackTrace'], isNotNull);
           });
         });
 
@@ -284,7 +285,8 @@ class ApiMiddlewareTests {
           var action = new Action(LOGIN_REQUEST, data);
           var result = await middleware.apply(store)(next)(action);
           expect(result.type, ERROR_BAD_REQUEST);
-          expect(result.data, {'response': 'Some error message!'});
+          expect(result.data['message'], 'Some error message!');
+          expect(result.data['stackTrace'], isNotNull);
         });
       });
 

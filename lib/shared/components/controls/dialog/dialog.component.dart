@@ -7,7 +7,7 @@ import 'package:SmartPeopleUI/shared/components/controls/dialog/rbi-dialog.dart'
    templateUrl: 'dialog.component.html',
    directives: const[DialogWrapper],
     encapsulation: ViewEncapsulation.None,
-   styleUrls: const ['rbi-dialog.css'])
+   styleUrls: const ['rbi-dialog.css', 'dialog.component.css'])
 class DialogComponent {
 
    @Input() String title;

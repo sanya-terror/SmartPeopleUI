@@ -26,8 +26,14 @@ class DemoService {
     if (email == 'test@test.com')
       return {};
 
-    if (email == 'test1@test.com')
+    if (email == 'unauthorized@test.com')
       return new app.ErrorResponse(401, 'Access denied');
+
+    if (email == 'badrequest@test.com')
+      return new app.ErrorResponse(400, 'Invalid email');
+
+    if (email == 'internal@test.com')
+      return new app.ErrorResponse(500, 'I don\'t know what happened');
 
     var userNotFoundErrorCode = 1111;
     return { 'errorCode': userNotFoundErrorCode };

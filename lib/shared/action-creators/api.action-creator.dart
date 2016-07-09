@@ -19,7 +19,8 @@ class ApiAction extends Action {
 }
 
 class ApiErrorAction extends Action {
-  ApiErrorAction(String type, ApiError error) : super(type, {'response' : error.response }) {
+  ApiErrorAction(String type, ApiError error) : super(type, {'message' : error.message, 'stackTrace': error.stackTrace
+  }) {
     var allowedActions = [
       ERROR_BAD_REQUEST,
       ERROR_UNAUTHORIZED,
@@ -67,9 +68,14 @@ class ApiActionCreator {
   static ApiErrorAction badRequestAction(ApiError error) =>
       new ApiErrorAction(ERROR_BAD_REQUEST, error);
 
+  static Action badRequestErrorCleanAction() => new Action(ERROR_REMOVE_BAD_REQUEST);
+
   static ApiErrorAction forbiddenAction(ApiError error) =>
       new ApiErrorAction(ERROR_FORBIDDEN, error);
 
   static ApiErrorAction internalServerErrorAction(ApiError error) =>
       new ApiErrorAction(ERROR_INTERNAL_SERVER, error);
+
+  static Action internalServerErrorCleanAction() => new Action(ERROR_REMOVE_INTERNAL_SERVER);
+
 }

@@ -1,0 +1,11 @@
+<sp-dialog title="Oops! An error occurred!" [actions]="dialogActions">
+    <div class="content">
+        <p>Sorry, something went wrong</p>
+
+        <p>Details:</p>
+        <textarea class="error-details" readonly>{{error}}</textarea>
+
+        <p>Stack trace:</p>
+        <textarea class="error-stack-trace" readonly>{{stackTrace}}</textarea>
+    </div>
+</sp-dialog>

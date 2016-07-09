@@ -26,6 +26,8 @@ class MockStream extends Mock implements Stream{
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
+// TODO wrap into static class to have namespace
+
 getMockStore() {
   var mock = spy(new MockStore(), new InjectableStore(null, null));
   when(mock.dispatch(argThat(anything))).thenReturn({});

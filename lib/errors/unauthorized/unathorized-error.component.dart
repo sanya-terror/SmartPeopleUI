@@ -4,6 +4,7 @@ import 'package:angular2/router.dart' show Router;
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
 import 'package:SmartPeopleUI/index.dart' show ApiActionCreator, DialogAction;
 import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog.component.dart';
+import 'package:SmartPeopleUI/redux/index.dart';
 
 @Component(
 selector: 'sp-unauthorized-error',
@@ -24,15 +25,18 @@ class UnauthorizedErrorComponent implements OnInit{
   @override
   ngOnInit() {
     dialogActions.add(new DialogAction('Sign in', _onSignInClick));
+
+    _store.where((state) => state['isUnauthorizedError'] != null).listen(_onUnauthorizedError);
+  }
+
+  _onUnauthorizedError(State state){
+    if (state['isUnauthorizedError'])
+      dialog.showModal();
   }
 
   _onSignInClick() {
     _store.dispatch(ApiActionCreator.unauthorizedCleanAction());
     _router.navigate(['Login']);
     dialog.close();
-  }
-
-  show(){
-    dialog.showModal();
   }
 }

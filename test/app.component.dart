@@ -35,6 +35,12 @@ class AppComponentTests {
         expect(_element.querySelector('div.content'), isNotNull);
       });
 
+      ngTest('Should have all generic error handlers registered', () {
+        _fixture.detectChanges();
+        expect(_element.querySelector('div.content sp-unauthorized-error'), isNotNull);
+        expect(_element.querySelector('div.content sp-unhandled-error'), isNotNull);
+      });
+
       ngTest('Should show login component if not authentificated', ()  {
         _component.isAuthenticated = false;
         _fixture.detectChanges();
@@ -56,7 +62,7 @@ class AppComponentTests {
 
       AppComponent component;
       setUp((){
-        component =new AppComponent(mockStore, mockRouter);
+        component = new AppComponent(mockStore, mockRouter);
       });
 
       test('Should check login during initialization', () {

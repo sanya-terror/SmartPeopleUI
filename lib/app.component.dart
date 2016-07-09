@@ -1,10 +1,12 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
-import 'index.dart' show AuthActionCreator, ButtonComponent, DrawerComponent, Link, LoginComponent, MainComponent, NotFoundErrorComponent, RestoreAccessComponent, SignUpComponent, State;
+import 'index.dart' show AuthActionCreator, ButtonComponent, DrawerComponent, Link, LoginComponent,
+  MainComponent, NotFoundErrorComponent, RestoreAccessComponent, SignUpComponent, State;
 
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
 import 'package:SmartPeopleUI/errors/unauthorized/unathorized-error.component.dart' show UnauthorizedErrorComponent;
+import 'package:SmartPeopleUI/errors/unhadled/unhandled-error.component.dart' show UnhandledErrorComponent;
 import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog-manager.dart' show DialogManager;
 
 @Component(
@@ -14,7 +16,8 @@ import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog-manager.d
       MainComponent,
       DrawerComponent,
       ButtonComponent,
-      UnauthorizedErrorComponent
+      UnauthorizedErrorComponent,
+      UnhandledErrorComponent
     ],
     providers: const [InjectableStore, DialogManager],
     templateUrl: 'app.component.html',
@@ -69,12 +72,6 @@ class AppComponent implements OnInit{
     if(isResourceNotFoundError){
       _router.navigate(['NotFoundPage']);
       return;
-    }
-
-    var isUnauthorizedError = state['isUnauthorizedError'] == null ? false : state['isUnauthorizedError'];
-    if (isUnauthorizedError)
-    {
-      unauthorizedDialog.show();
     }
 
     var isAuthenticated = state['isAuthenticated'];

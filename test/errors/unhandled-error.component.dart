@@ -4,24 +4,22 @@ import 'package:mockito/mockito.dart';
 import '../helpers/mocks.dart' as mocks;
 
 import 'package:SmartPeopleUI/index.dart';
-import '../helpers/mocks.dart';
 
 class MockDialogComponent extends Mock implements DialogComponent {
    noSuchMethod(i) => super.noSuchMethod(i);
 }
 
-class UnauthorizedErrorTests {
+class UnhandledErrorTests {
 
    static run() {
-      group('Unauthorized error component', () {
+      group('Unhandled error component', () {
 
          var mockStore = mocks.getMockStore();
-         var mockRouter = mocks.getRouter();
          DialogComponent mockDialog = spy(new MockDialogComponent(), new DialogComponent());
 
-         UnauthorizedErrorComponent component;
+         UnhandledErrorComponent component;
          setUp((){
-            component = new UnauthorizedErrorComponent(mockStore, mockRouter);
+            component = new UnhandledErrorComponent(mockStore);
 
             when(mockDialog.showModal()).thenReturn({});
             when(mockDialog.close()).thenReturn({});
@@ -34,7 +32,7 @@ class UnauthorizedErrorTests {
 
                List<DialogAction> actions = component.dialogActions;
                expect(actions.length, 1);
-               expect(actions[0].title, 'Sign in');
+               expect(actions[0].title, 'Close');
             });
 
             test('Should subscribe on changes', (){
@@ -53,32 +51,51 @@ class UnauthorizedErrorTests {
                onStateChange = verify(subscriptionStream.listen(captureAny)).captured[0];
             });
 
-            test('Should open dialog if error', () {
-               onStateChange(new State({'isUnauthorizedError': true}));
+            test('Should open dialog if bad request error', () {
+               onStateChange(new State({'isBadRequestError': true}));
+               verify(mockDialog.showModal());
+            });
+
+            test('Should open dialog if internal server error', () {
+               onStateChange(new State({'isInternalServerError': true}));
                verify(mockDialog.showModal());
             });
 
             test('Should not open dialog if no error', () {
-               onStateChange(new State({'isUnauthorizedError': false}));
+               onStateChange(new State({'isBadRequestError': false, 'isInternalServerError': false}));
                verifyNever(mockDialog.showModal());
+            });
+
+            test('Should store error details', () {
+               var someError = new Error();
+               var newState = new State({
+                  'isBadRequestError': true,
+                  'errorMessage': 'Error message',
+                  'errorStackTrace': someError.stackTrace
+               });
+               onStateChange(newState);
+
+               expect(component.error, newState['errorMessage']);
+               expect(component.stackTrace, newState['errorStackTrace']);
             });
          });
 
-         group('On sign in click', () {
+         group('On close click', () {
             setUp((){
                component.ngOnInit();
 
-               var signInAction = component.dialogActions[0];
-               signInAction.execute();
+               var closeAction = component.dialogActions[0];
+               closeAction.execute();
             });
 
-            test('Should clear unauthorized state', () {
-               var isRemoveErrorAction = argThat(predicate((action) => action.type == ERROR_REMOVE_UNAUTHORIZED));
+            test('Should clear bad request state', () {
+               var isRemoveErrorAction = argThat(predicate((action) => action.type == ERROR_REMOVE_BAD_REQUEST));
                verify(mockStore.dispatch(isRemoveErrorAction));
             });
 
-            test('Should go to login page', () {
-               verify(mockRouter.navigate(['Login']));
+            test('Should clear internal server error state', () {
+               var isRemoveErrorAction = argThat(predicate((action) => action.type == ERROR_REMOVE_INTERNAL_SERVER));
+               verify(mockStore.dispatch(isRemoveErrorAction));
             });
 
             test('Should close dialog', () {
@@ -91,15 +108,17 @@ class UnauthorizedErrorTests {
 
    static _mockSubscription(mockStore) {
 
-      var filteredStream = getStream();
+      var filteredStream = mocks.getStream();
 
-      var hasUnauthorizedError = predicate((f) => f(new State({'isUnauthorizedError': {}})));
+      var hasUnhandledError = predicate((f) =>
+         f(new State({'isBadRequestError': {}})) && f(new State({'isInternalServerError': {}}))
+      );
 
-      when(mockStore.where(hasUnauthorizedError)).thenReturn(filteredStream);
+      when(mockStore.where(hasUnhandledError)).thenReturn(filteredStream);
       return filteredStream;
    }
 }
 
 void main() {
-   UnauthorizedErrorTests.run();
+   UnhandledErrorTests.run();
 }

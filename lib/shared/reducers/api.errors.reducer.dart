@@ -18,8 +18,28 @@ class ApiErrorsReducer {
       case ERROR_REMOVE_UNAUTHORIZED:
         return new State.from(state)
           ..remove('isUnauthorizedError');
+      case ERROR_BAD_REQUEST:
+        return new State.from(state)
+          ..['isBadRequestError'] = true
+          ..['errorStackTrace'] = action.data['stackTrace']
+          ..['errorMessage'] = action.data['message'];
+      case ERROR_REMOVE_BAD_REQUEST:
+        return new State.from(state)
+          ..remove('isBadRequestError')
+          ..remove('errorMessage')
+          ..remove('errorStackTrace');
+      case ERROR_INTERNAL_SERVER:
+        return new State.from(state)
+          ..['isInternalServerError'] = true
+          ..['errorStackTrace'] = action.data['stackTrace']
+          ..['errorMessage'] = action.data['message'];
+      case ERROR_REMOVE_INTERNAL_SERVER:
+            return new State.from(state)
+              ..remove('isInternalServerError')
+              ..remove('errorMessage')
+              ..remove('errorStackTrace');
 
-      default:
+  default:
         return state;
     }
   }

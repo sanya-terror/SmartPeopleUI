@@ -4,6 +4,6 @@ class AuthorizationError extends ApiError {
 
 class ApiError extends Error {
   int statusCode;
-  String response;
-  ApiError(int this.statusCode, String this.response);
+  String message;
+  ApiError(this.statusCode, this.message);
 }
