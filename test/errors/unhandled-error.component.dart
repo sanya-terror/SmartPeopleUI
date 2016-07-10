@@ -1,9 +1,16 @@
+import 'dart:html';
+
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 
 import '../helpers/mocks.dart' as mocks;
+import '../helpers/angular.dart' as ng;
 
 import 'package:SmartPeopleUI/index.dart';
+
+import 'package:angular2_testing/angular2_testing.dart';
+import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog-manager.dart';
+
 
 class MockDialogComponent extends Mock implements DialogComponent {
    noSuchMethod(i) => super.noSuchMethod(i);
@@ -12,6 +19,117 @@ class MockDialogComponent extends Mock implements DialogComponent {
 class UnhandledErrorTests {
 
    static run() {
+
+      group('Unhandled error component view', () {
+
+         ng.initAngularTests();
+
+         ng.setUpProviders(UnhandledErrorComponent, [DialogManager]);
+
+         UnhandledErrorComponent _component;
+         Element _element;
+         ComponentFixture _fixture;
+
+         ngSetUp((TestComponentBuilder tcb) async{
+            _fixture  = await tcb.createAsync(UnhandledErrorComponent);
+            _component = _fixture.componentInstance;
+            _element = _fixture.nativeElement;
+         });
+
+         ngTest('Should not show error and stack trace details initially', () {
+            _fixture.detectChanges();
+            expect(_element.querySelector('#error'), isNull);
+            expect(_element.querySelector('#stack-trace'), isNull);
+         });
+
+         group('Error details', (){
+            ngTest('Should change elements visibility according to state', () {
+               _fixture.detectChanges();
+               expect(_component.isErrorShown, false);
+               expect(_element.querySelector('#hide-error'), isNull);
+               expect(_element.querySelector('#show-error'), isNotNull);
+               expect(_element.querySelector('#error'), isNull);
+
+               _component.isErrorShown = true;
+               _fixture.detectChanges();
+               expect(_element.querySelector('#hide-error'), isNotNull);
+               expect(_element.querySelector('#show-error'), isNull);
+               expect(_element.querySelector('#error'), isNotNull);
+            });
+
+            ngTest('Should state on button click', () {
+               _fixture.detectChanges();
+               expect(_component.isErrorShown, false);
+
+               var showErrorButton = _element.querySelector('#show-error');
+               showErrorButton.click();
+
+               expect(_component.isErrorShown, true);
+
+               _fixture.detectChanges();
+               var hideErrorButton = _element.querySelector('#hide-error');
+               hideErrorButton.click();
+
+               expect(_component.isErrorShown, false);
+            });
+
+            ngTest('Should set errors details to appropriate field', () {
+               _component.error = 'Some cool error!';
+               _component.isErrorShown = true;
+
+               _fixture.detectChanges();
+               var errorDetails = _element.querySelector('#error');
+
+               expect(errorDetails.text, _component.error);
+            });
+         });
+
+         group('Stack trace details', (){
+            ngTest('Should change elements visibility according to state', () {
+               _fixture.detectChanges();
+               expect(_component.isStackTraceShown, false);
+               expect(_element.querySelector('#hide-stack-trace'), isNull);
+               expect(_element.querySelector('#show-stack-trace'), isNotNull);
+               expect(_element.querySelector('#stack-trace'), isNull);
+
+               _component.isStackTraceShown = true;
+               _fixture.detectChanges();
+               expect(_element.querySelector('#hide-stack-trace'), isNotNull);
+               expect(_element.querySelector('#show-stack-trace'), isNull);
+               expect(_element.querySelector('#stack-trace'), isNotNull);
+            });
+
+            ngTest('Should state on button click', () {
+               _fixture.detectChanges();
+               expect(_component.isStackTraceShown, false);
+
+               var showStackTraceButton = _element.querySelector('#show-stack-trace');
+               showStackTraceButton.click();
+
+               expect(_component.isStackTraceShown, true);
+
+               _fixture.detectChanges();
+               var hideStackTraceButton = _element.querySelector('#hide-stack-trace');
+               hideStackTraceButton.click();
+
+               expect(_component.isStackTraceShown, false);
+            });
+
+            ngTest('Should set stack trace details to appropriate field', () {
+               var stackTrace = StackTrace.current;
+               _component.stackTrace = stackTrace;
+               _component.isStackTraceShown = true;
+
+               var expected = stackTrace.toString();
+
+               _fixture.detectChanges();
+               var stackTraceDetails = _element.querySelector('#stack-trace');
+
+               expect(stackTraceDetails.text, expected);
+            });
+         });
+      });
+
       group('Unhandled error component', () {
 
          var mockStore = mocks.getMockStore();
@@ -101,6 +219,22 @@ class UnhandledErrorTests {
             test('Should close dialog', () {
                verify(mockDialog.close());
             });
+         });
+
+         test('Should show error details', () {
+            expect(component.isErrorShown, false);
+            component.showError(true);
+            expect(component.isErrorShown, true);
+            component.showError(false);
+            expect(component.isErrorShown, false);
+         });
+
+         test('Should show stack strace details', () {
+            expect(component.isStackTraceShown, false);
+            component.showStackTrace(true);
+            expect(component.isStackTraceShown, true);
+            component.showStackTrace(false);
+            expect(component.isStackTraceShown, false);
          });
 
       });
