@@ -8,11 +8,15 @@ import 'package:SmartPeopleUI/redux/index.dart' show State;
 @Component(
 selector: 'sp-unhandled-error',
 templateUrl: 'unhandled-error.component.html',
-directives: const[DialogComponent])
+directives: const[DialogComponent],
+styleUrls: const['unhandled-error.component.css'])
 class UnhandledErrorComponent implements OnInit{
 
   @ViewChild(DialogComponent)
   DialogComponent dialog;
+
+  bool isErrorShown = false;
+  bool isStackTraceShown = false;
 
   final InjectableStore _store;
 
@@ -47,5 +51,13 @@ class UnhandledErrorComponent implements OnInit{
     await _store.dispatch(ApiActionCreator.badRequestErrorCleanAction());
     await _store.dispatch(ApiActionCreator.internalServerErrorCleanAction());
     dialog.close();
+  }
+
+  showError(isShown){
+    isErrorShown = isShown;
+  }
+
+  showStackTrace(isShown){
+    isStackTraceShown = isShown;
   }
 }
