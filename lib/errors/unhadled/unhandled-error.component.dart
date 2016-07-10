@@ -6,10 +6,10 @@ import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog.component
 import 'package:SmartPeopleUI/redux/index.dart' show State;
 
 @Component(
-selector: 'sp-unhandled-error',
-templateUrl: 'unhandled-error.component.html',
-directives: const[DialogComponent],
-styleUrls: const['unhandled-error.component.css'])
+  selector: 'sp-unhandled-error',
+  templateUrl: 'unhandled-error.component.html',
+  directives: const[DialogComponent],
+  styleUrls: const['unhandled-error.component.css'])
 class UnhandledErrorComponent implements OnInit{
 
   @ViewChild(DialogComponent)

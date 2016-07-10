@@ -1,16 +1,18 @@
 <sp-dialog title="Oops! An error occurred!" [actions]="dialogActions">
     <div class="content">
         <p>Sorry, something went wrong</p>
+
         <p>Details -
-            <a *ngIf="isErrorShown" (click)="showError(false)">Hide</a>
-            <a *ngIf="!isErrorShown" (click)="showError(true)">Show</a>
+            <a id="hide-error" *ngIf="isErrorShown" (click)="showError(false)">Hide</a>
+            <a id="show-error" *ngIf="!isErrorShown" (click)="showError(true)">Show</a>
         </p>
-        <textarea *ngIf="isErrorShown" class="details" readonly>{{error}}</textarea>
+        <textarea id="error" *ngIf="isErrorShown" class="details" readonly>{{error}}</textarea>
+
         <p>
             Stack trace -
-            <a *ngIf="isStackTraceShown" (click)="showStackTrace(false)">Hide</a>
-            <a *ngIf="!isStackTraceShown" (click)="showStackTrace(true)">Show</a>
+            <a id="hide-stack-trace" *ngIf="isStackTraceShown" (click)="showStackTrace(false)">Hide</a>
+            <a id="show-stack-trace" *ngIf="!isStackTraceShown" (click)="showStackTrace(true)">Show</a>
         </p>
-        <textarea *ngIf="isStackTraceShown" class="details" readonly>{{stackTrace}}</textarea>
+        <textarea id="stack-trace" *ngIf="isStackTraceShown" class="details" readonly>{{stackTrace}}</textarea>
     </div>
 </sp-dialog>
