@@ -18,18 +18,18 @@ dev_dependencies:
   redstone: '^0.6.1'
   quiver: '^0.22.0'
   less_dart: '^0.3.4'
+  postcss_transformer:
+    path: lib/postcss
 #  postcss_transformer: '^0.1.1'
   git: ^0.4.4+2
   peanut: ^0.0.2
   grinder: ^0.8.0+1
   angular2_rbi: ^0.0.9
 transformers:
-- less_dart:
-    build_mode: dart
-#- postcss_transformer:
-#    arguments:
-#    - use: autoprefixer
-#    - autoprefixer.browsers: '>5%'
+- postcss_transformer:
+    arguments:
+    - use: autoprefixer
+    - autoprefixer.browsers: Firefox 38, Safari 9
 #    - use: postcss-nesting
 - angular2:
     platform_directives:
