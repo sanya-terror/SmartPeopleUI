@@ -56,7 +56,7 @@ class AppComponentTests {
 
       AppComponent component;
       setUp((){
-        component =new AppComponent(mockStore, mockRouter);
+        component = new AppComponent(mockStore, mockRouter);
       });
 
       test('Should check login during initialization', () {

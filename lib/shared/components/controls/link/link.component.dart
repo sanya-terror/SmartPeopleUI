@@ -1,9 +1,10 @@
 import 'package:angular2_rbi/directives.dart' show MaterialButton;
+import 'package:angular2/router.dart' show ROUTER_DIRECTIVES;
 import 'package:angular2/angular2.dart' show Component, Input;
 
 @Component(
    selector: 'sp-link',
-   directives: const[ MaterialButton],
+   directives: const[MaterialButton, ROUTER_DIRECTIVES],
    templateUrl: 'link.component.html')
 class LinkComponent {
    @Input() List routerLink;
