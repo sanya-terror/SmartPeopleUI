@@ -3,6 +3,7 @@ import 'sign-up.action-creator.dart';
 import 'sign-up.reducer.dart';
 import 'sign-up.component.dart';
 import 'sign-up-form.component.dart';
+import 'sign-up-code.component.dart';
 
 class SignUpTests {
   static run() {
@@ -11,6 +12,7 @@ class SignUpTests {
     SignUpReducerTests.run();
     SignUpComponentTests.run();
     SignUpFormComponentTests.run();
+    SignUpCodeComponentTests.run();
   }
 }
 
