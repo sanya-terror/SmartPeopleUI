@@ -38,9 +38,8 @@ class SignUpComponent implements OnInit, OnDestroy {
       isConfirmationCodeResentError = signUp.errorCode == 5555;
    }
 
-   resendCode() {
+   resendCode() =>
       _store.dispatch(SignUpActionCreator.resendConfirmCode(_store.state['signUp'].signUpToken));
-   }
 
    setDefault() => _store.dispatch(SignUpActionCreator.clearSignUp());
 

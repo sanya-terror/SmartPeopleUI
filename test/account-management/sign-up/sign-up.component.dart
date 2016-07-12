@@ -41,19 +41,19 @@ class SignUpComponentTests {
       var testCases = [
         {
           'state': { 'isFormSent': false, 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': false},
-          'resultSelectors': { 'form': isNotNull, 'code': isNull }
+          'resultSelectors': { 'form': isNotNull, 'code': isNull, 'warning': isNull, 'error': isNull }
         },
         {
           'state': { 'isFormSent': true, 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': false},
-          'resultSelectors': { 'form': isNull, 'code': isNotNull }
+          'resultSelectors': { 'form': isNull, 'code': isNotNull, 'warning': isNull, 'error': isNull }
         },
         {
           'state': { 'isFormSent': true, 'isConfirmationCodeResent': true, 'isConfirmationCodeResentError': false},
-          'resultSelectors': { 'form': isNull, 'code': isNotNull }
+          'resultSelectors': { 'form': isNull, 'code': isNotNull, 'warning': isNotNull, 'error': isNull }
         },
         {
           'state': { 'isFormSent': true, 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': true},
-          'resultSelectors': { 'form': isNull, 'code': isNotNull }
+          'resultSelectors': { 'form': isNull, 'code': isNotNull, 'warning': isNull, 'error': isNotNull }
         }
       ];
 
@@ -61,11 +61,9 @@ class SignUpComponentTests {
         var state = testCase['state'];
         var resultSelectors = testCase['resultSelectors'];
 
-        ngTest('Should apply correct view state. State: $state', ()  {
+        ngTest('Should apply correct content view state. State: $state', ()  {
 
           _component.isFormSent = state['isFormSent'];
-          _component.isConfirmationCodeResent = state['isConfirmationCodeResent'];
-          _component.isConfirmationCodeResentError = state['isConfirmationCodeResentError'];
 
           _fixture.detectChanges();
 
@@ -73,6 +71,17 @@ class SignUpComponentTests {
             reason: 'Wrong sign up form component state');
           expect(_element.querySelector('.content sp-sign-up-code'), resultSelectors['code'],
             reason: 'Wrong sign up code component state');
+        });
+
+        ngTest('Should apply correct notification view state. State: $state', ()  {
+
+          _component.isConfirmationCodeResent = state['isConfirmationCodeResent'];
+          _component.isConfirmationCodeResentError = state['isConfirmationCodeResentError'];
+
+          _fixture.detectChanges();
+
+          expect(_element.querySelector('.warning'), resultSelectors['warning'], reason: 'Wrong warning notification state');
+          expect(_element.querySelector('.error'), resultSelectors['error'], reason: 'Wrong error notification state');
         });
       });
     });
@@ -93,6 +102,23 @@ class SignUpComponentTests {
         expect(verify(subscriptionStream.listen(captureAny)).callCount, 1);
       });
 
+      test('Should execute resend code action', () {
+        String token = 'test_resend_code_token';
+        var data = new SignUpData()..signUpToken = token;
+
+        when(mockStore.state).thenReturn(new State({'signUp': data}));
+
+        component.resendCode();
+
+        var isValidResendCodeAction = predicate((action) {
+
+          return action.type == SIGN_UP_RESEND_CONFIRM_CODE
+              && action.data['token'] == token;
+        });
+
+        expect(verify(mockStore.dispatch(argThat(isValidResendCodeAction))).callCount, 1);
+      });
+
       group('On state change', () {
 
         var onStateChange;
@@ -105,50 +131,44 @@ class SignUpComponentTests {
 
         test('Should change component state base on signUp object in new state', () {
 
-          var data = new SignUpData()
-            ..errorCode = null
-            ..isConfirmationCodeResent = false;
-          onStateChange(data);
+          var testCases = [
+            {
+              'data': { 'errorCode': null, 'isConfirmationCodeResent': false},
+              'component': { 'isFormSent': true, 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': false }
+            },
+            {
+              'data': { 'errorCode': 3333, 'isConfirmationCodeResent': false},
+              'component': { 'isFormSent': false, 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': false }
+            },
+            {
+              'data': { 'errorCode': null, 'isConfirmationCodeResent': true},
+              'component': { 'isFormSent': true, 'isConfirmationCodeResent': true, 'isConfirmationCodeResentError': false }
+            },
+            {
+              'data': { 'errorCode': null, 'isConfirmationCodeResent': false},
+              'component': { 'isFormSent': true, 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': false }
+            },
+            {
+              'data': { 'errorCode': 5555, 'isConfirmationCodeResent': false},
+              'component': { 'isFormSent': true, 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': true }
+            }
+          ];
 
-          expect(component.isFormSent, true);
-          expect(component.isConfirmationCodeResent, false);
-          expect(component.isConfirmationCodeResentError, false);
+          var data;
 
-          data = new SignUpData()
-            ..errorCode = 3333
-            ..isConfirmationCodeResent = false;
-          onStateChange(data);
+          testCases.forEach((testCase){
+            var testData = testCase['data'];
+            var testComponent = testCase['component'];
 
-          expect(component.isFormSent, false);
-          expect(component.isConfirmationCodeResent, false);
-          expect(component.isConfirmationCodeResentError, false);
+            data = new SignUpData()
+              ..errorCode = testData['errorCode']
+              ..isConfirmationCodeResent = testData['isConfirmationCodeResent'];
+            onStateChange(data);
 
-          data = new SignUpData()
-            ..errorCode = null
-            ..isConfirmationCodeResent = true;
-          onStateChange(data);
-
-          expect(component.isFormSent, true);
-          expect(component.isConfirmationCodeResent, true);
-          expect(component.isConfirmationCodeResentError, false);
-
-          data = new SignUpData()
-            ..errorCode = null
-            ..isConfirmationCodeResent = false;
-          onStateChange(data);
-
-          expect(component.isFormSent, true);
-          expect(component.isConfirmationCodeResent, false);
-          expect(component.isConfirmationCodeResentError, false);
-
-          data = new SignUpData()
-            ..errorCode = 5555
-            ..isConfirmationCodeResent = false;
-          onStateChange(data);
-
-          expect(component.isFormSent, true);
-          expect(component.isConfirmationCodeResent, false);
-          expect(component.isConfirmationCodeResentError, true);
+            expect(component.isFormSent, testComponent['isFormSent']);
+            expect(component.isConfirmationCodeResent, testComponent['isConfirmationCodeResent']);
+            expect(component.isConfirmationCodeResentError, testComponent['isConfirmationCodeResentError']);
+          });
         });
       });
 

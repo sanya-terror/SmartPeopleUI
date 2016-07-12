@@ -32,8 +32,8 @@ class SignUpCodeComponentTests {
         _fixture.detectChanges();
 
         expect(_element.querySelector('form .description'), isNotNull, reason: 'No description found');
-        expect(_element.querySelector('form sp-input'), isNotNull, reason: 'No input found');
-        expect(_element.querySelector('form sp-input .error'), isNull, reason: 'Input error is found');
+        expect(_element.querySelector('form sp-input[name="code"]'), isNotNull, reason: 'No input found');
+        expect(_element.querySelector('form sp-input[name="code"] .error'), isNull, reason: 'Input error is found');
         expect(_element.querySelector('form sp-button'), isNotNull, reason: 'No button found');
       });
 
