@@ -110,7 +110,6 @@ class SignUpCodeComponentTests {
           onStateChange(data);
 
           var isValidConfirmCodeAction = predicate((action) {
-            print(action.data);
             return  action.type == LOGIN_REQUEST
                 && action.data['user'] == email
                 && action.data['password'] == password;
