@@ -12,7 +12,6 @@ import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' sho
 @Component(
     selector: 'sp-login',
     directives: const [
-      ROUTER_DIRECTIVES,
       InputComponent,
       CheckboxComponent,
       LinkComponent,
