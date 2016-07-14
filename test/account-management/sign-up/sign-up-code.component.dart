@@ -97,11 +97,11 @@ class SignUpCodeComponentTests {
           var data = new SignUpData()..errorCode = null;
           onStateChange(data);
 
-          var isValidConfirmCodeAction = predicate((action) => action.type == SIGN_UP_CLEAR_DATA);
-          expect(verify(mockStore.dispatch(argThat(isValidConfirmCodeAction))).callCount, 1);
+          var isValidClearDataAction = predicate((action) => action.type == SIGN_UP_CLEAR_DATA);
+          expect(verify(mockStore.dispatch(argThat(isValidClearDataAction))).callCount, 1);
         });
 
-        test('Should clear sign up data after confirm code action success', () {
+        test('Should execute login request action', () {
           String email = 'test@test.com';
           String password = '1q2w3e4r';
           when(mockStore.state).thenReturn(new State({'email': email}));
@@ -109,12 +109,12 @@ class SignUpCodeComponentTests {
           var data = new SignUpData()..password = '1q2w3e4r';
           onStateChange(data);
 
-          var isValidConfirmCodeAction = predicate((action) {
+          var isValidLoginRequestAction = predicate((action) {
             return  action.type == LOGIN_REQUEST
                 && action.data['user'] == email
                 && action.data['password'] == password;
           });
-          expect(verify(mockStore.dispatch(argThat(isValidConfirmCodeAction))).callCount, 1);
+          expect(verify(mockStore.dispatch(argThat(isValidLoginRequestAction))).callCount, 1);
         });
 
       });

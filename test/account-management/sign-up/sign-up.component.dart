@@ -38,26 +38,18 @@ class SignUpComponentTests {
         expect(_element.querySelector('$baseSelector .extra-actions'), isNotNull, reason: 'No extra actions found');
       });
 
-      var testCases = [
+      var contenetTestCases = [
         {
-          'state': { 'isFormSent': false, 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': false},
-          'resultSelectors': { 'form': isNotNull, 'code': isNull, 'warning': isNull, 'error': isNull }
+          'state': { 'isFormSent': false },
+          'resultSelectors': { 'form': isNotNull, 'code': isNull }
         },
         {
-          'state': { 'isFormSent': true, 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': false},
-          'resultSelectors': { 'form': isNull, 'code': isNotNull, 'warning': isNull, 'error': isNull }
-        },
-        {
-          'state': { 'isFormSent': true, 'isConfirmationCodeResent': true, 'isConfirmationCodeResentError': false},
-          'resultSelectors': { 'form': isNull, 'code': isNotNull, 'warning': isNotNull, 'error': isNull }
-        },
-        {
-          'state': { 'isFormSent': true, 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': true},
-          'resultSelectors': { 'form': isNull, 'code': isNotNull, 'warning': isNull, 'error': isNotNull }
+          'state': { 'isFormSent': true },
+          'resultSelectors': { 'form': isNull, 'code': isNotNull }
         }
       ];
 
-      testCases.forEach((testCase){
+      contenetTestCases.forEach((testCase){
         var state = testCase['state'];
         var resultSelectors = testCase['resultSelectors'];
 
@@ -72,6 +64,26 @@ class SignUpComponentTests {
           expect(_element.querySelector('.content sp-sign-up-code'), resultSelectors['code'],
             reason: 'Wrong sign up code component state');
         });
+      });
+
+      var notificationsTestCases = [
+        {
+          'state': { 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': false},
+          'resultSelectors': { 'warning': isNull, 'error': isNull }
+        },
+        {
+          'state': { 'isConfirmationCodeResent': true, 'isConfirmationCodeResentError': false},
+          'resultSelectors': { 'warning': isNotNull, 'error': isNull }
+        },
+        {
+          'state': { 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': true},
+          'resultSelectors': { 'warning': isNull, 'error': isNotNull }
+        }
+      ];
+
+      notificationsTestCases.forEach((testCase){
+        var state = testCase['state'];
+        var resultSelectors = testCase['resultSelectors'];
 
         ngTest('Should apply correct notification view state. State: $state', ()  {
 
