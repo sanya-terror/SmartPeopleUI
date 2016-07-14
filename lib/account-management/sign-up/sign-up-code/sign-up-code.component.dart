@@ -27,9 +27,8 @@ class SignUpCodeComponent extends FormComponent {
       this.form = new ControlGroup({ 'code': this.codeControl});
    }
 
-   _onStateChange(SignUpData data) async {
+   _onStateChange(SignUpData data) {
       isApplyingCodeError = data.errorCode == 4444;
-
       if (!isApplyingCodeError) {
          _store.dispatch(SignUpActionCreator.clearSignUp());
          _store.dispatch(AuthActionCreator.requestLogin({
