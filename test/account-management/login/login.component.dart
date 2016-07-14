@@ -147,10 +147,6 @@ class LoginComponentTests {
         when(mockStore.state).thenReturn(new State({'errorCode': null}));
         onStateChange(mockStore.state);
 
-        component.emailControl.setErrors(null);
-        component.passwordControl.setErrors(null);
-        component.rememberMeControl.setErrors(null);
-
         expect(component.form.controls['email'].errors, component.emailControl.errors);
         expect(component.form.controls['password'].errors, component.passwordControl.errors);
         expect(component.form.controls['rememberMe'].errors, component.rememberMeControl.errors);
