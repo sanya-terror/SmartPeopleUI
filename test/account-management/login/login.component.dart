@@ -4,7 +4,6 @@ import 'package:test/test.dart';
 import 'package:angular2/common.dart';
 import 'package:mockito/mockito.dart';
 import 'package:SmartPeopleUI/index.dart';
-import 'package:SmartPeopleUI/account-management/login/index.dart';
 import 'package:angular2_testing/angular2_testing.dart';
 
 import '../../helpers/angular.dart' as ng;
@@ -49,8 +48,8 @@ class LoginComponentTests {
         expect(_element.querySelector('$baseSelector .content sp-button'), isNotNull, reason: 'No button found');
         expect(_element.querySelector('$baseSelector .content sp-checkbox'), isNotNull, reason: 'No checkbox found');
         expect(_element.querySelector('$baseSelector .extra-actions'), isNotNull, reason: 'No extra actions found');
-        expect(_element.querySelector('$baseSelector .extra-actions sp-link[name="sign-up"]'), isNotNull, reason: 'No sign up link found');
-        expect(_element.querySelector('$baseSelector .extra-actions sp-link[name="restore-access"]'), isNotNull, reason: 'No restore access link found');
+        expect(_element.querySelector('$baseSelector .extra-actions #sign-up'), isNotNull, reason: 'No sign up link found');
+        expect(_element.querySelector('$baseSelector .extra-actions #restore-access'), isNotNull, reason: 'No restore access link found');
       });
 
       var testCases = [
@@ -138,6 +137,23 @@ class LoginComponentTests {
         expect(component.form.controls['email'], component.emailControl);
         expect(component.form.controls['password'], component.passwordControl);
         expect(component.form.controls['rememberMe'], component.rememberMeControl);
+      });
+
+      test('Should set control errors to null', () {
+        component.login();
+
+        var onStateChange = verify(subscriptionStream.listen(captureAny)).captured[0];
+
+        when(mockStore.state).thenReturn(new State({'errorCode': null}));
+        onStateChange(mockStore.state);
+
+        component.emailControl.setErrors(null);
+        component.passwordControl.setErrors(null);
+        component.rememberMeControl.setErrors(null);
+
+        expect(component.form.controls['email'].errors, component.emailControl.errors);
+        expect(component.form.controls['password'].errors, component.passwordControl.errors);
+        expect(component.form.controls['rememberMe'].errors, component.rememberMeControl.errors);
       });
 
       test('Should request login during login action', () {

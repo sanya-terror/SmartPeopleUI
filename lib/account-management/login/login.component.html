@@ -18,15 +18,15 @@
                 <span *ngIf="!hasRangeError(passwordControl)" class="error">Password is incorrect</span>
             </sp-input>
 
-            <sp-button (click)="login()" class="login-button" fill]="true" label="Sign in"></sp-button>
+            <sp-button (click)="login()" class="login-button" [fill]="true" label="Sign in"></sp-button>
 
             <sp-checkbox name="remember-me" label="Remember me" [control]="rememberMeControl"></sp-checkbox>
 
         </form>
 
         <div class="extra-actions">
-            <sp-link name="sign-up" [routerLink]="['SignUp']" label="Create account"></sp-link>
-            <sp-link name="restore-access" [routerLink]="['RestoreAccess']" label="Forgot password?"></sp-link>
+            <sp-link id="sign-up" [routerLink]="['SignUp']" label="Create account"></sp-link>
+            <sp-link id="restore-access" [routerLink]="['RestoreAccess']" label="Forgot password?"></sp-link>
         </div>
     </sp-card>
 </div>
