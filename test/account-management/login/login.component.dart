@@ -130,13 +130,9 @@ class LoginComponentTests {
         when(mockStore.state).thenReturn(new State({'errorCode': null}));
         onStateChange(mockStore.state);
 
-        component.emailControl.updateValue('');
-        component.passwordControl.updateValue('');
-        component.rememberMeControl.updateValue('');
-
-        expect(component.form.controls['email'], component.emailControl);
-        expect(component.form.controls['password'], component.passwordControl);
-        expect(component.form.controls['rememberMe'], component.rememberMeControl);
+        expect(component.form.controls['email'].value, '');
+        expect(component.form.controls['password'].value, '');
+        expect(component.form.controls['rememberMe'].value, '');
       });
 
       test('Should set control errors to null', () {
@@ -147,9 +143,9 @@ class LoginComponentTests {
         when(mockStore.state).thenReturn(new State({'errorCode': null}));
         onStateChange(mockStore.state);
 
-        expect(component.form.controls['email'].errors, component.emailControl.errors);
-        expect(component.form.controls['password'].errors, component.passwordControl.errors);
-        expect(component.form.controls['rememberMe'].errors, component.rememberMeControl.errors);
+        expect(component.form.controls['email'].errors, null);
+        expect(component.form.controls['password'].errors, null);
+        expect(component.form.controls['rememberMe'].errors, null);
       });
 
       test('Should request login during login action', () {
