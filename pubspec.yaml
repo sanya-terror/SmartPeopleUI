@@ -27,10 +27,18 @@ dev_dependencies:
   angular2_rbi: ^0.0.9
 transformers:
 - postcss_transformer:
+    executable: ./node_modules/postcss-cli/bin/postcss
     arguments:
+    - local-plugins: ''
     - use: autoprefixer
-    - autoprefixer.browsers: Firefox 38, Safari 9
-#    - use: postcss-nesting
+    - autoprefixer.browsers: Firefox 47, Safari 9
+    - use: postcss-nesting
+    - use: postcss-fixes
+    - use: postcss-flexbugs-fixes
+    - use: postcss-sort-style-rules
+    - use: cssnano
+#    - use: postcss-font-magician // Will be used later
+#    - use: postcss-assets // Will be used later
 - angular2:
     platform_directives:
     - 'package:angular2/common.dart#CORE_DIRECTIVES'
