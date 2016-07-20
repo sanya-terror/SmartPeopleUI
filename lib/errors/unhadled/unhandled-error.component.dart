@@ -17,6 +17,8 @@ class UnhandledErrorComponent implements OnInit{
 
   bool isErrorShown = false;
   bool isStackTraceShown = false;
+  
+  bool _isShown = false;
 
   final InjectableStore _store;
 
@@ -36,20 +38,22 @@ class UnhandledErrorComponent implements OnInit{
 
   _onUnhandledError(State state){
 
+    if (_isShown) return;
+    
     var isBadRequest = state['isBadRequestError'] == null ? false : state['isBadRequestError'];
     var isInternalServerError = state['isInternalServerError'] == null ? false : state['isInternalServerError'];
     var isError = isBadRequest || isInternalServerError;
 
     if (isError){
+      _isShown = true;
+      
       error = state['errorMessage'];
       stackTrace = state['errorStackTrace'];
       dialog.showModal();
     }
   }
 
-  _onCloseClick() async {
-    await _store.dispatch(ApiActionCreator.badRequestErrorCleanAction());
-    await _store.dispatch(ApiActionCreator.internalServerErrorCleanAction());
+  _onCloseClick() {
     dialog.close();
   }
 
@@ -59,5 +63,13 @@ class UnhandledErrorComponent implements OnInit{
 
   showStackTrace(isShown){
     isStackTraceShown = isShown;
+  }
+  
+  onClose() async {
+    
+    await _store.dispatch(ApiActionCreator.badRequestErrorCleanAction());
+    await _store.dispatch(ApiActionCreator.internalServerErrorCleanAction());
+
+    _isShown = false;
   }
 }

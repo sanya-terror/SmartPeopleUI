@@ -17,12 +17,13 @@ class UnauthorizedErrorTests {
 
          var mockStore = mocks.getMockStore();
          var mockRouter = mocks.getRouter();
-         DialogComponent mockDialog = spy(new MockDialogComponent(), new DialogComponent());
+         DialogComponent mockDialog;
 
          UnauthorizedErrorComponent component;
          setUp((){
             component = new UnauthorizedErrorComponent(mockStore, mockRouter);
 
+            mockDialog = spy(new MockDialogComponent(), new DialogComponent());
             when(mockDialog.showModal()).thenReturn({});
             when(mockDialog.close()).thenReturn({});
             component.dialog = mockDialog;
@@ -58,6 +59,19 @@ class UnauthorizedErrorTests {
                verify(mockDialog.showModal());
             });
 
+            test('Should not try to open dialog if it is already open', () {
+               onStateChange(new State({'isUnauthorizedError': true}));
+               verify(mockDialog.showModal());
+   
+               onStateChange(new State({'isUnauthorizedError': true}));
+               verifyNever(mockDialog.showModal());
+               
+               component.onClose();
+
+               onStateChange(new State({'isUnauthorizedError': true}));
+               verify(mockDialog.showModal());
+            });
+            
             test('Should not open dialog if no error', () {
                onStateChange(new State({'isUnauthorizedError': false}));
                verifyNever(mockDialog.showModal());
@@ -72,11 +86,6 @@ class UnauthorizedErrorTests {
                signInAction.execute();
             });
 
-            test('Should clear unauthorized state', () {
-               var isRemoveErrorAction = argThat(predicate((action) => action.type == ERROR_REMOVE_UNAUTHORIZED));
-               verify(mockStore.dispatch(isRemoveErrorAction));
-            });
-
             test('Should go to login page', () {
                verify(mockRouter.navigate(['Login']));
             });
@@ -86,6 +95,12 @@ class UnauthorizedErrorTests {
             });
          });
 
+         test('Should clear unauthorized state on close', () {
+            component.onClose();
+            
+            var isRemoveErrorAction = argThat(predicate((action) => action.type == ERROR_REMOVE_UNAUTHORIZED));
+            verify(mockStore.dispatch(isRemoveErrorAction));
+         });
       });
    }
 

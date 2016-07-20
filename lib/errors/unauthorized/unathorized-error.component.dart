@@ -17,6 +17,8 @@ class UnauthorizedErrorComponent implements OnInit{
 
   final InjectableStore _store;
   final Router _router;
+  
+  bool _isShown = false;
 
   List<DialogAction> dialogActions = [];
 
@@ -30,13 +32,19 @@ class UnauthorizedErrorComponent implements OnInit{
   }
 
   _onUnauthorizedError(State state){
-    if (state['isUnauthorizedError'])
-      dialog.showModal();
+    if (_isShown || !state['isUnauthorizedError']) return;
+    
+    _isShown = true;
+    dialog.showModal();
   }
 
   _onSignInClick() {
-    _store.dispatch(ApiActionCreator.unauthorizedCleanAction());
     _router.navigate(['Login']);
     dialog.close();
+  }
+  
+  onClose(){
+    _store.dispatch(ApiActionCreator.unauthorizedCleanAction());
+    _isShown = false;
   }
 }

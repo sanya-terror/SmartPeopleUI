@@ -98,8 +98,7 @@ class DialogManager {
       event
         ..preventDefault()
         ..stopPropagation();
-      CustomEvent cancelEvent =
-      new CustomEvent('cancel', canBubble: false, cancelable: true);
+      CustomEvent cancelEvent = new CustomEvent('cancel', canBubble: false, cancelable: true);
       topDialog.dialog.dispatchEvent(cancelEvent);
     }
   }

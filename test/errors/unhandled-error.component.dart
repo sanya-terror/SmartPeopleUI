@@ -133,11 +133,13 @@ class UnhandledErrorTests {
       group('Unhandled error component', () {
 
          var mockStore = mocks.getMockStore();
-         DialogComponent mockDialog = spy(new MockDialogComponent(), new DialogComponent());
+         DialogComponent mockDialog;
 
          UnhandledErrorComponent component;
          setUp((){
             component = new UnhandledErrorComponent(mockStore);
+
+            mockDialog = spy(new MockDialogComponent(), new DialogComponent());
 
             when(mockDialog.showModal()).thenReturn({});
             when(mockDialog.close()).thenReturn({});
@@ -165,6 +167,7 @@ class UnhandledErrorTests {
 
             setUp(() {
                var subscriptionStream = _mockSubscription(mockStore);
+
                component.ngOnInit();
                onStateChange = verify(subscriptionStream.listen(captureAny)).captured[0];
             });
@@ -175,6 +178,20 @@ class UnhandledErrorTests {
             });
 
             test('Should open dialog if internal server error', () {
+               onStateChange(new State({'isInternalServerError': true}));
+               verify(mockDialog.showModal());
+            });
+            
+            test('Should not try to open dialog if it is already open', () async {
+               
+               onStateChange(new State({'isInternalServerError': true}));
+               verify(mockDialog.showModal());
+
+               onStateChange(new State({'isInternalServerError': true}));
+               verifyNever(mockDialog.showModal());
+               
+               await component.onClose();
+               
                onStateChange(new State({'isInternalServerError': true}));
                verify(mockDialog.showModal());
             });
@@ -198,12 +215,19 @@ class UnhandledErrorTests {
             });
          });
 
-         group('On close click', () {
-            setUp((){
-               component.ngOnInit();
+         test('Should close dialog on close button click', () async {
 
-               var closeAction = component.dialogActions[0];
-               closeAction.execute();
+            component.ngOnInit();
+
+            var closeAction = component.dialogActions[0];
+            await closeAction.execute();
+            
+            verify(mockDialog.close());
+         });
+         
+         group('On close', () {
+            setUp(()async {
+               component.onClose();
             });
 
             test('Should clear bad request state', () {
@@ -214,10 +238,6 @@ class UnhandledErrorTests {
             test('Should clear internal server error state', () {
                var isRemoveErrorAction = argThat(predicate((action) => action.type == ERROR_REMOVE_INTERNAL_SERVER));
                verify(mockStore.dispatch(isRemoveErrorAction));
-            });
-
-            test('Should close dialog', () {
-               verify(mockDialog.close());
             });
          });
 
