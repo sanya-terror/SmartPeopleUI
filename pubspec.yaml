@@ -27,11 +27,11 @@ dev_dependencies:
   angular2_rbi: ^0.0.9
 transformers:
 - postcss_transformer:
-    executable: ./node_modules/postcss-cli/bin/postcss
+#    executable: ./node_modules/postcss-cli/bin/postcss
     arguments:
     - local-plugins: ''
     - use: autoprefixer
-    - autoprefixer.browsers: Firefox 47, Safari 9
+    - autoprefixer.browsers: Firefox 47, Safari 9, Chrome 52, IE 11
     - use: postcss-nesting
     - use: postcss-fixes
     - use: postcss-flexbugs-fixes

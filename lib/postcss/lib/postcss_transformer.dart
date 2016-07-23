@@ -70,7 +70,7 @@ class PostcssTransformer extends Transformer implements DeclaringTransformer {
     final Process process = await Process
         .start(_configuration.executable, _configuration.executableArgs, runInShell: true);
 
-    process.stdin.addStream(asset.read()).then((_) => process.stdin.close());
+    asset.read().pipe(process.stdin);
 
     process.stdout
         .listen((data) {
@@ -85,8 +85,10 @@ class PostcssTransformer extends Transformer implements DeclaringTransformer {
       transform.logger.error("Command: $command\nstderr:\n$data", asset: asset.id);
     });
 
-    var exitCode = await process.exitCode;
+    // SP-105, workaround to process large css files on Windows
+    sleep(new Duration(milliseconds: 500));
 
+    var exitCode = await process.exitCode;
     transform.logger.info('Finished with exit code $exitCode', asset: asset.id);
   }
 
