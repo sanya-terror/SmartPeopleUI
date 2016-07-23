@@ -16,24 +16,23 @@ rm $DART_DIST
 rm $DARTIUM_DIST
 
 mv dartium-* dartium;
-mv dartium/chrome dartium/dartium;
 
 export DART_SDK="$PWD/dart-sdk"
 export PATH="$DART_SDK/bin:$PATH"
-export DARTIUM_BIN="$PWD/dartium"
-export PATH="$DARTIUM_BIN:$PATH"
+export DARTIUM_BIN="$PWD/dartium/chrome"
 
 echo Pub install
 pub install
 
+sh -e /etc/init.d/xvfb start
+
 # Verify that the libraries are error free.
 dartanalyzer --fatal-warnings \
-  web/*.dart \
   lib/*.dart \
   test/*.dart
 
 # Verify that all the tests pass.
-pub run test test/index.dart -p dartium
+pub run test -p dartium
 
 # Verify the coverage of the tests.
 if [ "$COVERALLS_TOKEN" ] && [ "$TRAVIS_DART_VERSION" = "stable" ]; then
@@ -42,5 +41,5 @@ if [ "$COVERALLS_TOKEN" ] && [ "$TRAVIS_DART_VERSION" = "stable" ]; then
     --token $COVERALLS_TOKEN \
     --retry 2 \
     --exclude-test-files \
-    test/index.dart -p dartium
+    test/all_test.dart
 fi
