@@ -44,7 +44,7 @@ transformers:
     - 'package:angular2/common.dart#CORE_DIRECTIVES'
     - 'package:angular2/common.dart#FORM_DIRECTIVES'
     entry_points: web/main.dart
-#- test/pub_serve:
-#    $include: test/**_test{.*,}.dart
+- test/pub_serve:
+    $include: test/**_test{.*,}.dart
 - dart_to_js_script_rewriter
 
