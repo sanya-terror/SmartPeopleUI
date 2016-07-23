@@ -18,19 +18,27 @@ dev_dependencies:
   redstone: '^0.6.1'
   quiver: '^0.22.0'
   less_dart: '^0.3.4'
+  postcss_transformer:
+    path: lib/postcss
 #  postcss_transformer: '^0.1.1'
   git: ^0.4.4+2
   peanut: ^0.0.2
   grinder: ^0.8.0+1
   angular2_rbi: ^0.0.9
 transformers:
-- less_dart:
-    build_mode: dart
-#- postcss_transformer:
-#    arguments:
-#    - use: autoprefixer
-#    - autoprefixer.browsers: '>5%'
-#    - use: postcss-nesting
+- postcss_transformer:
+#    executable: ./node_modules/postcss-cli/bin/postcss
+    arguments:
+    - local-plugins: ''
+    - use: autoprefixer
+    - autoprefixer.browsers: Firefox 47, Safari 9, Chrome 52, IE 11
+    - use: postcss-nesting
+    - use: postcss-fixes
+    - use: postcss-flexbugs-fixes
+    - use: postcss-sort-style-rules
+    - use: cssnano
+#    - use: postcss-font-magician // Will be used later
+#    - use: postcss-assets // Will be used later
 - angular2:
     platform_directives:
     - 'package:angular2/common.dart#CORE_DIRECTIVES'

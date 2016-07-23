@@ -23,11 +23,7 @@ Installing project:
 `4.` Build project:
 
 	a) run `pub get` to get dependencies;
-	b) install npm dependencies(now everything is global but will be reduced to local when PR to postcss transformer
-	will be applied):
-	```bat
-	npm install -g postcss@ postcss-cli@2.3.2 autoprefixer@ postcss-nesting@
-	```
+	b) run `npm install` to install postcss plugins
 	c) run `pub build` to build project;
 	d) run `pub serve` to set local server (optionaly)
 
