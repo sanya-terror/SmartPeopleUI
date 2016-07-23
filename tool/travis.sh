@@ -8,8 +8,12 @@ dartanalyzer --fatal-warnings \
   lib/*.dart \
   test/*.dart
 
-# Verify that all the tests pass.
-pub run test -p firefox
+# Run browser tests
+export DISPLAY=:99.0
+sh -e /etc/init.d/xvfb start
+pub serve &
+sleep 5
+pub run test --pub-serve=8080 -p content-shell -p firefox
 
 # Verify the coverage of the tests.
 if [ "$COVERALLS_TOKEN" ] && [ "$TRAVIS_DART_VERSION" = "stable" ]; then

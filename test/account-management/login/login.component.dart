@@ -1,7 +1,10 @@
 import 'dart:html';
+import 'dart:mirrors';
 
 import 'package:test/test.dart';
 import 'package:angular2/common.dart';
+
+@MirrorsUsed()
 import 'package:mockito/mockito.dart';
 import 'package:SmartPeopleUI/index.dart';
 import 'package:angular2_testing/angular2_testing.dart';

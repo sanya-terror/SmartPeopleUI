@@ -1,6 +1,9 @@
-import 'store.dart';
+import 'dart:mirrors';
+
+@MirrorsUsed()
 import 'package:fp/fp.dart' show compose;
 
+import 'store.dart';
 typedef Pipe Middleware(Store store);
 
 Middleware applyMiddleware(List<Middleware> middlewares) {

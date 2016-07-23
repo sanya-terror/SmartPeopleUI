@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:mirrors';
 
 import 'package:test/test.dart';
+@MirrorsUsed()
 import 'package:mockito/mockito.dart';
 import 'package:http/browser_client.dart';
 import 'package:http/http.dart';

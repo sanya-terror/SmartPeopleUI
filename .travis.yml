@@ -2,7 +2,7 @@ language: dart
 dart:
   - dev
   - stable
-sudo: false
+
 install:
   - travis_retry pub get
   - travis_retry nvm install node

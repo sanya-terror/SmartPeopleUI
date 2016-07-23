@@ -1,7 +1,9 @@
-import 'package:test/test.dart';
-import 'package:mockito/mockito.dart';
-import 'package:angular2/common.dart';
+import 'dart:mirrors';
 
+import 'package:test/test.dart';
+
+@MirrorsUsed()
+import 'package:mockito/mockito.dart';
 import 'package:SmartPeopleUI/index.dart';
 import '../../helpers/mocks.dart';
 import '../../helpers/matchers.dart';

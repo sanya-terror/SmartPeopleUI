@@ -1,6 +1,9 @@
 import 'dart:html';
+import 'dart:mirrors';
 
 import 'package:test/test.dart';
+
+@MirrorsUsed()
 import 'package:mockito/mockito.dart';
 import 'package:angular2_testing/angular2_testing.dart';
 
