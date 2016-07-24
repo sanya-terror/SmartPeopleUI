@@ -20,8 +20,13 @@ mv dartium-* chromium
 export DART_SDK="$PWD/dart-sdk"
 export PATH="$DART_SDK/bin:$PATH"
 export DARTIUM_BIN="$PWD/chromium/chrome"
+export DARTIUM="$PWD/chromium/dartium"
 
-ln -s DARTIUM_BIN "$PWD/chromium/dartium"
+ln -s DARTIUM_BIN DARTIUM
+
+export PATH=$PATH:DARTIUM
+
+echo path $PATH
 
 echo Pub install
 pub install
