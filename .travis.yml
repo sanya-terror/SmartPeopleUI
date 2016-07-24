@@ -1,6 +1,5 @@
 language: dart
 dart:
-  - dev
   - stable
 before_install:
   - export DISPLAY=:99.0

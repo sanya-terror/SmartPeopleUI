@@ -1,24 +1,28 @@
 #!/bin/bash
 
 # Fast fail the script on failures.
-set -e -o pipefail
+set -e
 
-CHANNEL=stable
+DART_DIST=dartsdk-linux-x64-release.zip
+DARTIUM_DIST=dartium-linux-x64-release.zip
 
-echo Fetch Dart channel: $CHANNEL
+echo Fetching dart sdk and Dartium
+curl http://storage.googleapis.com/dart-archive/channels/stable/release/latest/sdk/$DART_DIST > $DART_DIST
+curl http://storage.googleapis.com/dart-archive/channels/stable/raw/latest/dartium/$DARTIUM_DIST > $DARTIUM_DIST
 
-URL_PREFIX=https://storage.googleapis.com/dart-archive/channels/$CHANNEL/release/latest
-DART_SDK_URL=$URL_PREFIX/sdk/dartsdk-linux-x64-release.zip
-DARTIUM_URL=$URL_PREFIX/dartium/dartium-linux-x64-release.zip
+unzip $DART_DIST > /dev/null
+unzip $DARTIUM_DIST > /dev/null
+rm $DART_DIST
+rm $DARTIUM_DIST
 
-npm install $DART_SDK_URL
-npm install $DARTIUM_URL
+mv dartium-* chromium
 
-echo Fetched new dart version $(<dart-sdk/version)
+export DART_SDK="$PWD/dart-sdk"
+export PATH="$DART_SDK/bin:$PATH"
+export DARTIUM_BIN="$PWD/dartium/chrome"
 
-if [[ -n $DARTIUM_URL ]]; then
-  mv dartium-* chromium
-fi
+echo Pub install
+pub install
 
 sh -e /etc/init.d/xvfb start
 
