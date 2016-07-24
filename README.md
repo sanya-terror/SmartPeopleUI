@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/SmartPeopleCompany/SmartPeopleUI.svg)](https://travis-ci.org/SmartPeopleCompany/SmartPeopleUI)
+
 # Smart People
 
 _Scientific social network_

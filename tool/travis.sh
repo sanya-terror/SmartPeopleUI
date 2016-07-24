@@ -28,8 +28,6 @@ ln -s $DARTIUM_BIN $DARTIUM
 
 export PATH=$PATH:$DARTIUM_PATH
 
-echo path $PATH
-
 echo Pub install
 pub install
 
