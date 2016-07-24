@@ -39,6 +39,7 @@ class AppComponentTests {
         _fixture.detectChanges();
         expect(_element.querySelector('div.content sp-unauthorized-error'), isNotNull);
         expect(_element.querySelector('div.content sp-unhandled-error'), isNotNull);
+        expect(_element.querySelector('div.content sp-forbidden-error'), isNotNull);
       });
 
       ngTest('Should show login component if not authentificated', ()  {

@@ -226,7 +226,7 @@ class UnhandledErrorTests {
          });
          
          group('On close', () {
-            setUp(()async {
+            setUp(() async {
                component.onClose();
             });
 

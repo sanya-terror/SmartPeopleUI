@@ -7,7 +7,7 @@ class ApiErrorsReducerTests {
 
     group('Api errors reducer', () {
 
-      group('Not found', (){
+      group('Not found', () {
 
         var initialState = new State({
           'some':'property',
@@ -39,7 +39,7 @@ class ApiErrorsReducerTests {
         });
       });
 
-      group('Unauthorized', (){
+      group('Unauthorized', () {
 
         var initialState = new State({
           'some':'property',
@@ -72,7 +72,39 @@ class ApiErrorsReducerTests {
         });
       });
 
-      group('Internal server error', (){
+      group('Forbidden', () {
+
+        var initialState = new State({
+          'some':'property',
+          'isForbiddenError': null,
+        });
+
+        List<Map<String, dynamic>> cases = [
+          {
+            'action': new Action(ERROR_FORBIDDEN),
+            'result': new State({
+              'some':'property',
+              'isForbiddenError': true
+            })
+          },
+          {
+            'action': new Action(ERROR_REMOVE_FORBIDDEN),
+            'result': new State({'some':'property'})
+          },
+        ];
+
+        cases.forEach((testCase) {
+          var action = testCase['action'];
+          var expected = testCase['result'];
+
+          test('Should apply reducer: ${action.type}', () {
+            var actual = ApiErrorsReducer.reduce(initialState, action);
+            expect(actual, expected);
+          });
+        });
+      });
+
+      group('Internal server error', () {
 
         var initialState = new State({
           'some':'property',
@@ -111,7 +143,7 @@ class ApiErrorsReducerTests {
         });
       });
 
-      group('Bad request', (){
+      group('Bad request', () {
 
         var initialState = new State({
           'some':'property',
