@@ -19,7 +19,6 @@ class AuthReducer {
           ..['errorCode'] = null;
 
       case LOGIN_FAILURE:
-        print(action.data);
         return new State.from(state)
           ..['isFetching'] = false
           ..['isAuthenticated'] = false
