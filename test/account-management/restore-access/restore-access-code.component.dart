@@ -3,7 +3,6 @@ import 'package:mockito/mockito.dart';
 
 import 'package:SmartPeopleUI/index.dart';
 import '../../helpers/mocks.dart';
-import 'package:angular2/common.dart';
 import '../../helpers/matchers.dart';
 
 class RestoreAccessCodeComponentTests {

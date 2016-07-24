@@ -10,21 +10,17 @@ dependencies:
   http: '^0.11.3+7'
   dart_to_js_script_rewriter: '^1.0.1'
   shadow_dom: any
+  angular2_rbi: ^0.0.9
 dev_dependencies:
   shelf: '^0.6.5+2'
   test: '>=0.12.0 <0.13.0'
   angular2_testing: '^2.0.0-beta.17'
   mockito: '^0.11.0'
   redstone: '^0.6.1'
-  quiver: '^0.22.0'
-  less_dart: '^0.3.4'
   postcss_transformer:
     path: lib/postcss
 #  postcss_transformer: '^0.1.1'
-  git: ^0.4.4+2
-  peanut: ^0.0.2
-  grinder: ^0.8.0+1
-  angular2_rbi: ^0.0.9
+  quiver: '^0.22.0'
 transformers:
 - postcss_transformer:
 #    executable: ./node_modules/postcss-cli/bin/postcss
@@ -44,7 +40,5 @@ transformers:
     - 'package:angular2/common.dart#CORE_DIRECTIVES'
     - 'package:angular2/common.dart#FORM_DIRECTIVES'
     entry_points: web/main.dart
-#- test/pub_serve:
-#    $include: test/**_test{.*,}.dart
-#- dart_to_js_script_rewriter
+- dart_to_js_script_rewriter
 

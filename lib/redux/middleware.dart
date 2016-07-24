@@ -1,6 +1,6 @@
-import 'store.dart';
 import 'package:fp/fp.dart' show compose;
 
+import 'store.dart';
 typedef Pipe Middleware(Store store);
 
 Middleware applyMiddleware(List<Middleware> middlewares) {
