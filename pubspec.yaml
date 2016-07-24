@@ -20,6 +20,7 @@ dev_dependencies:
   postcss_transformer:
     path: lib/postcss
 #  postcss_transformer: '^0.1.1'
+  quiver: '^0.22.0'
 transformers:
 - postcss_transformer:
 #    executable: ./node_modules/postcss-cli/bin/postcss

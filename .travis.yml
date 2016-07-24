@@ -1,9 +1,8 @@
 language: dart
 dart:
-  - dev
   - stable
 before_install:
-- export DISPLAY=:99.0
+  - export DISPLAY=:99.0
 install:
   - travis_retry pub get
   - travis_retry nvm install node
