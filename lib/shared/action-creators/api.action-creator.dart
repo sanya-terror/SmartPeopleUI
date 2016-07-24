@@ -1,7 +1,12 @@
 import 'package:SmartPeopleUI/redux/index.dart';
 
 import 'api.errors.dart';
-import 'package:SmartPeopleUI/index.dart';
+
+import 'package:SmartPeopleUI/index.dart'
+    show ERROR_BAD_REQUEST, ERROR_FORBIDDEN, ERROR_INTERNAL_SERVER,
+    ERROR_NOT_FOUND, ERROR_REMOVE_BAD_REQUEST, ERROR_REMOVE_INTERNAL_SERVER,
+    ERROR_REMOVE_NOT_FOUND, ERROR_REMOVE_UNAUTHORIZED, ERROR_UNAUTHORIZED,
+    ERROR_REMOVE_FORBIDDEN;
 
 class ApiAction extends Action {
 
@@ -26,7 +31,8 @@ class ApiErrorAction extends Action {
       ERROR_UNAUTHORIZED,
       ERROR_FORBIDDEN,
       ERROR_NOT_FOUND,
-      ERROR_INTERNAL_SERVER
+      ERROR_INTERNAL_SERVER,
+      ERROR_REMOVE_FORBIDDEN
     ];
 
     if (!allowedActions.contains(type))
@@ -72,6 +78,8 @@ class ApiActionCreator {
 
   static ApiErrorAction forbiddenAction(ApiError error) =>
       new ApiErrorAction(ERROR_FORBIDDEN, error);
+
+  static Action forbiddenCleanAction() => new Action(ERROR_REMOVE_FORBIDDEN);
 
   static ApiErrorAction internalServerErrorAction(ApiError error) =>
       new ApiErrorAction(ERROR_INTERNAL_SERVER, error);

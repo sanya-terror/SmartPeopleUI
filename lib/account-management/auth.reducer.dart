@@ -1,5 +1,7 @@
-import 'package:SmartPeopleUI/redux/index.dart';
-import 'package:SmartPeopleUI/shared/actions.dart';
+import 'package:SmartPeopleUI/redux/index.dart' show State, Action;
+
+import 'package:SmartPeopleUI/shared/actions.dart'
+    show LOGIN_REQUEST, LOGOUT_SUCCESS, LOGIN_FAILURE, LOGIN_SUCCESS;
 
 class AuthReducer {
   static State reduce(State state, Action action) {

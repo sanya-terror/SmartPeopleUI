@@ -15,6 +15,9 @@ class ApiErrorsReducer {
         return new State.from(state)
           ..['isAuthenticated'] = false
           ..['isUnauthorizedError'] = true;
+      case ERROR_FORBIDDEN:
+        return new State.from(state)
+          ..['isForbiddenError'] = true;
       case ERROR_REMOVE_UNAUTHORIZED:
         return new State.from(state)
           ..remove('isUnauthorizedError');
@@ -38,6 +41,9 @@ class ApiErrorsReducer {
               ..remove('isInternalServerError')
               ..remove('errorMessage')
               ..remove('errorStackTrace');
+      case ERROR_REMOVE_FORBIDDEN:
+        return new State.from(state)
+          ..remove('isForbiddenError');
 
   default:
         return state;

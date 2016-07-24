@@ -30,6 +30,9 @@ class DemoService {
     if (email == 'unauthorized@test.com')
       return new shelf.Response(401, body: 'Access denied');
 
+    if (email == 'forbidden@test.com')
+      return new shelf.Response(403, body: 'Such action is forbidden');
+
     if (email == 'badrequest@test.com')
       return new shelf.Response(400, body: 'Invalid email');
 

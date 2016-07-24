@@ -2,16 +2,18 @@ import 'package:angular2/angular2.dart'
    show Component, Control, ControlGroup, Validators;
 
 import 'package:SmartPeopleUI/index.dart'
-   show EmailValidator, FormComponent,
-   RestoreAccessActionCreator, RestoreAccessData,
-   InputComponent, ButtonComponent, SharedActionCreator;
+   show EmailValidator, FormComponent, RestoreAccessActionCreator,
+   RestoreAccessData, InputComponent, ButtonComponent, SharedActionCreator;
 
-import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart'
+    show InjectableStore;
 
 @Component(
-selector: 'sp-restore-access-email',
-directives: const[ InputComponent, ButtonComponent ],
-templateUrl: 'restore-access-email.component.html')
+    selector: 'sp-restore-access-email',
+    directives: const[InputComponent, ButtonComponent],
+    templateUrl: 'restore-access-email.component.html'
+)
+
 class RestoreAccessEmailComponent extends FormComponent {
 
    final InjectableStore _store;

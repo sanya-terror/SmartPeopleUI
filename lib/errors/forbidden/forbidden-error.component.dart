@@ -3,16 +3,16 @@ import 'package:angular2/router.dart' show Router;
 
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
 import 'package:SmartPeopleUI/index.dart' show ApiActionCreator, DialogAction;
-import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog.component.dart';
-import 'package:SmartPeopleUI/redux/index.dart';
+import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog.component.dart' show DialogComponent;
+import 'package:SmartPeopleUI/redux/index.dart' show State;
 
 @Component(
-    selector: 'sp-unauthorized-error',
-    templateUrl: 'unathorized-error.component.html',
+    selector: 'sp-forbidden-error',
+    templateUrl: 'forbidden-error.component.html',
     directives: const[DialogComponent]
 )
 
-class UnauthorizedErrorComponent implements OnInit{
+class ForbiddenErrorComponent implements OnInit{
 
   @ViewChild(DialogComponent)
   DialogComponent dialog;
@@ -24,17 +24,19 @@ class UnauthorizedErrorComponent implements OnInit{
 
   List<DialogAction> dialogActions = [];
 
-  UnauthorizedErrorComponent(this._store, this._router);
+  ForbiddenErrorComponent(this._store, this._router);
 
   @override
   ngOnInit() {
-    dialogActions.add(new DialogAction('Sign in', _onSignInClick));
 
-    _store.where((state) => state['isUnauthorizedError'] != null).listen(_onUnauthorizedError);
+    dialogActions.add(new DialogAction('Sign in', _onSignInClick));
+    dialogActions.add(new DialogAction('Close', _onCloseClick));
+
+    _store.where((state) => state['isForbiddenError'] != null).listen(_onForbiddenError);
   }
 
-  _onUnauthorizedError(State state){
-    if (_isShown || !state['isUnauthorizedError']) return;
+  _onForbiddenError(State state){
+    if (_isShown || !state['isForbiddenError']) return;
     
     _isShown = true;
     dialog.showModal();
@@ -44,9 +46,13 @@ class UnauthorizedErrorComponent implements OnInit{
     _router.navigate(['Login']);
     dialog.close();
   }
+
+  _onCloseClick() {
+    dialog.close();
+  }
   
   onClose(){
-    _store.dispatch(ApiActionCreator.unauthorizedCleanAction());
+    _store.dispatch(ApiActionCreator.forbiddenCleanAction());
     _isShown = false;
   }
 }
