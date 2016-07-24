@@ -3,6 +3,8 @@
 # Fast fail the script on failures.
 set -e -o pipefail
 
+CHANNEL=stable
+
 echo Fetch Dart channel: $CHANNEL
 
 URL_PREFIX=https://storage.googleapis.com/dart-archive/channels/$CHANNEL/release/latest
