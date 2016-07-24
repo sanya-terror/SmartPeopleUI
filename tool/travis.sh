@@ -23,6 +23,9 @@ export DARTIUM_BIN="$PWD/chromium/chrome"
 
 ln -s DARTIUM_BIN dartium
 
+echo Dartium
+dartium
+
 echo Pub install
 pub install
 
