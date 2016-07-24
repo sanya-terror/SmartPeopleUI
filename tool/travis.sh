@@ -19,7 +19,9 @@ mv dartium-* chromium
 
 export DART_SDK="$PWD/dart-sdk"
 export PATH="$DART_SDK/bin:$PATH"
-export DARTIUM_BIN="$PWD/dartium/chrome"
+export DARTIUM_BIN="$PWD/chromium/chrome"
+
+ln -s /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
 
 echo Pub install
 pub install
