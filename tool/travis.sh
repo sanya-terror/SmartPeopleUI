@@ -19,12 +19,14 @@ mv dartium-* chromium
 
 export DART_SDK="$PWD/dart-sdk"
 export PATH="$DART_SDK/bin:$PATH"
-export DARTIUM_BIN="$PWD/chromium/chrome"
-export DARTIUM="$PWD/chromium/dartium"
+
+export DARTIUM_PATH="$PWD/chromium"
+export DARTIUM_BIN="$DARTIUM_PATH/chrome"
+export DARTIUM="$DARTIUM_PATH/dartium"
 
 ln -s $DARTIUM_BIN $DARTIUM
 
-export PATH=$PATH:$DARTIUM
+export PATH=$PATH:$DARTIUM_PATH
 
 echo path $PATH
 
