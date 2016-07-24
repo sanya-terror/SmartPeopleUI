@@ -3,9 +3,6 @@
 # Fast fail the script on failures.
 set -e -o pipefail
 
-AVAILABLE_DART_VERSION=$(curl "https://storage.googleapis.com/dart-archive/channels/$CHANNEL/release/latest/VERSION" | python -c \
-    'import sys, json; print(json.loads(sys.stdin.read())["version"])')
-
 echo Fetch Dart channel: $CHANNEL
 
 URL_PREFIX=https://storage.googleapis.com/dart-archive/channels/$CHANNEL/release/latest
