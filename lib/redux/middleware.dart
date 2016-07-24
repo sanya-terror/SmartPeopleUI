@@ -1,6 +1,3 @@
-import 'dart:mirrors';
-
-@MirrorsUsed()
 import 'package:fp/fp.dart' show compose;
 
 import 'store.dart';

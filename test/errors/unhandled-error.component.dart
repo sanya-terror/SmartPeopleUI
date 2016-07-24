@@ -1,8 +1,5 @@
 import 'dart:html';
-import 'dart:mirrors';
-
 import 'package:test/test.dart';
-@MirrorsUsed()
 import 'package:mockito/mockito.dart';
 
 import '../helpers/mocks.dart' as mocks;

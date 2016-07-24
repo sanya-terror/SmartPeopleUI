@@ -1,5 +1,3 @@
-@MirrorsUsed() import 'dart:mirrors';
-
 @MirrorsUsed() import 'package:angular2/angular2.dart' show provide;
 @MirrorsUsed() import 'package:angular2/router.dart' show ROUTER_PROVIDERS;
 @MirrorsUsed() import 'package:angular2/platform/browser.dart' show bootstrap;

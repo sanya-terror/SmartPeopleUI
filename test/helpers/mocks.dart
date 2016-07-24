@@ -1,6 +1,3 @@
-import 'dart:mirrors';
-
-@MirrorsUsed()
 import 'package:mockito/mockito.dart';
 import 'package:SmartPeopleUI/shared/index.dart';
 import 'package:angular2/router.dart';
