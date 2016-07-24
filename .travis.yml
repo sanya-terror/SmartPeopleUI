@@ -1,23 +1,16 @@
 language: dart
 dart:
-  - dev
   - stable
-sudo: false
-env:
-  - POSTCSS="postcss" POSTCSS_CLI="postcss-cli" AUTOPREFIXER="autoprefixer" NESTING="postcss-nesting"
+before_install:
+  - export DISPLAY=:99.0
 install:
   - travis_retry pub get
   - travis_retry nvm install node
-  - travis_retry npm install --global $POSTCSS $POSTCSS_CLI $AUTOPREFIXER $NESTING
-script: pub run grinder travis
-with_content_shell: true
+  - travis_retry npm install
+addons:
+  firefox: latest
 before_script:
-  - chmod u+s /usr/bin/sudo
-before_install:
-  - export CHROME_BIN=/usr/bin/google-chrome
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-  - sudo apt-get update
-  - sudo apt-get install -y libappindicator1 fonts-liberation
-  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-  - sudo dpkg -i google-chrome*.deb
+  - chmod +x tool/travis.sh
+
+script:
+  - tool/travis.sh

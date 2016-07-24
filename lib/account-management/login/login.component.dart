@@ -1,6 +1,5 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/common.dart';
-import 'package:angular2/router.dart';
 
 import 'package:SmartPeopleUI/shared/index.dart';
 import 'package:SmartPeopleUI/account-management/index.dart';
