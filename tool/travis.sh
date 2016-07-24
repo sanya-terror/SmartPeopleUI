@@ -32,8 +32,6 @@ dartanalyzer --fatal-warnings \
   test/*.dart
 
 # Run browser tests
-export DISPLAY=:99.0
-sh -e /etc/init.d/xvfb start
 pub run test -p dartium
 
 # Verify the coverage of the tests.
