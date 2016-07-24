@@ -21,6 +21,8 @@ export DART_SDK="$PWD/dart-sdk"
 export PATH="$DART_SDK/bin:$PATH"
 export DARTIUM_BIN="$PWD/chromium/chrome"
 
+ln -s DARTIUM_BIN dartium
+
 echo Pub install
 pub install
 
