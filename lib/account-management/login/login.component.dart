@@ -1,16 +1,9 @@
 import 'package:angular2/core.dart' show Component, ViewEncapsulation;
 import 'package:angular2/common.dart' show ControlGroup, Control, Validators;
 
-import 'package:SmartPeopleUI/shared/index.dart'
-    show FormComponent, EmailValidator, PasswordValidator;
-
-import 'package:SmartPeopleUI/account-management/index.dart'
-    show AuthActionCreator;
-
-import 'package:SmartPeopleUI/shared/components/controls/index.dart'
-    show InputComponent, CheckboxComponent, LinkComponent, CardComponent,
-    ButtonComponent;
-
+import 'package:SmartPeopleUI/index.dart'
+    show FormComponent, EmailValidator, PasswordValidator, AuthActionCreator,
+    InputComponent, CheckboxComponent, LinkComponent, CardComponent, ButtonComponent;
 
 import 'package:SmartPeopleUI/redux/index.dart' show State;
 

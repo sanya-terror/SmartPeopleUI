@@ -6,7 +6,8 @@ import 'package:SmartPeopleUI/index.dart'
     NameValidator, EmailValidator, PasswordValidator,
     SharedActionCreator, SignUpActionCreator, SignUpData;
 
-import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart';
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart'
+   show InjectableStore;
 
 @Component(
     selector: 'sp-sign-up-form',

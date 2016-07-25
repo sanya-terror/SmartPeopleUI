@@ -4,10 +4,10 @@ import 'package:angular2/router.dart';
 import 'index.dart'
     show AuthActionCreator, ButtonComponent, DrawerComponent, Link, LoginComponent,
     MainComponent, NotFoundErrorComponent, RestoreAccessComponent, SignUpComponent,
-    State, ForbiddenErrorComponent, UnhandledErrorComponent;
+    State, ForbiddenErrorComponent, UnhandledErrorComponent, UnauthorizedErrorComponent;
 
-import 'package:SmartPeopleUI/errors/unauthorized/index.dart' show UnauthorizedErrorComponent;
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
+
 import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog-manager.dart' show DialogManager;
 
 @Component(

@@ -1,5 +1,4 @@
-import 'package:angular2/common.dart';
-import 'package:angular2/core.dart';
+import 'package:angular2/common.dart' show AbstractControl;
 
 class RestoreCodeValidator {
   static Map<String, bool> validate(AbstractControl control) {
