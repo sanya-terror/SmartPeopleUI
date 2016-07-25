@@ -1,5 +1,7 @@
-import 'package:SmartPeopleUI/redux/index.dart';
-import 'package:SmartPeopleUI/shared/actions.dart';
+import 'package:SmartPeopleUI/redux/index.dart' show State, Action;
+
+import 'package:SmartPeopleUI/shared/actions.dart'
+    show LOGIN_REQUEST, LOGOUT_SUCCESS, LOGIN_FAILURE, LOGIN_SUCCESS;
 
 class AuthReducer {
   static State reduce(State state, Action action) {
@@ -17,7 +19,6 @@ class AuthReducer {
           ..['errorCode'] = null;
 
       case LOGIN_FAILURE:
-        print(action.data);
         return new State.from(state)
           ..['isFetching'] = false
           ..['isAuthenticated'] = false

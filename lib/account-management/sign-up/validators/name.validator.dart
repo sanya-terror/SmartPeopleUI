@@ -1,4 +1,4 @@
-import 'package:angular2/common.dart';
+import 'package:angular2/common.dart' show AbstractControl;
 
 class NameValidator {
   static Map<String, bool> validate(AbstractControl control) {

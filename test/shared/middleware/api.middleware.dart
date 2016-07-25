@@ -6,7 +6,6 @@ import 'package:http/http.dart';
 
 import 'package:SmartPeopleUI/shared/index.dart';
 import 'package:SmartPeopleUI/redux/index.dart';
-import 'package:SmartPeopleUI/account-management/auth.action-creator.dart';
 
 import '../../helpers/mocks.dart';
 

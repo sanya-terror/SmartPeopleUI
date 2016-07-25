@@ -60,6 +60,13 @@ class ApiActionCreatorTests {
           expect(result.data.containsKey('stackTrace'), isTrue);
         });
 
+        test('Should return forbidden error clean action', () {
+          Action result = ApiActionCreator
+              .forbiddenCleanAction();
+          expect(result.type, ERROR_REMOVE_FORBIDDEN);
+          expect(result.data, null);
+        });
+
         test('Should return not found error action', () {
           Action result = ApiActionCreator
           .notFoundAction(new ApiError(404, 'Some error message!'));

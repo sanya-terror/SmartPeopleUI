@@ -1,25 +1,29 @@
-import 'package:angular2/core.dart';
-import 'package:angular2/common.dart';
+import 'package:angular2/core.dart' show Component, ViewEncapsulation;
+import 'package:angular2/common.dart' show ControlGroup, Control, Validators;
 
-import 'package:SmartPeopleUI/shared/index.dart';
-import 'package:SmartPeopleUI/account-management/index.dart';
-import 'package:SmartPeopleUI/shared/components/controls/index.dart';
+import 'package:SmartPeopleUI/index.dart'
+    show FormComponent, EmailValidator, PasswordValidator, AuthActionCreator,
+    InputComponent, CheckboxComponent, LinkComponent, CardComponent, ButtonComponent;
+
 import 'package:SmartPeopleUI/redux/index.dart' show State;
 
-import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart'
+    show InjectableStore;
 
 @Component(
     selector: 'sp-login',
     directives: const [
-      InputComponent,
-      CheckboxComponent,
-      LinkComponent,
-      CardComponent,
-      ButtonComponent
+       InputComponent,
+       CheckboxComponent,
+       LinkComponent,
+       CardComponent,
+       ButtonComponent
     ],
     templateUrl: 'login.component.html',
     encapsulation: ViewEncapsulation.Emulated,
-    styleUrls: const ['login.component.css'])
+    styleUrls: const ['login.component.css']
+)
+
 class LoginComponent extends FormComponent {
 
   ControlGroup form;

@@ -1,27 +1,31 @@
 import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
-import 'index.dart' show AuthActionCreator, ButtonComponent, DrawerComponent, Link, LoginComponent,
-  MainComponent, NotFoundErrorComponent, RestoreAccessComponent, SignUpComponent, State;
+import 'index.dart'
+    show AuthActionCreator, ButtonComponent, DrawerComponent, Link, LoginComponent,
+    MainComponent, NotFoundErrorComponent, RestoreAccessComponent, SignUpComponent,
+    State, ForbiddenErrorComponent, UnhandledErrorComponent, UnauthorizedErrorComponent;
 
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
-import 'package:SmartPeopleUI/errors/unauthorized/unathorized-error.component.dart' show UnauthorizedErrorComponent;
-import 'package:SmartPeopleUI/errors/unhadled/unhandled-error.component.dart' show UnhandledErrorComponent;
+
 import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog-manager.dart' show DialogManager;
 
 @Component(
     selector: 'sp-app',
     directives: const [
       ROUTER_DIRECTIVES,
-      MainComponent,
-      DrawerComponent,
       ButtonComponent,
+      DrawerComponent,
+      ForbiddenErrorComponent,
+      MainComponent,
       UnauthorizedErrorComponent,
       UnhandledErrorComponent
     ],
     providers: const [InjectableStore, DialogManager],
     templateUrl: 'app.component.html',
-    styleUrls: const ['app.component.css'])
+    styleUrls: const ['app.component.css']
+)
+
 @RouteConfig(const [
   const Route(
       path: '/', name: 'Home', component: SignUpComponent, useAsDefault: true),
