@@ -80,7 +80,7 @@ class ForbiddenErrorTests {
         });
       });
 
-      group('Dialof actions ', () {
+      group('Dialog actions ', () {
         setUp(() {
           component.ngOnInit();
 
