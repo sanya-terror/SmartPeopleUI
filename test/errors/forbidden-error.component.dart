@@ -81,19 +81,16 @@ class ForbiddenErrorTests {
       });
 
       group('Dialog actions ', () {
-        setUp(() {
-          component.ngOnInit();
-
-          var signInAction = component.dialogActions[0];
-          signInAction.execute();
-
-          var clickAction = component.dialogActions[1];
-          clickAction.execute();
-
-        });
-
+  
+        setUp(() => component.ngOnInit());
+  
         group('Sign up ', () {
-
+  
+          setUp(() {
+            var signInAction = component.dialogActions[0];
+            signInAction.execute();
+          });
+          
           test('Should go to login page after sign in click action', () {
             verify(mockRouter.navigate(['Login']));
           });
@@ -104,6 +101,10 @@ class ForbiddenErrorTests {
         });
 
         test('Should close dialog after close click action', () {
+  
+          var closeAction = component.dialogActions[1];
+          closeAction.execute();
+  
           verify(mockDialog.close());
         });
       });
