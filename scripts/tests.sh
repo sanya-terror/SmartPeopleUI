@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo Path $PATH
+
 # Run browser tests
 pub run test -p dartium
 

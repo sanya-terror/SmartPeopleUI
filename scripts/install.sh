@@ -28,7 +28,4 @@ ln -s $DARTIUM_BIN $DARTIUM
 
 export PATH=$PATH:$DARTIUM_PATH
 
-echo Pub install
-pub install
-
 sh -e /etc/init.d/xvfb start
