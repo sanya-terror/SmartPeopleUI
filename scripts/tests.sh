@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+export DARTIUM_PATH="$PWD/chromium"
+export DARTIUM_BIN="$DARTIUM_PATH/chrome"
+export DARTIUM="$DARTIUM_PATH/dartium"
+
+ln -s $DARTIUM_BIN $DARTIUM
+
+export PATH=$PATH:$DARTIUM_PATH
+
 echo Path $PATH
 
 # Run browser tests
