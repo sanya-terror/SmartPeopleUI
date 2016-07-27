@@ -9,6 +9,7 @@ install:
   - travis_retry npm install
 before_script:
   - chmod +x scripts/**/*.sh
+  - ls scripts
   - ./scripts/build/install.sh
 script:
   - ./scripts/build/analyze.sh
