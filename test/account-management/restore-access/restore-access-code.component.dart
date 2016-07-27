@@ -8,12 +8,11 @@ import '../../helpers/matchers.dart';
 class RestoreAccessCodeComponentTests {
   static run() {
     group('Restore access code component', () {
-
       var mockStore;
       var code = 'QWERTY12';
 
       RestoreAccessCodeComponent component;
-      setUp((){
+      setUp(() {
         mockStore = getMockStore();
         component = new RestoreAccessCodeComponent(mockStore);
         component.codeControl.updateValue(code);
@@ -24,7 +23,6 @@ class RestoreAccessCodeComponentTests {
       });
 
       test('Should subscribe on state change when apply code', () {
-
         var subscriptionStream = _mockSubscription(mockStore);
 
         component.applyCode();
@@ -43,16 +41,14 @@ class RestoreAccessCodeComponentTests {
       });
 
       test('Should apply code', () {
-
         component.applyCode();
 
-        var isValidAction = predicate((action) => action.type == RESTORE_ACCESS_APPLY_CODE && action.data['code'] == code);
+        var isValidAction =
+            predicate((action) => action.type == RESTORE_ACCESS_APPLY_CODE && action.data['code'] == code);
         expect(verify(mockStore.dispatch(argThat(isValidAction))).callCount, 1);
-
       });
 
       test('Should not apply code and subscribe when form is invalid', () {
-
         component.form.setErrors({'some_error': 'error'});
 
         var subscriptionStream = _mockSubscription(mockStore);
@@ -66,7 +62,6 @@ class RestoreAccessCodeComponentTests {
   }
 
   static _mockSubscription(mockStore) {
-
     var mappedStream = getStream();
     var filteredStream = getStream();
     var takenStream = getStream();

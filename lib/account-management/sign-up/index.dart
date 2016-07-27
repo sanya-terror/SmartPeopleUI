@@ -4,4 +4,3 @@ export 'sign-up-form/index.dart';
 export 'sign-up.action-creator.dart';
 export 'sign-up.reducer.dart';
 export 'sign-up.component.dart';
-

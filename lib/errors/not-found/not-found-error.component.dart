@@ -5,11 +5,8 @@ import 'package:SmartPeopleUI/index.dart' show ApiActionCreator;
 @Component(
     selector: 'sp-not-found-error',
     templateUrl: 'not-found-error.component.html',
-    styleUrls: const['not-found-error.component.css']
-)
-
-class NotFoundErrorComponent implements OnDestroy{
-
+    styleUrls: const ['not-found-error.component.css'])
+class NotFoundErrorComponent implements OnDestroy {
   final InjectableStore _store;
 
   NotFoundErrorComponent(this._store);

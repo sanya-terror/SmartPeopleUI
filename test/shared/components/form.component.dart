@@ -15,8 +15,7 @@ class FormComponentTests {
       FormComponent component = new FormComponent();
 
       setUp(() {
-        mockControl = spy(
-            new MockControl(), new Control(''));
+        mockControl = spy(new MockControl(), new Control(''));
       });
 
       _mockValid(bool valid) {
@@ -49,9 +48,7 @@ class FormComponentTests {
           bool valid = testCase['valid'];
           bool result = testCase['result'];
 
-          test(
-              'Should check if control is valid. Untoched: $untouched, valid: $valid, result: $result',
-              () {
+          test('Should check if control is valid. Untoched: $untouched, valid: $valid, result: $result', () {
             when(mockControl.untouched).thenReturn(untouched);
             when(mockControl.valid).thenReturn(valid);
             expect(component.isValid(mockControl), result);
@@ -73,12 +70,9 @@ class FormComponentTests {
           bool result = testCase['result'];
           bool valid = !invalid;
 
-          test(
-              'Should check if control is required. Invalid: $invalid, required: $required, result: $result',
-              () {
+          test('Should check if control is required. Invalid: $invalid, required: $required, result: $result', () {
             _mockValid(valid);
-            when(mockControl.errors)
-                .thenReturn(required ? {'required': true} : {});
+            when(mockControl.errors).thenReturn(required ? {'required': true} : {});
 
             expect(component.isRequired(mockControl), result);
           });
@@ -103,8 +97,7 @@ class FormComponentTests {
               'Should check if control length is insufficient. Invalid: $invalid, minlength: $minLength, result: $result',
               () {
             _mockValid(valid);
-            when(mockControl.errors)
-                .thenReturn(minLength ? {'minlength': true} : {});
+            when(mockControl.errors).thenReturn(minLength ? {'minlength': true} : {});
 
             expect(component.isInsufficientLength(mockControl), result);
           });
@@ -123,12 +116,10 @@ class FormComponentTests {
           bool result = testCase['result'];
           bool valid = !invalid;
 
-          test(
-              'Should check if control length is excess. Invalid: $invalid, maxlength: $maxLength, result: $result',
+          test('Should check if control length is excess. Invalid: $invalid, maxlength: $maxLength, result: $result',
               () {
             _mockValid(valid);
-            when(mockControl.errors)
-                .thenReturn(maxLength ? {'maxlength': true} : {});
+            when(mockControl.errors).thenReturn(maxLength ? {'maxlength': true} : {});
 
             expect(component.isLengthExcess(mockControl), result);
           });
@@ -148,9 +139,7 @@ class FormComponentTests {
           bool required = testCase['required'];
           bool result = testCase['result'];
 
-          test(
-              'Should check if non required error. Valid: $valid, required: $required, result: $result',
-              () {
+          test('Should check if non required error. Valid: $valid, required: $required, result: $result', () {
             _mockValid(valid);
 
             var errors = _getRequiredError(required);
@@ -163,41 +152,11 @@ class FormComponentTests {
 
       group('Does control have non-range error', () {
         var hasRangeErrorTestCases = [
-          {
-            'valid': false,
-            'required': false,
-            'minlength': false,
-            'maxlength': false,
-            'result': false
-          },
-          {
-            'valid': false,
-            'required': false,
-            'minlength': false,
-            'maxlength': true,
-            'result': true
-          },
-          {
-            'valid': false,
-            'required': false,
-            'minlength': true,
-            'maxlength': false,
-            'result': true
-          },
-          {
-            'valid': false,
-            'required': true,
-            'minlength': false,
-            'maxlength': false,
-            'result': true
-          },
-          {
-            'valid': true,
-            'required': false,
-            'minlength': false,
-            'maxlength': false,
-            'result': true
-          }
+          {'valid': false, 'required': false, 'minlength': false, 'maxlength': false, 'result': false},
+          {'valid': false, 'required': false, 'minlength': false, 'maxlength': true, 'result': true},
+          {'valid': false, 'required': false, 'minlength': true, 'maxlength': false, 'result': true},
+          {'valid': false, 'required': true, 'minlength': false, 'maxlength': false, 'result': true},
+          {'valid': true, 'required': false, 'minlength': false, 'maxlength': false, 'result': true}
         ];
 
         hasRangeErrorTestCases.forEach((testCase) {
@@ -209,8 +168,7 @@ class FormComponentTests {
 
           test(
               'Should check if non-range error. '
-              'Valid: $valid, required: $required, minlength: $minlength, maxlength: $maxlength, result: $result',
-              () {
+              'Valid: $valid, required: $required, minlength: $minlength, maxlength: $maxlength, result: $result', () {
             _mockValid(valid);
 
             var errors = {}
@@ -227,8 +185,7 @@ class FormComponentTests {
 
       group('Are controls equal each other', () {
         setUp(() {
-          mockControlToCompare = spy(new MockControl(),
-              new NgControlName(null, null, null, null));
+          mockControlToCompare = spy(new MockControl(), new NgControlName(null, null, null, null));
         });
 
         var isEqualTestCases = [
@@ -241,14 +198,11 @@ class FormComponentTests {
           String value2 = testCase['value2'];
           bool result = testCase['result'];
 
-          test(
-              'Should check whether the controls are equal. Value1: $value1, value2: $value2, $result',
-              () {
+          test('Should check whether the controls are equal. Value1: $value1, value2: $value2, $result', () {
             when(mockControl.value).thenReturn(value1);
             when(mockControlToCompare.value).thenReturn(value2);
 
-            expect(
-                component.isEqual(mockControl, mockControlToCompare), result);
+            expect(component.isEqual(mockControl, mockControlToCompare), result);
           });
         });
       });

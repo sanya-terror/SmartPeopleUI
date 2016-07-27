@@ -4,27 +4,18 @@ import 'package:SmartPeopleUI/index.dart';
 
 class ApiErrorsReducerTests {
   static run() {
-
     group('Api errors reducer', () {
-
       group('Not found', () {
-
-        var initialState = new State({
-          'some':'property',
-          'isResourceNotFoundError': null,
-        });
+        var initialState = new State({'some': 'property', 'isResourceNotFoundError': null,});
 
         List<Map<String, dynamic>> cases = [
           {
             'action': new Action(ERROR_NOT_FOUND),
-            'result': new State({
-              'some':'property',
-              'isResourceNotFoundError': true,
-            })
+            'result': new State({'some': 'property', 'isResourceNotFoundError': true,})
           },
           {
             'action': new Action(ERROR_REMOVE_NOT_FOUND),
-            'result': new State({'some':'property'})
+            'result': new State({'some': 'property'})
           }
         ];
 
@@ -40,24 +31,16 @@ class ApiErrorsReducerTests {
       });
 
       group('Unauthorized', () {
-
-        var initialState = new State({
-          'some':'property',
-          'isUnauthorizedError': null,
-        });
+        var initialState = new State({'some': 'property', 'isUnauthorizedError': null,});
 
         List<Map<String, dynamic>> cases = [
           {
             'action': new Action(ERROR_UNAUTHORIZED),
-            'result': new State({
-              'some':'property',
-              'isUnauthorizedError': true,
-              'isAuthenticated': false
-            })
+            'result': new State({'some': 'property', 'isUnauthorizedError': true, 'isAuthenticated': false})
           },
           {
             'action': new Action(ERROR_REMOVE_UNAUTHORIZED),
-            'result': new State({'some':'property'})
+            'result': new State({'some': 'property'})
           },
         ];
 
@@ -73,23 +56,16 @@ class ApiErrorsReducerTests {
       });
 
       group('Forbidden', () {
-
-        var initialState = new State({
-          'some':'property',
-          'isForbiddenError': null,
-        });
+        var initialState = new State({'some': 'property', 'isForbiddenError': null,});
 
         List<Map<String, dynamic>> cases = [
           {
             'action': new Action(ERROR_FORBIDDEN),
-            'result': new State({
-              'some':'property',
-              'isForbiddenError': true
-            })
+            'result': new State({'some': 'property', 'isForbiddenError': true})
           },
           {
             'action': new Action(ERROR_REMOVE_FORBIDDEN),
-            'result': new State({'some':'property'})
+            'result': new State({'some': 'property'})
           },
         ];
 
@@ -105,22 +81,15 @@ class ApiErrorsReducerTests {
       });
 
       group('Internal server error', () {
-
-        var initialState = new State({
-          'some':'property',
-          'isInternalServerError': null,
-          'errorStackTrace': null,
-          'errorMessage': null
-        });
+        var initialState = new State(
+            {'some': 'property', 'isInternalServerError': null, 'errorStackTrace': null, 'errorMessage': null});
 
         List<Map<String, dynamic>> cases = [
           {
-            'action': new Action(ERROR_INTERNAL_SERVER, {
-              'message': 'Internal server errror',
-              'stackTrace': 'Internal server error stack trace',
-            }),
+            'action': new Action(ERROR_INTERNAL_SERVER,
+                {'message': 'Internal server errror', 'stackTrace': 'Internal server error stack trace',}),
             'result': new State({
-              'some':'property',
+              'some': 'property',
               'isInternalServerError': true,
               'errorStackTrace': 'Internal server error stack trace',
               'errorMessage': 'Internal server errror'
@@ -128,7 +97,7 @@ class ApiErrorsReducerTests {
           },
           {
             'action': new Action(ERROR_REMOVE_INTERNAL_SERVER),
-            'result': new State({'some':'property'})
+            'result': new State({'some': 'property'})
           }
         ];
 
@@ -144,22 +113,15 @@ class ApiErrorsReducerTests {
       });
 
       group('Bad request', () {
-
-        var initialState = new State({
-          'some':'property',
-          'isBadRequestError': null,
-          'errorStackTrace': null,
-          'errorMessage': null
-        });
+        var initialState =
+            new State({'some': 'property', 'isBadRequestError': null, 'errorStackTrace': null, 'errorMessage': null});
 
         List<Map<String, dynamic>> cases = [
           {
-            'action': new Action(ERROR_BAD_REQUEST, {
-              'message': 'Bad request message',
-              'stackTrace': 'bad request stack trace',
-            }),
+            'action': new Action(
+                ERROR_BAD_REQUEST, {'message': 'Bad request message', 'stackTrace': 'bad request stack trace',}),
             'result': new State({
-              'some':'property',
+              'some': 'property',
               'isBadRequestError': true,
               'errorStackTrace': 'bad request stack trace',
               'errorMessage': 'Bad request message'
@@ -167,7 +129,7 @@ class ApiErrorsReducerTests {
           },
           {
             'action': new Action(ERROR_REMOVE_BAD_REQUEST),
-            'result': new State({'some':'property'})
+            'result': new State({'some': 'property'})
           }
         ];
 

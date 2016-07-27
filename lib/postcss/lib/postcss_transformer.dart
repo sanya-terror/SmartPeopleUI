@@ -11,14 +11,9 @@ class _Configuration {
   final String outputExtension;
   final List<String> executableArgs;
 
-  _Configuration._({
-    this.executable,
-    this.inputExtension,
-    this.outputExtension,
-    this.executableArgs
-  });
+  _Configuration._({this.executable, this.inputExtension, this.outputExtension, this.executableArgs});
 
-  factory _Configuration.fromConfig(Map<String,dynamic> config) {
+  factory _Configuration.fromConfig(Map<String, dynamic> config) {
     final String executable = config['executable'] ?? 'postcss';
     final String inputExtension = config['input_extension'] ?? '.css';
     final String outputExtension = config['output_extension'] ?? inputExtension;
@@ -28,10 +23,10 @@ class _Configuration {
     }
 
     final List<String> executableArgs = [];
-    final Iterable<Map<String,String>> arguments = config['arguments'];
-    arguments.forEach((Map<String,String> argument) {
+    final Iterable<Map<String, String>> arguments = config['arguments'];
+    arguments.forEach((Map<String, String> argument) {
       argument.forEach((String k, String v) {
-        if (k == 'option'){
+        if (k == 'option') {
           executableArgs.add('--${v.toString()}');
         } else {
           executableArgs.add('--$k');
@@ -47,8 +42,7 @@ class _Configuration {
         executableArgs: executableArgs);
   }
 
-  String toString() =>
-      "<_Configuration "
+  String toString() => "<_Configuration "
       "executable:$executable "
       "inputExtension:$inputExtension "
       "outputExtension:$outputExtension>";
@@ -60,27 +54,24 @@ class PostcssTransformer extends Transformer implements DeclaringTransformer {
 
   String get allowedExtensions => _configuration.inputExtension;
 
-  PostcssTransformer.asPlugin(BarbackSettings s) :
-      _settings = s,
-      _configuration = new _Configuration.fromConfig(s.configuration);
+  PostcssTransformer.asPlugin(BarbackSettings s)
+      : _settings = s,
+        _configuration = new _Configuration.fromConfig(s.configuration);
 
   Future apply(Transform transform) async {
     final Asset asset = transform.primaryInput;
 
-    final Process process = await Process
-        .start(_configuration.executable, _configuration.executableArgs, runInShell: true);
+    final Process process =
+        await Process.start(_configuration.executable, _configuration.executableArgs, runInShell: true);
 
     asset.read().pipe(process.stdin);
 
-    process.stdout
-        .listen((data) {
+    process.stdout.listen((data) {
       final AssetId newId = _outputId(asset.id);
       transform.addOutput(new Asset.fromBytes(newId, data));
     });
 
-    process.stderr
-        .transform(UTF8.decoder)
-        .listen((data) {
+    process.stderr.transform(UTF8.decoder).listen((data) {
       final String command = "${_configuration.executable} ${_configuration.executableArgs.join(" ")}";
       transform.logger.error("Command: $command\nstderr:\n$data", asset: asset.id);
     });

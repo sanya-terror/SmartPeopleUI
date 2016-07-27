@@ -7,12 +7,9 @@ import '../../helpers/angular.dart' as ng;
 import '../../helpers/mocks.dart';
 import '../../helpers/matchers.dart';
 
-
 class SignUpCodeComponentTests {
-
   static run() {
     group('Sign up code component view', () {
-
       ng.initAngularTests();
 
       ng.setUpProviders(SignUpCodeComponent);
@@ -21,14 +18,13 @@ class SignUpCodeComponentTests {
       Element _element;
       ComponentFixture _fixture;
 
-      ngSetUp((TestComponentBuilder tcb) async{
-        _fixture  = await tcb.createAsync(SignUpCodeComponent);
+      ngSetUp((TestComponentBuilder tcb) async {
+        _fixture = await tcb.createAsync(SignUpCodeComponent);
         _component = _fixture.componentInstance;
         _element = _fixture.nativeElement;
       });
 
-      ngTest('Should init correcr view', ()  {
-
+      ngTest('Should init correcr view', () {
         _fixture.detectChanges();
 
         expect(_element.querySelector('form .description'), isNotNull, reason: 'No description found');
@@ -38,30 +34,28 @@ class SignUpCodeComponentTests {
       });
 
       var testCases = [
-        { 'isApplyingCodeError': true, 'result': isNotNull},
-        { 'isApplyingCodeError': false, 'result': isNull}
+        {'isApplyingCodeError': true, 'result': isNotNull},
+        {'isApplyingCodeError': false, 'result': isNull}
       ];
 
-      testCases.forEach((testCase){
+      testCases.forEach((testCase) {
         var isApplyingCodeError = testCase['isApplyingCodeError'];
         var result = testCase['result'];
 
-        ngTest('Should show isUserAlreadyExists error: $isApplyingCodeError', ()  {
+        ngTest('Should show isUserAlreadyExists error: $isApplyingCodeError', () {
           _component.isApplyingCodeError = isApplyingCodeError;
           _fixture.detectChanges();
           expect(_element.querySelector('form sp-input .error'), result);
         });
       });
-
     });
 
     group('Sign up code component', () {
-
       var mockStore;
       var code = 'QWERTY12';
 
       SignUpCodeComponent component;
-      setUp((){
+      setUp(() {
         mockStore = getMockStore();
         component = new SignUpCodeComponent(mockStore);
         component.codeControl.updateValue(code);
@@ -110,26 +104,21 @@ class SignUpCodeComponentTests {
           onStateChange(data);
 
           var isValidLoginRequestAction = predicate((action) {
-            return  action.type == LOGIN_REQUEST
-                && action.data['user'] == email
-                && action.data['password'] == password;
+            return action.type == LOGIN_REQUEST && action.data['user'] == email && action.data['password'] == password;
           });
           expect(verify(mockStore.dispatch(argThat(isValidLoginRequestAction))).callCount, 1);
         });
-
       });
 
       test('Should confirm code', () {
-
         component.confirmCode();
 
-        var isValidConfirmCodeAction = predicate((action) => action.type == SIGN_UP_APPLY_CONFIRMATION_CODE && action.data['code'] == code);
+        var isValidConfirmCodeAction =
+            predicate((action) => action.type == SIGN_UP_APPLY_CONFIRMATION_CODE && action.data['code'] == code);
         expect(verify(mockStore.dispatch(argThat(isValidConfirmCodeAction))).callCount, 1);
-
       });
 
       test('Should not apply code and subscribe when form is invalid', () {
-
         component.form.setErrors({'some_error': 'error'});
 
         var subscriptionStream = _mockSubscription(mockStore);
@@ -143,7 +132,6 @@ class SignUpCodeComponentTests {
   }
 
   static _mockSubscription(mockStore) {
-
     var mappedStream = getStream();
     var filteredStream = getStream();
     var takenStream = getStream();

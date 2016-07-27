@@ -6,8 +6,7 @@ import 'package:http/http.dart';
 
 import 'package:SmartPeopleUI/redux/index.dart';
 import 'package:SmartPeopleUI/shared/index.dart'
-    show ApiAction, ApiActionCreator, AuthorizationError,
-    ApiError, LocalStorageService, SessionStorageService;
+    show ApiAction, ApiActionCreator, AuthorizationError, ApiError, LocalStorageService, SessionStorageService;
 import 'package:SmartPeopleUI/account-management/index.dart';
 
 import 'package:SmartPeopleUI/shared/actions.dart';
@@ -26,18 +25,17 @@ class ApiMiddleware {
   }
 
   dynamic apply(Store store) => (Dispatcher next) => (Action action) async {
-    if (action.type == LOGIN_REQUEST) return next(await _tryAuthorize(action));
-    if (action.type == LOGIN_CHECK) return _checkLogin(next);
-    if (!(action is ApiAction)) return next(action);
+        if (action.type == LOGIN_REQUEST) return next(await _tryAuthorize(action));
+        if (action.type == LOGIN_CHECK) return _checkLogin(next);
+        if (!(action is ApiAction)) return next(action);
 
-    return next(await _tryCallApi(action));
-  };
+        return next(await _tryCallApi(action));
+      };
 
   dynamic _checkLogin(Dispatcher next) {
     String token = _localStorage.getItem(TOKEN_KEY) ?? _sessionStorage.getItem(TOKEN_KEY);
 
-    if (token == null)
-      return {};
+    if (token == null) return {};
 
     return next(AuthActionCreator.receiveLogin());
   }
@@ -51,8 +49,7 @@ class ApiMiddleware {
       String token = result['token'];
       int error = result['errorCode'];
 
-      if (token == null)
-        return AuthActionCreator.loginError(error);
+      if (token == null) return AuthActionCreator.loginError(error);
 
       if (rememberMe)
         _localStorage.setItem(TOKEN_KEY, token);
@@ -91,12 +88,10 @@ class ApiMiddleware {
 
     switch (method) {
       case 'POST':
-        response = await _httpClient.post(url,
-            headers: _headers, body: JSON.encode(body));
+        response = await _httpClient.post(url, headers: _headers, body: JSON.encode(body));
         break;
       case 'PUT':
-        response = await _httpClient.put(url,
-            headers: _headers, body: JSON.encode(body));
+        response = await _httpClient.put(url, headers: _headers, body: JSON.encode(body));
         break;
       case 'DELETE':
         response = await _httpClient.delete(url, headers: _headers);
@@ -105,8 +100,7 @@ class ApiMiddleware {
         response = await _httpClient.get(url, headers: _headers);
     }
 
-    if (response.statusCode != 200)
-      throw new ApiError(response.statusCode, response.body);
+    if (response.statusCode != 200) throw new ApiError(response.statusCode, response.body);
 
     return JSON.decode(response.body);
   }

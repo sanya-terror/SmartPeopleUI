@@ -17,7 +17,6 @@ class MockNgControlName extends Mock implements NgControlName {
 class LoginComponentTests {
   static run() {
     group('Login component view', () {
-
       ng.initAngularTests();
 
       ng.setUpProviders(LoginComponent);
@@ -26,69 +25,70 @@ class LoginComponentTests {
       Element _element;
       ComponentFixture _fixture;
 
-      ngSetUp((TestComponentBuilder tcb) async{
-        _fixture  = await tcb.overrideDirective(LoginComponent, LinkComponent, EmptyComponent)
-            .createAsync(LoginComponent);
+      ngSetUp((TestComponentBuilder tcb) async {
+        _fixture =
+            await tcb.overrideDirective(LoginComponent, LinkComponent, EmptyComponent).createAsync(LoginComponent);
         _component = _fixture.componentInstance;
         _element = _fixture.nativeElement;
       });
 
-      ngTest('Should init correcr view', ()  {
-
+      ngTest('Should init correcr view', () {
         _fixture.detectChanges();
 
         var baseSelector = 'div.login > sp-card.login-card';
 
         expect(_element.querySelector('$baseSelector[title]'), isNotNull, reason: 'No title found');
-        expect(_element.querySelector('$baseSelector .notification.error'), isNull, reason: 'No notification error found');
+        expect(_element.querySelector('$baseSelector .notification.error'), isNull,
+            reason: 'No notification error found');
         expect(_element.querySelector('$baseSelector .content'), isNotNull, reason: 'No content found');
-        expect(_element.querySelector('$baseSelector .content sp-input[name="email"]'), isNotNull, reason: 'No email input found');
-        expect(_element.querySelector('$baseSelector .content sp-input[name="email"] .error'), isNull, reason: 'No email input error found');
-        expect(_element.querySelector('$baseSelector .content sp-input[name="password"]'), isNotNull, reason: 'No password input found');
-        expect(_element.querySelector('$baseSelector .content sp-input[name="password"] .error'), isNull, reason: 'No password input error found');
+        expect(_element.querySelector('$baseSelector .content sp-input[name="email"]'), isNotNull,
+            reason: 'No email input found');
+        expect(_element.querySelector('$baseSelector .content sp-input[name="email"] .error'), isNull,
+            reason: 'No email input error found');
+        expect(_element.querySelector('$baseSelector .content sp-input[name="password"]'), isNotNull,
+            reason: 'No password input found');
+        expect(_element.querySelector('$baseSelector .content sp-input[name="password"] .error'), isNull,
+            reason: 'No password input error found');
         expect(_element.querySelector('$baseSelector .content sp-button'), isNotNull, reason: 'No button found');
         expect(_element.querySelector('$baseSelector .content sp-checkbox'), isNotNull, reason: 'No checkbox found');
         expect(_element.querySelector('$baseSelector .extra-actions'), isNotNull, reason: 'No extra actions found');
-        expect(_element.querySelector('$baseSelector .extra-actions #sign-up'), isNotNull, reason: 'No sign up link found');
-        expect(_element.querySelector('$baseSelector .extra-actions #restore-access'), isNotNull, reason: 'No restore access link found');
+        expect(_element.querySelector('$baseSelector .extra-actions #sign-up'), isNotNull,
+            reason: 'No sign up link found');
+        expect(_element.querySelector('$baseSelector .extra-actions #restore-access'), isNotNull,
+            reason: 'No restore access link found');
       });
 
       var testCases = [
         {
-          'state': { 'isInvalidCredentialsError': false },
-          'resultSelectors': {'notification': isNull }
+          'state': {'isInvalidCredentialsError': false},
+          'resultSelectors': {'notification': isNull}
         },
         {
-          'state': { 'isInvalidCredentialsError': true },
-          'resultSelectors': {'notification': isNotNull }
+          'state': {'isInvalidCredentialsError': true},
+          'resultSelectors': {'notification': isNotNull}
         }
       ];
 
-      testCases.forEach((testCase){
+      testCases.forEach((testCase) {
         var state = testCase['state'];
         var resultSelectors = testCase['resultSelectors'];
 
-        ngTest('Should apply correct view state. State: $state', ()  {
-
+        ngTest('Should apply correct view state. State: $state', () {
           _component.isInvalidCredentialsError = state['isInvalidCredentialsError'];
 
           _fixture.detectChanges();
 
-          expect(_element.querySelector('.notification.error'), resultSelectors['notification'], reason: 'Wrong notification error component state');
+          expect(_element.querySelector('.notification.error'), resultSelectors['notification'],
+              reason: 'Wrong notification error component state');
         });
       });
     });
 
     group('Login component', () {
-
       var mockStore;
       var subscriptionStream;
 
-      var data = {
-        'user': 'test@test.com',
-        'password': '1q2w3e4r',
-        'rememberMe': true
-      };
+      var data = {'user': 'test@test.com', 'password': '1q2w3e4r', 'rememberMe': true};
 
       LoginComponent component;
 
@@ -153,10 +153,10 @@ class LoginComponentTests {
         component.login();
 
         var isRequestLoginAction = predicate((action) {
-          return action.type == LOGIN_REQUEST
-              && action.data['user'] == data['user']
-              && action.data['password'] == data['password']
-              && action.data['rememberMe'] == data['rememberMe'];
+          return action.type == LOGIN_REQUEST &&
+              action.data['user'] == data['user'] &&
+              action.data['password'] == data['password'] &&
+              action.data['rememberMe'] == data['rememberMe'];
         });
 
         expect(verify(mockStore.dispatch(argThat(isRequestLoginAction))).callCount, 1);
@@ -176,9 +176,7 @@ class LoginComponentTests {
 
     when(mockStore.take(1)).thenReturn(takenStream);
     return takenStream;
-
   }
-
 }
 
 void main() {

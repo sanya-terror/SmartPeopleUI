@@ -3,22 +3,26 @@ import 'package:angular2/router.dart' show Router;
 import 'package:angular2_rbi/directives.dart' show MaterialButton;
 
 @Component(
-   selector: 'sp-button',
-   templateUrl: 'button.component.html',
-   directives: const [ MaterialButton],
-   styleUrls: const ['button.component.css'])
+    selector: 'sp-button',
+    templateUrl: 'button.component.html',
+    directives: const [MaterialButton],
+    styleUrls: const ['button.component.css'])
 class ButtonComponent {
-   @Input() String label;
-   @Input() List<String> route;
-   @Input() bool accent = false;
-   @Input() bool fill = false;
+  @Input()
+  String label;
+  @Input()
+  List<String> route;
+  @Input()
+  bool accent = false;
+  @Input()
+  bool fill = false;
 
-   Router _router;
+  Router _router;
 
-   ButtonComponent(this._router);
+  ButtonComponent(this._router);
 
-   onClick() {
-      if (route == null) return;
-      _router.navigate(route);
-   }
+  onClick() {
+    if (route == null) return;
+    _router.navigate(route);
+  }
 }

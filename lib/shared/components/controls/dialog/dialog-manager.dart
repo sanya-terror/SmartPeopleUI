@@ -14,8 +14,7 @@ class DialogManager {
   StreamSubscription dmKeyDown;
 
   DialogManager() {
-    overlay = new DivElement()
-      ..classes.add('_dialog_overlay');
+    overlay = new DivElement()..classes.add('_dialog_overlay');
     dmOverlayClick = overlay.onClick.listen((event) {
 //      print('dm overlay clicked');
       event.stopPropagation();
@@ -42,7 +41,7 @@ class DialogManager {
       List<InputElement> candidates = [document.activeElement, event.target];
       List elementTypes = ['BUTTON', 'INPUT'];
       Iterable<InputElement> els = candidates.where((InputElement candidate) =>
-      candidate != null &&
+          candidate != null &&
           candidate.form == event.target &&
           elementTypes.contains(candidate.nodeName.toUpperCase()));
       for (InputElement item in els) {
@@ -59,8 +58,7 @@ class DialogManager {
   }
 
   DialogWrapper wrapperFromElement(Element el) =>
-      pendingDialogStack.firstWhere((DialogWrapper item) => item.dialog == el,
-          orElse: () => null);
+      pendingDialogStack.firstWhere((DialogWrapper item) => item.dialog == el, orElse: () => null);
 
   Element topDialogElement() {
     if (pendingDialogStack.isNotEmpty) {
@@ -155,5 +153,4 @@ class DialogManager {
     }
     return null;
   }
-
 }

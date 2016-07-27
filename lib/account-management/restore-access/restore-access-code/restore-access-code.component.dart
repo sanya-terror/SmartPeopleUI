@@ -1,53 +1,46 @@
-import 'package:angular2/angular2.dart'
-    show Component, Control, ControlGroup, Validators;
+import 'package:angular2/angular2.dart' show Component, Control, ControlGroup, Validators;
 
 import 'package:SmartPeopleUI/index.dart'
-    show ButtonComponent, FormComponent, InputComponent,
-    RestoreAccessActionCreator, RestoreAccessData, RestoreCodeValidator;
+    show
+        ButtonComponent,
+        FormComponent,
+        InputComponent,
+        RestoreAccessActionCreator,
+        RestoreAccessData,
+        RestoreCodeValidator;
 
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
 
 @Component(
     selector: 'sp-restore-access-code',
     directives: const [InputComponent, ButtonComponent],
-    templateUrl: 'restore-access-code.component.html'
-)
+    templateUrl: 'restore-access-code.component.html')
+class RestoreAccessCodeComponent extends FormComponent {
+  final InjectableStore _store;
 
-class RestoreAccessCodeComponent extends FormComponent{
+  bool isInvalidCode = false;
 
-   final InjectableStore _store;
+  Control codeControl;
 
-   bool isInvalidCode = false;
+  ControlGroup form;
 
-   Control codeControl;
+  RestoreAccessCodeComponent(this._store) {
+    this.codeControl = new Control('', Validators.compose([RestoreCodeValidator.validate, Validators.required]));
 
-   ControlGroup form;
+    this.form = new ControlGroup({'code': this.codeControl});
+  }
 
-   RestoreAccessCodeComponent(this._store) {
-      this.codeControl = new Control('',
-          Validators.compose([
-             RestoreCodeValidator.validate,
-             Validators.required
-          ]));
+  _onStateChange(RestoreAccessData data) {
+    isInvalidCode = data.errorCode == 2222;
+  }
 
-      this.form = new ControlGroup({ 'code': this.codeControl});
-   }
+  applyCode() {
+    if (!form.valid) return;
 
-   _onStateChange(RestoreAccessData data){
-      isInvalidCode = data.errorCode == 2222;
-   }
+    _subscribeOnceForRestoreAccessData();
+    _store.dispatch(RestoreAccessActionCreator.applyRestoreCode(codeControl.value));
+  }
 
-   applyCode() {
-      if (!form.valid) return;
-
-      _subscribeOnceForRestoreAccessData();
-      _store.dispatch(RestoreAccessActionCreator.applyRestoreCode(codeControl.value));
-   }
-
-   _subscribeOnceForRestoreAccessData() =>
-       _store
-         .map((state) => state['restoreAccess'])
-         .where((data) => data != null)
-         .take(1)
-         .listen(_onStateChange);
+  _subscribeOnceForRestoreAccessData() =>
+      _store.map((state) => state['restoreAccess']).where((data) => data != null).take(1).listen(_onStateChange);
 }
