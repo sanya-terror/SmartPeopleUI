@@ -8,10 +8,10 @@ install:
   - travis_retry nvm install node
   - travis_retry npm install
 before_script:
-  - chmod +x scripts/*.sh
-  - scripts/install.sh
+  - chmod +x scripts/build/*.sh
+  - scripts/build/install.sh
 script:
-  - scripts/analyze.sh
-  - scripts/lint.sh
-  - scripts/build.sh
-  - scripts/tests.sh
+  - scripts/build/analyze.sh
+  - scripts/build/lint.sh
+  - scripts/build/build.sh
+  - scripts/build/tests.sh
