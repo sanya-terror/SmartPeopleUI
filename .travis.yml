@@ -13,4 +13,5 @@ before_script:
 script:
   - scripts/analyze.sh
   - scripts/lint.sh
+  - scripts/build.sh
   - scripts/tests.sh
