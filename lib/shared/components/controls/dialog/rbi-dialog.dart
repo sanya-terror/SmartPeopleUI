@@ -104,7 +104,7 @@ class DialogWrapper implements OnInit {
       setPosition();
     }
     setOpen(true);
-    doAutofocus();
+//    doAutofocus();
     if (alignment == MAGIC_ALIGNMENT) {
       dialog.scrollIntoView(ScrollAlignment.CENTER);
     }
