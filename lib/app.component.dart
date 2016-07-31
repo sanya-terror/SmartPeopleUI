@@ -43,8 +43,6 @@ import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog-manager.d
   const Route(path: '/account/sign-up', name: 'SignUp', component: SignUpComponent)
 ])
 class AppComponent implements OnInit {
-  @ViewChild(UnauthorizedErrorComponent)
-  UnauthorizedErrorComponent unauthorizedDialog;
 
   final InjectableStore _store;
   final Router _router;
