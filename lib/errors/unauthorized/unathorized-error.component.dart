@@ -24,25 +24,25 @@ class UnauthorizedErrorComponent implements OnInit {
   UnauthorizedErrorComponent(this._store, this._router);
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     dialogActions.add(new DialogAction('Sign in', _onSignInClick));
 
     _store.where((state) => state['isUnauthorizedError'] != null).listen(_onUnauthorizedError);
   }
 
-  _onUnauthorizedError(State state) {
+  void _onUnauthorizedError(State state) {
     if (_isShown || !state['isUnauthorizedError']) return;
 
     _isShown = true;
     dialog.showModal();
   }
 
-  _onSignInClick() {
+  void _onSignInClick() {
     _router.navigate(['Login']);
     dialog.close();
   }
 
-  onClose() {
+  void onClose() {
     _store.dispatch(ApiActionCreator.unauthorizedCleanAction());
     _isShown = false;
   }

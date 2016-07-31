@@ -44,7 +44,7 @@ class LoginComponent extends FormComponent {
     this.form = new ControlGroup({'email': emailControl, 'password': passwordControl, 'rememberMe': rememberMeControl});
   }
 
-  _onStateChange(State state) {
+  void _onStateChange(State state) {
     isInvalidCredentialsError = state['errorCode'] == 7777;
 
     if (!isInvalidCredentialsError) {
@@ -55,7 +55,7 @@ class LoginComponent extends FormComponent {
     }
   }
 
-  login() {
+  void login() {
     if (!form.valid) return;
 
     _store.dispatch(AuthActionCreator.requestLogin(

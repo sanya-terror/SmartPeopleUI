@@ -12,7 +12,7 @@ class NotFoundErrorComponent implements OnDestroy {
   NotFoundErrorComponent(this._store);
 
   @override
-  ngOnDestroy() {
+  void ngOnDestroy() {
     _store.dispatch(ApiActionCreator.notFoundCleanAction());
   }
 }

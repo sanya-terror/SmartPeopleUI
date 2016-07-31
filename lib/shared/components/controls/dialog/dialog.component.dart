@@ -20,21 +20,21 @@ class DialogComponent {
   @ViewChild(DialogWrapper)
   DialogWrapper dialog;
 
-  showModal() {
+  void showModal() {
     _subscribeOnClose();
     dialog.showModal();
   }
 
-  show() {
+  void show() {
     _subscribeOnClose();
     dialog.show();
   }
 
-  close() {
+  void close() {
     dialog.close();
   }
 
-  _subscribeOnClose() {
+  void _subscribeOnClose() {
     dialog.dialog.on['close'].take(1).listen(onClose.emit);
   }
 }

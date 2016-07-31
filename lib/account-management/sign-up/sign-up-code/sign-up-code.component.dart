@@ -29,7 +29,7 @@ class SignUpCodeComponent extends FormComponent {
     this.form = new ControlGroup({'code': this.codeControl});
   }
 
-  _onStateChange(SignUpData data) {
+  void _onStateChange(SignUpData data) {
     isApplyingCodeError = data.errorCode == 4444;
     if (!isApplyingCodeError) {
       _store.dispatch(SignUpActionCreator.clearSignUp());
@@ -37,14 +37,14 @@ class SignUpCodeComponent extends FormComponent {
     }
   }
 
-  confirmCode() {
+  void confirmCode() {
     if (!form.valid) return;
 
     _subscribeOnceForSignUpData();
     _store.dispatch(SignUpActionCreator.applyConfirmationCode(codeControl.value));
   }
 
-  _subscribeOnceForSignUpData() {
+  void _subscribeOnceForSignUpData() {
     _store.map((state) => state['signUp']).where((data) => data != null).take(1).listen(_onStateChange);
   }
 }

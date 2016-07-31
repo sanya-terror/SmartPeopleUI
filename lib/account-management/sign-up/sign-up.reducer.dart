@@ -18,7 +18,7 @@ class SignUpData {
     this.errorCode = data.errorCode;
   }
 
-  toString() {
+  String toString() {
     return '{ password: $password, signUpToken: $signUpToken, isConfirmationCodeResend: $isConfirmationCodeResent, errorCode: $errorCode }';
   }
 }

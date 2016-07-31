@@ -1,3 +1,5 @@
+import 'dart:async' show Future;
+
 import 'package:angular2/core.dart' show Component, OnInit, OnDestroy;
 import 'package:SmartPeopleUI/index.dart'
     show LinkComponent, CardComponent, SignUpData, SignUpActionCreator, SignUpCodeComponent, SignUpFormComponent;
@@ -18,20 +20,20 @@ class SignUpComponent implements OnInit, OnDestroy {
 
   SignUpComponent(this._store);
 
-  ngOnInit() {
+  void ngOnInit() {
     _store.map((state) => state['signUp']).where((data) => data != null).listen(_onStateChange);
   }
 
-  _onStateChange(SignUpData signUp) {
+  void _onStateChange(SignUpData signUp) {
     isFormSent = signUp.errorCode != 3333;
     isConfirmationCodeResent = signUp.isConfirmationCodeResent;
     isConfirmationCodeResentError = signUp.errorCode == 5555;
   }
 
-  resendCode() => _store.dispatch(SignUpActionCreator.resendConfirmCode(_store.state['signUp'].signUpToken));
+  Future resendCode() => _store.dispatch(SignUpActionCreator.resendConfirmCode(_store.state['signUp'].signUpToken));
 
-  setDefault() => _store.dispatch(SignUpActionCreator.clearSignUp());
+  Future setDefault() => _store.dispatch(SignUpActionCreator.clearSignUp());
 
   @override
-  ngOnDestroy() => setDefault();
+  Future ngOnDestroy() => setDefault();
 }

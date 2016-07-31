@@ -21,7 +21,7 @@ class ButtonComponent {
 
   ButtonComponent(this._router);
 
-  onClick() {
+  void onClick() {
     if (route == null) return;
     _router.navigate(route);
   }

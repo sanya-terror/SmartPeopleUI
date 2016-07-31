@@ -1,3 +1,5 @@
+import 'dart:async' show Future, StreamSubscription;
+
 import 'package:angular2/angular2.dart' show Component, Control, ControlGroup, Validators;
 
 import 'package:SmartPeopleUI/index.dart'
@@ -30,11 +32,11 @@ class RestoreAccessEmailComponent extends FormComponent {
     this.form = new ControlGroup({'email': this.emailControl});
   }
 
-  _onStateChange(RestoreAccessData data) {
+  void _onStateChange(RestoreAccessData data) {
     isUserNotFound = data.errorCode == 1111;
   }
 
-  getCode() async {
+  Future getCode() async {
     if (!form.valid) return;
 
     String email = emailControl.value;
@@ -45,6 +47,6 @@ class RestoreAccessEmailComponent extends FormComponent {
     _subscribeOnceForRestoreAccessData();
   }
 
-  _subscribeOnceForRestoreAccessData() =>
+  StreamSubscription _subscribeOnceForRestoreAccessData() =>
       _store.map((state) => state['restoreAccess']).where((data) => data != null).take(1).listen(_onStateChange);
 }

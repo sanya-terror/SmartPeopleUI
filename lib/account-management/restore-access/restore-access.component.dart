@@ -1,3 +1,5 @@
+import 'dart:async' show Future;
+
 import 'package:angular2/core.dart' show Component, OnDestroy, OnInit, ViewEncapsulation;
 
 import 'package:SmartPeopleUI/index.dart'
@@ -25,17 +27,17 @@ class RestoreAccessComponent implements OnInit, OnDestroy {
 
   RestoreAccessComponent(this._store);
 
-  ngOnInit() {
+  void ngOnInit() {
     _store.map((state) => state['restoreAccess']).where((data) => data != null).listen(_onStateChange);
   }
 
-  _onStateChange(RestoreAccessData restoreAccess) {
+  void _onStateChange(RestoreAccessData restoreAccess) {
     isCodeSent = restoreAccess.isCodeSent;
     isCodeApplied = restoreAccess.changePasswordToken != null;
   }
 
-  setDefault() => _store.dispatch(RestoreAccessActionCreator.clearRestoreAccess());
+  Future setDefault() => _store.dispatch(RestoreAccessActionCreator.clearRestoreAccess());
 
   @override
-  ngOnDestroy() => setDefault();
+  Future ngOnDestroy() => setDefault();
 }

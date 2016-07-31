@@ -1,3 +1,5 @@
+import 'dart:async' show Future;
+
 import 'package:angular2/angular2.dart' show Component, Control, ControlGroup, Validators;
 
 import 'package:SmartPeopleUI/index.dart'
@@ -36,7 +38,7 @@ class ChangePasswordComponent extends FormComponent {
     this.form = new ControlGroup({'password': this.passwordControl, 'passwordRepeat': this.passwordRepeatControl});
   }
 
-  _onStateChange(RestoreAccessData data) async {
+  Future _onStateChange(RestoreAccessData data) async {
     isPasswordChangingError = data.errorCode == 3333;
 
     if (!isPasswordChangingError) {
@@ -46,7 +48,7 @@ class ChangePasswordComponent extends FormComponent {
     }
   }
 
-  applyPasswordChanging() {
+  void applyPasswordChanging() {
     if (!form.valid) return;
 
     String restoreToken = (_store.state['restoreAccess'] as RestoreAccessData)?.changePasswordToken;

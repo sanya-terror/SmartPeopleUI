@@ -60,7 +60,7 @@ class AppComponent implements OnInit {
   AppComponent(this._store, this._router);
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     _store.listen(_onStateChanged);
     _store.dispatch(AuthActionCreator.checkLogin());
   }

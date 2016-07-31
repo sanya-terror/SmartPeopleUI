@@ -26,7 +26,7 @@ class Store extends Stream<State> {
     _controller = new StreamController.broadcast();
   }
 
-  get state => _currentState;
+  State get state => _currentState;
 
   Map<Action, bool> _isMiddlewareExecutingByAction = {};
 
@@ -51,7 +51,7 @@ class Store extends Stream<State> {
     return await () => action;
   }
 
-  replaceReducer() {
+  void replaceReducer() {
     //TODO AN: if we really need it
     throw new UnimplementedError();
   }

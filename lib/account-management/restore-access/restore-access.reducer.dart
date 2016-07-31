@@ -18,7 +18,7 @@ class RestoreAccessData {
     this.errorCode = data.errorCode;
   }
 
-  toString() {
+  String toString() {
     return '{ email: $email, isCodeSent: $isCodeSent, changePasswordToken: $changePasswordToken, errorCode: '
         '$errorCode }';
   }

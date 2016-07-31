@@ -22,30 +22,30 @@ class ForbiddenErrorComponent implements OnInit {
   ForbiddenErrorComponent(this._store, this._router);
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     dialogActions.add(new DialogAction('Sign in', _onSignInClick));
     dialogActions.add(new DialogAction('Close', _onCloseClick));
 
     _store.where((state) => state['isForbiddenError'] != null).listen(_onForbiddenError);
   }
 
-  _onForbiddenError(State state) {
+  void _onForbiddenError(State state) {
     if (_isShown || !state['isForbiddenError']) return;
 
     _isShown = true;
     dialog.showModal();
   }
 
-  _onSignInClick() {
+  void _onSignInClick() {
     _router.navigate(['Login']);
     dialog.close();
   }
 
-  _onCloseClick() {
+  void _onCloseClick() {
     dialog.close();
   }
 
-  onClose() {
+  void onClose() {
     _store.dispatch(ApiActionCreator.forbiddenCleanAction());
     _isShown = false;
   }

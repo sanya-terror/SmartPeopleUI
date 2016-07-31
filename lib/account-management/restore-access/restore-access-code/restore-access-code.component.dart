@@ -1,3 +1,5 @@
+import 'dart:async' show StreamSubscription;
+
 import 'package:angular2/angular2.dart' show Component, Control, ControlGroup, Validators;
 
 import 'package:SmartPeopleUI/index.dart'
@@ -30,17 +32,17 @@ class RestoreAccessCodeComponent extends FormComponent {
     this.form = new ControlGroup({'code': this.codeControl});
   }
 
-  _onStateChange(RestoreAccessData data) {
+  void _onStateChange(RestoreAccessData data) {
     isInvalidCode = data.errorCode == 2222;
   }
 
-  applyCode() {
+  void vapplyCode() {
     if (!form.valid) return;
 
     _subscribeOnceForRestoreAccessData();
     _store.dispatch(RestoreAccessActionCreator.applyRestoreCode(codeControl.value));
   }
 
-  _subscribeOnceForRestoreAccessData() =>
+  StreamSubscription _subscribeOnceForRestoreAccessData() =>
       _store.map((state) => state['restoreAccess']).where((data) => data != null).take(1).listen(_onStateChange);
 }

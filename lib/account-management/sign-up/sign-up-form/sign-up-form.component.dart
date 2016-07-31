@@ -1,3 +1,5 @@
+import 'dart:async' show Future;
+
 import 'package:angular2/angular2.dart' show Component, OnInit, Control, ControlGroup, Validators;
 
 import 'package:SmartPeopleUI/index.dart'
@@ -54,15 +56,15 @@ class SignUpFormComponent extends FormComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  void ngOnInit() {
     _store.map((state) => state['signUp']).where((data) => data != null).listen(_onStateChange);
   }
 
-  _onStateChange(SignUpData data) {
+  void _onStateChange(SignUpData data) {
     isUserAlreadyExists = data.errorCode == 3333;
   }
 
-  sendForm() async {
+  Future sendForm() async {
     if (!form.valid) return;
 
     await _store.dispatch(SignUpActionCreator.sendSignUpData({

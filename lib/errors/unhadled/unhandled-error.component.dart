@@ -1,3 +1,5 @@
+import 'dart:async' show Future;
+
 import 'package:angular2/core.dart' show Component, OnInit, ViewChild;
 
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
@@ -28,14 +30,14 @@ class UnhandledErrorComponent implements OnInit {
   UnhandledErrorComponent(this._store);
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     dialogActions.add(new DialogAction('Close', _onCloseClick));
     _store
         .where((state) => state['isBadRequestError'] != null || state['isInternalServerError'] != null)
         .listen(_onUnhandledError);
   }
 
-  _onUnhandledError(State state) {
+  void _onUnhandledError(State state) {
     if (_isShown) return;
 
     var isBadRequest = state['isBadRequestError'] == null ? false : state['isBadRequestError'];
@@ -51,19 +53,19 @@ class UnhandledErrorComponent implements OnInit {
     }
   }
 
-  _onCloseClick() {
+  void _onCloseClick() {
     dialog.close();
   }
 
-  showError(isShown) {
+  void showError(isShown) {
     isErrorShown = isShown;
   }
 
-  showStackTrace(isShown) {
+  void showStackTrace(isShown) {
     isStackTraceShown = isShown;
   }
 
-  onClose() async {
+  Future onClose() async {
     await _store.dispatch(ApiActionCreator.badRequestErrorCleanAction());
     await _store.dispatch(ApiActionCreator.internalServerErrorCleanAction());
 

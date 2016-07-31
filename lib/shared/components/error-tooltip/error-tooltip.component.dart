@@ -14,7 +14,7 @@ class ErrorTooltipComponent implements OnInit {
   ErrorTooltipComponent(this._element);
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     Element e = _element.nativeElement;
 
     var notificationStyle = e.querySelector('.error-tooltip').style;
