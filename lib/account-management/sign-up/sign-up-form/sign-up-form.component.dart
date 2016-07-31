@@ -3,7 +3,7 @@ import 'package:angular2/angular2.dart'
 
 import 'package:SmartPeopleUI/index.dart'
     show InputComponent, ButtonComponent, RadioButtonComponent, FormComponent,
-    NameValidator, EmailValidator, PasswordValidator,
+    UserNameValidator, EmailValidator, PasswordValidator,
     SharedActionCreator, SignUpActionCreator, SignUpData;
 
 import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart'
@@ -25,20 +25,16 @@ class SignUpFormComponent extends FormComponent implements OnInit {
    final InjectableStore _store;
 
    ControlGroup form;
-   Control nameControl;
-   Control surnameControl;
+   Control userNameControl;
    Control emailControl;
    Control passwordControl;
    Control passwordRepeatControl;
-   Control sexControl;
 
    bool isUserAlreadyExists = false;
 
    SignUpFormComponent(this._store) {
-      this.nameControl = new Control('',
-          Validators.compose([NameValidator.validate, Validators.required]));
-      this.surnameControl = new Control('',
-          Validators.compose([NameValidator.validate, Validators.required]));
+      this.userNameControl = new Control('',
+          Validators.compose([UserNameValidator.validate, Validators.required]));
       this.emailControl = new Control('',
           Validators.compose([EmailValidator.validate, Validators.required]));
       this.passwordControl = new Control('',
@@ -51,15 +47,12 @@ class SignUpFormComponent extends FormComponent implements OnInit {
       this.passwordRepeatControl = new Control('',
           Validators.compose(
               [PasswordValidator.validate, Validators.required]));
-      this.sexControl = new Control('male');
 
       this.form = new ControlGroup({
-         'name': this.nameControl,
-         'surname': this.surnameControl,
+         'userName': this.userNameControl,
          'email': this.emailControl,
          'password': this.passwordControl,
          'passwordRepeat': this.passwordRepeatControl,
-         'sex': this.sexControl
       });
    }
 
@@ -78,11 +71,9 @@ class SignUpFormComponent extends FormComponent implements OnInit {
       if (!form.valid) return;
 
       await _store.dispatch(SignUpActionCreator.sendSignUpData({
-         'name': nameControl.value,
-         'surname': surnameControl.value,
+         'userName': userNameControl.value,
          'user': emailControl.value,
          'password': passwordControl.value,
-         'sex': sexControl.value
       }));
 
       _store.dispatch(SharedActionCreator.saveEmail(emailControl.value));

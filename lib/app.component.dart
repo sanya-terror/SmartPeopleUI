@@ -48,9 +48,6 @@ import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog-manager.d
 ])
 class AppComponent implements OnInit{
 
-  @ViewChild(UnauthorizedErrorComponent)
-  UnauthorizedErrorComponent unauthorizedDialog;
-
   final InjectableStore _store;
   final Router _router;
   bool isAuthenticated = false;

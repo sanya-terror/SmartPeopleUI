@@ -28,18 +28,14 @@ class SignUpFormComponentTests {
 
         _fixture.detectChanges();
 
-        expect(_element.querySelector('form sp-input[name="name"]'), isNotNull, reason: 'No name input found');
-        expect(_element.querySelector('form sp-input[name="name"] .error'), isNull, reason: 'Name input error is found');
-        expect(_element.querySelector('form sp-input[name="surname"]'), isNotNull, reason: 'No surname input found');
-        expect(_element.querySelector('form sp-input[name="surname"] .error'), isNull, reason: 'Surname input error is found');
+        expect(_element.querySelector('form sp-input[name="userName"]'), isNotNull, reason: 'No user name input found');
+        expect(_element.querySelector('form sp-input[name="userName"] .error'), isNull, reason: 'User name input error is found');
         expect(_element.querySelector('form sp-input[name="email"]'), isNotNull, reason: 'No email input found');
         expect(_element.querySelector('form sp-input[name="email"] .error'), isNull, reason: 'Email input error is found');
         expect(_element.querySelector('form sp-input[name="password"]'), isNotNull, reason: 'No password input found');
         expect(_element.querySelector('form sp-input[name="parrword"] .error'), isNull, reason: 'Password input error is found');
         expect(_element.querySelector('form sp-input[name="password-repeat"]'), isNotNull, reason: 'No repeat password input found');
         expect(_element.querySelector('form sp-input[name="password-repeat"] .error'), isNull, reason: 'Repeat password input error is found');
-        expect(_element.querySelector('form sp-radio[label="Male"]'), isNotNull, reason: 'No repeat password input found');
-        expect(_element.querySelector('form sp-radio[label="Female"]'), isNotNull, reason: 'No repeat password input found');
         expect(_element.querySelector('form sp-button'), isNotNull, reason: 'No button found');
       });
 
@@ -65,12 +61,10 @@ class SignUpFormComponentTests {
 
       var mockStore;
       var data = {
-        'name': 'John',
-        'surname': 'Doe',
+        'userName': 'sanya-terror',
         'email': 'test@test.com',
         'password': '1q2w3e4r',
-        'passwordRepeat': '1q2w3e4r',
-        'sex': 'male'
+        'passwordRepeat': '1q2w3e4r'
       };
 
       SignUpFormComponent component;
@@ -78,21 +72,17 @@ class SignUpFormComponentTests {
       setUp((){
         mockStore = getMockStore();
         component = new SignUpFormComponent(mockStore);
-        component.nameControl.updateValue(data['name']);
-        component.surnameControl.updateValue(data['surname']);
+        component.userNameControl.updateValue(data['userName']);
         component.emailControl.updateValue(data['email']);
         component.passwordControl.updateValue(data['password']);
         component.passwordRepeatControl.updateValue(data['passwordRepeat']);
-        component.sexControl.updateValue(data['sex']);
       });
 
       test('Should add controls to form group', () {
-        expect(component.form.controls['name'], component.nameControl);
-        expect(component.form.controls['surname'], component.surnameControl);
+        expect(component.form.controls['userName'], component.userNameControl);
         expect(component.form.controls['email'], component.emailControl);
         expect(component.form.controls['password'], component.passwordControl);
         expect(component.form.controls['passwordRepeat'], component.passwordRepeatControl);
-        expect(component.form.controls['sex'], component.sexControl);
       });
 
       test('Should subscribe on change during initialization', () async {
@@ -122,11 +112,9 @@ class SignUpFormComponentTests {
             var actionData = action.data['signUpData'];
 
             return action.type == SIGN_UP_SEND_DATA
-                && actionData['name'] == data['name']
-                && actionData['surname'] == data['surname']
+                && actionData['userName'] == data['userName']
                 && actionData['user'] == data['email']
-                && actionData['password'] == data['password']
-                && actionData['sex'] == data['sex'];
+                && actionData['password'] == data['password'];
           });
 
           expect(verify(mockStore.dispatch(argThat(isValidSendSignUpFormAction))).callCount, 1);
