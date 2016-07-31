@@ -14,9 +14,15 @@ class DialogManager {
   StreamSubscription dmKeyDown;
 
   DialogManager() {
+    var dialogOverlayClassName = '_dialog_overlay';
     overlay = new DivElement()
-      ..classes.add('_dialog_overlay');
-    dmOverlayClick = overlay.onClick.listen((event) {
+      ..classes.add(dialogOverlayClassName);
+
+    dmOverlayClick = overlay.onClick.where((event) {
+      var target = event.target as Element;
+
+      return target.classes.contains(dialogOverlayClassName);
+    }).listen((Event event) {
 //      print('dm overlay clicked');
       event.stopPropagation();
       if (topDialog != null) {
