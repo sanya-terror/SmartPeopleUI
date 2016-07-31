@@ -3,6 +3,8 @@
 export DARTIUM_PATH="$PWD/chromium"
 export PATH=$PATH:$DARTIUM_PATH
 
+sh -e /etc/init.d/xvfb start
+
 # Run browser tests
 pub run test -p dartium
 
