@@ -1,5 +1,5 @@
 import 'package:angular2/core.dart' show Component, ViewEncapsulation;
-import 'package:angular2/common.dart' show ControlGroup, Control, Validators;
+import 'package:angular2/common.dart' show AbstractControl, Control, ControlGroup, Validators;
 
 import 'package:SmartPeopleUI/index.dart'
     show
@@ -48,8 +48,8 @@ class LoginComponent extends FormComponent {
     isInvalidCredentialsError = state['errorCode'] == 7777;
 
     if (!isInvalidCredentialsError) {
-      form.controls.forEach((name, control) {
-        control.updateValue('');
+      form.controls.forEach((String name, AbstractControl control) {
+        (control as Control).updateValue('');
         control.setErrors(null);
       });
     }

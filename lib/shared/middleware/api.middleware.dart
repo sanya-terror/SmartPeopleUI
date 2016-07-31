@@ -24,7 +24,7 @@ class ApiMiddleware {
     this._httpClient = (httpClient == null) ? new BrowserClient() : httpClient;
   }
 
-  dynamic apply(Store store) => (Dispatcher next) => (Action action) async {
+  Pipe apply(Store store) => (Dispatcher next) => (Action action) async {
         if (action.type == LOGIN_REQUEST) return next(await _tryAuthorize(action));
         if (action.type == LOGIN_CHECK) return _checkLogin(next);
         if (!(action is ApiAction)) return next(action);
@@ -77,7 +77,7 @@ class ApiMiddleware {
     }
   }
 
-  Future<dynamic> _callApi(String endpoint, String method,
+  Future<Map<String, dynamic>> _callApi(String endpoint, String method,
       {String token: null, Map<String, dynamic> body: const {}}) async {
     Map<String, String> _headers = {'Content-Type': 'application/json'};
     if (token != null) _headers['Authorization'] = token;
@@ -102,7 +102,7 @@ class ApiMiddleware {
 
     if (response.statusCode != 200) throw new ApiError(response.statusCode, response.body);
 
-    return JSON.decode(response.body);
+    return JSON.decode(response.body) as Map<String, dynamic>;
   }
 
   Action _handleError(error) {

@@ -23,15 +23,11 @@ class _Configuration {
     }
 
     final List<String> executableArgs = [];
-    final Iterable<Map<String, String>> arguments = config['arguments'];
+    final Iterable<Map<String, String>> arguments = config['arguments'] as Iterable<Map<String, String>>;
     arguments.forEach((Map<String, String> argument) {
       argument.forEach((String k, String v) {
-        if (k == 'option') {
-          executableArgs.add('--${v.toString()}');
-        } else {
-          executableArgs.add('--$k');
-          executableArgs.add(v.toString());
-        }
+        executableArgs.add('--$k');
+        executableArgs.add(v.toString());
       });
     });
 
@@ -49,14 +45,12 @@ class _Configuration {
 }
 
 class PostcssTransformer extends Transformer implements DeclaringTransformer {
-  final BarbackSettings _settings;
   final _Configuration _configuration;
 
   String get allowedExtensions => _configuration.inputExtension;
 
   PostcssTransformer.asPlugin(BarbackSettings s)
-      : _settings = s,
-        _configuration = new _Configuration.fromConfig(s.configuration);
+      : _configuration = new _Configuration.fromConfig(s.configuration as Map<String, dynamic>);
 
   Future apply(Transform transform) async {
     final Asset asset = transform.primaryInput;

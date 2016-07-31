@@ -6,11 +6,8 @@ typedef Pipe Middleware(Store store);
 
 Middleware applyMiddleware(List<Middleware> middlewares) {
   return (Store store) => (next) {
-        var chain = [];
-        chain = middlewares.map((middleware) => middleware(store)).toList();
-
-        var dispatch = compose(chain)(store.dispatch);
-
-        return dispatch;
+        var chain = middlewares.map((middleware) => middleware(store)).toList();
+        Dispatcher dispatcher = compose(chain)(store.dispatch) as Dispatcher;
+        return dispatcher;
       };
 }
