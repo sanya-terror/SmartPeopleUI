@@ -221,9 +221,9 @@ class StoreTests {
         var newAction = addRecordAction('String from middleware');
 
         Middleware rejectingMiddleware = (store) => (next) => (action) {
-              if (action.type == ACTION_TO_REJECT) return {};
-              return action != newAction ? next(newAction) : next(action);
-            };
+          if (action.type == ACTION_TO_REJECT) return {};
+          return action != newAction ? next(newAction) : next(action);
+        };
 
         Store store = new Store(testReducer, initialState: testState, middleware: rejectingMiddleware);
         await store.dispatch(new Action(ACTION_TO_REJECT));
@@ -243,9 +243,9 @@ class StoreTests {
         var newAction = addRecordAction('String from middleware');
 
         Middleware errorMiddleware = (store) => (next) => (action) {
-              if (action.type == ACTION_TO_ERROR) throw new Error();
-              return action != newAction ? next(newAction) : next(action);
-            };
+          if (action.type == ACTION_TO_ERROR) throw new Error();
+          return action != newAction ? next(newAction) : next(action);
+        };
 
         Store store = new Store(testReducer, initialState: testState, middleware: errorMiddleware);
 

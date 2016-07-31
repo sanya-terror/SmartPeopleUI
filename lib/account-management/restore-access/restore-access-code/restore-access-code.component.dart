@@ -36,7 +36,7 @@ class RestoreAccessCodeComponent extends FormComponent {
     isInvalidCode = data.errorCode == 2222;
   }
 
-  void vapplyCode() {
+  void applyCode() {
     if (!form.valid) return;
 
     _subscribeOnceForRestoreAccessData();

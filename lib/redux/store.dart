@@ -5,7 +5,7 @@ import 'reducer.dart';
 import 'middleware.dart';
 import 'state.dart';
 
-typedef Future<Function> Dispatcher(Action action);
+typedef Future<dynamic> Dispatcher(Action action);
 typedef Dispatcher Pipe(Dispatcher next);
 
 class Store extends Stream<State> {
@@ -30,7 +30,7 @@ class Store extends Stream<State> {
 
   Map<Action, bool> _isMiddlewareExecutingByAction = {};
 
-  Future<Function> dispatch(Action action) async {
+  Future<dynamic> dispatch(Action action) async {
     var isMiddlewareExecuting = _isMiddlewareExecutingByAction[action] ?? false;
 
     if (_middleware != null && !isMiddlewareExecuting) {

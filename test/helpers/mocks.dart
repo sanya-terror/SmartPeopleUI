@@ -34,7 +34,7 @@ class MockStream extends Mock implements Stream {
 
 getMockStore() {
   var mock = spy(new MockStore(), new InjectableStore(null, null));
-  when(mock.dispatch(argThat(anything))).thenReturn({});
+  when(mock.dispatch(argThat(anything))).thenReturn(new Future(() =>({})));
   return mock;
 }
 

@@ -3,11 +3,12 @@ import 'package:test/test.dart';
 
 import 'package:mockito/mockito.dart';
 import 'package:angular2_testing/angular2_testing.dart';
+import 'package:angular2/router.dart';
+import 'package:angular2/angular2.dart';
 
 import 'helpers/angular.dart' as ng;
 import 'helpers/mocks.dart' as mocks;
 import 'package:SmartPeopleUI/index.dart';
-import 'package:angular2/router.dart';
 
 class AppComponentTests {
   static run() {
@@ -21,7 +22,13 @@ class AppComponentTests {
       ComponentFixture _fixture;
 
       ngSetUp((TestComponentBuilder tcb) async {
-        _fixture = await tcb.createAsync(AppComponent);
+
+        var mockStore = mocks.getMockStore();
+
+        _fixture = await tcb
+          .overrideProviders(AppComponent, [provide(InjectableStore, useValue: mockStore)])
+          .createAsync(AppComponent);
+
         _component = _fixture.componentInstance;
         _element = _fixture.nativeElement;
       });
