@@ -12,6 +12,5 @@ before_script:
   - scripts/travis/install.sh
 script:
   - scripts/travis/analyze.sh
-  - scripts/travis/lint.sh
   - scripts/travis/build.sh
   - scripts/travis/tests.sh
