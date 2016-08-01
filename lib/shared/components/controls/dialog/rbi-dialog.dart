@@ -34,6 +34,7 @@ class DialogWrapper implements OnInit {
 
   DialogWrapper(this.elementRef, this.dialogManager);
 
+  @override
   void ngOnInit() {
     if (dialog is DialogElement) {
 //      print("Can't upgrade <dialog>: already supported by browser");

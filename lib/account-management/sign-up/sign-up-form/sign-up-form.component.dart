@@ -56,6 +56,7 @@ class SignUpFormComponent extends FormComponent implements OnInit {
     });
   }
 
+  @override
   void ngOnInit() {
     _store.map((state) => state['signUp']).where((data) => data != null).listen(_onStateChange);
   }

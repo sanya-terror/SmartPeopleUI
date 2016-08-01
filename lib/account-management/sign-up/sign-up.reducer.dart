@@ -18,6 +18,7 @@ class SignUpData {
     this.errorCode = data.errorCode;
   }
 
+  @override
   String toString() {
     return '{ password: $password, signUpToken: $signUpToken, isConfirmationCodeResend: $isConfirmationCodeResent, errorCode: $errorCode }';
   }

@@ -27,6 +27,7 @@ class RestoreAccessComponent implements OnInit, OnDestroy {
 
   RestoreAccessComponent(this._store);
 
+  @override
   void ngOnInit() {
     _store.map((state) => state['restoreAccess']).where((data) => data != null).listen(_onStateChange);
   }

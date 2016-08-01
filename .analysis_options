@@ -4,7 +4,7 @@ linter:
   rules:
     - always_declare_return_types
 #    - always_specify_types
-#    - annotate_overrides
+    - annotate_overrides
 #    - avoid_as
 #    - avoid_empty_else
 #    - avoid_init_to_null

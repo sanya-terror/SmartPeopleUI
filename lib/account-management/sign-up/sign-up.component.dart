@@ -20,6 +20,7 @@ class SignUpComponent implements OnInit, OnDestroy {
 
   SignUpComponent(this._store);
 
+  @override
   void ngOnInit() {
     _store.map((state) => state['signUp']).where((data) => data != null).listen(_onStateChange);
   }

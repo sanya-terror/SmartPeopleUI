@@ -38,6 +38,7 @@ class _Configuration {
         executableArgs: executableArgs);
   }
 
+  @override
   String toString() => "<_Configuration "
       "executable:$executable "
       "inputExtension:$inputExtension "
@@ -47,11 +48,13 @@ class _Configuration {
 class PostcssTransformer extends Transformer implements DeclaringTransformer {
   final _Configuration _configuration;
 
+  @override
   String get allowedExtensions => _configuration.inputExtension;
 
   PostcssTransformer.asPlugin(BarbackSettings s)
       : _configuration = new _Configuration.fromConfig(s.configuration as Map<String, dynamic>);
 
+  @override
   Future apply(Transform transform) async {
     final Asset asset = transform.primaryInput;
 
@@ -77,6 +80,7 @@ class PostcssTransformer extends Transformer implements DeclaringTransformer {
     transform.logger.info('Finished with exit code $exitCode', asset: asset.id);
   }
 
+  @override
   void declareOutputs(DeclaringTransform transform) {
     transform.declareOutput(_outputId(transform.primaryId));
   }
