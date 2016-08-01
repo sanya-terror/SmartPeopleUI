@@ -66,7 +66,7 @@ class ApiMiddleware {
     String token = _localStorage.getItem(TOKEN_KEY) ?? _sessionStorage.getItem(TOKEN_KEY);
 
     if (action.checkAuthorization && token == null) {
-      return await ApiActionCreator.unauthorizedAction(new AuthorizationError());
+      return ApiActionCreator.unauthorizedAction(new AuthorizationError());
     }
 
     try {

@@ -2,6 +2,7 @@ import 'package:test/test.dart';
 import 'package:SmartPeopleUI/redux/index.dart';
 import 'helpers.dart';
 import 'dart:async';
+import 'dart:io' show sleep;
 
 class StoreTests {
   static run() {
@@ -71,14 +72,14 @@ class StoreTests {
 
         var subscription = store.listen(listener);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 1);
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 2);
 
         subscription.cancel();
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 2);
       });
 
@@ -89,11 +90,11 @@ class StoreTests {
 
         var subscriptionA = store.listen(listenerA);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listenerA.calls, 1);
         expect(listenerB.calls, 0);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listenerA.calls, 2);
         expect(listenerB.calls, 0);
 
@@ -101,7 +102,7 @@ class StoreTests {
         expect(listenerA.calls, 2);
         expect(listenerB.calls, 0);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 1);
 
@@ -109,7 +110,7 @@ class StoreTests {
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 1);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
@@ -117,7 +118,7 @@ class StoreTests {
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
@@ -125,7 +126,7 @@ class StoreTests {
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listenerA.calls, 4);
         expect(listenerB.calls, 2);
       });
@@ -135,27 +136,27 @@ class StoreTests {
         var listener = new ListenerMock();
         StreamSubscription<State> subscription = store.listen(listener);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 1, reason: 'Call listener on data received');
 
         subscription.pause();
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 1, reason: 'Do not call listener if paused');
 
         subscription.resume();
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 3, reason: 'Receive all missed messages if resumed');
 
         subscription.cancel();
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 3, reason: 'Do not call listener if canceled');
 
         subscription.resume();
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 3, reason: 'Will not resume if canceled previously');
 
         subscription = store.listen(listener);
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 4, reason: 'Call listener on data received in new subscription');
       });
 
@@ -170,7 +171,7 @@ class StoreTests {
         subscriptionA.cancel();
         subscriptionA.cancel();
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listenerA.calls, 0);
         expect(listenerB.calls, 1);
       });
@@ -185,7 +186,7 @@ class StoreTests {
         subscriptionB.cancel();
         subscriptionB.cancel();
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 1);
       });
 
@@ -264,17 +265,17 @@ class StoreTests {
       test('Should apply middleware when several async actions are dispatching', () async {
         var separatorAction = addRecordAction('Separator');
         Middleware middleware = (store) => (next) => (action) {
-              if (action != separatorAction) {
-                next(separatorAction);
-              }
-              return next(action);
-            };
+          if (action != separatorAction) {
+            next(separatorAction);
+          }
+          return next(action);
+        };
 
         Store store = new Store(testReducer, initialState: testState, middleware: middleware);
 
         store.dispatch(addRecordAction("Line 1"));
         store.dispatch(addRecordAction("Line 2"));
-        await store.dispatch(addRecordAction("Final"));
+        await await store.dispatch(addRecordAction("Final"));
 
         expect(store.state, {
           'initialized': true,

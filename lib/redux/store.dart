@@ -48,7 +48,8 @@ class Store extends Stream<State> {
     _currentState = _reducer(_currentState, action);
     _controller.add(_currentState);
 
-    return await () => action;
+    print(action.type);
+    return action;
   }
 
   void replaceReducer() {
