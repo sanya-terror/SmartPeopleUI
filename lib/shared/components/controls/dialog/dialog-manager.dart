@@ -78,6 +78,7 @@ class DialogManager {
     document.body.children.remove(overlay);
     dmFocus.cancel();
     dmKeyDown.cancel();
+    dmOverlayClick.cancel();
 //    print('document unblocked');
   }
 
