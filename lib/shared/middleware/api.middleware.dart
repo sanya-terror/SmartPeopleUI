@@ -84,7 +84,7 @@ class ApiMiddleware {
 
     final url = BASE_URL + endpoint;
 
-    Response response = null;
+    Response response;
 
     switch (method) {
       case 'POST':
