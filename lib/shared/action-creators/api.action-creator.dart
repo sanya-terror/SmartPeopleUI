@@ -21,7 +21,7 @@ class ApiAction extends Action {
   bool checkAuthorization;
 
   ApiAction(String type, this.endpoint,
-      [String this.method = 'GET', Map<String, dynamic> data = null, bool this.checkAuthorization = true])
+      [this.method = 'GET', Map<String, dynamic> data = null, this.checkAuthorization = true])
       : super(type, data) {
     var allowedMethods = ['GET', 'POST', 'PUT', 'DELETE'];
     if (!allowedMethods.contains(method)) throw new ArgumentError.value(method, 'method', 'Non-supported method');

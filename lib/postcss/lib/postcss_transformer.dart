@@ -48,11 +48,11 @@ class _Configuration {
 class PostcssTransformer extends Transformer implements DeclaringTransformer {
   final _Configuration _configuration;
 
-  @override
-  String get allowedExtensions => _configuration.inputExtension;
-
   PostcssTransformer.asPlugin(BarbackSettings s)
       : _configuration = new _Configuration.fromConfig(s.configuration as Map<String, dynamic>);
+
+  @override
+  String get allowedExtensions => _configuration.inputExtension;
 
   @override
   Future apply(Transform transform) async {

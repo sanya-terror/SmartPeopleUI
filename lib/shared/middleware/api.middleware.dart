@@ -12,15 +12,14 @@ import 'package:SmartPeopleUI/account-management/index.dart';
 import 'package:SmartPeopleUI/shared/actions.dart';
 
 class ApiMiddleware {
-  static final BASE_URL = 'http://localhost:9999/api';
-  static final TOKEN_KEY = 'access_token';
+  static const BASE_URL = 'http://localhost:9999/api';
+  static const TOKEN_KEY = 'access_token';
 
   BrowserClient _httpClient;
   LocalStorageService _localStorage;
   SessionStorageService _sessionStorage;
 
-  ApiMiddleware(LocalStorageService this._localStorage, SessionStorageService this._sessionStorage,
-      [BrowserClient httpClient = null]) {
+  ApiMiddleware(this._localStorage, this._sessionStorage, [BrowserClient httpClient = null]) {
     this._httpClient = (httpClient == null) ? new BrowserClient() : httpClient;
   }
 

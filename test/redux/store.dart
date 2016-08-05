@@ -2,7 +2,6 @@ import 'package:test/test.dart';
 import 'package:SmartPeopleUI/redux/index.dart';
 import 'helpers.dart';
 import 'dart:async';
-import 'dart:io' show sleep;
 
 class StoreTests {
   static run() {

@@ -30,9 +30,10 @@ class DialogWrapper implements OnInit {
   bool isNativeDialog = false;
   DialogManager dialogManager;
   StreamSubscription cancelListener;
-  Element get dialog => elementRef.nativeElement;
 
   DialogWrapper(this.elementRef, this.dialogManager);
+
+  Element get dialog => elementRef.nativeElement;
 
   @override
   void ngOnInit() {
