@@ -4,6 +4,8 @@
 
 _Scientific social network_
 
+Check the [production](http://smartpeople.herokuapp.com/)
+
 Installing project:
 
 `1.` Get repository:
