@@ -14,9 +14,15 @@ class DialogManager {
   StreamSubscription dmKeyDown;
 
   DialogManager() {
+    var dialogOverlayClassName = '_dialog_overlay';
     overlay = new DivElement()
-      ..classes.add('_dialog_overlay');
-    dmOverlayClick = overlay.onClick.listen((event) {
+      ..classes.add(dialogOverlayClassName);
+
+    dmOverlayClick = overlay.onClick.where((event) {
+      var target = event.target as Element;
+
+      return target.classes.contains(dialogOverlayClassName);
+    }).listen((Event event) {
 //      print('dm overlay clicked');
       event.stopPropagation();
       if (topDialog != null) {
@@ -42,7 +48,7 @@ class DialogManager {
       List<InputElement> candidates = [document.activeElement, event.target];
       List elementTypes = ['BUTTON', 'INPUT'];
       Iterable<InputElement> els = candidates.where((InputElement candidate) =>
-      candidate != null &&
+          candidate != null &&
           candidate.form == event.target &&
           elementTypes.contains(candidate.nodeName.toUpperCase()));
       for (InputElement item in els) {
@@ -59,8 +65,7 @@ class DialogManager {
   }
 
   DialogWrapper wrapperFromElement(Element el) =>
-      pendingDialogStack.firstWhere((DialogWrapper item) => item.dialog == el,
-          orElse: () => null);
+      pendingDialogStack.firstWhere((DialogWrapper item) => item.dialog == el, orElse: () => null);
 
   Element topDialogElement() {
     if (pendingDialogStack.isNotEmpty) {
@@ -80,6 +85,7 @@ class DialogManager {
     document.body.children.remove(overlay);
     dmFocus.cancel();
     dmKeyDown.cancel();
+    dmOverlayClick.cancel();
 //    print('document unblocked');
   }
 
@@ -155,5 +161,4 @@ class DialogManager {
     }
     return null;
   }
-
 }

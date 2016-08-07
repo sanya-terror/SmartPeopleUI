@@ -12,14 +12,12 @@ const int NORMAL_ALIGNMENT = 0;
 const int CENTERED_ALIGNMENT = 1;
 const int MAGIC_ALIGNMENT = 2;
 
-@Component(
-    selector: 'rbi-dialog',
-    encapsulation: ViewEncapsulation.None,
-    template: '<ng-content></ng-content>'
-)
+@Component(selector: 'rbi-dialog', encapsulation: ViewEncapsulation.None, template: '<ng-content></ng-content>')
 class DialogWrapper implements OnInit {
-  @Input() String returnValue = '';
-  @HostBinding('style.z-index') String dialogZ = '0';
+  @Input()
+  String returnValue = '';
+  @HostBinding('style.z-index')
+  String dialogZ = '0';
 
   ElementRef elementRef;
   int alignment = NORMAL_ALIGNMENT;
@@ -32,10 +30,12 @@ class DialogWrapper implements OnInit {
   bool isNativeDialog = false;
   DialogManager dialogManager;
   StreamSubscription cancelListener;
-  Element get dialog => elementRef.nativeElement;
 
   DialogWrapper(this.elementRef, this.dialogManager);
 
+  Element get dialog => elementRef.nativeElement;
+
+  @override
   void ngOnInit() {
     if (dialog is DialogElement) {
 //      print("Can't upgrade <dialog>: already supported by browser");
@@ -203,8 +203,7 @@ class DialogWrapper implements OnInit {
       setReturnValue(value);
     }
 //    print('Return value is $returnValue');
-    CustomEvent closeEvent =
-    new CustomEvent('close', canBubble: false, cancelable: false);
+    CustomEvent closeEvent = new CustomEvent('close', canBubble: false, cancelable: false);
     dialog.dispatchEvent(closeEvent);
     if (openAsModal) {
       dialogManager.removeDialog(this);
@@ -218,8 +217,7 @@ class DialogWrapper implements OnInit {
     if (!openAsModal) {
       return;
     }
-    if (dialog.attributes.containsKey('open') &&
-        document.body.children.contains(dialog)) {
+    if (dialog.attributes.containsKey('open') && document.body.children.contains(dialog)) {
       return;
     }
     openAsModal = false;

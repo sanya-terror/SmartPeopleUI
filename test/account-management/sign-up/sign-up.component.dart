@@ -10,7 +10,6 @@ import '../../helpers/matchers.dart';
 class SignUpComponentTests {
   static run() {
     group('Sign up component view', () {
-
       ng.initAngularTests();
 
       ng.setUpProviders(SignUpComponent);
@@ -20,15 +19,13 @@ class SignUpComponentTests {
       ComponentFixture _fixture;
 
       ngSetUp((TestComponentBuilder tcb) async {
-        _fixture  = await tcb
-            .overrideDirective(SignUpComponent, LinkComponent, EmptyComponent)
-            .createAsync(SignUpComponent);
+        _fixture =
+            await tcb.overrideDirective(SignUpComponent, LinkComponent, EmptyComponent).createAsync(SignUpComponent);
         _component = _fixture.componentInstance;
         _element = _fixture.nativeElement;
       });
 
-      ngTest('Should init correcr view', ()  {
-
+      ngTest('Should init correcr view', () {
         _fixture.detectChanges();
 
         var baseSelector = 'div.sign-up > sp-card.sign-up-card';
@@ -40,70 +37,68 @@ class SignUpComponentTests {
 
       var contenetTestCases = [
         {
-          'state': { 'isFormSent': false },
-          'resultSelectors': { 'form': isNotNull, 'code': isNull }
+          'state': {'isFormSent': false},
+          'resultSelectors': {'form': isNotNull, 'code': isNull}
         },
         {
-          'state': { 'isFormSent': true },
-          'resultSelectors': { 'form': isNull, 'code': isNotNull }
+          'state': {'isFormSent': true},
+          'resultSelectors': {'form': isNull, 'code': isNotNull}
         }
       ];
 
-      contenetTestCases.forEach((testCase){
+      contenetTestCases.forEach((testCase) {
         var state = testCase['state'];
         var resultSelectors = testCase['resultSelectors'];
 
-        ngTest('Should apply correct content view state. State: $state', ()  {
-
+        ngTest('Should apply correct content view state. State: $state', () {
           _component.isFormSent = state['isFormSent'];
 
           _fixture.detectChanges();
 
           expect(_element.querySelector('.content sp-sign-up-form'), resultSelectors['form'],
-            reason: 'Wrong sign up form component state');
+              reason: 'Wrong sign up form component state');
           expect(_element.querySelector('.content sp-sign-up-code'), resultSelectors['code'],
-            reason: 'Wrong sign up code component state');
+              reason: 'Wrong sign up code component state');
         });
       });
 
       var notificationsTestCases = [
         {
-          'state': { 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': false},
-          'resultSelectors': { 'warning': isNull, 'error': isNull }
+          'state': {'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': false},
+          'resultSelectors': {'warning': isNull, 'error': isNull}
         },
         {
-          'state': { 'isConfirmationCodeResent': true, 'isConfirmationCodeResentError': false},
-          'resultSelectors': { 'warning': isNotNull, 'error': isNull }
+          'state': {'isConfirmationCodeResent': true, 'isConfirmationCodeResentError': false},
+          'resultSelectors': {'warning': isNotNull, 'error': isNull}
         },
         {
-          'state': { 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': true},
-          'resultSelectors': { 'warning': isNull, 'error': isNotNull }
+          'state': {'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': true},
+          'resultSelectors': {'warning': isNull, 'error': isNotNull}
         }
       ];
 
-      notificationsTestCases.forEach((testCase){
+      notificationsTestCases.forEach((testCase) {
         var state = testCase['state'];
         var resultSelectors = testCase['resultSelectors'];
 
-        ngTest('Should apply correct notification view state. State: $state', ()  {
-
+        ngTest('Should apply correct notification view state. State: $state', () {
           _component.isConfirmationCodeResent = state['isConfirmationCodeResent'];
           _component.isConfirmationCodeResentError = state['isConfirmationCodeResentError'];
 
           _fixture.detectChanges();
 
-          expect(_element.querySelector('.warning'), resultSelectors['warning'], reason: 'Wrong warning notification state');
+          expect(_element.querySelector('.warning'), resultSelectors['warning'],
+              reason: 'Wrong warning notification state');
           expect(_element.querySelector('.error'), resultSelectors['error'], reason: 'Wrong error notification state');
         });
       });
     });
 
     group('Sign up access component', () {
-
       var mockStore;
 
       SignUpComponent component;
-      setUp((){
+      setUp(() {
         mockStore = getMockStore();
         component = new SignUpComponent(mockStore);
       });
@@ -123,52 +118,68 @@ class SignUpComponentTests {
         component.resendCode();
 
         var isValidResendCodeAction = predicate((action) {
-
-          return action.type == SIGN_UP_RESEND_CONFIRM_CODE
-              && action.data['token'] == token;
+          return action.type == SIGN_UP_RESEND_CONFIRM_CODE && action.data['token'] == token;
         });
 
         expect(verify(mockStore.dispatch(argThat(isValidResendCodeAction))).callCount, 1);
       });
 
       group('On state change', () {
-
         var onStateChange;
 
-        setUp((){
+        setUp(() {
           var subscriptionStream = _mockSubscription(mockStore);
           component.ngOnInit();
           onStateChange = verify(subscriptionStream.listen(captureAny)).captured[0];
         });
 
         test('Should change component state base on signUp object in new state', () {
-
           var testCases = [
             {
-              'data': { 'errorCode': null, 'isConfirmationCodeResent': false},
-              'component': { 'isFormSent': true, 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': false }
+              'data': {'errorCode': null, 'isConfirmationCodeResent': false},
+              'component': {
+                'isFormSent': true,
+                'isConfirmationCodeResent': false,
+                'isConfirmationCodeResentError': false
+              }
             },
             {
-              'data': { 'errorCode': 3333, 'isConfirmationCodeResent': false},
-              'component': { 'isFormSent': false, 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': false }
+              'data': {'errorCode': 3333, 'isConfirmationCodeResent': false},
+              'component': {
+                'isFormSent': false,
+                'isConfirmationCodeResent': false,
+                'isConfirmationCodeResentError': false
+              }
             },
             {
-              'data': { 'errorCode': null, 'isConfirmationCodeResent': true},
-              'component': { 'isFormSent': true, 'isConfirmationCodeResent': true, 'isConfirmationCodeResentError': false }
+              'data': {'errorCode': null, 'isConfirmationCodeResent': true},
+              'component': {
+                'isFormSent': true,
+                'isConfirmationCodeResent': true,
+                'isConfirmationCodeResentError': false
+              }
             },
             {
-              'data': { 'errorCode': null, 'isConfirmationCodeResent': false},
-              'component': { 'isFormSent': true, 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': false }
+              'data': {'errorCode': null, 'isConfirmationCodeResent': false},
+              'component': {
+                'isFormSent': true,
+                'isConfirmationCodeResent': false,
+                'isConfirmationCodeResentError': false
+              }
             },
             {
-              'data': { 'errorCode': 5555, 'isConfirmationCodeResent': false},
-              'component': { 'isFormSent': true, 'isConfirmationCodeResent': false, 'isConfirmationCodeResentError': true }
+              'data': {'errorCode': 5555, 'isConfirmationCodeResent': false},
+              'component': {
+                'isFormSent': true,
+                'isConfirmationCodeResent': false,
+                'isConfirmationCodeResentError': true
+              }
             }
           ];
 
           var data;
 
-          testCases.forEach((testCase){
+          testCases.forEach((testCase) {
             var testData = testCase['data'];
             var testComponent = testCase['component'];
 
@@ -186,18 +197,19 @@ class SignUpComponentTests {
 
       test('Should set default on destroy component', () {
         component.ngOnDestroy();
-        expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == SIGN_UP_CLEAR_DATA)))).callCount, 1);
+        expect(
+            verify(mockStore.dispatch(argThat(predicate((action) => action.type == SIGN_UP_CLEAR_DATA)))).callCount, 1);
       });
 
       test('Should set default', () {
         component.setDefault();
-        expect(verify(mockStore.dispatch(argThat(predicate((action) => action.type == SIGN_UP_CLEAR_DATA)))).callCount, 1);
+        expect(
+            verify(mockStore.dispatch(argThat(predicate((action) => action.type == SIGN_UP_CLEAR_DATA)))).callCount, 1);
       });
     });
   }
 
   static _mockSubscription(mockStore) {
-
     var mappedStream = getStream();
     var filteredStream = getStream();
 

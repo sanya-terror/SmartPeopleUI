@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 import 'package:angular2/angular2.dart';
 
 @Directive(selector: 'empty')
-class EmptyComponent{}
+class EmptyComponent {}
 
 class MockStore extends Mock implements InjectableStore {
   noSuchMethod(i) => super.noSuchMethod(i);
@@ -26,7 +26,7 @@ class MockRouterLink extends Mock implements RouterLink {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
-class MockStream extends Mock implements Stream{
+class MockStream extends Mock implements Stream {
   noSuchMethod(i) => super.noSuchMethod(i);
 }
 
@@ -34,9 +34,10 @@ class MockStream extends Mock implements Stream{
 
 getMockStore() {
   var mock = spy(new MockStore(), new InjectableStore(null, null));
-  when(mock.dispatch(argThat(anything))).thenReturn({});
+  when(mock.dispatch(argThat(anything))).thenReturn(new Future(() =>({})));
   return mock;
 }
+
 getRouter() {
   var mock = spy(new MockRouter(), new Router(null, null, null));
   when(mock.navigate(argThat(anything))).thenReturn({});
@@ -45,4 +46,3 @@ getRouter() {
 
 getLocation() => spy(new MockLocation(), new Location(null));
 getStream() => spy(new MockStream(), new Stream.empty());
-

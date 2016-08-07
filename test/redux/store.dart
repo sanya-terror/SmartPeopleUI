@@ -59,11 +59,7 @@ class StoreTests {
         Store store = new Store(testReducer, initialState: testState);
 
         store.listen((State state) {
-          expect(state, {
-            'initialized': true,
-            'meaningOfLife': 42,
-            'reducerApplied': true
-          });
+          expect(state, {'initialized': true, 'meaningOfLife': 42, 'reducerApplied': true});
           expect(store.state, state);
         });
         store.dispatch(testAction);
@@ -75,14 +71,14 @@ class StoreTests {
 
         var subscription = store.listen(listener);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 1);
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 2);
 
         subscription.cancel();
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 2);
       });
 
@@ -93,11 +89,11 @@ class StoreTests {
 
         var subscriptionA = store.listen(listenerA);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listenerA.calls, 1);
         expect(listenerB.calls, 0);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listenerA.calls, 2);
         expect(listenerB.calls, 0);
 
@@ -105,7 +101,7 @@ class StoreTests {
         expect(listenerA.calls, 2);
         expect(listenerB.calls, 0);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 1);
 
@@ -113,7 +109,7 @@ class StoreTests {
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 1);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
@@ -121,7 +117,7 @@ class StoreTests {
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
@@ -129,7 +125,7 @@ class StoreTests {
         expect(listenerA.calls, 3);
         expect(listenerB.calls, 2);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listenerA.calls, 4);
         expect(listenerB.calls, 2);
       });
@@ -139,35 +135,31 @@ class StoreTests {
         var listener = new ListenerMock();
         StreamSubscription<State> subscription = store.listen(listener);
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 1, reason: 'Call listener on data received');
 
         subscription.pause();
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 1, reason: 'Do not call listener if paused');
 
         subscription.resume();
-        await store.dispatch(unknownAction);
-        expect(listener.calls, 3,
-            reason: 'Receive all missed messages if resumed');
+        await await store.dispatch(unknownAction);
+        expect(listener.calls, 3, reason: 'Receive all missed messages if resumed');
 
         subscription.cancel();
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 3, reason: 'Do not call listener if canceled');
 
         subscription.resume();
-        await store.dispatch(unknownAction);
-        expect(listener.calls, 3,
-            reason: 'Will not resume if canceled previously');
+        await await store.dispatch(unknownAction);
+        expect(listener.calls, 3, reason: 'Will not resume if canceled previously');
 
         subscription = store.listen(listener);
-        await store.dispatch(unknownAction);
-        expect(listener.calls, 4,
-            reason: 'Call listener on data received in new subscription');
+        await await store.dispatch(unknownAction);
+        expect(listener.calls, 4, reason: 'Call listener on data received in new subscription');
       });
 
-      test('Should only remove listener once when unsubscribe is called',
-          () async {
+      test('Should only remove listener once when unsubscribe is called', () async {
         Store store = new Store(testReducer);
         var listenerA = new ListenerMock();
         var listenerB = new ListenerMock();
@@ -178,13 +170,12 @@ class StoreTests {
         subscriptionA.cancel();
         subscriptionA.cancel();
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listenerA.calls, 0);
         expect(listenerB.calls, 1);
       });
 
-      test('Should only remove relevant listener when unsubscribe is called',
-          () async {
+      test('Should only remove relevant listener when unsubscribe is called', () async {
         Store store = new Store(testReducer);
         var listener = new ListenerMock();
 
@@ -194,7 +185,7 @@ class StoreTests {
         subscriptionB.cancel();
         subscriptionB.cancel();
 
-        await store.dispatch(unknownAction);
+        await await store.dispatch(unknownAction);
         expect(listener.calls, 1);
       });
 
@@ -202,8 +193,7 @@ class StoreTests {
         Store store = new Store(testReducer);
 
         expect(store.dispatch(errorAction), throws);
-        expect(
-            () async => await store.dispatch(unknownAction), returnsNormally);
+        expect(() async => await store.dispatch(unknownAction), returnsNormally);
       });
 
       test('Should apply middleware before reducers', () async {
@@ -211,12 +201,10 @@ class StoreTests {
 
         Middleware middleware = (Store store) {
           expect(store.state, testState);
-          return (next) =>
-              (action) => action != newAction ? next(newAction) : next(action);
+          return (next) => (action) => action != newAction ? next(newAction) : next(action);
         };
 
-        Store store = new Store(testReducer,
-            initialState: testState, middleware: middleware);
+        Store store = new Store(testReducer, initialState: testState, middleware: middleware);
         await store.dispatch(addRecordAction("Will not be added"));
 
         expect(store.state, {
@@ -229,7 +217,7 @@ class StoreTests {
       });
 
       test('Should reset middleware executing state if midleware reject chain', () async {
-        var ACTION_TO_REJECT =  'ACTION_TO_REJECT';
+        var ACTION_TO_REJECT = 'ACTION_TO_REJECT';
         var newAction = addRecordAction('String from middleware');
 
         Middleware rejectingMiddleware = (store) => (next) => (action) {
@@ -237,8 +225,7 @@ class StoreTests {
           return action != newAction ? next(newAction) : next(action);
         };
 
-        Store store = new Store(testReducer,
-            initialState: testState, middleware: rejectingMiddleware);
+        Store store = new Store(testReducer, initialState: testState, middleware: rejectingMiddleware);
         await store.dispatch(new Action(ACTION_TO_REJECT));
         await store.dispatch(addRecordAction("Will not be added"));
 
@@ -252,7 +239,7 @@ class StoreTests {
       });
 
       test('Should reset middleware executing state if midleware throw error', () async {
-        var ACTION_TO_ERROR =  'ACTION_TO_ERROR';
+        var ACTION_TO_ERROR = 'ACTION_TO_ERROR';
         var newAction = addRecordAction('String from middleware');
 
         Middleware errorMiddleware = (store) => (next) => (action) {
@@ -260,8 +247,7 @@ class StoreTests {
           return action != newAction ? next(newAction) : next(action);
         };
 
-        Store store = new Store(testReducer,
-            initialState: testState, middleware: errorMiddleware);
+        Store store = new Store(testReducer, initialState: testState, middleware: errorMiddleware);
 
         expect(store.dispatch(new Action(ACTION_TO_ERROR)), throws);
         await store.dispatch(addRecordAction("Will not be added"));
@@ -276,21 +262,19 @@ class StoreTests {
       });
 
       test('Should apply middleware when several async actions are dispatching', () async {
-
         var separatorAction = addRecordAction('Separator');
         Middleware middleware = (store) => (next) => (action) {
-          if (action != separatorAction){
+          if (action != separatorAction) {
             next(separatorAction);
           }
           return next(action);
         };
 
-        Store store = new Store(testReducer,
-            initialState: testState, middleware: middleware);
+        Store store = new Store(testReducer, initialState: testState, middleware: middleware);
 
         store.dispatch(addRecordAction("Line 1"));
         store.dispatch(addRecordAction("Line 2"));
-        await store.dispatch(addRecordAction("Final"));
+        await await store.dispatch(addRecordAction("Final"));
 
         expect(store.state, {
           'initialized': true,
@@ -306,8 +290,7 @@ class StoreTests {
         });
       });
 
-      test('Should return function from middleware and not modify data',
-          () async {
+      test('Should return function from middleware and not modify data', () async {
         bool callbackCalled = false;
 
         Middleware middleware = (store) => (next) => (action) async {
@@ -316,10 +299,8 @@ class StoreTests {
               };
             };
 
-        Store store = new Store(testReducer,
-            initialState: testState, middleware: middleware);
-        var callbackFunction =
-            await store.dispatch(addRecordAction("Will not be added"));
+        Store store = new Store(testReducer, initialState: testState, middleware: middleware);
+        var callbackFunction = await store.dispatch(addRecordAction("Will not be added"));
 
         callbackFunction();
 

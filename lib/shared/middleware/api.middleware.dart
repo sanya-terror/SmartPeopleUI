@@ -6,38 +6,35 @@ import 'package:http/http.dart';
 
 import 'package:SmartPeopleUI/redux/index.dart';
 import 'package:SmartPeopleUI/shared/index.dart'
-    show ApiAction, ApiActionCreator, AuthorizationError,
-    ApiError, LocalStorageService, SessionStorageService;
+    show ApiAction, ApiActionCreator, AuthorizationError, ApiError, LocalStorageService, SessionStorageService;
 import 'package:SmartPeopleUI/account-management/index.dart';
 
 import 'package:SmartPeopleUI/shared/actions.dart';
 
 class ApiMiddleware {
-  static final BASE_URL = 'http://localhost:9999/api';
-  static final TOKEN_KEY = 'access_token';
+  static const BASE_URL = 'http://smartpeople.herokuapp.com/api';
+  static const TOKEN_KEY = 'access_token';
 
   BrowserClient _httpClient;
   LocalStorageService _localStorage;
   SessionStorageService _sessionStorage;
 
-  ApiMiddleware(LocalStorageService this._localStorage, SessionStorageService this._sessionStorage,
-      [BrowserClient httpClient = null]) {
+  ApiMiddleware(this._localStorage, this._sessionStorage, [BrowserClient httpClient = null]) {
     this._httpClient = (httpClient == null) ? new BrowserClient() : httpClient;
   }
 
-  dynamic apply(Store store) => (Dispatcher next) => (Action action) async {
-    if (action.type == LOGIN_REQUEST) return next(await _tryAuthorize(action));
-    if (action.type == LOGIN_CHECK) return _checkLogin(next);
-    if (!(action is ApiAction)) return next(action);
+  Pipe apply(Store store) => (Dispatcher next) => (Action action) async {
+        if (action.type == LOGIN_REQUEST) return next(await _tryAuthorize(action));
+        if (action.type == LOGIN_CHECK) return _checkLogin(next);
+        if (!(action is ApiAction)) return next(action);
 
-    return next(await _tryCallApi(action));
-  };
+        return next(await _tryCallApi(action));
+      };
 
   dynamic _checkLogin(Dispatcher next) {
     String token = _localStorage.getItem(TOKEN_KEY) ?? _sessionStorage.getItem(TOKEN_KEY);
 
-    if (token == null)
-      return {};
+    if (token == null) return {};
 
     return next(AuthActionCreator.receiveLogin());
   }
@@ -51,8 +48,7 @@ class ApiMiddleware {
       String token = result['token'];
       int error = result['errorCode'];
 
-      if (token == null)
-        return AuthActionCreator.loginError(error);
+      if (token == null) return AuthActionCreator.loginError(error);
 
       if (rememberMe)
         _localStorage.setItem(TOKEN_KEY, token);
@@ -69,7 +65,7 @@ class ApiMiddleware {
     String token = _localStorage.getItem(TOKEN_KEY) ?? _sessionStorage.getItem(TOKEN_KEY);
 
     if (action.checkAuthorization && token == null) {
-      return await ApiActionCreator.unauthorizedAction(new AuthorizationError());
+      return ApiActionCreator.unauthorizedAction(new AuthorizationError());
     }
 
     try {
@@ -80,23 +76,21 @@ class ApiMiddleware {
     }
   }
 
-  Future<dynamic> _callApi(String endpoint, String method,
+  Future<Map<String, dynamic>> _callApi(String endpoint, String method,
       {String token: null, Map<String, dynamic> body: const {}}) async {
     Map<String, String> _headers = {'Content-Type': 'application/json'};
     if (token != null) _headers['Authorization'] = token;
 
     final url = BASE_URL + endpoint;
 
-    Response response = null;
+    Response response;
 
     switch (method) {
       case 'POST':
-        response = await _httpClient.post(url,
-            headers: _headers, body: JSON.encode(body));
+        response = await _httpClient.post(url, headers: _headers, body: JSON.encode(body));
         break;
       case 'PUT':
-        response = await _httpClient.put(url,
-            headers: _headers, body: JSON.encode(body));
+        response = await _httpClient.put(url, headers: _headers, body: JSON.encode(body));
         break;
       case 'DELETE':
         response = await _httpClient.delete(url, headers: _headers);
@@ -105,10 +99,9 @@ class ApiMiddleware {
         response = await _httpClient.get(url, headers: _headers);
     }
 
-    if (response.statusCode != 200)
-      throw new ApiError(response.statusCode, response.body);
+    if (response.statusCode != 200) throw new ApiError(response.statusCode, response.body);
 
-    return JSON.decode(response.body);
+    return JSON.decode(response.body) as Map<String, dynamic>;
   }
 
   Action _handleError(error) {

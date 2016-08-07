@@ -7,23 +7,19 @@ import 'package:SmartPeopleUI/shared/middleware/api.middleware.dart' show ApiMid
 import 'package:SmartPeopleUI/shared/middleware/print.middleware.dart' show printMiddleware;
 import 'package:SmartPeopleUI/shared/reducers/index.dart' show ApiErrorsReducer, SharedReducer;
 
-
 @Injectable()
 class InjectableStore extends Store {
-   InjectableStore(LocalStorageService localStorage, SessionStorageService sessionStorage) :
-          super(combineReducers(
-           [
+  InjectableStore(LocalStorageService localStorage, SessionStorageService sessionStorage)
+      : super(
+            combineReducers([
               AuthReducer.reduce,
               ApiErrorsReducer.reduce,
               RestoreAccessReducer.reduce,
               SharedReducer.reduce,
               SignUpReducer.reduce
-           ]
-       ),
+            ]),
             initialState: new State({}),
-            middleware: applyMiddleware([printMiddleware, new ApiMiddleware(localStorage, sessionStorage).apply])){
-
+            middleware: applyMiddleware([printMiddleware, new ApiMiddleware(localStorage, sessionStorage).apply])) {
     this.listen((state) => window.console.debug('PRINTER: State changed to: $state'));
-
   }
 }

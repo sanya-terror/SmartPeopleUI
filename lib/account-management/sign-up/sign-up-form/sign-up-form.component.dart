@@ -1,28 +1,31 @@
+import 'dart:async' show Future;
 import 'package:angular2/angular2.dart'
     show Component, OnInit, Control, ControlGroup, Validators;
 
 import 'package:SmartPeopleUI/index.dart'
-    show InputComponent, ButtonComponent, RadioButtonComponent, FormComponent,
-    UserNameValidator, EmailValidator, PasswordValidator,
-    SharedActionCreator, SignUpActionCreator, SignUpData;
+    show
+        InputComponent,
+        ButtonComponent,
+        RadioButtonComponent,
+        FormComponent,
+        UserNameValidator,
+        EmailValidator,
+        PasswordValidator,
+        SharedActionCreator,
+        SignUpActionCreator,
+        SignUpData;
 
-import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart'
-   show InjectableStore;
+import 'package:SmartPeopleUI/shared/services/injectable-store.service.dart' show InjectableStore;
 
 @Component(
     selector: 'sp-sign-up-form',
-    directives: const [
-       InputComponent,
-       ButtonComponent,
-       RadioButtonComponent
-    ],
+    directives: const [InputComponent, ButtonComponent, RadioButtonComponent],
     templateUrl: 'sign-up-form.component.html',
     styleUrls: const ['sign-up-form.component.css']
 )
 
 class SignUpFormComponent extends FormComponent implements OnInit {
-
-   final InjectableStore _store;
+  final InjectableStore _store;
 
    ControlGroup form;
    Control userNameControl;
@@ -30,7 +33,8 @@ class SignUpFormComponent extends FormComponent implements OnInit {
    Control passwordControl;
    Control passwordRepeatControl;
 
-   bool isUserAlreadyExists = false;
+
+  bool isUserAlreadyExists = false;
 
    SignUpFormComponent(this._store) {
       this.userNameControl = new Control('',
@@ -56,19 +60,17 @@ class SignUpFormComponent extends FormComponent implements OnInit {
       });
    }
 
-   ngOnInit() {
-      _store
-         .map((state) => state['signUp'])
-         .where((data) => data != null)
-         .listen(_onStateChange);
-   }
+  @override
+  void ngOnInit() {
+    _store.map((state) => state['signUp']).where((data) => data != null).listen(_onStateChange);
+  }
 
-   _onStateChange(SignUpData data) {
-      isUserAlreadyExists = data.errorCode == 3333;
-   }
+  void _onStateChange(SignUpData data) {
+    isUserAlreadyExists = data.errorCode == 3333;
+  }
 
-   sendForm() async {
-      if (!form.valid) return;
+  Future sendForm() async {
+    if (!form.valid) return;
 
       await _store.dispatch(SignUpActionCreator.sendSignUpData({
          'userName': userNameControl.value,
@@ -76,7 +78,7 @@ class SignUpFormComponent extends FormComponent implements OnInit {
          'password': passwordControl.value,
       }));
 
-      _store.dispatch(SharedActionCreator.saveEmail(emailControl.value));
-      _store.dispatch(SignUpActionCreator.savePassword(passwordControl.value));
-   }
+    _store.dispatch(SharedActionCreator.saveEmail(emailControl.value));
+    _store.dispatch(SignUpActionCreator.savePassword(passwordControl.value));
+  }
 }

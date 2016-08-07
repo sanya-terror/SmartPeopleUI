@@ -7,19 +7,14 @@ import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog.component
 import 'package:SmartPeopleUI/redux/index.dart' show State;
 
 @Component(
-    selector: 'sp-forbidden-error',
-    templateUrl: 'forbidden-error.component.html',
-    directives: const[DialogComponent]
-)
-
-class ForbiddenErrorComponent implements OnInit{
-
+    selector: 'sp-forbidden-error', templateUrl: 'forbidden-error.component.html', directives: const [DialogComponent])
+class ForbiddenErrorComponent implements OnInit {
   @ViewChild(DialogComponent)
   DialogComponent dialog;
 
   final InjectableStore _store;
   final Router _router;
-  
+
   bool _isShown = false;
 
   List<DialogAction> dialogActions = [];
@@ -27,31 +22,30 @@ class ForbiddenErrorComponent implements OnInit{
   ForbiddenErrorComponent(this._store, this._router);
 
   @override
-  ngOnInit() {
-
+  void ngOnInit() {
     dialogActions.add(new DialogAction('Sign in', _onSignInClick));
     dialogActions.add(new DialogAction('Close', _onCloseClick));
 
     _store.where((state) => state['isForbiddenError'] != null).listen(_onForbiddenError);
   }
 
-  _onForbiddenError(State state){
+  void _onForbiddenError(State state) {
     if (_isShown || !state['isForbiddenError']) return;
-    
+
     _isShown = true;
     dialog.showModal();
   }
 
-  _onSignInClick() {
+  void _onSignInClick() {
     _router.navigate(['Login']);
     dialog.close();
   }
 
-  _onCloseClick() {
+  void _onCloseClick() {
     dialog.close();
   }
-  
-  onClose(){
+
+  void onClose() {
     _store.dispatch(ApiActionCreator.forbiddenCleanAction());
     _isShown = false;
   }
