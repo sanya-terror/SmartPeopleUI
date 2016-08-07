@@ -24,7 +24,7 @@ dev_dependencies:
   quiver: '^0.22.0'
 transformers:
 - postcss_transformer:
-#    executable: ./node_modules/postcss-cli/bin/postcss
+    executable: ./node_modules/postcss-cli/bin/postcss
     arguments:
     - local-plugins: ''
     - use: autoprefixer
