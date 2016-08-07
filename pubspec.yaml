@@ -11,12 +11,13 @@ dependencies:
   dart_to_js_script_rewriter: '^1.0.1'
   shadow_dom: any
   angular2_rbi: ^0.0.9
-dev_dependencies:
   shelf: '^0.6.5+2'
+  shelf_static: '0.2.4'
+  redstone: '^0.6.1'
+dev_dependencies:
   test: '>=0.12.0 <0.13.0'
   angular2_testing: '^2.0.0-beta.17'
   mockito: '^0.11.0'
-  redstone: '^0.6.1'
   postcss_transformer:
     path: lib/postcss
 #  postcss_transformer: '^0.1.1'
