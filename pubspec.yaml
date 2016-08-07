@@ -23,17 +23,17 @@ dev_dependencies:
 #  postcss_transformer: '^0.1.1'
   quiver: '^0.22.0'
 transformers:
-- postcss_transformer:
-    executable: ./node_modules/postcss-cli/bin/postcss
-    arguments:
-    - local-plugins: ''
-    - use: autoprefixer
-    - autoprefixer.browsers: Firefox 47, Safari 9, Chrome 52, IE 11
-    - use: postcss-nesting
-    - use: postcss-fixes
-    - use: postcss-flexbugs-fixes
-    - use: postcss-sort-style-rules
-    - use: cssnano
+#- postcss_transformer:
+#    executable: ./node_modules/postcss-cli/bin/postcss
+#    arguments:
+#    - local-plugins: ''
+#    - use: autoprefixer
+#    - autoprefixer.browsers: Firefox 47, Safari 9, Chrome 52, IE 11
+#    - use: postcss-nesting
+#    - use: postcss-fixes
+#    - use: postcss-flexbugs-fixes
+#    - use: postcss-sort-style-rules
+#    - use: cssnano
 #    - use: postcss-font-magician // Will be used later
 #    - use: postcss-assets // Will be used later
 - angular2:
