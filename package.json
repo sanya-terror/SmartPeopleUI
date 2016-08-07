@@ -6,6 +6,9 @@
     "type": "git",
     "url": "git+https://github.com/SmartPeopleCompany/SmartPeopleUI.git"
   },
+  "scripts": {
+    "install": "npm install"
+  },
   "author": "SmartPeople",
   "bugs": {
     "url": "https://github.com/SmartPeopleCompany/SmartPeopleUI/issues"
