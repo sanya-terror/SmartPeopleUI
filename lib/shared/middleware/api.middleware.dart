@@ -12,7 +12,7 @@ import 'package:SmartPeopleUI/account-management/index.dart';
 import 'package:SmartPeopleUI/shared/actions.dart';
 
 class ApiMiddleware {
-  static const BASE_URL = 'http://localhost:9999/api';
+  static const BASE_URL = 'http://smartpeople.herokuapp.com/api';
   static const TOKEN_KEY = 'access_token';
 
   BrowserClient _httpClient;

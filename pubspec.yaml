@@ -19,12 +19,12 @@ dev_dependencies:
   angular2_testing: '^2.0.0-beta.17'
   mockito: '^0.11.0'
   postcss_transformer:
-    path: lib/postcss
+    path: transformers/postcss
 #  postcss_transformer: '^0.1.1'
   quiver: '^0.22.0'
 transformers:
 - postcss_transformer:
-#    executable: ./node_modules/postcss-cli/bin/postcss
+    executable: ./node_modules/postcss-cli/bin/postcss
     arguments:
     - local-plugins: ''
     - use: autoprefixer
