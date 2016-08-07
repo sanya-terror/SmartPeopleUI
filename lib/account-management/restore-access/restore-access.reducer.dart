@@ -18,39 +18,34 @@ class RestoreAccessData {
     this.errorCode = data.errorCode;
   }
 
-  toString(){
+  @override
+  String toString() {
     return '{ email: $email, isCodeSent: $isCodeSent, changePasswordToken: $changePasswordToken, errorCode: '
-    '$errorCode }';
+        '$errorCode }';
   }
 }
 
 class RestoreAccessReducer {
   static State reduce(State state, Action action) {
     switch (action.type) {
-
       case RESTORE_ACCESS_GET_CODE:
         var data = new RestoreAccessData.from(state['restoreAccess'])
           ..errorCode = action.data['errorCode']
           ..isCodeSent = action.data['errorCode'] == null;
-        return new State.from(state)
-          ..['restoreAccess'] = data;
+        return new State.from(state)..['restoreAccess'] = data;
 
       case RESTORE_ACCESS_APPLY_CODE:
         var data = new RestoreAccessData.from(state['restoreAccess'])
           ..changePasswordToken = action.data['token']
           ..errorCode = action.data['errorCode'];
-        return new State.from(state)
-          ..['restoreAccess'] = data;
+        return new State.from(state)..['restoreAccess'] = data;
 
       case RESTORE_ACCESS_CHANGE_PASSWORD:
-        var data = new RestoreAccessData.from(state['restoreAccess'])
-          ..errorCode = action.data['errorCode'];
-        return new State.from(state)
-          ..['restoreAccess'] = data;
+        var data = new RestoreAccessData.from(state['restoreAccess'])..errorCode = action.data['errorCode'];
+        return new State.from(state)..['restoreAccess'] = data;
 
       case RESTORE_ACCESS_CLEAR_DATA:
-        return new State.from(state)
-          ..remove('restoreAccess');
+        return new State.from(state)..remove('restoreAccess');
 
       default:
         return state;

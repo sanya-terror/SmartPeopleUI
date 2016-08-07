@@ -3,9 +3,9 @@ import 'package:angular2/core.dart' show Injectable;
 
 @Injectable()
 class LocalStorageService {
-  getItem(key) => window.localStorage[key];
-  setItem(key, value) => window.localStorage[key] = value;
-  remove(key) => window.localStorage.remove(key);
-  clear() => window.localStorage.clear();
-  containsKey(key) => window.localStorage.containsKey(key);
+  String getItem(key) => window.localStorage[key];
+  String setItem(key, value) => window.localStorage[key] = value;
+  String remove(key) => window.localStorage.remove(key);
+  void clear() => window.localStorage.clear();
+  bool containsKey(key) => window.localStorage.containsKey(key);
 }

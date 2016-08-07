@@ -14,7 +14,6 @@ import '../../helpers/matchers.dart';
 class RestoreAccessEmailComponentTests {
   static run() {
     group('Restore access email component view', () {
-
       ng.initAngularTests();
 
       ng.setUpProviders(RestoreAccessEmailComponent);
@@ -23,14 +22,13 @@ class RestoreAccessEmailComponentTests {
       Element _element;
       ComponentFixture _fixture;
 
-      ngSetUp((TestComponentBuilder tcb) async{
-        _fixture  = await tcb.createAsync(RestoreAccessEmailComponent);
+      ngSetUp((TestComponentBuilder tcb) async {
+        _fixture = await tcb.createAsync(RestoreAccessEmailComponent);
         _component = _fixture.componentInstance;
         _element = _fixture.nativeElement;
       });
 
-      ngTest('Should init correcr view', ()  {
-
+      ngTest('Should init correcr view', () {
         _fixture.detectChanges();
 
         expect(_element.querySelector('form .description'), isNotNull, reason: 'No description found');
@@ -40,15 +38,15 @@ class RestoreAccessEmailComponentTests {
       });
 
       var testCases = [
-        { 'isUserNotFound': true, 'result': isNotNull},
-        { 'isUserNotFound': false, 'result': isNull}
+        {'isUserNotFound': true, 'result': isNotNull},
+        {'isUserNotFound': false, 'result': isNull}
       ];
 
-      testCases.forEach((testCase){
+      testCases.forEach((testCase) {
         var isUserNotFound = testCase['isUserNotFound'];
         var result = testCase['result'];
 
-        ngTest('Should show isUserNotFound error: $isUserNotFound', ()  {
+        ngTest('Should show isUserNotFound error: $isUserNotFound', () {
           _component.isUserNotFound = isUserNotFound;
           _fixture.detectChanges();
           expect(_element.querySelector('form sp-input #user-not-found-error.error'), result);
@@ -77,16 +75,14 @@ class RestoreAccessEmailComponentTests {
 ////        expect(_element.querySelector('sp-error-tooltip#email-required-error'), isNotNull);
 //        expect(element.querySelector('sp-error-tooltip#email-incorrect-error'), isNull);
 //      }));
-
     });
 
     group('Restore access email component', () {
-
       var mockStore;
       var email = 'some@email.com';
 
       RestoreAccessEmailComponent component;
-      setUp((){
+      setUp(() {
         mockStore = getMockStore();
         component = new RestoreAccessEmailComponent(mockStore);
         component.emailControl.updateValue(email);
@@ -97,7 +93,6 @@ class RestoreAccessEmailComponentTests {
       });
 
       test('Should subscribe on state change when get code', () async {
-
         var subscriptionStream = _mockSubscription(mockStore);
 
         await component.getCode();
@@ -116,18 +111,17 @@ class RestoreAccessEmailComponentTests {
       });
 
       test('Should get code', () async {
-
         await component.getCode();
 
         var isValidSaveEmailAction = predicate((action) => action.type == SAVE_EMAIL && action.data['email'] == email);
         expect(verify(mockStore.dispatch(argThat(isValidSaveEmailAction))).callCount, 1);
 
-        var isValidGetCodeAction = predicate((action) => action.type == RESTORE_ACCESS_GET_CODE && action.data['email'] == email);
+        var isValidGetCodeAction =
+            predicate((action) => action.type == RESTORE_ACCESS_GET_CODE && action.data['email'] == email);
         expect(verify(mockStore.dispatch(argThat(isValidGetCodeAction))).callCount, 1);
       });
 
       test('Should not get code and subscribe when form is invalid', () async {
-
         component.form.setErrors({'some_error': 'error'});
 
         var subscriptionStream = _mockSubscription(mockStore);
@@ -137,12 +131,10 @@ class RestoreAccessEmailComponentTests {
         verifyNever(subscriptionStream.listen(argThat(anything)));
         verifyNever(mockStore.dispatch(anything));
       });
-
     });
   }
 
   static _mockSubscription(mockStore) {
-
     var mappedStream = getStream();
     var filteredStream = getStream();
     var takenStream = getStream();

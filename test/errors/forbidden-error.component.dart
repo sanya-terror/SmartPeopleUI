@@ -11,17 +11,15 @@ class MockDialogComponent extends Mock implements DialogComponent {
 }
 
 class ForbiddenErrorTests {
-
   static run() {
     group('Forbidden error component', () {
-
       var mockStore = mocks.getMockStore();
       var mockRouter = mocks.getRouter();
       DialogComponent mockDialog;
 
       ForbiddenErrorComponent component;
 
-      setUp((){
+      setUp(() {
         component = new ForbiddenErrorComponent(mockStore, mockRouter);
 
         mockDialog = spy(new MockDialogComponent(), new DialogComponent());
@@ -30,7 +28,7 @@ class ForbiddenErrorTests {
         component.dialog = mockDialog;
       });
 
-      group('On init',() {
+      group('On init', () {
         test('Should add dialog actions', () {
           component.ngOnInit();
 
@@ -40,7 +38,7 @@ class ForbiddenErrorTests {
           expect(actions[1].title, 'Close');
         });
 
-        test('Should subscribe on changes', (){
+        test('Should subscribe on changes', () {
           var subscriptionStream = _mockSubscription(mockStore);
           component.ngOnInit();
           expect(verify(subscriptionStream.listen(captureAny)).callCount, 1);
@@ -81,16 +79,14 @@ class ForbiddenErrorTests {
       });
 
       group('Dialog actions ', () {
-  
         setUp(() => component.ngOnInit());
-  
+
         group('Sign up ', () {
-  
           setUp(() {
             var signInAction = component.dialogActions[0];
             signInAction.execute();
           });
-          
+
           test('Should go to login page after sign in click action', () {
             verify(mockRouter.navigate(['Login']));
           });
@@ -101,10 +97,9 @@ class ForbiddenErrorTests {
         });
 
         test('Should close dialog after close click action', () {
-  
           var closeAction = component.dialogActions[1];
           closeAction.execute();
-  
+
           verify(mockDialog.close());
         });
       });
@@ -119,7 +114,6 @@ class ForbiddenErrorTests {
   }
 
   static _mockSubscription(mockStore) {
-
     var filteredStream = getStream();
 
     var hasUnauthorizedError = predicate((f) => f(new State({'isForbiddenError': {}})));

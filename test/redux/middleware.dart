@@ -16,9 +16,8 @@ class ApplyMiddlewareTests {
               return next(action);
             };
 
-        Store store = new Store(testReducer,
-            initialState: testState,
-            middleware: applyMiddleware([middleware1, middleware2]));
+        Store store =
+            new Store(testReducer, initialState: testState, middleware: applyMiddleware([middleware1, middleware2]));
 
         await store.dispatch(addRecordAction('"String from outside"'));
 
@@ -26,10 +25,7 @@ class ApplyMiddlewareTests {
           'initialized': true,
           'meaningOfLife': 42,
           'list': [
-            {
-              'message':
-                  '"String from outside" + "String from 1st middleware" + "String from 2nd middleware"'
-            },
+            {'message': '"String from outside" + "String from 1st middleware" + "String from 2nd middleware"'},
           ]
         });
       });
