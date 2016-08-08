@@ -42,6 +42,7 @@ import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog-manager.d
   const Route(path: '/not-found', name: 'NotFoundPage', component: NotFoundErrorComponent),
   const Route(path: '/account/sign-up', name: 'SignUp', component: SignUpComponent)
 ])
+
 class AppComponent implements OnInit {
 
   final InjectableStore _store;
