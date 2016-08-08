@@ -1,10 +1,9 @@
-[![Build Status](https://travis-ci.org/SmartPeopleCompany/SmartPeopleUI.svg)](https://travis-ci.org/SmartPeopleCompany/SmartPeopleUI)
+[![Build Status](https://travis-ci.org/SmartPeopleCompany/SmartPeopleUI.svg)](https://travis-ci.org/SmartPeopleCompany/SmartPeopleUI) [![Heroku](https://heroku-badge.herokuapp.com/?app=smartpeople)](http://smartpeople.herokuapp.com/)
 
 # Smart People
 
 _Scientific social network_
 
-Check the [production](http://smartpeople.herokuapp.com/)
 
 Installing project:
 
