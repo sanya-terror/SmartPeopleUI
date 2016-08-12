@@ -1,18 +1,11 @@
+<h5>Create account</h5>
+
 <form name="sign-up" [ngFormModel]="form" class="form">
 
-    <div class="name-group">
-
-        <sp-input name="name" placeholder="Name" [required]="true" [control]="nameControl">
-            <span *ngIf="isRequired(nameControl)" class="error">Name is required</span>
-            <span *ngIf="!hasRequiredError(nameControl)" class="error">Name is incorrect</span>
-        </sp-input>
-
-        <sp-input name="surname" placeholder="Surname" [required]="true" [control]="surnameControl">
-            <span *ngIf="isRequired(surnameControl)" class="error">Surname is required</span>
-            <span *ngIf="!hasRequiredError(surnameControl)" class="error">Surname is incorrect</span>
-        </sp-input>
-
-    </div>
+    <sp-input name="userName" placeholder="User name" [required]="true" [control]="userNameControl">
+        <span *ngIf="isRequired(userNameControl)" class="error">User name is required</span>
+        <span *ngIf="!hasRequiredError(userNameControl)" class="error">User name is incorrect</span>
+    </sp-input>
 
     <sp-input name="email" placeholder="Email" [required]="true" [control]="emailControl">
         <span *ngIf="isRequired(emailControl)" class="error">Email is required</span>
@@ -33,11 +26,6 @@
 				<span *ngIf="!isEqual(passwordRepeatControl, passwordControl)" class="error">Passwords are not
 					equal</span>
     </sp-input>
-
-    <div class="sex-group">
-        <sp-radio id="male" name="gender" label="Male" [control]="sexControl" value="male"></sp-radio>
-        <sp-radio id="female" name="gender" label="Female" [control]="sexControl" value="female"></sp-radio>
-    </div>
 
     <sp-button label="Sign up" (click)="sendForm()" [fill]="true"></sp-button>
 </form>

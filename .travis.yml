@@ -1,17 +1,16 @@
 language: dart
 dart:
   - stable
-  - "1.15.0"
 before_install:
   - export DISPLAY=:99.0
 install:
   - travis_retry pub get
   - travis_retry nvm install node
   - travis_retry npm install
-addons:
-  firefox: latest
 before_script:
-  - chmod +x tool/travis.sh
-
+  - chmod +x scripts/travis/*.sh
+  - scripts/travis/install.sh
 script:
-  - tool/travis.sh
+  - scripts/travis/analyze.sh
+  - scripts/travis/build.sh
+  - scripts/travis/tests.sh

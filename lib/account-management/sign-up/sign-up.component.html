@@ -5,13 +5,18 @@
 		<div class="notification error" *ngIf="isConfirmationCodeResentError">Error while resending confirmation code</div>
 
 		<div class="content">
+			<div class="sn-sign-up" *ngIf="!isFormSent">
+				<sp-button label="Facebook"></sp-button>
+				<sp-button label="Google"></sp-button>
+				<sp-button label="Twitter"></sp-button>
+			</div>
 			<sp-sign-up-form *ngIf="!isFormSent"></sp-sign-up-form>
 			<sp-sign-up-code *ngIf="isFormSent"></sp-sign-up-code>
 		</div>
 
 		<div class="extra-actions">
 			<sp-link [routerLink]="['Login']" label="Sign in"></sp-link>
-			<sp-link *ngIf="isFormSent" label="Resend code" (click)="resendCode()"></sp-link>
+			<sp-button *ngIf="isFormSent" label="Resend code" (click)="resendCode()" [raised]="false"></sp-button>
 		</div>
 	</sp-card>
 </div>

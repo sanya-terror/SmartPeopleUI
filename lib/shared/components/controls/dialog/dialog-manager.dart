@@ -48,7 +48,7 @@ class DialogManager {
       List<InputElement> candidates = [document.activeElement, event.target];
       List elementTypes = ['BUTTON', 'INPUT'];
       Iterable<InputElement> els = candidates.where((InputElement candidate) =>
-      candidate != null &&
+          candidate != null &&
           candidate.form == event.target &&
           elementTypes.contains(candidate.nodeName.toUpperCase()));
       for (InputElement item in els) {
@@ -65,8 +65,7 @@ class DialogManager {
   }
 
   DialogWrapper wrapperFromElement(Element el) =>
-      pendingDialogStack.firstWhere((DialogWrapper item) => item.dialog == el,
-          orElse: () => null);
+      pendingDialogStack.firstWhere((DialogWrapper item) => item.dialog == el, orElse: () => null);
 
   Element topDialogElement() {
     if (pendingDialogStack.isNotEmpty) {
@@ -86,6 +85,7 @@ class DialogManager {
     document.body.children.remove(overlay);
     dmFocus.cancel();
     dmKeyDown.cancel();
+    dmOverlayClick.cancel();
 //    print('document unblocked');
   }
 
@@ -161,5 +161,4 @@ class DialogManager {
     }
     return null;
   }
-
 }

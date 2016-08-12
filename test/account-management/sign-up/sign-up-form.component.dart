@@ -18,81 +18,69 @@ class SignUpFormComponentTests {
       Element _element;
       ComponentFixture _fixture;
 
-      ngSetUp((TestComponentBuilder tcb) async{
-        _fixture  = await tcb.createAsync(SignUpFormComponent);
+      ngSetUp((TestComponentBuilder tcb) async {
+        _fixture = await tcb.createAsync(SignUpFormComponent);
         _component = _fixture.componentInstance;
         _element = _fixture.nativeElement;
       });
 
-      ngTest('Should init correcr view', ()  {
-
+      ngTest('Should init correcr view', () {
         _fixture.detectChanges();
 
-        expect(_element.querySelector('form sp-input[name="name"]'), isNotNull, reason: 'No name input found');
-        expect(_element.querySelector('form sp-input[name="name"] .error'), isNull, reason: 'Name input error is found');
-        expect(_element.querySelector('form sp-input[name="surname"]'), isNotNull, reason: 'No surname input found');
-        expect(_element.querySelector('form sp-input[name="surname"] .error'), isNull, reason: 'Surname input error is found');
+        expect(_element.querySelector('form sp-input[name="userName"]'), isNotNull, reason: 'No user name input found');
+        expect(_element.querySelector('form sp-input[name="userName"] .error'), isNull, reason: 'User name input error is found');
+
         expect(_element.querySelector('form sp-input[name="email"]'), isNotNull, reason: 'No email input found');
         expect(_element.querySelector('form sp-input[name="email"] .error'), isNull, reason: 'Email input error is found');
         expect(_element.querySelector('form sp-input[name="password"]'), isNotNull, reason: 'No password input found');
         expect(_element.querySelector('form sp-input[name="parrword"] .error'), isNull, reason: 'Password input error is found');
         expect(_element.querySelector('form sp-input[name="password-repeat"]'), isNotNull, reason: 'No repeat password input found');
         expect(_element.querySelector('form sp-input[name="password-repeat"] .error'), isNull, reason: 'Repeat password input error is found');
-        expect(_element.querySelector('form sp-radio[label="Male"]'), isNotNull, reason: 'No repeat password input found');
-        expect(_element.querySelector('form sp-radio[label="Female"]'), isNotNull, reason: 'No repeat password input found');
         expect(_element.querySelector('form sp-button'), isNotNull, reason: 'No button found');
       });
 
       var testCases = [
-        { 'isUserAlreadyExists': true, 'result': isNotNull},
-        { 'isUserAlreadyExists': false, 'result': isNull}
+        {'isUserAlreadyExists': true, 'result': isNotNull},
+        {'isUserAlreadyExists': false, 'result': isNull}
       ];
 
-      testCases.forEach((testCase){
+      testCases.forEach((testCase) {
         var isUserAlreadyExists = testCase['isUserAlreadyExists'];
         var result = testCase['result'];
 
-        ngTest('Should show isUserAlreadyExists error: $isUserAlreadyExists', ()  {
+        ngTest('Should show isUserAlreadyExists error: $isUserAlreadyExists', () {
           _component.isUserAlreadyExists = isUserAlreadyExists;
           _fixture.detectChanges();
           expect(_element.querySelector('form sp-input[name="email"] .error'), result);
         });
       });
-
     });
 
     group('Sign up form component', () {
-
       var mockStore;
       var data = {
-        'name': 'John',
-        'surname': 'Doe',
+        'userName': 'sanya-terror',
         'email': 'test@test.com',
         'password': '1q2w3e4r',
-        'passwordRepeat': '1q2w3e4r',
-        'sex': 'male'
+        'passwordRepeat': '1q2w3e4r'
       };
 
       SignUpFormComponent component;
 
-      setUp((){
+      setUp(() {
         mockStore = getMockStore();
         component = new SignUpFormComponent(mockStore);
-        component.nameControl.updateValue(data['name']);
-        component.surnameControl.updateValue(data['surname']);
+        component.userNameControl.updateValue(data['userName']);
         component.emailControl.updateValue(data['email']);
         component.passwordControl.updateValue(data['password']);
         component.passwordRepeatControl.updateValue(data['passwordRepeat']);
-        component.sexControl.updateValue(data['sex']);
       });
 
       test('Should add controls to form group', () {
-        expect(component.form.controls['name'], component.nameControl);
-        expect(component.form.controls['surname'], component.surnameControl);
+        expect(component.form.controls['userName'], component.userNameControl);
         expect(component.form.controls['email'], component.emailControl);
         expect(component.form.controls['password'], component.passwordControl);
         expect(component.form.controls['passwordRepeat'], component.passwordRepeatControl);
-        expect(component.form.controls['sex'], component.sexControl);
       });
 
       test('Should subscribe on change during initialization', () async {
@@ -113,20 +101,16 @@ class SignUpFormComponentTests {
       });
 
       group('Send sign up form actions', () {
-
         test('Should send sign up data', () async {
-
           await component.sendForm();
 
           var isValidSendSignUpFormAction = predicate((action) {
             var actionData = action.data['signUpData'];
 
             return action.type == SIGN_UP_SEND_DATA
-                && actionData['name'] == data['name']
-                && actionData['surname'] == data['surname']
+                && actionData['userName'] == data['userName']
                 && actionData['user'] == data['email']
-                && actionData['password'] == data['password']
-                && actionData['sex'] == data['sex'];
+                && actionData['password'] == data['password'];
           });
 
           expect(verify(mockStore.dispatch(argThat(isValidSendSignUpFormAction))).callCount, 1);
@@ -135,7 +119,8 @@ class SignUpFormComponentTests {
         test('Should save email', () async {
           await component.sendForm();
 
-          var isValidSaveEmailAction = predicate((action) => action.type == SAVE_EMAIL && action.data['email'] == data['email']);
+          var isValidSaveEmailAction =
+              predicate((action) => action.type == SAVE_EMAIL && action.data['email'] == data['email']);
 
           expect(verify(mockStore.dispatch(argThat(isValidSaveEmailAction))).callCount, 1);
         });
@@ -143,13 +128,13 @@ class SignUpFormComponentTests {
         test('Should save password', () async {
           await component.sendForm();
 
-          var isValidSavePasswordAction = predicate((action) => action.type == SIGN_UP_SAVE_PASSWORD && action.data['password'] == data['password']);
+          var isValidSavePasswordAction = predicate(
+              (action) => action.type == SIGN_UP_SAVE_PASSWORD && action.data['password'] == data['password']);
 
           expect(verify(mockStore.dispatch(argThat(isValidSavePasswordAction))).callCount, 1);
         });
 
         test('Should not send sign up form and subscribe when form is invalid', () async {
-
           component.form.setErrors({'some_error': 'error'});
 
           var subscriptionStream = _mockSubscription(mockStore);
@@ -164,7 +149,6 @@ class SignUpFormComponentTests {
   }
 
   static _mockSubscription(mockStore) {
-
     var mappedStream = getStream();
     var filteredStream = getStream();
 

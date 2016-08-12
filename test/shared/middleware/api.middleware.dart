@@ -55,15 +55,13 @@ class ApiMiddlewareTests {
       });
 
       group('Api actions', () {
-
         var testToken = 'test_token';
 
-        setUp((){
+        setUp(() {
           when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(testToken);
         });
 
         test('Should return unauthorized action if no token in storages', () async {
-
           when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
           when(sessionStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
 
@@ -74,7 +72,6 @@ class ApiMiddlewareTests {
         });
 
         test('Should handle action if no token in storages but checkAuthorization flag is false', () async {
-
           when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
           when(sessionStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
 
@@ -90,7 +87,6 @@ class ApiMiddlewareTests {
         });
 
         test('Should take token form local storage in prior to session storage', () async {
-
           var localStorageToken = 'local_storage_token';
           var sessionStorageToken = 'session_storage_token';
 
@@ -106,7 +102,6 @@ class ApiMiddlewareTests {
         });
 
         test('Should take token form session storage if no token in local storage', () async {
-
           var sessionStorageToken = 'session_storage_token';
 
           when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
@@ -123,8 +118,7 @@ class ApiMiddlewareTests {
         test('Should handle http GET request', () async {
           var action = new ApiAction('NEXT', '/test/url', 'GET');
           var url = ApiMiddleware.BASE_URL + action.endpoint;
-          var headers = new Map.from(_headers)
-            ..['Authorization'] = testToken;
+          var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
           Response fakeResponse = new Response('{"test": "result"}', 200);
           when(httpClient.get(url, headers: headers)).thenReturn(fakeResponse);
@@ -137,8 +131,7 @@ class ApiMiddlewareTests {
         test('Should handle http DELETE request', () async {
           var action = new ApiAction('NEXT', '/test/url', 'DELETE');
           var url = ApiMiddleware.BASE_URL + action.endpoint;
-          var headers = new Map.from(_headers)
-            ..['Authorization'] = testToken;
+          var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
           Response fakeResponse = new Response('{"test": "result"}', 200);
           when(httpClient.delete(url, headers: headers)).thenReturn(fakeResponse);
@@ -151,8 +144,7 @@ class ApiMiddlewareTests {
         test('Should handle http POST request', () async {
           var action = new ApiAction('NEXT', '/test/url', 'POST', {'test': 'passed'});
           var url = ApiMiddleware.BASE_URL + action.endpoint;
-          var headers = new Map.from(_headers)
-            ..['Authorization'] = testToken;
+          var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
           Response fakeResponse = new Response('{"test": "result"}', 200);
           when(httpClient.post(url, headers: headers, body: JSON.encode(action.data))).thenReturn(fakeResponse);
@@ -166,8 +158,7 @@ class ApiMiddlewareTests {
           var testToken = 'test_token';
           var action = new ApiAction('NEXT', '/test/url', 'PUT', {'test': 'passed'});
           var url = ApiMiddleware.BASE_URL + action.endpoint;
-          var headers = new Map.from(_headers)
-            ..['Authorization'] = testToken;
+          var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
           Response fakeResponse = new Response('{"test": "result"}', 200);
           when(httpClient.put(url, headers: headers, body: JSON.encode(action.data))).thenReturn(fakeResponse);
@@ -190,8 +181,7 @@ class ApiMiddlewareTests {
             var action = new ApiAction('NEXT', '/test/url', 'GET');
             var testToken = 'test_token';
             var url = ApiMiddleware.BASE_URL + action.endpoint;
-            var headers = new Map.from(_headers)
-              ..['Authorization'] = testToken;
+            var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
             Response fakeResponse = new Response('Some error message!', testCase['statusCode']);
             when(httpClient.get(url, headers: headers)).thenReturn(fakeResponse);
@@ -217,12 +207,10 @@ class ApiMiddlewareTests {
       });
 
       group('Login request action', () {
-
         var url = ApiMiddleware.BASE_URL + '/authorize';
         var data = {'user': 'TestUser', 'password': 'qwerty123', 'rememberMe': true};
 
         test('Should try to authorize if requested login', () async {
-
           Response fakeResponse = new Response('{"token": "some_cool_token"}', 200);
           when(httpClient.post(url, headers: _headers, body: JSON.encode(data))).thenReturn(fakeResponse);
 
@@ -234,7 +222,6 @@ class ApiMiddlewareTests {
         });
 
         test('Should store token to local storage when remeber me option is true', () async {
-
           data['rememberMe'] = true;
 
           Response fakeResponse = new Response('{"token": "some_cool_token"}', 200);
@@ -248,7 +235,6 @@ class ApiMiddlewareTests {
         });
 
         test('Should store token to session storage when remeber me option is false', () async {
-
           data['rememberMe'] = false;
 
           Response fakeResponse = new Response('{"token": "some_cool_token"}', 200);
@@ -262,7 +248,6 @@ class ApiMiddlewareTests {
         });
 
         test('Should return login failure if authorization failed', () async {
-
           Response fakeResponse = new Response('{"errorCode": 7777}', 200);
           when(httpClient.post(url, headers: _headers, body: JSON.encode(data))).thenReturn(fakeResponse);
 
@@ -289,7 +274,6 @@ class ApiMiddlewareTests {
       });
 
       group('Login check action', () {
-
         var action = new Action(LOGIN_CHECK);
 
         var calls = 0;
@@ -301,7 +285,6 @@ class ApiMiddlewareTests {
         setUp(() => calls = 0);
 
         test('Should not call next if there is no token', () async {
-
           when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
           when(sessionStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
 
@@ -312,7 +295,6 @@ class ApiMiddlewareTests {
         });
 
         test('Should return login success if there is token in local storage', () async {
-
           when(sessionStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
           when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn('some_key');
 
@@ -324,7 +306,6 @@ class ApiMiddlewareTests {
         });
 
         test('Should return login success if there is token in session storage', () async {
-
           when(sessionStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn('some_key');
           when(localStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
 

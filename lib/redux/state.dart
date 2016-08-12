@@ -5,5 +5,5 @@ class State extends DelegatingMap<String, dynamic> {
 
   State.from(State other) : super(new Map.from(other));
 
-  static get emptyState => new State({});
+  static State get emptyState => new State({});
 }

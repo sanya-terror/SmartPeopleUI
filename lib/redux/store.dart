@@ -26,40 +26,43 @@ class Store extends Stream<State> {
     _controller = new StreamController.broadcast();
   }
 
-  get state => _currentState;
+  State get state => _currentState;
 
-  Map<Action, bool> _isMiddlewareExecutingByAction= {};
+  Map<Action, bool> _isMiddlewareExecutingByAction = {};
 
   Future<dynamic> dispatch(Action action) async {
-
     var isMiddlewareExecuting = _isMiddlewareExecutingByAction[action] ?? false;
 
     if (_middleware != null && !isMiddlewareExecuting) {
-
       _isMiddlewareExecutingByAction[action] = true;
 
       try {
         return await _middleware(this)(dispatch)(action);
+      } catch (e) {
+        throw e;
+      } finally {
+        _isMiddlewareExecutingByAction.remove(action);
       }
-      catch(e){ throw e; }
-      finally { _isMiddlewareExecutingByAction.remove(action); }
     }
 
     _currentState = _reducer(_currentState, action);
     _controller.add(_currentState);
 
-    return await action;
+    print(action.type);
+    return action;
   }
 
-  replaceReducer() {
+  void replaceReducer() {
     //TODO AN: if we really need it
     throw new UnimplementedError();
   }
 
   @override
-  StreamSubscription<State> listen(void onData(State event),
-      {Function onError, void onDone(), bool cancelOnError}) {
-    return _controller.stream.listen(onData,
-        onError: onError, onDone: onDone, cancelOnError: cancelOnError);
+  StreamSubscription<State> listen(void onData(State event), {Function onError, void onDone(), bool cancelOnError}) {
+    return _controller.stream.listen(onData, onError: onError, onDone: onDone, cancelOnError: cancelOnError);
+  }
+  
+  void close(){
+    _controller.close();
   }
 }

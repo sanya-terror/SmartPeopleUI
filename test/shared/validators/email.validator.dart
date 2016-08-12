@@ -11,24 +11,14 @@ class EmailValidatorTests {
       List<Map<String, dynamic>> cases = [
         {'email': 'prettyandsimple@example.com', 'result': success},
         {'email': 'very.common@example.com', 'result': success},
-        {
-          'email': 'disposable.style.email.with+symbol@example.com',
-          'result': success
-        },
+        {'email': 'disposable.style.email.with+symbol@example.com', 'result': success},
         {'email': 'other.email-with-dash@example.com', 'result': success},
         {'email': 'x@example.com (one-letter local part)', 'result': success},
         {'email': 'example-indeed@strange-example.com', 'result': success},
-        {
-          'email': 'admin@mailserver1 (local domain name with no TLD)',
-          'result': success
-        },
+        {'email': 'admin@mailserver1 (local domain name with no TLD)', 'result': success},
         {'email': '#!\$%&\'*+-/=?^_`{}|~@example.org', 'result': success},
         {'email': 'example@localhost (sent from localhost)', 'result': success},
-        {
-          'email':
-              'example@s.solutions (see the List of Internet top-level domains)',
-          'result': success
-        },
+        {'email': 'example@s.solutions (see the List of Internet top-level domains)', 'result': success},
         {'email': 'user@com', 'result': success},
         {'email': 'user@localserver', 'result': success},
         {'email': '"much.more unusual"@example.com', 'result': failed},
@@ -36,10 +26,7 @@ class EmailValidatorTests {
         {'email': 'a"b(c)d,e:f;g<h>i[j\\k]l@example.com', 'result': failed},
         {'email': 'just"not"right@example.com', 'result': failed},
         {'email': 'this is"not\\allowed@example.com', 'result': failed},
-        {
-          'email': 'this\\ still\\"not\\\\allowed@example.com',
-          'result': failed
-        },
+        {'email': 'this\\ still\\"not\\\\allowed@example.com', 'result': failed},
         {'email': ' prettyandsimple@example.com', 'result': failed},
       ];
 

@@ -3,16 +3,16 @@ import 'package:test/test.dart';
 
 import 'package:mockito/mockito.dart';
 import 'package:angular2_testing/angular2_testing.dart';
+import 'package:angular2/router.dart';
+import 'package:angular2/angular2.dart';
 
 import 'helpers/angular.dart' as ng;
 import 'helpers/mocks.dart' as mocks;
 import 'package:SmartPeopleUI/index.dart';
-import 'package:angular2/router.dart';
 
 class AppComponentTests {
   static run() {
     group('App component view', () {
-
       ng.initAngularTests();
 
       ng.setUpProviders(AppComponent);
@@ -21,8 +21,14 @@ class AppComponentTests {
       Element _element;
       ComponentFixture _fixture;
 
-      ngSetUp((TestComponentBuilder tcb) async{
-        _fixture  = await tcb.createAsync(AppComponent);
+      ngSetUp((TestComponentBuilder tcb) async {
+
+        var mockStore = mocks.getMockStore();
+
+        _fixture = await tcb
+          .overrideProviders(AppComponent, [provide(InjectableStore, useValue: mockStore)])
+          .createAsync(AppComponent);
+
         _component = _fixture.componentInstance;
         _element = _fixture.nativeElement;
       });
@@ -42,7 +48,7 @@ class AppComponentTests {
         expect(_element.querySelector('div.content sp-forbidden-error'), isNotNull);
       });
 
-      ngTest('Should show login component if not authentificated', ()  {
+      ngTest('Should show login component if not authentificated', () {
         _component.isAuthenticated = false;
         _fixture.detectChanges();
         expect(_element.querySelector('sp-main sp-button.login-button'), isNotNull);
@@ -57,17 +63,15 @@ class AppComponentTests {
       });
     });
     group('App component', () {
-
       var mockStore = mocks.getMockStore();
       Router mockRouter = mocks.getRouter();
 
       AppComponent component;
-      setUp((){
+      setUp(() {
         component = new AppComponent(mockStore, mockRouter);
       });
 
       test('Should check login during initialization', () {
-
         component.ngOnInit();
 
         expect(verify(mockStore.listen(argThat(anything))).callCount, 1);
@@ -75,7 +79,6 @@ class AppComponentTests {
       });
 
       test('Should react on state change', () {
-
         component.ngOnInit();
 
         var onStateChange = verify(mockStore.listen(captureAny)).captured[0];
@@ -97,7 +100,6 @@ class AppComponentTests {
       });
 
       test('Should navigate to not found page is not found state', () {
-
         component.ngOnInit();
 
         var onStateChange = verify(mockStore.listen(captureAny)).captured[0];

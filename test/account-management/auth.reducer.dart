@@ -17,21 +17,12 @@ class AuthReducerTests {
           })
         },
         {
-          'action':
-              new Action(LOGIN_SUCCESS),
-          'result': new State({
-            'isFetching': false,
-            'isAuthenticated': true,
-            'errorCode': null
-          })
+          'action': new Action(LOGIN_SUCCESS),
+          'result': new State({'isFetching': false, 'isAuthenticated': true, 'errorCode': null})
         },
         {
           'action': new Action(LOGIN_FAILURE, new State({'errorCode': 7777})),
-          'result': new State({
-            'isFetching': false,
-            'isAuthenticated': false,
-            'errorCode': 7777
-          })
+          'result': new State({'isFetching': false, 'isAuthenticated': false, 'errorCode': 7777})
         },
         {
           'action': new Action(LOGOUT_SUCCESS),
