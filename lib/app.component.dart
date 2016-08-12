@@ -2,7 +2,7 @@ import 'package:angular2/core.dart';
 import 'package:angular2/router.dart';
 
 import 'index.dart'
-    show AuthActionCreator, ButtonComponent, DrawerComponent, Link, LoginComponent,
+    show AuthActionCreator, ButtonComponent, ConfirmationToLogOut, DrawerComponent, Link, LoginComponent,
     MainComponent, NotFoundErrorComponent, RestoreAccessComponent, SignUpComponent,
     State, ForbiddenErrorComponent, UnhandledErrorComponent, UnauthorizedErrorComponent;
 
@@ -15,6 +15,7 @@ import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog-manager.d
     directives: const [
       ROUTER_DIRECTIVES,
       ButtonComponent,
+      ConfirmationToLogOut,
       DrawerComponent,
       ForbiddenErrorComponent,
       MainComponent,
@@ -48,8 +49,8 @@ import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog-manager.d
 ])
 class AppComponent implements OnInit{
 
-  @ViewChild(UnauthorizedErrorComponent)
-  UnauthorizedErrorComponent unauthorizedDialog;
+  @ViewChild(ConfirmationToLogOut)
+  ConfirmationToLogOut confirmationToLogOut;
 
   final InjectableStore _store;
   final Router _router;
@@ -83,4 +84,8 @@ class AppComponent implements OnInit{
 
     this.isAuthenticated = isAuthenticated;
   }
+
+   logOut() {
+      confirmationToLogOut.onLogOut();
+   }
 }

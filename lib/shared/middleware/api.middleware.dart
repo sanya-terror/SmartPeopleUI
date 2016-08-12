@@ -27,6 +27,7 @@ class ApiMiddleware {
 
   dynamic apply(Store store) => (Dispatcher next) => (Action action) async {
     if (action.type == LOGIN_REQUEST) return next(await _tryAuthorize(action));
+    if (action.type == LOGOUT_REQUEST) return next(await _logOut(action));
     if (action.type == LOGIN_CHECK) return _checkLogin(next);
     if (!(action is ApiAction)) return next(action);
 
@@ -60,6 +61,19 @@ class ApiMiddleware {
         _sessionStorage.setItem(TOKEN_KEY, token);
 
       return AuthActionCreator.receiveLogin();
+    } catch (error) {
+      return _handleError(error);
+    }
+  }
+
+  Future<Action> _logOut(Action action) async {
+    try {
+
+        _localStorage.clear();
+        _sessionStorage.clear();
+
+      return AuthActionCreator.logOutSuccess();
+
     } catch (error) {
       return _handleError(error);
     }
