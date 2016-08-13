@@ -2,107 +2,108 @@ import 'package:redstone/redstone.dart' as app;
 import 'dart:io';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf_static/shelf_static.dart';
+import 'package:shelf_proxy/shelf_proxy.dart';
 
 @app.Group("/api")
 class DemoService {
-  
+
   @app.Route("authorize", methods: const [app.POST])
   authorize(@app.Body(app.JSON) Map body) {
     String user = body['user'];
     String password = body['password'];
-    
+
     var invalidCredentialsErrorCode = 7777;
     if (user != 'test@test.com' || password != '777777')
       return {'errorCode': invalidCredentialsErrorCode};
-    
+
     return {
       'token': '${user}_${password}'
     };
   }
-  
+
   @app.Route("getCode", methods: const [app.POST])
   getCode(@app.Body(app.JSON) Map body) {
     String email = body['email'];
-    
+
     print(email);
     if (email == 'test@test.com')
       return {};
-    
+
     if (email == 'unauthorized@test.com')
       return new shelf.Response(401, body: 'Access denied');
-    
+
     if (email == 'forbidden@test.com')
       return new shelf.Response(403, body: 'Such action is forbidden');
-    
+
     if (email == 'badrequest@test.com')
       return new shelf.Response(400, body: 'Invalid email');
-    
+
     if (email == 'internal@test.com')
       return new shelf.Response.internalServerError(body: 'I don\'t know what happened');
-    
+
     var userNotFoundErrorCode = 1111;
     return { 'errorCode': userNotFoundErrorCode};
   }
-  
+
   @app.Route("handleSignUpData", methods: const [app.POST])
   getConfirmCode(@app.Body(app.JSON) Map body) {
     Map signUpData = body['signUpData'];
     String user = signUpData['user'];
     String password = signUpData['password'];
-    
+
     if (user != 'test@test.con')
       return { 'token': '${user}_${password}'};
-    
+
     int userAlreadyExists = 3333;
-    
+
     return {'errorCode': userAlreadyExists};
   }
-  
+
   @app.Route("resendConfirmCode", methods: const [app.POST])
   resendConfirmCode(@app.Body(app.JSON) Map body) {
     String token = body['token'];
-    
+
     if (token == 'test@test.com_777777')
       return {};
-    
+
     int resendConfirmationCodeError = 5555;
     return { 'errorCode': resendConfirmationCodeError};
   }
-  
+
   @app.Route("applyCode", methods: const [app.POST])
   applyCode(@app.Body(app.JSON) Map body) {
     String code = body['code'];
-    
+
     if (code == '12345678')
       return { 'token': 'restore_token_$code'};
-    
+
     if (code == '12345679')
       return new shelf.Response.notFound('not found');
-    
+
     int invalidCodeErrorCode = 2222;
     return { 'errorCode': invalidCodeErrorCode};
   }
-  
+
   @app.Route("applyConfirmationCode", methods: const [app.POST])
   applyConfirmationCode(@app.Body(app.JSON) Map body) {
     String code = body['code'];
-    
+
     if (code == '12345678')
       return {};
-    
+
     int invalidCodeErrorCode = 4444;
     return { 'errorCode': invalidCodeErrorCode};
   }
-  
+
   @app.Route("applyPasswordChanging", methods: const [app.POST])
   applyPasswordChanging(@app.Body(app.JSON) Map body) {
     String oldPassword = '111111';
     String password = body['password'];
     String token = body['token'];
-    
+
     if (password != oldPassword && token == 'restore_token_12345678')
       return {};
-    
+
     int passwordChangeErrorCode = 3333;
     return { 'errorCode': passwordChangeErrorCode};
   }
@@ -114,10 +115,22 @@ handleNotFoundError() => app.redirect("/");
 
 void main() {
   app.setupConsoleLog();
-  
-  var portEnv = Platform.environment['PORT'];
-  var port = portEnv == null ? 9999 : int.parse(portEnv);
 
-  app.setShelfHandler(createStaticHandler("build/web", defaultDocument: "index.html", serveFilesOutsidePath: true));
+  var port = int.parse(_getConfig('PORT', '9999'));
+  var webFolder = _getConfig('WEB');
+  var webSite = _getConfig('SITE', 'http://localhost:8080');
+
+  if (webFolder != null){
+    app.setShelfHandler(createStaticHandler(webFolder, defaultDocument: "index.html", serveFilesOutsidePath: true));
+  }
+  else{
+    app.setShelfHandler(proxyHandler(webSite));
+  }
+
   app.start(port: port);
+}
+
+String _getConfig(key, [defaultValue = null]) {
+  var envVariable = Platform.environment[key];
+  return envVariable == null ? defaultValue : envVariable;
 }
