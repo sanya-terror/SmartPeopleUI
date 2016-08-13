@@ -76,7 +76,7 @@ class ApiMiddlewareTests {
           when(sessionStorage.getItem(ApiMiddleware.TOKEN_KEY)).thenReturn(null);
 
           var action = new ApiAction('NEXT', '/test/url', 'GET', {}, false);
-          var url = ApiMiddleware.BASE_URL + action.endpoint;
+          var url = ApiMiddleware.baseUrl + action.endpoint;
           Response fakeResponse = new Response('{"test": "result"}', 200);
           when(httpClient.get(url, headers: _headers)).thenReturn(fakeResponse);
 
@@ -117,7 +117,7 @@ class ApiMiddlewareTests {
 
         test('Should handle http GET request', () async {
           var action = new ApiAction('NEXT', '/test/url', 'GET');
-          var url = ApiMiddleware.BASE_URL + action.endpoint;
+          var url = ApiMiddleware.baseUrl + action.endpoint;
           var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
           Response fakeResponse = new Response('{"test": "result"}', 200);
@@ -130,7 +130,7 @@ class ApiMiddlewareTests {
 
         test('Should handle http DELETE request', () async {
           var action = new ApiAction('NEXT', '/test/url', 'DELETE');
-          var url = ApiMiddleware.BASE_URL + action.endpoint;
+          var url = ApiMiddleware.baseUrl + action.endpoint;
           var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
           Response fakeResponse = new Response('{"test": "result"}', 200);
@@ -143,7 +143,7 @@ class ApiMiddlewareTests {
 
         test('Should handle http POST request', () async {
           var action = new ApiAction('NEXT', '/test/url', 'POST', {'test': 'passed'});
-          var url = ApiMiddleware.BASE_URL + action.endpoint;
+          var url = ApiMiddleware.baseUrl + action.endpoint;
           var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
           Response fakeResponse = new Response('{"test": "result"}', 200);
@@ -157,7 +157,7 @@ class ApiMiddlewareTests {
         test('Should handle http PUT request', () async {
           var testToken = 'test_token';
           var action = new ApiAction('NEXT', '/test/url', 'PUT', {'test': 'passed'});
-          var url = ApiMiddleware.BASE_URL + action.endpoint;
+          var url = ApiMiddleware.baseUrl + action.endpoint;
           var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
           Response fakeResponse = new Response('{"test": "result"}', 200);
@@ -180,7 +180,7 @@ class ApiMiddlewareTests {
           test('Should return ${testCase['actionType']}', () async {
             var action = new ApiAction('NEXT', '/test/url', 'GET');
             var testToken = 'test_token';
-            var url = ApiMiddleware.BASE_URL + action.endpoint;
+            var url = ApiMiddleware.baseUrl + action.endpoint;
             var headers = new Map.from(_headers)..['Authorization'] = testToken;
 
             Response fakeResponse = new Response('Some error message!', testCase['statusCode']);
@@ -207,7 +207,7 @@ class ApiMiddlewareTests {
       });
 
       group('Login request action', () {
-        var url = ApiMiddleware.BASE_URL + '/authorize';
+        var url = ApiMiddleware.baseUrl + '/authorize';
         var data = {'user': 'TestUser', 'password': 'qwerty123', 'rememberMe': true};
 
         test('Should try to authorize if requested login', () async {
