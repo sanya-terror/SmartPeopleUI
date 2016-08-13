@@ -1,0 +1,231 @@
+# This is API design
+# You can use Swagger Editor(http://editor.swagger.io/#/) to have proper view
+# and editing capabilities
+# Go to File -> Import file
+
+swagger: '2.0'
+
+info:
+  version: "0.0.1"
+  title: Smart people api
+
+securityDefinitions:
+  accessCode:
+    type: apiKey
+    name: Authorization
+    in: header
+
+paths:
+  /users/login/:
+     post:
+       summary: Is used to login to the system
+       description: Gets `email` and `password`. Returns some generated `accessToken`.
+       produces:
+        - application/json
+       parameters:
+        - name: body
+          in: body
+          description: credentials
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+       responses:
+         200:
+           description: Returns some generated access token
+           schema:
+             title: access_token
+             type: string
+         400:
+           description: Invalid username/password supplied
+           schema:
+            $ref: "#/definitions/Error"
+
+  /users/logout/:
+     post:
+       summary: Logs out current logged in user session
+       security:
+       - accessCode: []
+       responses:
+         200:
+           description: Ok
+  /users/restore-access/send-code/:
+     post:
+       summary: Gets `email` and send restore account code to this email.
+       parameters:
+        - name: body
+          in: body
+          description: email
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+       produces:
+        - application/json
+       responses:
+         200:
+           description: Ok
+         404:
+           description: User not found
+           schema:
+            $ref: "#/definitions/Error"
+  /users/restore-access/apply-code/:
+     post:
+       summary: Gets `code` from email and returns restore access `token`.
+       parameters:
+        - name: body
+          in: body
+          description: Apply access code
+          required: true
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+       produces:
+        - application/json
+       responses:
+         200:
+           description: Ok
+           schema:
+             title: token
+             type: string
+         400:
+           description: Invalid code
+           schema:
+            $ref: "#/definitions/Error"
+         404:
+           description: Code not found
+           schema:
+            $ref: "#/definitions/Error"
+  /users/restore-access/change-password/:
+     post:
+       summary: Gets `newPassword` and restore access `token`. Changes user password.
+       parameters:
+        - name: body
+          in: body
+          description: New password and token
+          required: true
+          schema:
+            type: object
+            properties:
+              newPassword:
+                type: string
+              token:
+                type: string
+       produces:
+        - application/json
+       responses:
+         200:
+           description: Ok
+         400:
+           description: Invalid password (error 100) | New password is the same as previous (error 101) | Invalid token (error 102)
+           schema:
+            $ref: "#/definitions/Error"
+         404:
+           description: Token not found
+           schema:
+            $ref: "#/definitions/Error"
+  /users/sign-up/create-account/:
+     post:
+       summary: Gets `userData`, sends confirmation `code` to email and returns account creation `token`.
+       parameters:
+        - name: body
+          in: body
+          description: Create new account
+          required: true
+          schema:
+            $ref: "#/definitions/User"
+       produces:
+        - application/json
+       responses:
+         200:
+           description: Ok
+           schema:
+            type: object
+            properties:
+              token:
+                type: string
+         400:
+           description: Invalid data
+           schema:
+            $ref: "#/definitions/Error"
+         409:
+           description: User already exists
+           schema:
+            $ref: "#/definitions/Error"
+  /users/sign-up/confirm/:
+     post:
+       summary: Gets `code` from email. Finalizes account creation
+       parameters:
+        - name: body
+          in: body
+          description: Confirmation code
+          required: true
+          schema:
+            type: object
+            properties:
+              code:
+                type: string
+       produces:
+        - application/json
+       responses:
+         200:
+           description: Ok
+         400:
+           description: Invalid code
+           schema:
+            $ref: "#/definitions/Error"
+         404:
+           description: Code not found
+           schema:
+            $ref: "#/definitions/Error"
+  /users/sign-up/resend-code/:
+     post:
+       summary: Gets account creation `token` and sends confirmation `code` to email 
+       parameters:
+        - name: body
+          in: body
+          description: Account creation token
+          required: true
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+       produces:
+        - application/json
+       responses:
+         200:
+           description: Ok
+         400:
+           description: Invalid token
+           schema:
+            $ref: "#/definitions/Error"
+         404:
+           description: Token not found
+           schema:
+            $ref: "#/definitions/Error"
+definitions:
+  Error:
+    title: errorCode
+    type: integer  
+  User:
+    type: object
+    properties:
+      name:
+        type: string
+      surname:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      sex:
+        type: string
