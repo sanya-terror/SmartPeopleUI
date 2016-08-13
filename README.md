@@ -28,5 +28,8 @@ Installing project:
 	a) run `pub get` to get dependencies;
 	b) run `npm install` to install postcss plugins
 	c) run `pub build` to build project;
-	d) run `pub serve` to set local server (optionaly)
+	
+`5.` Run:
+	Server: `dart server/server.dart`
+	Client: `pub serve`
 
