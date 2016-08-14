@@ -45,7 +45,7 @@ class ApiMiddleware {
     try {
       bool rememberMe = action.data['rememberMe'];
 
-      var result = await _callApi('/authorize', 'POST', body: action.data);
+      var result = await _callApi('/users/login', 'POST', body: action.data);
 
       String token = result['token'];
       int error = result['errorCode'];
