@@ -207,11 +207,12 @@ class ApiMiddlewareTests {
       });
 
       group('Login request action', () {
-        var url = ApiMiddleware.baseUrl + '/authorize';
+        var url = ApiMiddleware.baseUrl + '/users/login';
         var data = {'user': 'TestUser', 'password': 'qwerty123', 'rememberMe': true};
 
         test('Should try to authorize if requested login', () async {
           Response fakeResponse = new Response('{"token": "some_cool_token"}', 200);
+          print(url);
           when(httpClient.post(url, headers: _headers, body: JSON.encode(data))).thenReturn(fakeResponse);
 
           var action = new Action(LOGIN_REQUEST, data);
