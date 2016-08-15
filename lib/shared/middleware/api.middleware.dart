@@ -12,9 +12,10 @@ import 'package:SmartPeopleUI/account-management/index.dart';
 import 'package:SmartPeopleUI/shared/actions.dart';
 
 class ApiMiddleware {
-  //static const BASE_URL = 'http://smartpeople.herokuapp.com/api';
-  static const BASE_URL = 'http://localhost:9999/api';
+
   static const TOKEN_KEY = 'access_token';
+
+  static final baseUrl = '${Uri.base.origin}/api';
 
   BrowserClient _httpClient;
   LocalStorageService _localStorage;
@@ -45,7 +46,7 @@ class ApiMiddleware {
     try {
       bool rememberMe = action.data['rememberMe'];
 
-      var result = await _callApi('/authorize', 'POST', body: action.data);
+      var result = await _callApi('/users/login', 'POST', body: action.data);
 
       String token = result['token'];
       int error = result['errorCode'];
@@ -96,7 +97,7 @@ class ApiMiddleware {
     Map<String, String> _headers = {'Content-Type': 'application/json'};
     if (token != null) _headers['Authorization'] = token;
 
-    final url = BASE_URL + endpoint;
+    final url = baseUrl + endpoint;
 
     Response response;
 

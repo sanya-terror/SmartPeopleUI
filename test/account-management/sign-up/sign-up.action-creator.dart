@@ -23,7 +23,7 @@ class SignUpActionCreatorTests {
         };
         ApiAction result = SignUpActionCreator.sendSignUpData(signUpData);
         expect(result.type, SIGN_UP_SEND_DATA);
-        expect(result.endpoint, '/handleSignUpData');
+        expect(result.endpoint, '/users/sign-up/create-account');
         expect(result.checkAuthorization, isFalse);
         expect(result.data, {'signUpData': signUpData});
       });
@@ -32,7 +32,7 @@ class SignUpActionCreatorTests {
         String token = 'some_token';
         ApiAction result = SignUpActionCreator.resendConfirmCode(token);
         expect(result.type, SIGN_UP_RESEND_CONFIRM_CODE);
-        expect(result.endpoint, '/resendConfirmCode');
+        expect(result.endpoint, '/users/sign-up/resend-code');
         expect(result.checkAuthorization, isFalse);
         expect(result.data, {'token': token});
       });
@@ -41,7 +41,7 @@ class SignUpActionCreatorTests {
         String code = '1q2w3e4r';
         ApiAction result = SignUpActionCreator.applyConfirmationCode(code);
         expect(result.type, SIGN_UP_APPLY_CONFIRMATION_CODE);
-        expect(result.endpoint, '/applyConfirmationCode');
+        expect(result.endpoint, '/users/sign-up/confirm');
         expect(result.checkAuthorization, isFalse);
         expect(result.data, {'code': code});
       });
