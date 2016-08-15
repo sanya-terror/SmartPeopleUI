@@ -1,7 +1,11 @@
-import 'package:redstone/redstone.dart' as app;
 import 'dart:io';
+
+import 'package:di/di.dart';
+import 'package:redstone/redstone.dart' as app;
 import 'package:shelf_static/shelf_static.dart';
 import 'package:shelf_proxy/shelf_proxy.dart';
+
+import 'database/database.dart';
 
 @app.Install(urlPrefix: '/api')
 import 'api/root_config.dart';
@@ -21,6 +25,8 @@ void main() {
   app.setShelfHandler(webFolder != null
     ? createStaticHandler(webFolder, defaultDocument: "index.html", serveFilesOutsidePath: true)
     : proxyHandler(webSite));
+
+  app.addModule(new Module()..bind(Database));
 
   app.start(port: port);
 }

@@ -1,18 +1,40 @@
 library users.sign_up;
 
 import 'package:redstone/redstone.dart' as app;
+import 'package:uuid/uuid.dart';
+import '../../database/database.dart';
+import '../../database/users_repository.dart';
 
 @app.Group('/')
 class SignUpService {
 
+  Database db;
+
+  SignUpService(this.db);
+
   @app.Route('create-account', methods: const [app.POST])
-  createAccount(@app.Body(app.JSON) Map body) {
+  dynamic createAccount(@app.Body(app.JSON) Map body) async {
+
     Map signUpData = body['signUpData'];
-    String user = signUpData['user'];
+
+    var uuid = new Uuid().v4();
+    String email = signUpData['user'];
+    String name = signUpData['userName'];
     String password = signUpData['password'];
 
-    if (user != 'test@test.con')
-      return { 'token': '${user}_${password}'};
+    if (email != 'test@test.con') {
+      await db.connect();
+
+      new UsersRepository(db)
+        ..insert({
+          'id': uuid,
+          'name': name,
+          'email': email,
+          'password': password
+        });
+
+      return { 'token': uuid};
+    }
 
     int userAlreadyExists = 3333;
 
