@@ -6,8 +6,8 @@ import 'package:SmartPeopleUI/index.dart' show AuthActionCreator, DialogAction;
 import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog.component.dart';
 
 @Component(
-    selector: 'sp-log-out',
-    templateUrl: 'log-out.component.html',
+    selector: 'sp-logout',
+    templateUrl: 'logout.component.html',
     directives: const[DialogComponent]
 )
 
@@ -35,7 +35,7 @@ class ConfirmationToLogOut implements OnInit{
    }
 
    _onYesClick() {
-      _store.dispatch(AuthActionCreator.logOut());
+      _store.dispatch(AuthActionCreator.logout());
       _router.navigate(['Login']);
       dialog.close();
    }
