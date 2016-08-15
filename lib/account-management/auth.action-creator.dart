@@ -17,11 +17,11 @@ class AuthActionCreator {
     return new Action(LOGIN_SUCCESS);
   }
 
-  static Action logOut() {
+  static Action logout() {
     return new Action(LOGOUT_REQUEST);
   }
 
-  static Action logOutSuccess() {
+  static Action logoutSuccess() {
     return new Action(LOGOUT_SUCCESS);
   }
 

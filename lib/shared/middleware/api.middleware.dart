@@ -12,7 +12,8 @@ import 'package:SmartPeopleUI/account-management/index.dart';
 import 'package:SmartPeopleUI/shared/actions.dart';
 
 class ApiMiddleware {
-  static const BASE_URL = 'http://smartpeople.herokuapp.com/api';
+  //static const BASE_URL = 'http://smartpeople.herokuapp.com/api';
+  static const BASE_URL = 'http://localhost:9999/api';
   static const TOKEN_KEY = 'access_token';
 
   BrowserClient _httpClient;
@@ -25,7 +26,7 @@ class ApiMiddleware {
 
   Pipe apply(Store store) => (Dispatcher next) => (Action action) async {
         if (action.type == LOGIN_REQUEST) return next(await _tryAuthorize(action));
-        if (action.type == LOGOUT_REQUEST) return next(await _logOut(action));
+        if (action.type == LOGOUT_REQUEST) return next(await _logout(action));
         if (action.type == LOGIN_CHECK) return _checkLogin(next);
         if (!(action is ApiAction)) return next(action);
 
@@ -62,13 +63,13 @@ class ApiMiddleware {
     }
   }
 
-  Future<Action> _logOut(Action action) async {
+  Future<Action> _logout(Action action) async {
     try {
 
         _localStorage.clear();
         _sessionStorage.clear();
 
-      return AuthActionCreator.logOutSuccess();
+      return AuthActionCreator.logout();
 
     } catch (error) {
       return _handleError(error);

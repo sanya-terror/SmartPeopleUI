@@ -11,7 +11,7 @@ import 'package:SmartPeopleUI/shared/components/controls/dialog/dialog.component
     directives: const[DialogComponent]
 )
 
-class ConfirmationToLogOut implements OnInit{
+class ConfirmationToLogout implements OnInit{
 
    @ViewChild(DialogComponent)
    DialogComponent dialog;
@@ -22,7 +22,7 @@ class ConfirmationToLogOut implements OnInit{
 
    List<DialogAction> dialogActions = [];
 
-   ConfirmationToLogOut(this._store, this._router);
+   ConfirmationToLogout(this._store, this._router);
 
    @override
    ngOnInit() {
@@ -30,12 +30,12 @@ class ConfirmationToLogOut implements OnInit{
       dialogActions.add(new DialogAction('No', _onNoClick));
    }
 
-   onLogOut(){
+   onLogout(){
       dialog.showModal();
    }
 
    _onYesClick() {
-      _store.dispatch(AuthActionCreator.logout());
+      _store.dispatch(AuthActionCreator.logoutSuccess());
       _router.navigate(['Login']);
       dialog.close();
    }

@@ -118,6 +118,6 @@ void main() {
   var portEnv = Platform.environment['PORT'];
   var port = portEnv == null ? 9999 : int.parse(portEnv);
 
-  app.setShelfHandler(createStaticHandler("build/web", defaultDocument: "index.html", serveFilesOutsidePath: true));
+  app.setShelfHandler(createStaticHandler("web", defaultDocument: "index.html", serveFilesOutsidePath: true));
   app.start(port: port);
 }

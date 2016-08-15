@@ -5,7 +5,7 @@
         <sp-button *ngIf="!isAuthenticated" [route]="['Login']" [accent]="true" class="login-button"
                    label="Sign in"></sp-button>
 
-        <sp-button (click)="logOut()" *ngIf="isAuthenticated" class="login-button" [accent]="true" label="Log out"></sp-button>
+        <sp-button (click)="logout()" *ngIf="isAuthenticated" class="login-button" [accent]="true" label="Log out"></sp-button>
     </div>
 
     <sp-drawer class="drawer" title="Smart People" [links]="drawerLinks"></sp-drawer>
@@ -15,7 +15,7 @@
         <sp-unauthorized-error></sp-unauthorized-error>
         <sp-unhandled-error></sp-unhandled-error>
         <sp-forbidden-error></sp-forbidden-error>
-        <sp-log-out></sp-log-out>
+        <sp-logout></sp-logout>
     </div>
 
 </sp-main>
