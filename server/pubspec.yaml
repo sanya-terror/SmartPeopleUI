@@ -12,6 +12,5 @@ dependencies:
   uuid: '0.5.1'
 dev_dependencies:
   test: '>=0.12.0 <0.13.0'
-  angular2_testing: '^2.0.0-beta.17'
   mockito: '^0.11.0'
   quiver: '^0.22.0'
