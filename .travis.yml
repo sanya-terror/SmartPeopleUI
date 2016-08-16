@@ -4,9 +4,12 @@ dart:
 before_install:
   - export DISPLAY=:99.0
 install:
+  - travis_retry cd client
   - travis_retry pub get
   - travis_retry nvm install node
   - travis_retry npm install
+  - travis_retry cd ../server
+  - travis_retry pub get
 before_script:
   - chmod +x scripts/travis/*.sh
   - scripts/travis/install.sh
