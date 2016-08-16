@@ -15,5 +15,5 @@ class FormComponent {
       hasRequiredError(control) || isInsufficientLength(control) || isLengthExcess(control);
 
   bool isEqual(Control comparativeControl, Control controlToCompare) =>
-    comparativeControl.value == controlToCompare.value;
+      comparativeControl.value == controlToCompare.value;
 }

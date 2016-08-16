@@ -1,6 +1,5 @@
 import 'package:smartpeople_client/redux/index.dart' show Action;
-import 'package:smartpeople_client/shared/actions.dart'
-    show LOGIN_CHECK, LOGIN_SUCCESS, LOGIN_REQUEST, LOGIN_FAILURE;
+import 'package:smartpeople_client/shared/actions.dart' show LOGIN_CHECK, LOGIN_SUCCESS, LOGIN_REQUEST, LOGIN_FAILURE;
 
 class AuthActionCreator {
   static Action requestLogin(credentials) {

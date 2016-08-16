@@ -42,9 +42,7 @@ import 'package:smartpeople_client/shared/components/controls/dialog/dialog-mana
   const Route(path: '/not-found', name: 'NotFoundPage', component: NotFoundErrorComponent),
   const Route(path: '/account/sign-up', name: 'SignUp', component: SignUpComponent)
 ])
-
 class AppComponent implements OnInit {
-
   final InjectableStore _store;
   final Router _router;
   bool isAuthenticated = false;

@@ -1,1 +1,1 @@
-call pub run test -p dartium
+call pub run test:test  -p dartium client\test\all_tests.dart

@@ -1,8 +1,7 @@
 *.idea
-web/packages
-/packages
-/build
+**/packages
+build
 .packages
 .pub
 pubspec.lock
-/node_modules
+node_modules

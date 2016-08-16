@@ -1,6 +1,5 @@
 import 'dart:async' show Future;
-import 'package:angular2/angular2.dart'
-    show Component, OnInit, Control, ControlGroup, Validators;
+import 'package:angular2/angular2.dart' show Component, OnInit, Control, ControlGroup, Validators;
 
 import 'package:smartpeople_client/index.dart'
     show
@@ -21,44 +20,34 @@ import 'package:smartpeople_client/shared/services/injectable-store.service.dart
     selector: 'sp-sign-up-form',
     directives: const [InputComponent, ButtonComponent, RadioButtonComponent],
     templateUrl: 'sign-up-form.component.html',
-    styleUrls: const ['sign-up-form.component.css']
-)
-
+    styleUrls: const ['sign-up-form.component.css'])
 class SignUpFormComponent extends FormComponent implements OnInit {
   final InjectableStore _store;
 
-   ControlGroup form;
-   Control userNameControl;
-   Control emailControl;
-   Control passwordControl;
-   Control passwordRepeatControl;
-
+  ControlGroup form;
+  Control userNameControl;
+  Control emailControl;
+  Control passwordControl;
+  Control passwordRepeatControl;
 
   bool isUserAlreadyExists = false;
 
-   SignUpFormComponent(this._store) {
-      this.userNameControl = new Control('',
-          Validators.compose([UserNameValidator.validate, Validators.required]));
-      this.emailControl = new Control('',
-          Validators.compose([EmailValidator.validate, Validators.required]));
-      this.passwordControl = new Control('',
-          Validators.compose([
-             PasswordValidator.validate,
-             Validators.required,
-             Validators.minLength(6),
-             Validators.maxLength(18)
-          ]));
-      this.passwordRepeatControl = new Control('',
-          Validators.compose(
-              [PasswordValidator.validate, Validators.required]));
+  SignUpFormComponent(this._store) {
+    this.userNameControl = new Control('', Validators.compose([UserNameValidator.validate, Validators.required]));
+    this.emailControl = new Control('', Validators.compose([EmailValidator.validate, Validators.required]));
+    this.passwordControl = new Control(
+        '',
+        Validators.compose(
+            [PasswordValidator.validate, Validators.required, Validators.minLength(6), Validators.maxLength(18)]));
+    this.passwordRepeatControl = new Control('', Validators.compose([PasswordValidator.validate, Validators.required]));
 
-      this.form = new ControlGroup({
-         'userName': this.userNameControl,
-         'email': this.emailControl,
-         'password': this.passwordControl,
-         'passwordRepeat': this.passwordRepeatControl,
-      });
-   }
+    this.form = new ControlGroup({
+      'userName': this.userNameControl,
+      'email': this.emailControl,
+      'password': this.passwordControl,
+      'passwordRepeat': this.passwordRepeatControl,
+    });
+  }
 
   @override
   void ngOnInit() {
@@ -72,11 +61,11 @@ class SignUpFormComponent extends FormComponent implements OnInit {
   Future sendForm() async {
     if (!form.valid) return;
 
-      await _store.dispatch(SignUpActionCreator.sendSignUpData({
-         'userName': userNameControl.value,
-         'user': emailControl.value,
-         'password': passwordControl.value,
-      }));
+    await _store.dispatch(SignUpActionCreator.sendSignUpData({
+      'userName': userNameControl.value,
+      'user': emailControl.value,
+      'password': passwordControl.value,
+    }));
 
     _store.dispatch(SharedActionCreator.saveEmail(emailControl.value));
     _store.dispatch(SignUpActionCreator.savePassword(passwordControl.value));

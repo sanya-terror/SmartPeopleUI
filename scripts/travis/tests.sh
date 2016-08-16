@@ -5,7 +5,7 @@ export DARTIUM_PATH="$PWD/chromium"
 export PATH=$PATH:$DARTIUM_PATH
 
 # Run browser tests
-pub run test -p dartium
+pub run test -p dartium client\test\all_tests.dart
 
 # Verify the coverage of the tests.
 if [ "$COVERALLS_TOKEN" ] && [ "$TRAVIS_DART_VERSION" = "1.15.0" ]; then
@@ -14,5 +14,5 @@ if [ "$COVERALLS_TOKEN" ] && [ "$TRAVIS_DART_VERSION" = "1.15.0" ]; then
     --token $COVERALLS_TOKEN \
     --retry 2 \
     --exclude-test-files \
-    test/all_test.dart
+    client/test/all_test.dart
 fi

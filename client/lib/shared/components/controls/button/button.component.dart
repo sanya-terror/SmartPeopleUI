@@ -8,12 +8,16 @@ import 'package:angular2_rbi/directives.dart' show MaterialButton;
     directives: const [MaterialButton],
     styleUrls: const ['button.component.css'])
 class ButtonComponent {
-
-   @Input() String label;
-   @Input() List<String> route;
-   @Input() bool accent = false;
-   @Input() bool fill = false;
-   @Input() bool raised = true;
+  @Input()
+  String label;
+  @Input()
+  List<String> route;
+  @Input()
+  bool accent = false;
+  @Input()
+  bool fill = false;
+  @Input()
+  bool raised = true;
 
   Router _router;
 

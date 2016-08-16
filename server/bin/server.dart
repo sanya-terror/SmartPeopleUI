@@ -23,8 +23,8 @@ void main() {
   var webSite = _getConfig('SITE', 'http://localhost:8080');
 
   app.setShelfHandler(webFolder != null
-    ? createStaticHandler(webFolder, defaultDocument: "index.html", serveFilesOutsidePath: true)
-    : proxyHandler(webSite));
+      ? createStaticHandler(webFolder, defaultDocument: "index.html", serveFilesOutsidePath: true)
+      : proxyHandler(webSite));
 
   app.addModule(new Module()..bind(DatabaseConnection));
 

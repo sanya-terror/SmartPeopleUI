@@ -15,8 +15,7 @@ class DialogManager {
 
   DialogManager() {
     var dialogOverlayClassName = '_dialog_overlay';
-    overlay = new DivElement()
-      ..classes.add(dialogOverlayClassName);
+    overlay = new DivElement()..classes.add(dialogOverlayClassName);
 
     dmOverlayClick = overlay.onClick.where((event) {
       var target = event.target as Element;

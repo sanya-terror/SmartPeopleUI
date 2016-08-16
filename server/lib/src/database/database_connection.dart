@@ -6,11 +6,9 @@ import 'dart:io';
 import 'package:postgresql/postgresql.dart' as db;
 
 class DatabaseConnection {
-
   db.Connection connection;
 
   Future<db.Connection> connect() async {
-
     var uri = Platform.environment['CONNECTION_STRING'];
     uri ??= 'postgres://postgres:1q2w3e4r@localhost:5432/postgres';
 

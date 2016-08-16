@@ -58,8 +58,11 @@ class LoginComponent extends FormComponent {
   void login() {
     if (!form.valid) return;
 
-    _store.dispatch(AuthActionCreator.requestLogin(
-        {'user': emailControl.value, 'password': passwordControl.value, 'rememberMe': rememberMeControl.value,}));
+    _store.dispatch(AuthActionCreator.requestLogin({
+      'user': emailControl.value,
+      'password': passwordControl.value,
+      'rememberMe': rememberMeControl.value,
+    }));
 
     _store.take(1).listen(_onStateChange);
   }

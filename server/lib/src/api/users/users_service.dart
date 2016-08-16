@@ -10,11 +10,8 @@ class UsersService {
     String password = body['password'];
 
     var invalidCredentialsErrorCode = 7777;
-    if (user != 'test@test.com' || password != '777777')
-      return {'errorCode': invalidCredentialsErrorCode};
+    if (user != 'test@test.com' || password != '777777') return {'errorCode': invalidCredentialsErrorCode};
 
-    return {
-      'token': '${user}_${password}'
-    };
+    return {'token': '${user}_${password}'};
   }
 }

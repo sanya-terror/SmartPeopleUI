@@ -22,12 +22,10 @@ class AppComponentTests {
       ComponentFixture _fixture;
 
       ngSetUp((TestComponentBuilder tcb) async {
-
         var mockStore = mocks.getMockStore();
 
         _fixture = await tcb
-          .overrideProviders(AppComponent, [provide(InjectableStore, useValue: mockStore)])
-          .createAsync(AppComponent);
+            .overrideProviders(AppComponent, [provide(InjectableStore, useValue: mockStore)]).createAsync(AppComponent);
 
         _component = _fixture.componentInstance;
         _element = _fixture.nativeElement;

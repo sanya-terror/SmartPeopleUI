@@ -6,12 +6,18 @@ class ApiErrorsReducerTests {
   static run() {
     group('Api errors reducer', () {
       group('Not found', () {
-        var initialState = new State({'some': 'property', 'isResourceNotFoundError': null,});
+        var initialState = new State({
+          'some': 'property',
+          'isResourceNotFoundError': null,
+        });
 
         List<Map<String, dynamic>> cases = [
           {
             'action': new Action(ERROR_NOT_FOUND),
-            'result': new State({'some': 'property', 'isResourceNotFoundError': true,})
+            'result': new State({
+              'some': 'property',
+              'isResourceNotFoundError': true,
+            })
           },
           {
             'action': new Action(ERROR_REMOVE_NOT_FOUND),
@@ -31,7 +37,10 @@ class ApiErrorsReducerTests {
       });
 
       group('Unauthorized', () {
-        var initialState = new State({'some': 'property', 'isUnauthorizedError': null,});
+        var initialState = new State({
+          'some': 'property',
+          'isUnauthorizedError': null,
+        });
 
         List<Map<String, dynamic>> cases = [
           {
@@ -56,7 +65,10 @@ class ApiErrorsReducerTests {
       });
 
       group('Forbidden', () {
-        var initialState = new State({'some': 'property', 'isForbiddenError': null,});
+        var initialState = new State({
+          'some': 'property',
+          'isForbiddenError': null,
+        });
 
         List<Map<String, dynamic>> cases = [
           {
@@ -86,8 +98,10 @@ class ApiErrorsReducerTests {
 
         List<Map<String, dynamic>> cases = [
           {
-            'action': new Action(ERROR_INTERNAL_SERVER,
-                {'message': 'Internal server errror', 'stackTrace': 'Internal server error stack trace',}),
+            'action': new Action(ERROR_INTERNAL_SERVER, {
+              'message': 'Internal server errror',
+              'stackTrace': 'Internal server error stack trace',
+            }),
             'result': new State({
               'some': 'property',
               'isInternalServerError': true,
@@ -118,8 +132,10 @@ class ApiErrorsReducerTests {
 
         List<Map<String, dynamic>> cases = [
           {
-            'action': new Action(
-                ERROR_BAD_REQUEST, {'message': 'Bad request message', 'stackTrace': 'bad request stack trace',}),
+            'action': new Action(ERROR_BAD_REQUEST, {
+              'message': 'Bad request message',
+              'stackTrace': 'bad request stack trace',
+            }),
             'result': new State({
               'some': 'property',
               'isBadRequestError': true,

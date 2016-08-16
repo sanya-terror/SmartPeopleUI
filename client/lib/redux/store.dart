@@ -61,8 +61,8 @@ class Store extends Stream<State> {
   StreamSubscription<State> listen(void onData(State event), {Function onError, void onDone(), bool cancelOnError}) {
     return _controller.stream.listen(onData, onError: onError, onDone: onDone, cancelOnError: cancelOnError);
   }
-  
-  void close(){
+
+  void close() {
     _controller.close();
   }
 }

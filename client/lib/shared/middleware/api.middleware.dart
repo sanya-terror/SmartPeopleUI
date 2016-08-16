@@ -12,7 +12,6 @@ import 'package:smartpeople_client/account-management/index.dart';
 import 'package:smartpeople_client/shared/actions.dart';
 
 class ApiMiddleware {
-
   static const TOKEN_KEY = 'access_token';
 
   static final baseUrl = '${Uri.base.origin}/api';

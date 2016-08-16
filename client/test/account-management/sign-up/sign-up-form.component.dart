@@ -28,14 +28,19 @@ class SignUpFormComponentTests {
         _fixture.detectChanges();
 
         expect(_element.querySelector('form sp-input[name="userName"]'), isNotNull, reason: 'No user name input found');
-        expect(_element.querySelector('form sp-input[name="userName"] .error'), isNull, reason: 'User name input error is found');
+        expect(_element.querySelector('form sp-input[name="userName"] .error'), isNull,
+            reason: 'User name input error is found');
 
         expect(_element.querySelector('form sp-input[name="email"]'), isNotNull, reason: 'No email input found');
-        expect(_element.querySelector('form sp-input[name="email"] .error'), isNull, reason: 'Email input error is found');
+        expect(_element.querySelector('form sp-input[name="email"] .error'), isNull,
+            reason: 'Email input error is found');
         expect(_element.querySelector('form sp-input[name="password"]'), isNotNull, reason: 'No password input found');
-        expect(_element.querySelector('form sp-input[name="parrword"] .error'), isNull, reason: 'Password input error is found');
-        expect(_element.querySelector('form sp-input[name="password-repeat"]'), isNotNull, reason: 'No repeat password input found');
-        expect(_element.querySelector('form sp-input[name="password-repeat"] .error'), isNull, reason: 'Repeat password input error is found');
+        expect(_element.querySelector('form sp-input[name="parrword"] .error'), isNull,
+            reason: 'Password input error is found');
+        expect(_element.querySelector('form sp-input[name="password-repeat"]'), isNotNull,
+            reason: 'No repeat password input found');
+        expect(_element.querySelector('form sp-input[name="password-repeat"] .error'), isNull,
+            reason: 'Repeat password input error is found');
         expect(_element.querySelector('form sp-button'), isNotNull, reason: 'No button found');
       });
 
@@ -107,10 +112,10 @@ class SignUpFormComponentTests {
           var isValidSendSignUpFormAction = predicate((action) {
             var actionData = action.data['signUpData'];
 
-            return action.type == SIGN_UP_SEND_DATA
-                && actionData['userName'] == data['userName']
-                && actionData['user'] == data['email']
-                && actionData['password'] == data['password'];
+            return action.type == SIGN_UP_SEND_DATA &&
+                actionData['userName'] == data['userName'] &&
+                actionData['user'] == data['email'] &&
+                actionData['password'] == data['password'];
           });
 
           expect(verify(mockStore.dispatch(argThat(isValidSendSignUpFormAction))).callCount, 1);

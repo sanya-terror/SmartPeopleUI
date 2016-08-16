@@ -2,20 +2,20 @@ import 'dart:async' show Future;
 
 import 'package:angular2/core.dart' show Component, OnInit, OnDestroy;
 import 'package:smartpeople_client/index.dart'
-    show LinkComponent, CardComponent, SignUpData, SignUpActionCreator,
-    ButtonComponent, SignUpCodeComponent, SignUpFormComponent;
+    show
+        LinkComponent,
+        CardComponent,
+        SignUpData,
+        SignUpActionCreator,
+        ButtonComponent,
+        SignUpCodeComponent,
+        SignUpFormComponent;
 
 import 'package:smartpeople_client/shared/services/injectable-store.service.dart';
 
 @Component(
     selector: 'sign-up',
-    directives: const [
-       ButtonComponent,
-       CardComponent,
-       LinkComponent,
-       SignUpCodeComponent,
-       SignUpFormComponent
-    ],
+    directives: const [ButtonComponent, CardComponent, LinkComponent, SignUpCodeComponent, SignUpFormComponent],
     styleUrls: const ['sign-up.component.css'],
     templateUrl: 'sign-up.component.html')
 class SignUpComponent implements OnInit, OnDestroy {
