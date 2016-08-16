@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:di/di.dart';
 import 'package:redstone/redstone.dart' as app;
+import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf_static/shelf_static.dart';
 import 'package:shelf_proxy/shelf_proxy.dart';
 
@@ -12,7 +13,7 @@ import 'package:smartpeople_server/api.dart';
 
 @app.ErrorHandler(HttpStatus.NOT_FOUND)
 @app.ErrorHandler(HttpStatus.BAD_REQUEST)
-handleNotFoundError() => app.redirect("/");
+shelf.Response handleNotFoundError() => app.redirect("/");
 
 void main() {
   app.setupConsoleLog();

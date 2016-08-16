@@ -6,7 +6,7 @@ import 'package:shelf/shelf.dart' as shelf;
 @app.Group('/')
 class RestoreAccessService {
   @app.Route('send-code', methods: const [app.POST])
-  sendCode(@app.Body(app.JSON) Map body) {
+  dynamic sendCode(@app.Body(app.JSON) Map body) {
     String email = body['email'];
 
     print(email);
@@ -26,7 +26,7 @@ class RestoreAccessService {
   }
 
   @app.Route('apply-code', methods: const [app.POST])
-  applyCode(@app.Body(app.JSON) Map body) {
+  dynamic applyCode(@app.Body(app.JSON) Map body) {
     String code = body['code'];
 
     if (code == '12345678') return {'token': 'restore_token_$code'};
@@ -38,7 +38,7 @@ class RestoreAccessService {
   }
 
   @app.Route('change-password', methods: const [app.POST])
-  changePassword(@app.Body(app.JSON) Map body) {
+  dynamic changePassword(@app.Body(app.JSON) Map body) {
     String oldPassword = '111111';
     String password = body['password'];
     String token = body['token'];

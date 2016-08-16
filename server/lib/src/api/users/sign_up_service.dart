@@ -33,7 +33,7 @@ class SignUpService {
   }
 
   @app.Route('resend-code', methods: const [app.POST])
-  resendCode(@app.Body(app.JSON) Map body) {
+  dynamic resendCode(@app.Body(app.JSON) Map body) {
     String token = body['token'];
 
     if (token == 'test@test.com_777777') return {};
@@ -43,7 +43,7 @@ class SignUpService {
   }
 
   @app.Route('confirm', methods: const [app.POST])
-  confirm(@app.Body(app.JSON) Map body) {
+  dynamic confirm(@app.Body(app.JSON) Map body) {
     String code = body['code'];
 
     if (code == '12345678') return {};
