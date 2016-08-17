@@ -11,6 +11,8 @@ dependencies:
   dart_to_js_script_rewriter: '^1.0.1'
   shadow_dom: any
   angular2_rbi: ^0.0.9
+#  smartpeople_shared:
+#    path: ../shared
 dev_dependencies:
   test: '>=0.12.0 <0.13.0'
   angular2_testing: '^2.0.0-beta.17'

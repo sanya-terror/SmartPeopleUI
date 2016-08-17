@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'package:angular2/angular2.dart';
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -19,7 +20,9 @@ class UnhandledErrorTests {
     group('Unhandled error component view', () {
       ng.initAngularTests();
 
-      ng.setUpProviders(UnhandledErrorComponent, [DialogManager]);
+      ng.setUpProviders(UnhandledErrorComponent, [
+        provide(DialogManager, useClass: DialogManager)
+      ]);
 
       UnhandledErrorComponent _component;
       Element _element;

@@ -45,7 +45,7 @@ class SignUpFormComponent extends FormComponent implements OnInit {
       'userName': this.userNameControl,
       'email': this.emailControl,
       'password': this.passwordControl,
-      'passwordRepeat': this.passwordRepeatControl,
+      'passwordRepeat': this.passwordRepeatControl
     });
   }
 
@@ -64,7 +64,7 @@ class SignUpFormComponent extends FormComponent implements OnInit {
     await _store.dispatch(SignUpActionCreator.sendSignUpData({
       'userName': userNameControl.value,
       'user': emailControl.value,
-      'password': passwordControl.value,
+      'password': passwordControl.value
     }));
 
     _store.dispatch(SharedActionCreator.saveEmail(emailControl.value));

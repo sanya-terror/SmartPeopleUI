@@ -30,13 +30,13 @@ void setUpProviders(component, [List<Provider> providers]) {
   if (providers == null) providers = [];
   var mockStore = getMockStore();
   providers.addAll([
-    router.RouteRegistry,
+    provide(router.RouteRegistry, useClass: router.RouteRegistry),
     provide(Location, useClass: MockLocation),
     provide(router.Router, useClass: RootRouter),
     provide(router.ROUTER_PRIMARY_COMPONENT, useValue: component),
-    TestComponentBuilder,
-    LocalStorageService,
-    SessionStorageService,
+    provide(LocalStorageService, useClass: LocalStorageService),
+    provide(SessionStorageService, useClass: SessionStorageService),
+    provide(TestComponentBuilder, useClass: TestComponentBuilder),
     provide(InjectableStore, useValue: mockStore),
   ]);
   ngTesting.setUpProviders(() => providers);
