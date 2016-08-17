@@ -23,12 +23,12 @@ class AuthReducer {
           ..['isAuthenticated'] = false
           ..['errorCode'] = action.data['errorCode'];
 
-      case LOGOUT_SUCCESS:
+      case LOGOUT_REQUEST:
         return new State.from(state)
           ..['isFetching'] = true
-          ..['isAuthenticated'] = false;
+          ..['isAuthenticated'] = true;
 
-      case LOGOUT_REQUEST:
+      case LOGOUT_SUCCESS:
         return new State.from(state)
           ..['isFetching'] = true
           ..['isAuthenticated'] = false;

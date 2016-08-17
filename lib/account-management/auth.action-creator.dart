@@ -17,7 +17,7 @@ class AuthActionCreator {
     return new Action(LOGIN_SUCCESS);
   }
 
-  static Action logout() {
+  static Action requestLogout() {
     return new Action(LOGOUT_REQUEST);
   }
 

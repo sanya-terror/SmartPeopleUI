@@ -5,7 +5,7 @@ import 'package:angular2/core.dart' show Injectable;
 class SessionStorageService {
   String getItem(key) => window.sessionStorage[key];
   String setItem(key, value) => window.sessionStorage[key] = value;
-  String remove(key) => window.localStorage.remove(key);
+  String remove(key) => window.sessionStorage.remove(key);
   void clear() => window.sessionStorage.clear();
   bool containsKey(key) => window.sessionStorage.containsKey(key);
 }

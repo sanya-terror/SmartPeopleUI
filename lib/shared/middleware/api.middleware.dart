@@ -66,11 +66,13 @@ class ApiMiddleware {
 
   Future<Action> _logout(Action action) async {
     try {
+      String token = _localStorage.getItem(TOKEN_KEY) ?? _sessionStorage.getItem(TOKEN_KEY);
+      await _callApi('/users/logout', 'POST', token: token);
 
-        _localStorage.clear();
-        _sessionStorage.clear();
+        _localStorage.remove(TOKEN_KEY);
+        _sessionStorage.remove(TOKEN_KEY);
 
-      return AuthActionCreator.logout();
+      return AuthActionCreator.logoutSuccess();
 
     } catch (error) {
       return _handleError(error);
