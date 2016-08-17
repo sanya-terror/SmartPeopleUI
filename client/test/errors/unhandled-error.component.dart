@@ -20,9 +20,7 @@ class UnhandledErrorTests {
     group('Unhandled error component view', () {
       ng.initAngularTests();
 
-      ng.setUpProviders(UnhandledErrorComponent, [
-        provide(DialogManager, useClass: DialogManager)
-      ]);
+      ng.setUpProviders(UnhandledErrorComponent, [provide(DialogManager, useClass: DialogManager)]);
 
       UnhandledErrorComponent _component;
       Element _element;

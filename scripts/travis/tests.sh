@@ -18,4 +18,7 @@ if [ "$COVERALLS_TOKEN" ] && [ "$TRAVIS_DART_VERSION" = "1.15.0" ]; then
     test/all_test.dart
 fi
 
+cd ../shared
+pub run test
+
 cd ..

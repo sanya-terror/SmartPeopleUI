@@ -61,11 +61,8 @@ class SignUpFormComponent extends FormComponent implements OnInit {
   Future sendForm() async {
     if (!form.valid) return;
 
-    await _store.dispatch(SignUpActionCreator.sendSignUpData({
-      'userName': userNameControl.value,
-      'user': emailControl.value,
-      'password': passwordControl.value
-    }));
+    await _store.dispatch(SignUpActionCreator.sendSignUpData(
+        {'userName': userNameControl.value, 'user': emailControl.value, 'password': passwordControl.value}));
 
     _store.dispatch(SharedActionCreator.saveEmail(emailControl.value));
     _store.dispatch(SignUpActionCreator.savePassword(passwordControl.value));
