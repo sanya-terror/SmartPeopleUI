@@ -1,0 +1,7 @@
+name: smartpeople_shared
+description: Scientific Social Network
+version: 0.0.1
+environment:
+  sdk: '>=1.13.0 <2.0.0'
+dependencies:
+
