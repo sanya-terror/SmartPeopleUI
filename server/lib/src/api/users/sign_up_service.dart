@@ -6,9 +6,9 @@ import 'package:smartpeople_server/server.dart';
 
 @app.Group('/')
 class SignUpService {
-  DatabaseConnection db;
+//  DatabaseConnection db;
 
-  SignUpService(this.db);
+//  SignUpService(this.db);
 
   @app.Route('create-account', methods: const [app.POST])
   dynamic createAccount(@app.Body(app.JSON) Map body) async {
@@ -20,9 +20,9 @@ class SignUpService {
     String password = signUpData['password'];
 
     if (email != 'test@test.con') {
-      await db.connect();
+//      await db.connect();
 
-      new UsersRepository(db)..insert({'id': uuid, 'name': name, 'email': email, 'password': password});
+//      new UsersRepository(db)..insert({'id': uuid, 'name': name, 'email': email, 'password': password});
 
       return {'token': uuid};
     }

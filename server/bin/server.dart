@@ -27,7 +27,7 @@ void main() {
       ? createStaticHandler(webFolder, defaultDocument: "index.html", serveFilesOutsidePath: true)
       : proxyHandler(webSite));
 
-  app.addModule(new Module()..bind(DatabaseConnection));
+//  app.addModule(new Module()..bind(DatabaseConnection));
 
   app.start(port: port);
 }
