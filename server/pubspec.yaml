@@ -11,7 +11,7 @@ dependencies:
   postgresql: '0.3.3'
   uuid: '0.5.1'
   smartpeople_shared:
-    path: ../shared
+    path: ./../shared
 dev_dependencies:
   test: '>=0.12.0 <0.13.0'
   mockito: '^0.11.0'
