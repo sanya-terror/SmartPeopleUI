@@ -4,7 +4,9 @@ dart:
 before_install:
   - export DISPLAY=:99.0
 install:
-  - cd client
+  - cd shared
+  - travis_retry pub get
+  - cd ../client
   - travis_retry pub get
   - travis_retry nvm install node
   - travis_retry npm install
