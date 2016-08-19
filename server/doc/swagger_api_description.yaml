@@ -134,7 +134,7 @@ paths:
             $ref: "#/definitions/Error"
   /users/sign-up/create-account/:
      post:
-       summary: Gets `userData`, sends confirmation `code` to email and returns account creation `token`.
+       summary: Gets `userData`, sends confirmation email with activation url.
        parameters:
         - name: body
           in: body
@@ -160,56 +160,22 @@ paths:
            description: User already exists
            schema:
             $ref: "#/definitions/Error"
-  /users/sign-up/confirm/:
+  /users/activate/{id}:
      post:
-       summary: Gets `code` from email. Finalizes account creation
+       summary: Finalizes account creation
        parameters:
-        - name: body
-          in: body
-          description: Confirmation code
+        - name: id
+          in: path
+          description: Activation id (uuid)
           required: true
-          schema:
-            type: object
-            properties:
-              code:
-                type: string
+          type: string
        produces:
         - application/json
        responses:
          200:
            description: Ok
-         400:
-           description: Invalid code
-           schema:
-            $ref: "#/definitions/Error"
          404:
            description: Code not found
-           schema:
-            $ref: "#/definitions/Error"
-  /users/sign-up/resend-code/:
-     post:
-       summary: Gets account creation `token` and sends confirmation `code` to email 
-       parameters:
-        - name: body
-          in: body
-          description: Account creation token
-          required: true
-          schema:
-            type: object
-            properties:
-              token:
-                type: string
-       produces:
-        - application/json
-       responses:
-         200:
-           description: Ok
-         400:
-           description: Invalid token
-           schema:
-            $ref: "#/definitions/Error"
-         404:
-           description: Token not found
            schema:
             $ref: "#/definitions/Error"
 definitions:
@@ -221,11 +187,7 @@ definitions:
     properties:
       name:
         type: string
-      surname:
-        type: string
       email:
         type: string
       password:
-        type: string
-      sex:
         type: string
