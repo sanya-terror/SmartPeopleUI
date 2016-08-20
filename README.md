@@ -45,9 +45,8 @@ Installing project:
         From the client folder:
             - run 'pub serve' to turn on runtime precompiling 
         
-        From the server => bin folder:
-            - click right mouse click over the file 'server.dart'
-            - in dropdown menu click run 'server.dart' file
+        From the server folder:
+            - run 'dart bin/server.dart'
 	        
     d)  Usage:
         Go to: http://localhost:9999 in Dartium
