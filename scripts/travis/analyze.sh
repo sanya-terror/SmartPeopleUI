@@ -9,7 +9,6 @@ dartanalyzer --fatal-warnings  --lints bin
 dartanalyzer --fatal-warnings  --lints lib
 
 cd ../shared
-dartanalyzer --fatal-warnings  --lints bin
 dartanalyzer --fatal-warnings  --lints lib
 
 cd ..
