@@ -25,11 +25,22 @@ Installing project:
 
 `4.` Build project:
 
-	a) run `pub get` to get dependencies;
-	b) run `npm install` to install postcss plugins
-	c) run `pub build` to build project;
-	
-`5.` Run:
-	Server: `dart server/server.dart`
-	Client: `pub serve`
+    a) Build and run client side:
+        Go to client folder. Run next comands inside from the folder:
+            - `pub get` to get dependencies;
+            - `npm install` to install postcss plugins;
+            **WARNING**
+            if you use Windows OS, please comment the folowing line
+             _executable: ./node_modules/postcss-cli/bin/postcss_
+            in the file pubspec.yaml in client folder
+            **WARNING**
+            - run 'pub serve' to turn on runtime precompiling 
+
+	b) Build and run server side:
+	    Go to server folder:
+	        - run 'pub get' to get dependencies;
+	        - run 'dart bin/server.dart'
+	        
+`5.`  Usage:
+        Go to: http://localhost:9999 in Dartium
 
